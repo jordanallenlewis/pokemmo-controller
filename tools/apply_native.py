@@ -15,7 +15,8 @@ from pathlib import Path
 
 # PokeMMO stores one map per controller name; these names cover Xbox pads.
 CONTROLLER_NAMES = ["Xbox One S Controller", "Xbox 360 Controller",
-                    "Xbox Series X Controller", "Xbox Wireless Controller"]
+                    "Xbox Series X Controller", "Xbox Wireless Controller",
+                    "#SettingsController_SteamController"]  # Steam Input virtual pad (wheel setup)
 
 B = lambda n: ("BUTTON", n)
 AX = lambda n, positive: ("AXIS", n, positive)
@@ -34,11 +35,7 @@ LAYOUT = {
     # hotbar
     "KEY_HOTBAR_1": B(11), "KEY_HOTBAR_2": B(14), "KEY_HOTBAR_3": B(12), "KEY_HOTBAR_4": B(13),
     "KEY_HOTBAR_5": B(9),        # LB
-    # right stick flicks open windows
-    "KEY_MONSTERDEX": AX(3, False),  # up: Pokedex
-    "KEY_INCUBATOR": AX(3, True),    # down: Egg incubators
-    "KEY_TRAINER": AX(2, False),     # left: Trainer card
-    "KEY_FRIENDS_LIST": AX(2, True), # right: Friends list
+    # right stick: left free for the Steam wheel (tools/install_wheel.py)
     "KEY_TEAM": B(7),                # L3: Team
     "KEY_SCREENSHOT": B(8),          # R3: Screenshot
 }

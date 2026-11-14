@@ -1,8 +1,10 @@
 # PokeMMO controller layout (Xbox, PC)
 
-An Xbox controller layout for PokeMMO built **only on the game's own controller
-support**: no Steam Input, no virtual controller, no remapping software. Every
-button sends one game action, so it stays inside PokeMMO's macro policy.
+An Xbox controller layout for PokeMMO built on **the game's own controller
+support**, plus one optional extra: a labeled right-stick wheel from Steam Input.
+Every button passes straight through to PokeMMO's own binds; only the right
+stick goes through Steam. Each input sends one game action, so it stays inside
+PokeMMO's macro policy.
 
 The key to full reach is the **Focus Ring** (View button): it moves focus onto
 the hotbar, the party and any open window, so you can select and use anything
@@ -21,16 +23,15 @@ on screen — every hotbar slot on every page — with the stick/D-pad and A.
 | LB | Hotbar 5 |
 | D-pad ↑ → ↓ ← | Hotbar 1 / 2 / 3 / 4 |
 | RT / LT | Next / previous hotbar page |
-| Right stick ↑ / ↓ | Pokédex / Egg incubators |
-| Right stick ← / → | Trainer card / Friends list |
+| Right stick (tilt) | **Wheel** with labels; release on a slice to use it: Pokédex, Egg Incubators, Trainer Card, Friends, Global Trade Link, Hotbar 6-9, Hide GUI |
 | L3 | Team |
 | R3 | Screenshot |
 
 **Using any hotbar slot:** tap View until the hotbar is highlighted, move along
 it with the stick, press A. RT/LT flip hotbar pages. B or View leaves the ring.
 
-Unbound (open via Game Menu or the Focus Ring): Global Trade Link, Hide GUI,
-hotbar 6-9 direct presses.
+Without the wheel (pure native), the right stick does nothing; use the Focus
+Ring or Game Menu for those windows.
 
 ## Why native only
 
@@ -46,11 +47,15 @@ hotbar 6-9 direct presses.
 
 ## Install
 
-1. Close PokeMMO (it rewrites its config on exit).
+1. Close PokeMMO and Steam (PokeMMO rewrites its config on exit).
 2. `python tools/apply_native.py` (option `--pokemmo <install dir>`).
    Backs up `config/main.properties` once, turns controller support on, writes
-   the map for Xbox One S / Series / 360 / Wireless controller names.
-3. Start PokeMMO normally. Check Settings → Xbox Controller.
+   the map for the Xbox controller names and for Steam's virtual pad
+   (`#SettingsController_SteamController`, how PokeMMO names it under Steam Input).
+3. For the wheel: `python tools/install_wheel.py`. Adds keyboard binds the wheel
+   uses, a non-Steam shortcut "PokeMMO", and the layout for Xbox One/Series/360.
+   Then always launch PokeMMO **from the Steam library**.
+4. Without the wheel: start PokeMMO normally.
 
 Or bind by hand in Settings → Xbox Controller using the table above.
 
@@ -66,10 +71,11 @@ KEY_TRADE_LINK, KEY_INCUBATOR, KEY_SCREENSHOT, KEY_HIDE_GUI.
 
 ## Status
 
-- Applied on Jordan's PC 2026-11-14; Settings → Xbox Controller shows every bind.
-- Needs a hands-on check with the real pad (Focus Ring on hotbar, stick flicks).
-- `steam/` holds the earlier Steam Input experiment (not used; kept for reference),
-  including the Legion Go S layout.
+- Applied on Jordan's PC 2026-11-14 with the wheel; PokeMMO's settings show the
+  map on Steam's virtual pad.
+- Needs a hands-on check with the real pad (Focus Ring on hotbar, wheel).
+- `steam/` holds the generated wheel layouts, plus the Legion Go S layout
+  (`steam/legion-go-s/`) where the wheel idea came from.
 
 ## Prior art
 
