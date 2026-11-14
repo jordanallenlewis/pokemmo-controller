@@ -86,10 +86,10 @@ class PowerShell(InstallerBase):
         # afterwards: the user's session must be as it was
         cmd += "; Write-Output \"EAP=$ErrorActionPreference LOC=$([uri]::EscapeDataString((Get-Location).Path))\""
         r = subprocess.run([exe, "-NoProfile", "-ExecutionPolicy", policy, "-Command", cmd],
-                           env=self.env(**env), capture_output=True, text=True, cwd=str(self.sb.root),
+                           env=self.env(**env), capture_output=True, text=True, cwd=str(self.sb.root.resolve()),
                            encoding="utf-8", errors="replace")
         self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
-        self.assertIn(f"EAP=Continue LOC={quote(str(self.sb.root), safe='')}", r.stdout)
+        self.assertIn(f"EAP=Continue LOC={quote(str(self.sb.root.resolve()), safe='')}", r.stdout)
         self.assertNotIn("Exception", r.stderr)
         return r
 
