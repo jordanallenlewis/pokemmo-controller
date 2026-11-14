@@ -5,17 +5,27 @@ PokeMMO's own controller binds (tools/apply_native.py). Only the right stick
 changes: tilting it shows a labeled Steam radial menu; releasing on a slice
 presses that one key. One input -> one key, per PokeMMO's macro policy.
 
+Works with Steam on Windows, macOS and Linux (Steam Deck too), for Xbox,
+PlayStation 4/5, Switch Pro and Steam Deck controls.
+
 Close PokeMMO and Steam, then:  python tools/install_wheel.py
 Then launch PokeMMO from the Steam library (shortcut "PokeMMO").
 Backs up every file it touches as *.bak-pokemmo-controller.
 """
-import argparse, binascii, re, shutil, struct, subprocess, sys
+import argparse, binascii, re, shutil, struct, sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from platforms import find_pokemmo, find_steam, require_closed, shortcut_target  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT_DIR = ROOT / "steam"
 SHORTCUT_NAME = "PokeMMO"
 CONFIG_DIR_NAME = "pokemmo"
+# Steam Input controller types that get the layout: Xbox One/Series, Xbox 360,
+# DualSense, DualShock 4, Switch Pro, Steam Deck.
+CONTROLLER_TYPES = ("controller_xboxone", "controller_xbox360", "controller_ps5",
+                    "controller_ps4", "controller_switch_pro", "controller_neptune")
 
 # Wheel slices, clockwise from the top: (Steam key, label). Keys must match
 # PokeMMO's keyboard binds (set below in KEYBOARD_BINDS).
@@ -184,7 +194,7 @@ def dump_bvdf(d):
     return out + b"\x08"
 
 
-def add_shortcut(userdir: Path, exe: Path):
+def add_shortcut(userdir: Path, pokemmo_dir: Path):
     p = userdir / "config" / "shortcuts.vdf"
     data = {"shortcuts": {}}
     if p.exists():
@@ -193,12 +203,12 @@ def add_shortcut(userdir: Path, exe: Path):
     sc = data.setdefault("shortcuts", {})
     if any(v.get("AppName", v.get("appname")) == SHORTCUT_NAME for v in sc.values()):
         return
-    exe_q = f'"{exe}"'
+    exe_q, start_dir, options = shortcut_target(pokemmo_dir)
     appid_u = (binascii.crc32((exe_q + SHORTCUT_NAME).encode()) & 0xFFFFFFFF) | 0x80000000
     sc[str(len(sc))] = {
         "appid": struct.unpack("<i", struct.pack("<I", appid_u))[0], "AppName": SHORTCUT_NAME,
-        "Exe": exe_q, "StartDir": f'"{exe.parent}\\"', "icon": str(exe), "ShortcutPath": "",
-        "LaunchOptions": "", "IsHidden": 0, "AllowDesktopConfig": 1, "AllowOverlay": 1,
+        "Exe": exe_q, "StartDir": start_dir, "icon": exe_q.strip('"') if exe_q.endswith('.exe"') else "", "ShortcutPath": "",
+        "LaunchOptions": options, "IsHidden": 0, "AllowDesktopConfig": 1, "AllowOverlay": 1,
         "OpenVR": 0, "Devkit": 0, "DevkitGameID": "", "DevkitOverrideAppID": 0,
         "LastPlayTime": 0, "FlatpakAppID": "", "sortas": "", "tags": {},
     }
@@ -220,32 +230,24 @@ def install_layout(steam: Path, account: str, ctype: str, text: str):
     cs.write_text(txt, encoding="utf-8")
 
 
-def running(exe):
-    out = subprocess.run(["tasklist", "/FI", f"IMAGENAME eq {exe}"],
-                         capture_output=True, text=True).stdout
-    return exe.lower() in out.lower()
-
-
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--pokemmo", default=r"C:\Program Files\PokeMMO")
-    ap.add_argument("--steam", default=r"C:\Program Files (x86)\Steam")
+    ap.add_argument("--pokemmo", help="PokeMMO data folder (holds config/main.properties)")
+    ap.add_argument("--steam", help="Steam folder (holds userdata/)")
     ap.add_argument("--build-only", action="store_true", help="only write steam/*.vdf")
     a = ap.parse_args()
-    layouts = {t: build_layout(t) for t in ("controller_xboxone", "controller_xbox360")}
+    layouts = {t: build_layout(t) for t in CONTROLLER_TYPES}
     OUT_DIR.mkdir(exist_ok=True)
     for t, text in layouts.items():
         (OUT_DIR / f"{t}.vdf").write_text(text, encoding="utf-8", newline="\n")
     if a.build_only:
         return
-    busy = [e for e in ("PokeMMO.exe", "steam.exe") if running(e)]
-    if busy:
-        sys.exit(f"Close {' and '.join(busy)} first; both rewrite these files on exit.")
-    pm, steam = Path(a.pokemmo), Path(a.steam)
+    require_closed(steam=True)
+    pm, steam = find_pokemmo(a.pokemmo), find_steam(a.steam)
     patch_properties(pm / "config" / "main.properties")
     for u in (steam / "userdata").iterdir():
         if u.name.isdigit() and u.name != "0":
-            add_shortcut(u, pm / "PokeMMO.exe")
+            add_shortcut(u, pm)
             for t, text in layouts.items():
                 install_layout(steam, u.name, t, text)
     print("Done. Start Steam and launch PokeMMO from the Steam library.")

@@ -10,8 +10,9 @@ import argparse, re, sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from install_wheel import (running, parse_bvdf, dump_bvdf, KEYBOARD_BINDS,  # noqa: E402
-                           SHORTCUT_NAME, CONFIG_DIR_NAME)
+from install_wheel import (parse_bvdf, dump_bvdf, KEYBOARD_BINDS,  # noqa: E402
+                           SHORTCUT_NAME, CONFIG_DIR_NAME, CONTROLLER_TYPES)
+from platforms import find_pokemmo, steam_candidates, require_closed  # noqa: E402
 
 SUFFIX = ".bak-pokemmo-controller"
 TOUCHED = set(KEYBOARD_BINDS) | {"client.controls.controller_input_maps_gdx_2",
@@ -54,7 +55,7 @@ def remove_shortcut(p: Path):
 
 
 def remove_layouts(cfg: Path):
-    for t in ("controller_xboxone", "controller_xbox360"):
+    for t in CONTROLLER_TYPES:
         f = cfg / CONFIG_DIR_NAME / f"{t}.vdf"
         if f.exists():
             f.unlink()
@@ -69,21 +70,20 @@ def remove_layouts(cfg: Path):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--pokemmo", default=r"C:\Program Files\PokeMMO")
-    ap.add_argument("--steam", default=r"C:\Program Files (x86)\Steam")
+    ap.add_argument("--pokemmo", help="PokeMMO data folder (holds config/main.properties)")
+    ap.add_argument("--steam", help="Steam folder (holds userdata/)")
     a = ap.parse_args()
-    busy = [e for e in ("PokeMMO.exe", "steam.exe") if running(e)]
-    if busy:
-        sys.exit(f"Close {' and '.join(busy)} first; both rewrite these files on exit.")
-    pm, steam = Path(a.pokemmo), Path(a.steam)
-    revert_properties(pm / "config" / "main.properties")
-    for u in (steam / "userdata").iterdir():
-        if u.name.isdigit():
-            remove_shortcut(u / "config" / "shortcuts.vdf")
-    cfgs = steam / "steamapps" / "common" / "Steam Controller Configs"
-    if cfgs.exists():
-        for acct in cfgs.iterdir():
-            remove_layouts(acct / "config")
+    require_closed(steam=True)
+    revert_properties(find_pokemmo(a.pokemmo) / "config" / "main.properties")
+    steams = [Path(a.steam).expanduser()] if a.steam else steam_candidates()
+    for steam in dict.fromkeys(p.resolve() for p in steams if (p / "userdata").is_dir()):
+        for u in (steam / "userdata").iterdir():
+            if u.name.isdigit():
+                remove_shortcut(u / "config" / "shortcuts.vdf")
+        cfgs = steam / "steamapps" / "common" / "Steam Controller Configs"
+        if cfgs.exists():
+            for acct in cfgs.iterdir():
+                remove_layouts(acct / "config")
     print("Done.")
 
 
