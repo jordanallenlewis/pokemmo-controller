@@ -202,8 +202,8 @@ class Failures(Base):
             with self.assertRaises(SystemExit):
                 setup_mod.main()
         cmds = [c.args[0] for c in popen.call_args_list]
-        self.assertEqual(len(cmds), 2, cmds)  # -shutdown, then start again
-        self.assertIn("-shutdown", cmds[0])
+        self.assertEqual(len(cmds), 2, cmds)  # close, then start again
+        self.assertIn("osascript" if platforms.MAC else "-shutdown", cmds[0])
         self.assertNotIn("-shutdown", cmds[1])
 
     def test_up_to_date_does_not_touch_steam(self):
@@ -336,6 +336,8 @@ class Legacy(Base):
     def upgrade_from(self, ref, scripts, windows_only=False):
         if windows_only and not platforms.WINDOWS:
             self.skipTest(f"{ref} ran on Windows only")
+        if sys.version_info < (3, 10):
+            self.skipTest(f"{ref} needed Python 3.10 (Path.write_text(newline=)); fixed since")
         old = legacy_tools(ref)
         if old is None:
             self.skipTest("git history not available")
