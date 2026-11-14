@@ -12,7 +12,7 @@ controller support**. All 9 hotbar slots, Bag, Party, Pokédex,
 GTL, Friends, Team and the rest are on the controller, plus a labeled
 right-stick wheel so you can see what each direction does.
 
-![Button map](docs/button-map.svg)
+![Button map: every control on an Xbox controller](docs/button-map.png)
 
 ## Contents
 
@@ -27,25 +27,36 @@ right-stick wheel so you can see what each direction does.
 
 ## Quick start
 
-You need PokeMMO (started at least once), Python 3.9+ and, for the wheel, Steam.
-Windows, macOS and Linux all work, including the Flatpak and Snap builds. The
-scripts find PokeMMO and Steam by themselves.
+One command. Nothing to install first (no Python, no git).
 
-1. Close PokeMMO **and** Steam. Both rewrite their config files when they exit.
-2. Run:
+1. Close PokeMMO. Leave Steam alone: the installer closes it and opens it again.
+2. Paste the line for your system:
+
+   **Windows** (PowerShell):
    ```powershell
-   git clone https://github.com/jordanallenlewis/pokemmo-controller
-   cd pokemmo-controller
-   py tools/apply_native.py      # PokeMMO's own controller binds
-   py tools/install_wheel.py     # optional: right-stick wheel via Steam Input
+   irm https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.ps1 | iex
    ```
-   On macOS and Linux, use `python3` instead of `py`. On Steam Deck, switch to
-   Desktop Mode and exit Steam first.
-3. Start Steam, then launch **PokeMMO from your Steam library** (the installer
-   adds it as a non-Steam game). Skipped the wheel? Start PokeMMO as usual.
+   **macOS / Linux / Steam Deck** (Terminal; on Deck use Desktop Mode):
+   ```sh
+   curl -fsSL https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.sh | sh
+   ```
+3. Launch **PokeMMO from your Steam library** (the installer adds it). No Steam?
+   You still get every bind; only the wheel needs Steam.
 
-Installed somewhere unusual? Add `--pokemmo <folder holding config/>` and
-`--steam <Steam folder>`. To undo everything: `py tools/uninstall.py`.
+The installer finds PokeMMO and Steam by itself (Windows install folder, macOS
+app, Linux zip, Flatpak, Snap). If you don't have Python 3.9+, it fetches a
+private copy for that one run and deletes it afterwards.
+
+**Undo everything:**
+```powershell
+& ([scriptblock]::Create((irm https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.ps1))) -Uninstall
+```
+```sh
+curl -fsSL https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.sh | sh -s -- --uninstall
+```
+Other options: `-NoWheel` / `--no-wheel` (binds only, no Steam) and
+`-SwitchPositional` / `--switch-positional`. From a clone, `python tools/setup.py`
+does the same thing.
 
 ## Controls
 
@@ -147,11 +158,11 @@ uses. Don't want any Steam involvement? Skip `install_wheel.py`; you lose only t
   for PokeMMO (Steam → PokeMMO → Controller Layout).
 
 **Settings went back to default**
-- PokeMMO was open while you ran a script. Close it and run the script again.
-  The scripts refuse to run while PokeMMO or Steam is open.
+- PokeMMO was open during install. Close it and run the install command again.
+  The installer stops if PokeMMO is open.
 
 **Undo**
-- `py tools/uninstall.py` reverts only what these scripts changed. Other PokeMMO
+- The uninstall command above reverts only what the installer changed. Other PokeMMO
   settings you changed since then are kept.
 
 ## How it works
@@ -175,6 +186,10 @@ uses. Don't want any Steam involvement? Skip `install_wheel.py`; you lose only t
   `~/Library/Application Support/com.pokeemu.macos/pokemmo-client-live` on
   macOS, `~/.var/app/com.pokemmo.PokeMMO/data/pokemmo-client-live` for Flatpak
   (paths from PokeMMO's [launcher source](https://github.com/PokeMMO/pokemmo-launcher)).
+- `install.ps1` / `install.sh` download the project to a temp folder, use your
+  Python 3.9+ or a private one from [uv](https://github.com/astral-sh/uv), run
+  `tools/setup.py` (binds, then wheel, closing and restarting Steam around it)
+  and delete the temp folder.
 - `tools/install_wheel.py` builds a Steam Input layout for each controller type
   (Xbox One/Series, Xbox 360, DualSense, DualShock 4, Switch Pro and Steam Deck,
   in `steam/`), adds a
@@ -217,4 +232,8 @@ Ideas and controller reports welcome: [open an issue](https://github.com/jordana
 ---
 
 Not affiliated with or endorsed by PokeMMO. No game files or ROMs are included.
-Released under the [MIT License](LICENSE).
+Code released under the [MIT License](LICENSE). The button map image uses
+["Xbox Series Controller Carbon Black"](https://commons.wikimedia.org/wiki/File:Xbox_Series_Controller_Carbon_Black.jpg)
+by UKER, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), with the
+background removed; `docs/button-map.*` and `docs/xbox-controller.webp` are CC BY-SA 4.0.
+Xbox is a trademark of Microsoft.

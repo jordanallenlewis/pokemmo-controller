@@ -250,7 +250,7 @@ def main():
             add_shortcut(u, pm)
             for t, text in layouts.items():
                 install_layout(steam, u.name, t, text)
-    print("Done. Start Steam and launch PokeMMO from the Steam library.")
+    print("installed the right-stick wheel layout")
 
 
 if __name__ == "__main__":

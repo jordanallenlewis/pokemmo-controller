@@ -83,6 +83,8 @@ def find_steam(override=None):
 
 
 def _running(names):
+    if os.environ.get("POKEMMO_CONTROLLER_TEST") == "1":  # sandbox tests on fake folders
+        return False
     if WINDOWS:
         out = subprocess.run(["tasklist"], capture_output=True, text=True).stdout.lower()
         return any(f"{n.lower()}.exe" in out for n in names)
@@ -100,8 +102,6 @@ def steam_running():
 
 
 def require_closed(steam=False):
-    if os.environ.get("POKEMMO_CONTROLLER_TEST") == "1":  # sandbox tests on fake folders
-        return
     busy = (["PokeMMO"] if pokemmo_running() else []) + (["Steam"] if steam and steam_running() else [])
     if busy:
         sys.exit(f"Close {' and '.join(busy)} first: it rewrites these files when it exits.")
