@@ -2,8 +2,8 @@
 
 Close PokeMMO and Steam first. Then run:  python tools/install_windows.py
 What it does (backs up every file it touches as *.bak-pokemmo-controller):
-  1. PokeMMO config/main.properties: turns the client's own controller support off
-     (Steam Input drives keyboard+mouse instead, so inputs never double up) and
+  1. PokeMMO config/main.properties: keeps the client's own controller support on
+     (only the Focus Ring uses it; Steam sends keyboard+mouse for the rest) and
      binds Bag = Q and Game Menu = M, the two actions that ship unbound.
   2. Steam: adds a non-Steam shortcut "PokeMMO", installs the layout as its
      Xbox controller config.
@@ -40,7 +40,7 @@ GAME_BINDS = {
     "client.controls.gdx.screenshot": 141, # F11
     "client.controls.gdx.hidegui": 142,    # F12
     **{f"client.controls.gdx.hotbar{i}": 7 + i for i in range(1, 10)},  # 1-9
-    "client.input.controllers.enable_native_support": "false",
+    "client.input.controllers.enable_native_support": "true",  # Focus Ring comes from native support
 }
 
 

@@ -73,11 +73,11 @@ groups += group(5, "trigger", {"click": (MOUSE, "LEFT", "Left click")},
                 {"output_trigger": "0"})
 groups += group(6, "switches", {
     "button_escape": (KEY, "M", "Game Menu (Party, Settings...)"),
-    "button_menu": ("controller_action", "hold_layer 2 0 0", "Hold: Shortcuts layer"),
-    "left_bumper": (KEY, "PAGE_UP", "Previous tab / page"),
-    "right_bumper": (KEY, "PAGE_DOWN", "Next tab / page"),
+    "button_menu": ("xinput_button", "SELECT", "Focus Ring (pick anything: hotbar, party, windows)"),
+    "left_bumper": ("controller_action", "hold_layer 2 0 0", "Hold: Shortcuts layer"),
+    "right_bumper": (KEY, "PAGE_DOWN", "Next hotbar page"),
 })
-# ---- Shortcuts layer (hold View) -----------------------------------------
+# ---- Shortcuts layer (hold LB) -----------------------------------------
 groups += group(7, "four_buttons", {
     "button_a": (KEY, "6", "Hotbar 6"),
     "button_b": (KEY, "7", "Hotbar 7"),
@@ -100,14 +100,15 @@ groups += group(11, "trigger", {"click": (KEY, "X", "Key X")}, {"output_trigger"
 groups += group(12, "trigger", {"click": (KEY, "Y", "Key Y")}, {"output_trigger": "0", **LAYER})
 groups += group(13, "switches", {
     "button_escape": (KEY, "P", "Global Trade Link"),
-    "left_bumper": (KEY, "F11", "Screenshot"),
+    "button_menu": (KEY, "F11", "Screenshot"),
+    "right_bumper": (KEY, "PAGE_UP", "Previous hotbar page"),
 }, LAYER)
 
 DESC = ("Native-feel PokeMMO layout, keyboard+mouse parity. Stick/d-pad move, A confirm, "
-        "B cancel, X Bag, Y Hotbar 1, Start Game Menu, LB/RB tabs, RT/LT left/right click, "
-        "right stick mouse, R3 chat, L3 keyboard. Hold View: d-pad Hotbar 2-5, ABXY Hotbar 6-9, "
-        "right stick Pokedex/Incubators/Team/Trainer, Start GTL, LB Screenshot, L3 Friends, "
-        "R3 Hide GUI, LT/RT Key X/Y. Strictly 1 input = 1 key.")
+        "B cancel, X Bag, Y Hotbar 1, Start Game Menu, View Focus Ring, RB next hotbar page, "
+        "RT/LT left/right click, right stick mouse, R3 chat, L3 keyboard. Hold LB: d-pad Hotbar 2-5, "
+        "ABXY Hotbar 6-9, right stick Pokedex/Incubators/Team/Trainer, Start GTL, View Screenshot, "
+        "RB previous hotbar page, L3 Friends, R3 Hide GUI, LT/RT Key X/Y. Strictly 1 input = 1 output.")
 
 text = [
     '"controller_mappings"', "{",
@@ -121,7 +122,7 @@ text = [
     '\t"actions"', "\t{", '\t\t"Default"', "\t\t{", '\t\t\t"title"\t\t"Default"',
     '\t\t\t"legacy_set"\t\t"1"', "\t\t}", "\t}",
     '\t"action_layers"', "\t{", '\t\t"Preset_1000001"', "\t\t{",
-    '\t\t\t"title"\t\t"Shortcuts (hold View)"', '\t\t\t"legacy_set"\t\t"1"',
+    '\t\t\t"title"\t\t"Shortcuts (hold LB)"', '\t\t\t"legacy_set"\t\t"1"',
     '\t\t\t"set_layer"\t\t"1"', '\t\t\t"parent_set_name"\t\t"Default"', "\t\t}", "\t}",
     '\t"localization"', "\t{", "\t}",
 ]

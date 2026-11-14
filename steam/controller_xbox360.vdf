@@ -3,7 +3,7 @@
 	"version"		"3"
 	"revision"		"1"
 	"title"		"PokeMMO - Xbox (full parity)"
-	"description"		"Native-feel PokeMMO layout, keyboard+mouse parity. Stick/d-pad move, A confirm, B cancel, X Bag, Y Hotbar 1, Start Game Menu, LB/RB tabs, RT/LT left/right click, right stick mouse, R3 chat, L3 keyboard. Hold View: d-pad Hotbar 2-5, ABXY Hotbar 6-9, right stick Pokedex/Incubators/Team/Trainer, Start GTL, LB Screenshot, L3 Friends, R3 Hide GUI, LT/RT Key X/Y. Strictly 1 input = 1 key."
+	"description"		"Native-feel PokeMMO layout, keyboard+mouse parity. Stick/d-pad move, A confirm, B cancel, X Bag, Y Hotbar 1, Start Game Menu, View Focus Ring, RB next hotbar page, RT/LT left/right click, right stick mouse, R3 chat, L3 keyboard. Hold LB: d-pad Hotbar 2-5, ABXY Hotbar 6-9, right stick Pokedex/Incubators/Team/Trainer, Start GTL, View Screenshot, RB previous hotbar page, L3 Friends, R3 Hide GUI, LT/RT Key X/Y. Strictly 1 input = 1 output."
 	"creator"		"0"
 	"progenitor"		""
 	"url"		""
@@ -24,7 +24,7 @@
 	{
 		"Preset_1000001"
 		{
-			"title"		"Shortcuts (hold View)"
+			"title"		"Shortcuts (hold LB)"
 			"legacy_set"		"1"
 			"set_layer"		"1"
 			"parent_set_name"		"Default"
@@ -328,7 +328,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"controller_action hold_layer 2 0 0, Hold: Shortcuts layer, , "
+							"binding"		"xinput_button SELECT, Focus Ring (pick anything: hotbar, party, windows), , "
 						}
 					}
 				}
@@ -341,7 +341,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press PAGE_UP, Previous tab / page, , "
+							"binding"		"controller_action hold_layer 2 0 0, Hold: Shortcuts layer, , "
 						}
 					}
 				}
@@ -354,7 +354,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press PAGE_DOWN, Next tab / page, , "
+							"binding"		"key_press PAGE_DOWN, Next hotbar page, , "
 						}
 					}
 				}
@@ -715,7 +715,7 @@
 					}
 				}
 			}
-			"left_bumper"
+			"button_menu"
 			{
 				"activators"
 				{
@@ -724,6 +724,19 @@
 						"bindings"
 						{
 							"binding"		"key_press F11, Screenshot, , "
+						}
+					}
+				}
+			}
+			"right_bumper"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press PAGE_UP, Previous hotbar page, , "
 						}
 					}
 				}
