@@ -33,15 +33,19 @@ it with the stick, press A. RT/LT flip hotbar pages. B or View leaves the ring.
 Without the wheel (pure native), the right stick does nothing; use the Focus
 Ring or Game Menu for those windows.
 
-## Why native only
+## Why native first
 
 - PokeMMO supports controllers itself (Settings → Control → Enable controller
-  support, then Settings → Xbox Controller for binds).
-- Players report Steam Input fighting the native support (B stops working).
-  Remapping is allowed but "we cannot guarantee every remap software will be
-  accepted" ([setting up a controller](https://support.pokemmo.com/knowledgebase/article/setting-up-a-controller),
+  support, then Settings → Xbox Controller for binds). PokeMMO has no wheel
+  of its own, so the wheel comes from Steam Input.
+- Players report Steam Input fighting the native support (B stops working)
+  when Steam remaps buttons. Here Steam passes every button through unchanged,
+  and the native map is also written for Steam's virtual pad, so the binds are
+  the same either way.
+- Remapping is allowed if 1:1, but "we cannot guarantee every remap software
+  will be accepted" ([setting up a controller](https://support.pokemmo.com/knowledgebase/article/setting-up-a-controller),
   [macro policy](https://support.pokemmo.com/knowledgebase/article/macroing-faq)).
-  Native avoids that risk entirely.
+  Each wheel slice sends one key on release.
 - Native limits: one button per action, no layers, no mouse cursor, no chat
   typing with the pad. The Focus Ring covers most of what a cursor would.
 
