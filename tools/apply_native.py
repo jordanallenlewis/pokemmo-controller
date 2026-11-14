@@ -8,6 +8,7 @@ the optional Steam wheel (install_wheel.py).
 Close PokeMMO first (it rewrites main.properties on exit), then run:
     python tools/apply_native.py [--pokemmo <data folder>]
 Backs up main.properties once as main.properties.bak-pokemmo-controller.
+Safe to run again: only the controller entries this tool owns are rewritten.
 
 PokeMMO reads pads through SDL3, which numbers buttons by POSITION, the same on
 every controller:
@@ -19,10 +20,12 @@ every controller:
 PokeMMO keeps one map per controller name, so the map is written under every
 name SDL3 gives these pads, plus any pad PokeMMO has logged on this machine.
 """
-import argparse, re, shutil, sys
+import argparse, re, sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from common import (MAP_KEY, NATIVE_KEY, Plan, backup_path, decode, encode, escape,  # noqa: E402
+                    get_prop, join_lines, read_bytes, set_props, split_lines, unescape)
 from platforms import find_pokemmo, require_closed  # noqa: E402
 
 # Names from SDL3's source (controller_list.h and the HIDAPI drivers) and the
@@ -66,39 +69,42 @@ LAYOUT = {
 # confirm on the bottom button like Xbox/PlayStation.
 NINTENDO_LABELS = {"KEY_A": B(1), "KEY_B": B(0), "KEY_X": B(3), "KEY_Y": B(2)}
 
-MAP_KEY = "client.controls.controller_input_maps_gdx_2"
 LOG_LINE = re.compile(r"Controller (.+?) \( ax \d+ btn \d+\) .*attached")
-
-
-def unescape(v):  # java.util.Properties escapes
-    return re.sub(r"\\(.)", r"\1", v)
-
-
-def escape_name(n):
-    return n.replace("\\", "\\\\").replace("#", "\\#").replace("!", "\\!").replace(":", "\\:").replace("=", "\\=")
 
 
 def is_nintendo(name):
     return "nintendo" in name.lower() or name == "Pro Controller"
 
 
+def _parts(layout):
+    out = []
+    for action, spec in layout.items():
+        if spec[0] == "BUTTON":
+            out.append(f"{action},BUTTON,{spec[1]}")
+        else:
+            out.append(f"{action},AXIS,{spec[1]},{'true' if spec[2] else 'false'}")
+    return out
+
+
 def encode_one(name, nintendo_labels=True):
     layout = dict(LAYOUT)
     if nintendo_labels and is_nintendo(name):
         layout.update(NINTENDO_LABELS)
-    parts = [escape_name(name)]
-    for action, spec in layout.items():
-        if spec[0] == "BUTTON":
-            parts.append(f"{action},BUTTON,{spec[1]}")
-        else:
-            parts.append(f"{action},AXIS,{spec[1]},{'true' if spec[2] else 'false'}")
-    return ";".join(parts)
+    return ";".join([escape(name)] + _parts(layout))
+
+
+OUR_LAYOUTS = {frozenset(_parts(LAYOUT)), frozenset(_parts(dict(LAYOUT, **NINTENDO_LABELS)))}
+
+
+def is_ours(entry):
+    """True if a map entry is exactly one of this project's layouts (any order)."""
+    return frozenset(p for p in entry.split(";")[1:] if p) in OUR_LAYOUTS
 
 
 def logged_names(pokemmo: Path):
     """Pad names PokeMMO has logged as attached on this machine."""
     names = []
-    for f in (pokemmo / "log").glob("*.log"):
+    for f in sorted((pokemmo / "log").glob("*.log")):
         try:
             for m in LOG_LINE.finditer(f.read_text(encoding="utf-8", errors="replace")):
                 if m.group(1) not in names:
@@ -109,7 +115,7 @@ def logged_names(pokemmo: Path):
 
 
 def split_entries(value):
-    """Existing map value -> {controller name: raw entry}, unescaped names."""
+    """Map value -> {controller name: raw entry}, in file order."""
     out = {}
     for entry in re.split(r"(?<!\\)\|", value) if value else []:
         name = unescape(entry.split(";", 1)[0])
@@ -118,42 +124,80 @@ def split_entries(value):
     return out
 
 
+def props_path(pm: Path):
+    return Path(pm) / "config" / "main.properties"
+
+
+def installed(pm: Path):
+    """Our layout is in main.properties (written by any version)."""
+    data = read_bytes(props_path(pm))
+    if data is None:
+        return False
+    value = get_prop(split_lines(decode(data)[0])[0], MAP_KEY) or ""
+    return any(is_ours(e) for e in split_entries(value).values())
+
+
+def plan(p: Plan, pm: Path, extra_names=(), switch_positional=None):
+    """Add the binds for every known pad name to the plan. Returns the names."""
+    path = props_path(pm)
+    text, nl = decode(p.current(path))
+    lines, final = split_lines(text)
+    st = p.state
+    if switch_positional is None:
+        switch_positional = bool(st.get("switch_positional"))
+    seen_here = logged_names(pm)
+    names = list(dict.fromkeys(CONTROLLER_NAMES + list(st.get("extra_names", [])) + list(extra_names)
+                               + seen_here))
+    entries = split_entries(get_prop(lines, MAP_KEY) or "")
+    bak = read_bytes(backup_path(path))
+    bak_entries = split_entries(get_prop(split_lines(decode(bak)[0])[0], MAP_KEY) or "") if bak else {}
+
+    p.fresh = not st.get("version") and not installed(pm)
+    if p.fresh:
+        bak_entries = {}  # a backup left by an old uninstall is not the current original
+    elif not st.get("version") and bak is not None:
+        # v1.0.0 replaced the whole map and dropped maps made by hand for other
+        # pads: bring those back from the backup.
+        for n, e in bak_entries.items():
+            if n not in entries and not is_ours(e):
+                entries[n] = e
+    for n in st.get("names", []):
+        # names an older version wrote that this one no longer does
+        if n not in names and n in entries and is_ours(entries[n]):
+            if n in bak_entries:
+                entries[n] = bak_entries[n]
+            else:
+                del entries[n]
+    for n in names:
+        entries[n] = encode_one(n, not switch_positional)
+
+    lines = set_props(lines, {MAP_KEY: "|".join(entries.values()), NATIVE_KEY: "true"})
+    p.put(path, encode(join_lines(lines, final), nl), backup_ok=not installed(pm))
+    st["names"] = names
+    st["switch_positional"] = bool(switch_positional)
+    st["extra_names"] = list(dict.fromkeys(list(st.get("extra_names", [])) + list(extra_names)))
+    new = [n for n in seen_here if n not in CONTROLLER_NAMES]
+    p.notes.append(f"Controller binds for {len(names)} pad names in {path}"
+                   + (f" (including pads PokeMMO logged here: {', '.join(new)})" if new else ""))
+    return names
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--pokemmo", help="PokeMMO data folder (holds config/main.properties)")
     ap.add_argument("--name", action="append", default=[],
                     help="extra controller name to bind (as shown in PokeMMO Settings); repeatable")
-    ap.add_argument("--switch-positional", action="store_true",
+    ap.add_argument("--switch-positional", action="store_true", default=None,
                     help="Nintendo pads: confirm on the bottom button (B) like Xbox, not the printed A")
+    ap.add_argument("--switch-labels", dest="switch_positional", action="store_false",
+                    help="Nintendo pads: confirm on the printed A (the default)")
     a = ap.parse_args()
     require_closed()
     pm = find_pokemmo(a.pokemmo)
-    p = pm / "config" / "main.properties"
-    bak = p.with_name(p.name + ".bak-pokemmo-controller")
-    if not bak.exists():
-        shutil.copy2(p, bak)
-
-    lines = p.read_text(encoding="utf-8").splitlines()
-    old = next((l.split("=", 1)[1] for l in lines if l.split("=", 1)[0] == MAP_KEY), "")
-    seen_here = logged_names(pm)
-    names = list(dict.fromkeys(CONTROLLER_NAMES + a.name + seen_here))
-    entries = split_entries(old)  # keep maps for other pads the player bound by hand
-    for n in names:
-        entries[n] = encode_one(n, not a.switch_positional)
-    want = {MAP_KEY: "|".join(entries.values()),
-            "client.input.controllers.enable_native_support": "true"}
-    seen = set()
-    for i, line in enumerate(lines):
-        k = line.split("=", 1)[0]
-        if k in want:
-            lines[i] = f"{k}={want[k]}"
-            seen.add(k)
-    lines += [f"{k}={v}" for k, v in want.items() if k not in seen]
-    p.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    print(f"wrote controller layout for {len(names)} controller names to {p}")
-    new = [n for n in seen_here if n not in CONTROLLER_NAMES]
-    if new:
-        print("  including pads PokeMMO logged here:", ", ".join(new))
+    p = Plan(pm)
+    plan(p, pm, a.name, a.switch_positional)
+    p.commit()
+    print("\n".join(p.notes))
 
 
 if __name__ == "__main__":

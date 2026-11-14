@@ -29,7 +29,8 @@ right-stick wheel so you can see what each direction does.
 
 One command. Nothing to install first (no Python, no git).
 
-1. Close PokeMMO. Leave Steam alone: the installer closes it and opens it again.
+1. Close PokeMMO. Leave Steam open: the installer closes it and opens it again
+   when it has to (never while a Steam game is running).
 2. Paste the line for your system:
 
    **Windows** (PowerShell):
@@ -45,18 +46,40 @@ One command. Nothing to install first (no Python, no git).
 
 The installer finds PokeMMO and Steam by itself (Windows install folder, macOS
 app, Linux zip, Flatpak, Snap). If you don't have Python 3.9+, it fetches a
-private copy for that one run and deletes it afterwards.
+private copy for that one run and deletes it afterwards. It prints the version
+it installed. It needs no administrator rights; on macOS and Linux, don't use `sudo`.
 
-**Undo everything:**
+### Update
+
+Run the same command again. It updates whatever an earlier version wrote and
+tells you what happened:
+
+- `Installed v1.1.0`: first install.
+- `Updated from v1.0.0 to v1.1.0`: an older version was there.
+- `Already up to date (v1.1.0). Nothing changed.`: Steam isn't even restarted.
+
+Your choices (`--switch-positional`, extra `--name` pads) are remembered.
+
+### Uninstall
+
 ```powershell
 & ([scriptblock]::Create((irm https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.ps1))) -Uninstall
 ```
 ```sh
 curl -fsSL https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.sh | sh -s -- --uninstall
 ```
-Other options: `-NoWheel` / `--no-wheel` (binds only, no Steam) and
-`-SwitchPositional` / `--switch-positional`. From a clone, `python tools/setup.py`
-does the same thing.
+
+If nothing else changed a file since the install, it gets its original bytes
+back. If PokeMMO or Steam changed it since (they rewrite their settings when
+they close), only this project's parts come out: your other settings, and
+controller binds you made by hand, stay. The Steam shortcut, wheel layouts,
+backups and the install record are removed; nothing is left behind.
+
+### Options
+
+`-NoWheel` / `--no-wheel` (binds only, no Steam) and `-SwitchPositional` /
+`--switch-positional`. From a clone, `python tools/setup.py` does the same
+thing (`--help` lists everything, `--version` prints the version).
 
 ## Controls
 
@@ -161,6 +184,17 @@ uses. Don't want any Steam involvement? Skip `install_wheel.py`; you lose only t
 - PokeMMO was open during install. Close it and run the install command again.
   The installer stops if PokeMMO is open.
 
+**The installer stops with a message**
+- *A Steam game is running*: close the game; the installer won't restart Steam under it.
+- *… is read-only*: make that file writable again (Properties → untick Read-only), then rerun.
+  Nothing was changed.
+- *Could not download*: check your connection and rerun. Nothing was changed.
+- *Running scripts is disabled*: you ran a downloaded `install.ps1` file. Use the
+  `irm … | iex` line instead (the execution policy doesn't apply to it), or
+  `powershell -ExecutionPolicy Bypass -File install.ps1`.
+- Stopped it halfway (Ctrl-C, closed the window)? Every file is either fully
+  updated or untouched. Run the command again to finish, or uninstall.
+
 **Undo**
 - The uninstall command above reverts only what the installer changed. Other PokeMMO
   settings you changed since then are kept.
@@ -195,7 +229,14 @@ uses. Don't want any Steam involvement? Skip `install_wheel.py`; you lose only t
   in `steam/`), adds a
   "PokeMMO" non-Steam shortcut and sets the keyboard keys the wheel presses.
   Edit `WHEEL` in the script to change the slices (slot 0 is the center and stays empty; position, size and opacity are in `build_layout`).
-- Every file touched is backed up once as `*.bak-pokemmo-controller`.
+- Every file touched is backed up once as `*.bak-pokemmo-controller`, and every
+  write is atomic (a temp file renamed into place), so an interrupted run never
+  leaves half a file. `config/pokemmo-controller.json` next to `main.properties`
+  records the installed version and a hash of each file written; that is how an
+  update knows what an older version wrote and how uninstall can restore files
+  byte for byte. Uninstall deletes the backups and the record.
+- `tests/` runs install → rerun → update → uninstall round trips in throwaway
+  folders and compares every byte; CI runs them on Windows, macOS and Linux.
 
 ## Compared with other setups
 
@@ -223,8 +264,10 @@ Ideas and controller reports welcome: [open an issue](https://github.com/jordana
 
 - Xbox Wireless Controller (Bluetooth), Windows 11, 4K display, PokeMMO 2026-11
   client: played in game.
-- Linux (Debian 13, Flatpak paths) and Windows: the install, wheel and uninstall
-  scripts pass a sandbox round trip, and the original settings come back byte for byte.
+- Windows (PowerShell 5.1 and 7), Linux (Debian 13: sh, dash, bash, busybox) and
+  macOS (CI): the one-line installers pass sandbox round trips (install, rerun,
+  update from older versions, uninstall), with and without Python installed, and
+  the original files come back byte for byte.
 - PlayStation, Switch Pro and macOS: built from SDL3's controller names and
   PokeMMO's launcher source, but not yet played on real hardware.
   Please report results in an issue.
