@@ -341,6 +341,7 @@ class Legacy(Base):
         old = legacy_tools(ref)
         if old is None:
             self.skipTest("git history not available")
+        self.addCleanup(__import__("shutil").rmtree, old, True)
         sb = self.make()
         before = sb.snapshot()
         for s in scripts:
