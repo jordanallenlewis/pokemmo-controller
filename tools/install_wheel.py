@@ -9,7 +9,7 @@ Close PokeMMO and Steam, then:  python tools/install_wheel.py
 Then launch PokeMMO from the Steam library (shortcut "PokeMMO").
 Backs up every file it touches as *.bak-pokemmo-controller.
 """
-import argparse, binascii, re, shutil, struct
+import argparse, binascii, re, shutil, struct, subprocess, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -63,11 +63,17 @@ def build_layout(controller_type):
                 {"requires_click": "0"})
     g += _group(2, "joystick_move", [("click", x("JOYSTICK_LEFT"))])
     g += _group(3, "radial_menu",
+                # button 0 is the wheel's center: left empty so releasing in the
+                # middle cancels. Slices start at 1, clockwise from the top.
                 [(f"touch_menu_button_{i}", f"key_press {k}, {label}, , ")
-                 for i, (k, label) in enumerate(WHEEL)] + [("click", x("JOYSTICK_RIGHT"))],
-                {"touch_menu_button_count": str(len(WHEEL)),
+                 for i, (k, label) in enumerate(WHEEL, start=1)] + [("click", x("JOYSTICK_RIGHT"))],
+                {"touch_menu_button_count": str(len(WHEEL) + 1),
                  "touchmenu_button_fire_type": "2",  # fire on release
-                 "touch_menu_show_labels": "1"})
+                 "touch_menu_show_labels": "1",
+                 "touch_menu_position_x": "50",  # screen center
+                 "touch_menu_position_y": "50",
+                 "touch_menu_scale": "400",
+                 "touch_menu_opacity": "90"})
     g += _group(4, "trigger", [("click", x("TRIGGER_LEFT"))], {"output_trigger": "1"})
     g += _group(5, "trigger", [("click", x("TRIGGER_RIGHT"))], {"output_trigger": "2"})
     g += _group(6, "switches", [("button_escape", x("START")), ("button_menu", x("SELECT")),
@@ -214,6 +220,12 @@ def install_layout(steam: Path, account: str, ctype: str, text: str):
     cs.write_text(txt, encoding="utf-8")
 
 
+def running(exe):
+    out = subprocess.run(["tasklist", "/FI", f"IMAGENAME eq {exe}"],
+                         capture_output=True, text=True).stdout
+    return exe.lower() in out.lower()
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--pokemmo", default=r"C:\Program Files\PokeMMO")
@@ -226,6 +238,9 @@ def main():
         (OUT_DIR / f"{t}.vdf").write_text(text, encoding="utf-8", newline="\n")
     if a.build_only:
         return
+    busy = [e for e in ("PokeMMO.exe", "steam.exe") if running(e)]
+    if busy:
+        sys.exit(f"Close {' and '.join(busy)} first; both rewrite these files on exit.")
     pm, steam = Path(a.pokemmo), Path(a.steam)
     patch_properties(pm / "config" / "main.properties")
     for u in (steam / "userdata").iterdir():

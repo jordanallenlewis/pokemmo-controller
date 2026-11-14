@@ -1,89 +1,192 @@
-# PokeMMO controller layout (Xbox, PC)
+# PokeMMO Xbox Controller Layout
 
-An Xbox controller layout for PokeMMO built on **the game's own controller
-support**, plus one optional extra: a labeled right-stick wheel from Steam Input.
-Every button passes straight through to PokeMMO's own binds; only the right
-stick goes through Steam. Each input sends one game action, so it stays inside
-PokeMMO's macro policy.
+![Platform: Windows](https://img.shields.io/badge/platform-Windows-0078d4)
+![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-3776ab)
+![License: MIT](https://img.shields.io/badge/license-MIT-2ea44f)
+![Macro policy: 1 input = 1 action](https://img.shields.io/badge/macro%20policy-1%20input%20%3D%201%20action-6b6b70)
 
-The key to full reach is the **Focus Ring** (View button): it moves focus onto
-the hotbar, the party and any open window, so you can select and use anything
-on screen — every hotbar slot on every page — with the stick/D-pad and A.
+Play [PokeMMO](https://pokemmo.com) on PC with an Xbox controller, using the
+game's **own controller support**. All 9 hotbar slots, Bag, Party, Pokédex,
+GTL, Friends, Team and the rest are on the controller, plus a labeled
+right-stick wheel so you can see what each direction does.
 
-## Layout
+![Button map](docs/button-map.svg)
 
-| Controller | Action |
+## Contents
+
+- [Quick start](#quick-start)
+- [Controls](#controls)
+- [How do I… with a controller](#how-do-i-with-a-controller)
+- [Is this allowed?](#is-this-allowed)
+- [Troubleshooting](#troubleshooting)
+- [How it works](#how-it-works)
+- [Compared with other setups](#compared-with-other-setups)
+- [Roadmap](#roadmap)
+
+## Quick start
+
+You need Windows, PokeMMO, Python 3.9+ and (for the wheel) Steam.
+
+1. Close PokeMMO **and** Steam. Both rewrite their config files when they exit.
+2. Run:
+   ```powershell
+   git clone https://github.com/jordanallenlewis/pokemmo-controller
+   cd pokemmo-controller
+   py tools/apply_native.py      # PokeMMO's own controller binds
+   py tools/install_wheel.py     # optional: right-stick wheel via Steam Input
+   ```
+3. Start Steam, then launch **PokeMMO from your Steam library** (the installer
+   adds it as a non-Steam game). Skipped the wheel? Start PokeMMO as usual.
+
+Installed somewhere else? Add `--pokemmo "D:\Games\PokeMMO"` and
+`--steam "D:\Steam"`. To undo everything: `py tools/uninstall.py`.
+
+## Controls
+
+| Button | Action |
 |---|---|
 | Left stick | Move |
-| A / B | Confirm / cancel |
-| X / Y | Game Key X / Key Y |
-| View (⧉) | **Focus Ring** — select anything: hotbar slots, party, windows |
-| Menu (≡) | Game Menu (Party, Pokédex, Settings…) |
+| A | Confirm / talk |
+| B | Cancel / back |
+| X / Y | The game's Key X / Key Y |
+| **View** (⧉) | **Focus Ring:** select anything on screen |
+| Menu (≡) | Game Menu (Party, Settings…) |
 | RB | Bag |
 | LB | Hotbar 5 |
 | D-pad ↑ → ↓ ← | Hotbar 1 / 2 / 3 / 4 |
 | RT / LT | Next / previous hotbar page |
-| Right stick (tilt) | **Wheel** with labels; release on a slice to use it: Pokédex, Egg Incubators, Trainer Card, Friends, Global Trade Link, Hotbar 6-9, Hide GUI |
-| L3 | Team |
-| R3 | Screenshot |
+| Right stick | **Wheel** (see below) |
+| L3 (press left stick) | Team |
+| R3 (press right stick) | Screenshot |
 
-**Using any hotbar slot:** tap View until the hotbar is highlighted, move along
-it with the stick, press A. RT/LT flip hotbar pages. B or View leaves the ring.
+### The Focus Ring
 
-Without the wheel (pure native), the right stick does nothing; use the Focus
-Ring or Game Menu for those windows.
+Tap **View** and a highlight jumps onto the hotbar, your party or an open
+window. Move it with the stick, press **A** to use what's highlighted, and press
+**B** or **View** to leave. Every hotbar slot on every page can be reached this way,
+not only the ones with their own button.
 
-## Why native first
+### The wheel
 
-- PokeMMO supports controllers itself (Settings → Control → Enable controller
-  support, then Settings → Xbox Controller for binds). PokeMMO has no wheel
-  of its own, so the wheel comes from Steam Input.
-- Players report Steam Input fighting the native support (B stops working)
-  when Steam remaps buttons. Here Steam passes every button through unchanged,
-  and the native map is also written for Steam's virtual pad, so the binds are
-  the same either way.
-- Remapping is allowed if 1:1, but "we cannot guarantee every remap software
-  will be accepted" ([setting up a controller](https://support.pokemmo.com/knowledgebase/article/setting-up-a-controller),
-  [macro policy](https://support.pokemmo.com/knowledgebase/article/macroing-faq)).
-  Each wheel slice sends one key on release.
-- Native limits: one button per action, no layers, no mouse cursor, no chat
-  typing with the pad. The Focus Ring covers most of what a cursor would.
+Tilt the right stick to open the wheel in the middle of the screen. Point at a
+slice (its name shows above the wheel) and let go to use it. Let go in the
+center to cancel.
 
-## Install
+| In game | Slices, clockwise from the top |
+|---|---|
+| <img src="docs/wheel-in-game.png" alt="The wheel in game, pointing at Egg Incubators" width="300"> | <img src="docs/wheel.svg" alt="Wheel slice map" width="300"> |
 
-1. Close PokeMMO and Steam (PokeMMO rewrites its config on exit).
-2. `python tools/apply_native.py` (option `--pokemmo <install dir>`).
-   Backs up `config/main.properties` once, turns controller support on, writes
-   the map for the Xbox controller names and for Steam's virtual pad
-   (`#SettingsController_SteamController`, how PokeMMO names it under Steam Input).
-3. For the wheel: `python tools/install_wheel.py`. Adds keyboard binds the wheel
-   uses, a non-Steam shortcut "PokeMMO", and the layout for Xbox One/Series/360.
-   Then always launch PokeMMO **from the Steam library**.
-4. Without the wheel: start PokeMMO normally.
+Each slice shows the key it presses (N = Pokédex, I = Egg Incubators,
+C = Trainer Card, V = Friends, P = Global Trade Link, 6-9 = Hotbar 6-9,
+F12 = Hide GUI) and sends exactly one key press when you let go.
 
-Or bind by hand in Settings → Xbox Controller using the table above.
+## How do I… with a controller
 
-### Config format (for other devices)
+| I want to… | Do this |
+|---|---|
+| Use any hotbar item (bike, rod, Sweet Scent…) | D-pad / LB for slots 1-5, wheel for 6-9, or **View** → pick → **A** |
+| Switch hotbar page | RT / LT |
+| Open my party / reorder it | Menu → Party, pick a Pokémon with the stick, **A** for its options |
+| Open the bag / give an item | RB, pick the item, **A** → Give |
+| Open the GTL | Wheel → Global Trade Link |
+| Check the Pokédex / trainer card | Wheel → Pokédex / Trainer Card |
+| Hatch eggs | Wheel → Egg Incubators |
+| Type in chat or GTL search | Steam on-screen keyboard: **Steam button + X** (when launched from Steam), or a keyboard |
+| Join a PvP queue, drag Pokémon in the PC | Still needs a mouse, see [Roadmap](#roadmap) |
 
-`client.controls.controller_input_maps_gdx_2` in `config/main.properties`:
-`<controller name>;<ACTION>,BUTTON,<n>;<ACTION>,AXIS,<n>,<true=positive>|<next controller>…`
-Button/axis numbers are SDL GameController indices, listed in
-`tools/apply_native.py`. Action names: KEY_UP/DOWN/LEFT/RIGHT, KEY_A/B/X/Y,
-KEY_NEXT, KEY_PREVIOUS, KEY_HOTBAR_1-9, KEY_RING_FOCUS, KEY_GAMEMENU,
-KEY_INVENTORY, KEY_MONSTERDEX, KEY_TRAINER, KEY_FRIENDS_LIST, KEY_TEAM,
-KEY_TRADE_LINK, KEY_INCUBATOR, KEY_SCREENSHOT, KEY_HIDE_GUI.
+## Is this allowed?
 
-## Status
+PokeMMO allows remapping as long as **one input from you produces no more than
+one input to the game**, with no turbo, no sequences and no cursor jumps
+([macro policy](https://support.pokemmo.com/knowledgebase/article/macroing-faq),
+[setting up a controller](https://support.pokemmo.com/knowledgebase/article/setting-up-a-controller)).
 
-- Applied on Jordan's PC 2026-11-14 with the wheel; PokeMMO's settings show the
-  map on Steam's virtual pad.
-- Needs a hands-on check with the real pad (Focus Ring on hotbar, wheel).
-- `steam/` holds the generated wheel layouts, plus the Legion Go S layout
-  (`steam/legion-go-s/`) where the wheel idea came from.
+This layout:
+- uses **PokeMMO's own controller binds** for every button: the same thing you
+  get by binding by hand in Settings → Xbox Controller;
+- passes buttons through Steam **unchanged**;
+- gives each wheel slice **one key press** on release;
+- has **no turbo, no macros, no chained inputs**.
 
-## Prior art
+PokeMMO's support page also says it "cannot guarantee every remap software will
+be accepted". Steam Input is the setup PokeMMO's own
+[Steam Deck guide](https://support.pokemmo.com/knowledgebase/article/steam-deck-setup)
+uses. Don't want any Steam involvement? Skip `install_wheel.py`; you lose only the wheel.
 
-No public, documented full-parity Xbox-on-PC layout found (survey 2026-11-14):
-[lowlevel-1989/pokemmo-port](https://github.com/lowlevel-1989/pokemmo-port) (Linux handhelds),
-[SteamInputDB layout](https://www.steaminputdb.com/config/3690044714) (undocumented),
-[reWASD config](https://www.rewasd.com/community/config/pokemon-mmo-controller-support/7cf96f5b5b59959b1509d1fa802d7495) (2021).
+## Troubleshooting
+
+**Controller not detected / buttons do nothing**
+- Settings → Control → *Enable Controller Support* must be ticked (`apply_native.py` does this).
+- Close DS4Windows, DSX, reWASD, Xpadder and similar tools. Two remappers fighting is the most common cause.
+- Bluetooth: unpair and pair again, or try a USB cable before launching.
+- The game names each controller. With Steam Input on, PokeMMO sees
+  `#SettingsController_SteamController`, and the binds are written for that name too.
+  A pad with an unusual name gets the game's defaults: bind it by hand in
+  Settings, or add its name to `CONTROLLER_NAMES` in `tools/apply_native.py`.
+
+**No wheel**
+- Launch PokeMMO **from the Steam library**, not the desktop shortcut.
+- Steam → Settings → Controller → *Enable Steam Input for Xbox controllers* must be on.
+
+**A button fires twice**
+- Another remapper is running, or a Steam layout other than this one is active
+  for PokeMMO (Steam → PokeMMO → Controller Layout).
+
+**Settings went back to default**
+- PokeMMO was open while you ran a script. Close it and run the script again.
+  The scripts refuse to run while PokeMMO or Steam is open.
+
+**Undo**
+- `py tools/uninstall.py` reverts only what these scripts changed. Other PokeMMO
+  settings you changed since then are kept.
+
+## How it works
+
+- `tools/apply_native.py` writes the binds into PokeMMO's
+  `config/main.properties`, key `client.controls.controller_input_maps_gdx_2`:
+  ```
+  Xbox One S Controller;KEY_A,BUTTON,0;KEY_B,BUTTON,1;KEY_RING_FOCUS,BUTTON,4;KEY_UP,AXIS,1,false;…|Xbox 360 Controller;…
+  ```
+  One entry per controller name; buttons and axes are SDL GameController
+  numbers (table in the script). Action names include `KEY_HOTBAR_1`-`9`,
+  `KEY_RING_FOCUS`, `KEY_GAMEMENU`, `KEY_INVENTORY`, `KEY_MONSTERDEX`,
+  `KEY_TRAINER`, `KEY_FRIENDS_LIST`, `KEY_TEAM`, `KEY_TRADE_LINK`,
+  `KEY_INCUBATOR`, `KEY_SCREENSHOT`, `KEY_HIDE_GUI`, `KEY_NEXT`, `KEY_PREVIOUS`.
+- `tools/install_wheel.py` builds the Steam Input layout
+  (`steam/controller_xboxone.vdf`, `steam/controller_xbox360.vdf`), adds a
+  "PokeMMO" non-Steam shortcut and sets the keyboard keys the wheel presses.
+  Edit `WHEEL` in the script to change the slices (slot 0 is the center and stays empty; position, size and opacity are in `build_layout`).
+- Every file touched is backed up once as `*.bak-pokemmo-controller`.
+
+## Compared with other setups
+
+| | This project | PokeMMO defaults | [pokemmo-port](https://github.com/lowlevel-1989/pokemmo-port) | [SteamInputDB layout](https://www.steaminputdb.com/config/3690044714) | Xpadder / JoyToKey guides |
+|---|---|---|---|---|---|
+| Platform | Windows PC | All | Linux handhelds | Steam | Windows |
+| Uses the game's own binds | ✅ | ✅ | ❌ (keyboard emulation) | ❌ | ❌ |
+| All 9 hotbar slots | ✅ | 4 | ✅ | ? | partly |
+| Labeled wheel for menus | ✅ | ❌ | ❌ | ❌ | ❌ |
+| Mouse cursor | ❌ (roadmap) | ❌ | ✅ | ✅ | ✅ |
+| Installer + uninstaller | ✅ | n/a | ✅ | Steam UI | manual |
+| Documented | ✅ | partly | ✅ | ❌ | old |
+
+## Roadmap
+
+- **Cursor mode** for mouse-only screens (PvP queue, PC box drag, some popups):
+  a hold-to-aim right-stick mouse that still sends one click per press.
+- PlayStation / Switch Pro button art and Steam Deck back-button variant.
+- Publish the wheel as a Steam community layout.
+- Linux / Steam Deck support for `apply_native.py`.
+
+Ideas and controller reports welcome: [open an issue](https://github.com/jordanallenlewis/pokemmo-controller/issues).
+
+## Tested with
+
+- Xbox Wireless Controller (Bluetooth), Windows 11, 4K display, PokeMMO 2026-11 client.
+
+Other XInput pads should work. Please report results in an issue.
+
+---
+
+Not affiliated with or endorsed by PokeMMO. No game files or ROMs are included.
+Released under the [MIT License](LICENSE).

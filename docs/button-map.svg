@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <rect width="1200" height="640" fill="#f7f7f5"/>
+  <text x="600" y="48" text-anchor="middle" font-size="26" font-weight="600" fill="#1d1d1f">PokeMMO · Xbox controller</text>
+  <text x="600" y="76" text-anchor="middle" font-size="15" fill="#6b6b70">PokeMMO's own binds · right stick wheel via Steam Input</text>
+
+  <!-- controller body -->
+  <path d="M430 210 C470 180 730 180 770 210 C830 220 880 300 905 420 C925 515 870 545 830 505 C795 470 770 440 730 440 L470 440 C430 440 405 470 370 505 C330 545 275 515 295 420 C320 300 370 220 430 210 Z"
+        fill="#ffffff" stroke="#2b2b30" stroke-width="3"/>
+  <!-- triggers -->
+  <path d="M425 182 C430 150 495 150 500 182 Z" fill="#dcdce0" stroke="#2b2b30" stroke-width="2"/>
+  <path d="M700 182 C705 150 770 150 775 182 Z" fill="#dcdce0" stroke="#2b2b30" stroke-width="2"/>
+  <text x="462" y="174" text-anchor="middle" font-size="12" font-weight="600">LT</text>
+  <text x="738" y="174" text-anchor="middle" font-size="12" font-weight="600">RT</text>
+  <!-- bumpers -->
+  <rect x="405" y="180" width="110" height="22" rx="10" fill="#e9e9ec" stroke="#2b2b30" stroke-width="2"/>
+  <rect x="685" y="180" width="110" height="22" rx="10" fill="#e9e9ec" stroke="#2b2b30" stroke-width="2"/>
+  <text x="460" y="196" text-anchor="middle" font-size="13" font-weight="600">LB</text>
+  <text x="740" y="196" text-anchor="middle" font-size="13" font-weight="600">RB</text>
+  <!-- left stick -->
+  <circle cx="440" cy="285" r="36" fill="#e9e9ec" stroke="#2b2b30" stroke-width="2"/>
+  <circle cx="440" cy="285" r="20" fill="#cfcfd4"/>
+  <!-- dpad -->
+  <path d="M520 345 h20 v-22 h22 v22 h20 v22 h-20 v22 h-22 v-22 h-20 z" fill="#e9e9ec" stroke="#2b2b30" stroke-width="2"/>
+  <!-- right stick -->
+  <circle cx="680" cy="370" r="36" fill="#e9e9ec" stroke="#2b2b30" stroke-width="2"/>
+  <circle cx="680" cy="370" r="20" fill="#cfcfd4"/>
+  <!-- face buttons -->
+  <circle cx="760" cy="250" r="17" fill="#f5c400"/><text x="760" y="255" text-anchor="middle" font-size="14" font-weight="700" fill="#1d1d1f">Y</text>
+  <circle cx="726" cy="284" r="17" fill="#2f6fde"/><text x="726" y="289" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">X</text>
+  <circle cx="794" cy="284" r="17" fill="#d8352a"/><text x="794" y="289" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">B</text>
+  <circle cx="760" cy="318" r="17" fill="#3a9d3a"/><text x="760" y="323" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">A</text>
+  <!-- view / menu -->
+  <circle cx="555" cy="265" r="12" fill="#e9e9ec" stroke="#2b2b30" stroke-width="2"/>
+  <circle cx="645" cy="265" r="12" fill="#e9e9ec" stroke="#2b2b30" stroke-width="2"/>
+  <text x="555" y="243" text-anchor="middle" font-size="11" fill="#6b6b70">View</text>
+  <text x="645" y="243" text-anchor="middle" font-size="11" fill="#6b6b70">Menu</text>
+
+  <g stroke="#9a9aa2" stroke-width="1.5" fill="none">
+    <path d="M405 191 H250"/>
+    <path d="M440 158 L330 120 H250"/>
+    <path d="M404 285 H250"/>
+    <path d="M520 356 L470 400 H250"/>
+    <path d="M555 277 L540 470 H250"/>
+    <path d="M795 191 H950"/>
+    <path d="M760 158 L870 120 H950"/>
+    <path d="M777 250 H950"/>
+    <path d="M811 284 L850 300 H950"/>
+    <path d="M777 318 L850 350 H950"/>
+    <path d="M726 267 L726 222 H950"/>
+    <path d="M645 277 L660 470 H950"/>
+    <path d="M716 370 L800 420 H950"/>
+  </g>
+
+  <g font-size="15" fill="#1d1d1f">
+    <!-- left column -->
+    <text x="240" y="125" text-anchor="end"><tspan font-weight="600">LT</tspan>  previous hotbar page</text>
+    <text x="240" y="196" text-anchor="end"><tspan font-weight="600">LB</tspan>  Hotbar 5</text>
+    <text x="240" y="280" text-anchor="end"><tspan font-weight="600">Left stick</tspan>  move</text>
+    <text x="240" y="300" text-anchor="end"><tspan font-weight="600">L3</tspan>  Team</text>
+    <text x="240" y="395" text-anchor="end"><tspan font-weight="600">D-pad</tspan>  Hotbar ↑1 →2 ↓3 ←4</text>
+    <text x="240" y="465" text-anchor="end"><tspan font-weight="600">View</tspan>  Focus Ring</text>
+    <text x="240" y="485" text-anchor="end" font-size="13" fill="#6b6b70">select any hotbar slot, party, window</text>
+    <!-- right column -->
+    <text x="960" y="125"><tspan font-weight="600">RT</tspan>  next hotbar page</text>
+    <text x="960" y="196"><tspan font-weight="600">RB</tspan>  Bag</text>
+    <text x="960" y="255"><tspan font-weight="600">Y</tspan>  Key Y</text>
+    <text x="960" y="305"><tspan font-weight="600">B</tspan>  cancel / back</text>
+    <text x="960" y="355"><tspan font-weight="600">A</tspan>  confirm / talk</text>
+    <text x="960" y="425"><tspan font-weight="600">Right stick</tspan>  wheel</text>
+    <text x="960" y="445" font-size="13" fill="#6b6b70">tilt, release on a slice · R3 Screenshot</text>
+    <text x="960" y="475"><tspan font-weight="600">Menu</tspan>  Game Menu (Party…)</text>
+  </g>
+  <text x="960" y="227" font-size="15" fill="#1d1d1f"><tspan font-weight="600">X</tspan>  Key X</text>
+
+  <!-- wheel legend -->
+  <g transform="translate(600 560)">
+    <text x="0" y="-12" text-anchor="middle" font-size="14" font-weight="600" fill="#1d1d1f">Wheel, clockwise from top</text>
+    <text x="0" y="14" text-anchor="middle" font-size="14" fill="#3a3a40">Pokédex · Egg Incubators · Trainer Card · Friends · Global Trade Link · Hotbar 6 · 7 · 8 · 9 · Hide GUI</text>
+  </g>
+</svg>

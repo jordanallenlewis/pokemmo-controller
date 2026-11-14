@@ -1,6 +1,7 @@
-"""Write the native PokeMMO controller layout into config/main.properties.
+"""Write the PokeMMO controller binds into config/main.properties.
 
-PokeMMO's own controller support only, no Steam Input or remapping software.
+These are PokeMMO's own controller binds (Settings -> Xbox Controller). The
+right stick is left unbound for the optional Steam wheel (install_wheel.py).
 Close PokeMMO first (it rewrites main.properties on exit), then run:
     python tools/apply_native.py [--pokemmo "C:\\Program Files\\PokeMMO"]
 Backs up main.properties once as main.properties.bak-pokemmo-controller.
@@ -10,7 +11,7 @@ Button numbers are SDL GameController indices, the same on every Xbox pad:
   11 D-up  12 D-down  13 D-left  14 D-right
   Axes: 0 left X  1 left Y  2 right X  3 right Y  4 LT  5 RT
 """
-import argparse, shutil
+import argparse, shutil, subprocess, sys
 from pathlib import Path
 
 # PokeMMO stores one map per controller name; these names cover Xbox pads.
@@ -51,10 +52,18 @@ def encode_one(name):
     return ";".join(parts)
 
 
+def pokemmo_running():
+    out = subprocess.run(["tasklist", "/FI", "IMAGENAME eq PokeMMO.exe"],
+                         capture_output=True, text=True).stdout
+    return "PokeMMO.exe" in out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--pokemmo", default=r"C:\Program Files\PokeMMO")
     a = ap.parse_args()
+    if pokemmo_running():
+        sys.exit("Close PokeMMO first: it rewrites main.properties when it exits.")
     p = Path(a.pokemmo) / "config" / "main.properties"
     bak = p.with_name(p.name + ".bak-pokemmo-controller")
     if not bak.exists():

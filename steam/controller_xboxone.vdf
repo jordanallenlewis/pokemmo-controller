@@ -177,7 +177,7 @@
 		"mode"		"radial_menu"
 		"inputs"
 		{
-			"touch_menu_button_0"
+			"touch_menu_button_1"
 			{
 				"activators"
 				{
@@ -190,7 +190,7 @@
 					}
 				}
 			}
-			"touch_menu_button_1"
+			"touch_menu_button_2"
 			{
 				"activators"
 				{
@@ -203,7 +203,7 @@
 					}
 				}
 			}
-			"touch_menu_button_2"
+			"touch_menu_button_3"
 			{
 				"activators"
 				{
@@ -216,7 +216,7 @@
 					}
 				}
 			}
-			"touch_menu_button_3"
+			"touch_menu_button_4"
 			{
 				"activators"
 				{
@@ -229,7 +229,7 @@
 					}
 				}
 			}
-			"touch_menu_button_4"
+			"touch_menu_button_5"
 			{
 				"activators"
 				{
@@ -242,7 +242,7 @@
 					}
 				}
 			}
-			"touch_menu_button_5"
+			"touch_menu_button_6"
 			{
 				"activators"
 				{
@@ -255,7 +255,7 @@
 					}
 				}
 			}
-			"touch_menu_button_6"
+			"touch_menu_button_7"
 			{
 				"activators"
 				{
@@ -268,7 +268,7 @@
 					}
 				}
 			}
-			"touch_menu_button_7"
+			"touch_menu_button_8"
 			{
 				"activators"
 				{
@@ -281,7 +281,7 @@
 					}
 				}
 			}
-			"touch_menu_button_8"
+			"touch_menu_button_9"
 			{
 				"activators"
 				{
@@ -294,7 +294,7 @@
 					}
 				}
 			}
-			"touch_menu_button_9"
+			"touch_menu_button_10"
 			{
 				"activators"
 				{
@@ -323,9 +323,13 @@
 		}
 		"settings"
 		{
-			"touch_menu_button_count"		"10"
+			"touch_menu_button_count"		"11"
 			"touchmenu_button_fire_type"		"2"
 			"touch_menu_show_labels"		"1"
+			"touch_menu_position_x"		"50"
+			"touch_menu_position_y"		"50"
+			"touch_menu_scale"		"400"
+			"touch_menu_opacity"		"90"
 		}
 	}
 	"group"
