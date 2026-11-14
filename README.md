@@ -1,114 +1,79 @@
 # PokeMMO controller layout (Xbox, PC)
 
-A Steam Input layout that gives an Xbox controller everything a keyboard and
-mouse can do in PokeMMO: movement, A/B, all 9 hotbar slots, hotbar pages, bag,
-party (via Game Menu or cursor), Pokédex, trainer card, friends, team, egg
-incubators, screenshot, hide GUI, chat, and a mouse cursor for screens that
-only take clicks.
+An Xbox controller layout for PokeMMO built **only on the game's own controller
+support**: no Steam Input, no virtual controller, no remapping software. Every
+button sends one game action, so it stays inside PokeMMO's macro policy.
 
-Every binding sends exactly one key or mouse button, so it follows PokeMMO's
-macro policy ("1 input from a player must generate no more than 1 resulting
-input"). No turbo, no macros, no buttons that jump the cursor.
+The key to full reach is the **Focus Ring** (View button): it moves focus onto
+the hotbar, the party and any open window, so you can select and use anything
+on screen — every hotbar slot on every page — with the stick/D-pad and A.
 
 ## Layout
 
-**Normal play**
+| Controller | Action |
+|---|---|
+| Left stick | Move |
+| A / B | Confirm / cancel |
+| X / Y | Game Key X / Key Y |
+| View (⧉) | **Focus Ring** — select anything: hotbar slots, party, windows |
+| Menu (≡) | Game Menu (Party, Pokédex, Settings…) |
+| RB | Bag |
+| LB | Hotbar 5 |
+| D-pad ↑ → ↓ ← | Hotbar 1 / 2 / 3 / 4 |
+| RT / LT | Next / previous hotbar page |
+| Right stick ↑ / ↓ | Pokédex / Egg incubators |
+| Right stick ← / → | Trainer card / Friends list |
+| L3 | Team |
+| R3 | Screenshot |
 
-| Controller | Does | Key sent |
-|---|---|---|
-| Left stick / D-pad | Move | W A S D |
-| A | Confirm / talk | E |
-| B | Cancel / back / run | B |
-| X | Bag | Q |
-| Y | Hotbar 1 | 1 |
-| Start (≡) | Game Menu (Party, Pokédex, Settings…) | M |
-| View (⧉) | **Focus Ring**: jump focus to hotbar, party, open windows; stick/D-pad picks, A uses | controller Back (native) |
-| RB | Next hotbar page | Page Down |
-| LB (hold) | Shortcuts layer (below) | — |
-| Right stick | Mouse cursor | mouse |
-| RT / LT | Left click / right click (right-click a party Pokémon for its menu) | mouse |
-| R3 (press right stick) | Open chat / send | Enter |
-| L3 (press left stick) | Steam on-screen keyboard (type in chat) | — |
+**Using any hotbar slot:** tap View until the hotbar is highlighted, move along
+it with the stick, press A. RT/LT flip hotbar pages. B or View leaves the ring.
 
-**Hold LB for shortcuts**
+Unbound (open via Game Menu or the Focus Ring): Global Trade Link, Hide GUI,
+hotbar 6-9 direct presses.
 
-| While holding LB | Does | Key sent |
-|---|---|---|
-| D-pad ↑ → ↓ ← | Hotbar 2 / 3 / 4 / 5 | 2 3 4 5 |
-| A / B / X / Y | Hotbar 6 / 7 / 8 / 9 | 6 7 8 9 |
-| Right stick ↑ → ↓ ← | Pokédex / Egg incubators / Team / Trainer card | N I G C |
-| Start | Global Trade Link window | P |
-| View | Screenshot | F11 |
-| RB | Previous hotbar page | Page Up |
-| L3 | Friends list | V |
-| R3 | Hide GUI | F12 |
-| LT / RT | Game's Key X / Key Y | X Y |
+## Why native only
 
-Holding LB sends nothing by itself; it only switches what the other buttons do.
-
-**Focus Ring for the hotbar:** tap View until the hotbar is highlighted, move left/right with the stick or D-pad, press A to use the slot. Works for any slot on any hotbar page. Tap View again (or B) to leave.
-
-## Why this design
-
-- **PokeMMO's own controller support** (Settings → Xbox Controller) allows one
-  binding per action and has no cursor, no layers and no chat typing. Out of the
-  box: left stick moves, D-pad = hotbar 1-4, RB = bag, Start = game menu, View =
-  focus ring, triggers = hotbar pages; LB, L3, R3 and hotbar 5-9 are unbound.
-  The official support page says it doesn't cover every UI element. That rules
-  out full parity on native support alone.
-- **Steam Input** adds a hold layer and a stick-driven cursor. Players report
-  Steam Input and native support fighting (B stops working), so Steam sends
-  keyboard and mouse for everything except one button: View sends a controller
-  Back press, which PokeMMO's native support (left **on**) maps to the Focus
-  Ring. PokeMMO sees only Steam's virtual controller (log: one controller
-  attached), so nothing is pressed twice.
-- PokeMMO staff say remapping is allowed if it stays 1:1 ([setting up a
-  controller](https://support.pokemmo.com/knowledgebase/article/setting-up-a-controller),
+- PokeMMO supports controllers itself (Settings → Control → Enable controller
+  support, then Settings → Xbox Controller for binds).
+- Players report Steam Input fighting the native support (B stops working).
+  Remapping is allowed but "we cannot guarantee every remap software will be
+  accepted" ([setting up a controller](https://support.pokemmo.com/knowledgebase/article/setting-up-a-controller),
   [macro policy](https://support.pokemmo.com/knowledgebase/article/macroing-faq)).
-  Steam Input is the most widely used remapper and is what the official Steam
-  Deck guide uses.
+  Native avoids that risk entirely.
+- Native limits: one button per action, no layers, no mouse cursor, no chat
+  typing with the pad. The Focus Ring covers most of what a cursor would.
 
-## Install (Windows PC)
+## Install
 
-1. Close PokeMMO and Steam.
-2. `python tools/install_windows.py` (options: `--pokemmo <dir> --steam <dir>`).
-   It backs up every file it touches (`*.bak-pokemmo-controller`), then:
-   - sets the game's keyboard binds listed above (adds Bag = Q and Game Menu = M,
-     which ship unbound) and keeps native controller support on (for the Focus Ring);
-   - adds a non-Steam shortcut named **PokeMMO**;
-   - installs the layout for Xbox One/Series and Xbox 360 controllers.
-3. Start Steam and launch PokeMMO **from the Steam library** (Steam Input only
-   applies to games Steam launched).
+1. Close PokeMMO (it rewrites its config on exit).
+2. `python tools/apply_native.py` (option `--pokemmo <install dir>`).
+   Backs up `config/main.properties` once, turns controller support on, writes
+   the map for Xbox One S / Series / 360 / Wireless controller names.
+3. Start PokeMMO normally. Check Settings → Xbox Controller.
 
-To undo: restore the `.bak-pokemmo-controller` copies, or turn "Enable
-Controller Support" back on in PokeMMO and disable Steam Input for the
-shortcut.
+Or bind by hand in Settings → Xbox Controller using the table above.
 
-## Other devices
+### Config format (for other devices)
 
-- **Steam Deck / Legion Go S / other Steam handhelds:** add PokeMMO as a
-  non-Steam game named `PokeMMO`, copy the game keybinds above, and import the
-  matching `.vdf`. `steam/legion-go-s/` holds the earlier Legion Go S layout
-  (hybrid: uses PokeMMO's native support for A/B/Start/View, trackpad mouse).
-- **Rebuild the layout:** edit `tools/build_layout.py`, run it, re-run the
-  installer.
+`client.controls.controller_input_maps_gdx_2` in `config/main.properties`:
+`<controller name>;<ACTION>,BUTTON,<n>;<ACTION>,AXIS,<n>,<true=positive>|<next controller>…`
+Button/axis numbers are SDL GameController indices, listed in
+`tools/apply_native.py`. Action names: KEY_UP/DOWN/LEFT/RIGHT, KEY_A/B/X/Y,
+KEY_NEXT, KEY_PREVIOUS, KEY_HOTBAR_1-9, KEY_RING_FOCUS, KEY_GAMEMENU,
+KEY_INVENTORY, KEY_MONSTERDEX, KEY_TRAINER, KEY_FRIENDS_LIST, KEY_TEAM,
+KEY_TRADE_LINK, KEY_INCUBATOR, KEY_SCREENSHOT, KEY_HIDE_GUI.
 
 ## Status
 
-- Installed on Jordan's gaming PC 2026-11-14 (Xbox Wireless Controller, Bluetooth).
-- Verified by test pad: Steam loads the layout for the PokeMMO shortcut with
-  keyboard/mouse output only; X opened the Bag, B closed it.
-- 2026-11-14: View switched to Focus Ring, layer moved to hold LB.
-- Needs a hands-on pass with the real controller: Focus Ring on hotbar, hold-LB layer, right-stick
-  cursor, Start → Game Menu (M), GTL (P), friends (V). Some of these keys did
-  not open their windows when sent from the test rig; the cause is unconfirmed.
+- Applied on Jordan's PC 2026-11-14; Settings → Xbox Controller shows every bind.
+- Needs a hands-on check with the real pad (Focus Ring on hotbar, stick flicks).
+- `steam/` holds the earlier Steam Input experiment (not used; kept for reference),
+  including the Legion Go S layout.
 
 ## Prior art
 
-No public, documented, full-parity Xbox-on-PC layout was found (2026-11-14 survey):
-- [lowlevel-1989/pokemmo-port](https://github.com/lowlevel-1989/pokemmo-port):
-  PortMaster gptokeyb mapping for Linux handhelds, the best documented one.
-- [SteamInputDB layout by senor_alikz](https://www.steaminputdb.com/config/3690044714):
-  Xbox One, beta, undocumented.
-- [reWASD config](https://www.rewasd.com/community/config/pokemon-mmo-controller-support/7cf96f5b5b59959b1509d1fa802d7495) (2021).
-- Steam Deck community layouts (in-client only).
+No public, documented full-parity Xbox-on-PC layout found (survey 2026-11-14):
+[lowlevel-1989/pokemmo-port](https://github.com/lowlevel-1989/pokemmo-port) (Linux handhelds),
+[SteamInputDB layout](https://www.steaminputdb.com/config/3690044714) (undocumented),
+[reWASD config](https://www.rewasd.com/community/config/pokemon-mmo-controller-support/7cf96f5b5b59959b1509d1fa802d7495) (2021).
