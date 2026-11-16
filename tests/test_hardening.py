@@ -49,6 +49,18 @@ class Fuzz(unittest.TestCase):
             self.assertEqual(len(inputs), len(set(inputs)))
             self.assertEqual(L.loads(L.dumps(lay)), lay)
 
+    def test_no_pad_name_gets_two_actions_on_one_input(self):
+        # Nintendo pads swap face buttons to follow the printed letters: that swap must
+        # move buttons, not actions, or a custom layout lands two actions on one button.
+        rng = random.Random(4242)
+        for _ in range(200):
+            binds = L.native_binds(random_valid(rng))
+            for name in apply_native.CONTROLLER_NAMES:
+                for labels in (True, False):
+                    parts = apply_native.encode_one(name, labels, binds).split(";")[1:]
+                    inputs = [x.split(",", 1)[1] for x in parts]
+                    self.assertEqual(len(inputs), len(set(inputs)), (name, labels, parts))
+
     def test_every_mutation_is_refused_or_stays_one_to_one(self):
         rng = random.Random(2077)
         junk = [None, True, -1, 15, 99, 1.5, "1", [], [1, 2], {}, {"button": 1}, "KEY_A", 10**30]

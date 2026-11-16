@@ -52,6 +52,11 @@ BUTTONS = 15            # 0..14
 AXES = 6                # 0 left X, 1 left Y, 2 right X, 3 right Y, 4 left trigger, 5 right trigger
 RIGHT_STICK = (2, 3)    # belongs to the wheel
 
+# Nintendo pads print A on the right, B at the bottom, X on top and Y on the left: the
+# letters of an Xbox pad on the other button of each pair. Following the printed letters
+# swaps whole buttons (never single actions), so each input still does exactly one action.
+NINTENDO_LABEL_SWAP = {0: 1, 1: 0, 2: 3, 3: 2}
+
 DEFAULT_BINDS = {
     "KEY_UP": {"axis": 1, "positive": False}, "KEY_DOWN": {"axis": 1, "positive": True},
     "KEY_LEFT": {"axis": 0, "positive": False}, "KEY_RIGHT": {"axis": 0, "positive": True},

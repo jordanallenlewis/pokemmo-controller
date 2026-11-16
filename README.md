@@ -26,10 +26,12 @@ right-stick wheel so you can see what each direction does.
 ![Button map: every control on an Xbox controller](docs/button-map.png)
 
 Playing on another pad? The same spots, with that pad's own button names (a
-drawn outline, not a photo, so the shapes are approximate):
+drawn outline, not a photo, so the shapes are approximate; on Switch Pro the
+printed A confirms, as on a Switch):
 [PlayStation](docs/button-map-playstation.svg) ·
 [Switch Pro](docs/button-map-switch.svg). Or print them:
-`python tools/pads.py playstation` (also `switch`, `xbox`).
+`python tools/pads.py playstation` (also `switch`, `xbox`; add
+`--switch-positional` to see that setting).
 
 ## Contents
 
