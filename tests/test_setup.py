@@ -380,3 +380,35 @@ class Legacy(Base):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class DryRun(Base):
+    def test_dry_run_changes_nothing_and_names_the_files(self):
+        sb = self.make()
+        before = sb.snapshot()
+        r = sb.setup("--dry-run")
+        self.assertIn("Dry run", r.stdout)
+        self.assertIn("would change:", r.stdout)
+        self.assertIn("would create:", r.stdout)
+        self.assertIn("main.properties", r.stdout)
+        self.assertNotIn("Installed", r.stdout)
+        self.assertSame(before, sb.snapshot())  # no record, no backup, no file
+
+    def test_dry_run_after_install_and_uninstall(self):
+        sb = self.make()
+        sb.setup()
+        installed = sb.snapshot()
+        self.assertIn("Nothing would change", sb.setup("--dry-run").stdout)
+        r = sb.setup("--dry-run", "--uninstall")
+        self.assertIn("would", r.stdout)
+        self.assertSame(installed, sb.snapshot())
+        sb.setup("--uninstall")
+
+    def test_dry_run_works_while_pokemmo_is_open(self):
+        sb = self.make()
+        before = sb.snapshot()
+        argv = ["setup.py", "--pokemmo", str(sb.pokemmo), "--steam", str(sb.steam), "--dry-run"]
+        with mock.patch.dict(os.environ, sb.env()), mock.patch.object(sys, "argv", argv), \
+                mock.patch.object(platforms, "pokemmo_running", return_value=True), mock.patch("builtins.print"):
+            setup_mod.main()  # no SystemExit: reading is safe with the game open
+        self.assertSame(before, sb.snapshot())
