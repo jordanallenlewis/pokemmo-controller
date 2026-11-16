@@ -16,6 +16,7 @@ import argparse, binascii, re, struct, sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import layout as layout_mod  # noqa: E402
 from common import (Plan, backup_path, decode, encode, join_lines, read_bytes,  # noqa: E402
                     set_props, split_lines)
 from platforms import find_pokemmo, find_steam, require_closed, shortcut_target  # noqa: E402
@@ -65,7 +66,8 @@ def _group(gid, mode, inputs, settings=None):
     return s + "\t}\n"
 
 
-def build_layout(controller_type):
+def build_layout(controller_type, wheel=None):
+    WHEEL_ = WHEEL if wheel is None else wheel
     x = lambda b: f"xinput_button {b}"
     g = ""
     g += _group(0, "four_buttons", [("button_a", x("A")), ("button_b", x("B")),
@@ -78,8 +80,8 @@ def build_layout(controller_type):
                 # button 0 is the wheel's center: left empty so releasing in the
                 # middle cancels. Slices start at 1, clockwise from the top.
                 [(f"touch_menu_button_{i}", f"key_press {k}, {label}, , ")
-                 for i, (k, label) in enumerate(WHEEL, start=1)] + [("click", x("JOYSTICK_RIGHT"))],
-                {"touch_menu_button_count": str(len(WHEEL) + 1),
+                 for i, (k, label) in enumerate(WHEEL_, start=1)] + [("click", x("JOYSTICK_RIGHT"))],
+                {"touch_menu_button_count": str(len(WHEEL_) + 1),
                  "touchmenu_button_fire_type": "2",  # fire on release
                  "touch_menu_show_labels": "1",
                  "touch_menu_position_x": "50",  # screen center
@@ -316,7 +318,10 @@ def layout_plan(p, steam: Path, account: str, layouts):
 
 
 def plan(p, pm: Path, steam: Path):
-    layouts = {t: build_layout(t) for t in CONTROLLER_TYPES}
+    from apply_native import custom_layout  # the layout chosen in apply_native.plan (same install record)
+    lay = custom_layout(p.state)
+    wheel = layout_mod.wheel_slices(lay) if lay else None
+    layouts = {t: build_layout(t, wheel) for t in CONTROLLER_TYPES}
     props_plan(p, pm)
     for u in userdirs(steam):
         shortcut_plan(p, u, pm)

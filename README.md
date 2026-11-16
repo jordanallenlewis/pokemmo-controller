@@ -49,6 +49,29 @@ app, Linux zip, Flatpak, Snap). If you don't have Python 3.9+, it fetches a
 private copy for that one run and deletes it afterwards. It prints the version
 it installed. It needs no administrator rights; on macOS and Linux, don't use `sudo`.
 
+### Change what a button does
+
+Open the remap screen in your browser: pick the input for each action, move the
+wheel slices around, press **Apply**. Close PokeMMO first.
+
+```powershell
+& ([scriptblock]::Create((irm https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.ps1))) -Ui
+```
+```sh
+curl -fsSL https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.sh | sh -s -- --ui
+```
+
+The screen runs on your computer only (nothing is sent anywhere) and needs
+nothing installed. It writes your layout with the same installer, so the backup
+and the uninstall above work the same, and a later update keeps your layout. You
+can export a layout to a file, share it and import it; `--layout FILE` installs a
+file and `--reset-layout` goes back to the default.
+
+PokeMMO allows remapping while one input does one thing, so that is built in: an
+input holds one action, a wheel slice presses one key when you let go, and a
+layout with a repeat, a sequence, a delay or one input doing two things is
+refused, also in a file edited by hand.
+
 ### Update
 
 Run the same command again. It updates whatever an earlier version wrote and
