@@ -5,21 +5,25 @@ on:
   pull_request:
   workflow_dispatch:
 
+# Every leg must pass: there are no allowed failures and no skipped legs. The
+# last job, "all platforms", is the one to require before a release.
 jobs:
   test:
-    name: ${{ matrix.os }} / Python ${{ matrix.python }}
+    name: ${{ matrix.label }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest, ubuntu-latest, macos-latest]
-        python: ["3.9", "3.13"]
-        exclude:
-          - os: ubuntu-latest  # no Python 3.9 build for its Ubuntu release
-            python: "3.9"
         include:
-          - os: ubuntu-24.04
-            python: "3.9"
+          - {label: "Windows x64, Python 3.13",       os: windows-latest,    python: "3.13"}
+          - {label: "Windows x64, Python 3.9",        os: windows-latest,    python: "3.9"}
+          - {label: "Windows ARM, Python 3.13",       os: windows-11-arm,    python: "3.13"}
+          - {label: "macOS Apple silicon, Python 3.13", os: macos-latest,     python: "3.13"}
+          - {label: "macOS Apple silicon, Python 3.9",  os: macos-latest,     python: "3.9"}
+          - {label: "macOS Intel, Python 3.13",       os: macos-15-intel,    python: "3.13"}
+          - {label: "Linux x64, Python 3.13",         os: ubuntu-latest,     python: "3.13"}
+          - {label: "Linux x64, Python 3.9",          os: ubuntu-24.04,      python: "3.9"}
+          - {label: "Linux ARM, Python 3.13",         os: ubuntu-24.04-arm,  python: "3.13"}
     steps:
       - uses: actions/checkout@v5
         with:
@@ -30,7 +34,39 @@ jobs:
       - name: Extra shells
         if: runner.os == 'Linux'
         run: sudo apt-get install -y --no-install-recommends dash zsh busybox
-      - name: Sandbox tests (install, update, uninstall, both installers)
+      - name: Sandbox tests (install, update, uninstall, both installers, remap screen)
         env:
           POKEMMO_CONTROLLER_NETWORK_TESTS: "1"  # also test the no-Python path (downloads uv)
         run: python -m unittest discover -s tests -v
+
+  # SteamOS is Arch Linux. This runs the tests on a stock Arch image with that
+  # distro's own Python: a stand-in for Desktop Mode, not a Steam Deck.
+  steamos-like:
+    name: "Arch Linux (SteamOS-like), x64"
+    runs-on: ubuntu-latest
+    container: archlinux:latest
+    steps:
+      - name: Tools
+        run: |
+          pacman -Syu --noconfirm python git tar gzip unzip curl
+          useradd -m deck
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Sandbox tests
+        env:
+          POKEMMO_CONTROLLER_NETWORK_TESTS: "1"
+        # The Deck's desktop user is not root, so run as a normal user too.
+        run: |
+          chown -R deck "$GITHUB_WORKSPACE"
+          su deck -c "cd '$GITHUB_WORKSPACE' && git config --global --add safe.directory '$GITHUB_WORKSPACE' && POKEMMO_CONTROLLER_NETWORK_TESTS=1 python -m unittest discover -s tests -v"
+
+  all-platforms:
+    name: all platforms
+    needs: [test, steamos-like]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Every leg passed
+        run: |
+          [ "${{ needs.test.result }}" = success ] && [ "${{ needs.steamos-like.result }}" = success ]
