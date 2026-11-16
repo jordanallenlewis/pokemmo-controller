@@ -25,6 +25,12 @@ right-stick wheel so you can see what each direction does.
 
 ![Button map: every control on an Xbox controller](docs/button-map.png)
 
+Playing on another pad? The same spots, with that pad's own button names (a
+drawn outline, not a photo, so the shapes are approximate):
+[PlayStation](docs/button-map-playstation.svg) ·
+[Switch Pro](docs/button-map-switch.svg). Or print them:
+`python tools/pads.py playstation` (also `switch`, `xbox`).
+
 ## Contents
 
 - [Quick start](#quick-start)
@@ -323,7 +329,8 @@ uses. Don't want any Steam involvement? Skip `install_wheel.py`; you lose only t
 
 - **Cursor mode** for mouse-only screens (PvP queue, PC box drag, some popups):
   a hold-to-aim right-stick mouse that still sends one click per press.
-- PlayStation / Switch Pro button-map art and a Steam Deck back-button variant.
+- A Steam Deck back-button variant (needs someone with a Deck to check it; the
+  PlayStation and Switch Pro button maps are done, see above).
 - Publish the wheel as a Steam community layout.
 
 Ideas and controller reports welcome: [open an issue](https://github.com/jordanallenlewis/pokemmo-controller/issues).

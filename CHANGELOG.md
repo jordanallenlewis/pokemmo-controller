@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Button maps for PlayStation and Switch Pro pads (`docs/button-map-*.svg`) and
+  `python tools/pads.py [xbox|playstation|switch]`, which prints the default
+  layout with that pad's button names. Made from the layout itself, so a test
+  fails if the pictures drift from it. They are drawn outlines, and these names
+  are the printed labels only: nothing about what is written to the game changed.
 - README: an at-a-glance answer to "does it work with my pad and system, how long
   does it take, is it allowed", a picture of the remap screen, remap-screen
   troubleshooting and every option explained. A test now fails if a link or

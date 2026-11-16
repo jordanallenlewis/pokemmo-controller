@@ -92,7 +92,12 @@ class UI(Base):
         self.assertEqual(self.call("POST", "/api/check", raw="{", )[0], 400)
         self.assertEqual(self.call("POST", "/api/check", raw="[]")[0], 400)
         self.assertEqual(self.call("POST", "/api/check", {"layout": 1}, ctype="text/plain")[0], 415)
-        self.assertEqual(self.call("POST", "/api/check", raw="x" * (ui.MAX_BODY + 10))[0], 413)
+        # The server refuses a too-big body without reading it. Depending on timing the client
+        # sees the 413 or (macOS) the connection reset while it is still sending: both are a refusal.
+        try:
+            self.assertEqual(self.call("POST", "/api/check", raw="x" * (ui.MAX_BODY + 10))[0], 413)
+        except (ConnectionError, OSError):
+            pass
         self.assertEqual(self.call("POST", "/api/nothing", {})[0], 404)
         self.assertEqual(self.call("GET", "/api/nothing")[0], 404)
 
