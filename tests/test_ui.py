@@ -70,6 +70,59 @@ class UI(Base):
         self.assertEqual(len(st["buttons"]), L.BUTTONS)
         self.assertEqual(len(st["wheel_actions"]), L.WHEEL_SIZE)
 
+    def test_state_names_every_pad_by_its_own_buttons(self):
+        self.start(self.make())
+        st = self.call("GET", "/api/state")[1]
+        self.assertEqual(set(st["pads"]), {"xbox", "playstation", "switch"})
+        for fam, p in st["pads"].items():
+            self.assertEqual(len(p["buttons"]), L.BUTTONS, fam)
+            self.assertTrue(p["title"])
+            self.assertEqual({a["n"] for a in p["axes"]}, {0, 1, 4, 5}, fam)   # never the wheel's stick
+        self.assertEqual(st["pads"]["xbox"]["buttons"][0], "A")
+        self.assertEqual(st["pads"]["playstation"]["buttons"][0], "Cross")
+        # default Switch setting: the printed A confirms, so the confirm spot is called A
+        self.assertEqual(st["pads"]["switch"]["buttons"][:4], ["A", "B", "X", "Y"])
+        self.assertFalse(st["switch_positional"])
+        self.assertEqual(st["pad"], "xbox")   # an 8BitDo pad is logged in the sandbox: no guess, Xbox names
+
+    def test_switch_names_follow_the_installed_setting(self):
+        sb = self.make()
+        sb.setup("--switch-positional")
+        self.start(sb)
+        st = self.call("GET", "/api/state")[1]
+        self.assertTrue(st["switch_positional"])
+        self.assertEqual(st["pads"]["switch"]["buttons"][:4], ["B", "A", "Y", "X"])
+
+    def test_pad_guess_from_the_pads_pokemmo_logged(self):
+        for line, fam in (("DualSense Wireless Controller", "playstation"),
+                          ("Nintendo Switch Pro Controller", "switch"),
+                          ("Xbox Series X Controller", "xbox")):
+            sb = self.make()
+            (sb.pokemmo / "log" / "client.log").write_text(
+                f"[INFO] Controller {line} ( ax 6 btn 15) id 0 attached\n", encoding="utf-8")
+            self.start(sb)
+            self.assertEqual(self.call("GET", "/api/state")[1]["pad"], fam, line)
+
+    def test_diagram_draws_the_layout_on_the_chosen_pad(self):
+        import xml.etree.ElementTree as ET
+        self.start(self.make())
+        lay = L.default_layout()
+        lay["binds"]["KEY_INVENTORY"], lay["binds"]["KEY_HOTBAR_5"] = ({"button": 9}, {"button": 10})
+        del lay["binds"]["KEY_TEAM"]
+        for fam, word in (("xbox", "LB"), ("playstation", "Cross"), ("switch", "ZR")):
+            code, r = self.call("POST", "/api/diagram", {"layout": lay, "pad": fam})
+            self.assertEqual(code, 200)
+            self.assertTrue(r["ok"], r)
+            text = " ".join(ET.fromstring(r["svg"]).itertext())
+            self.assertIn(word, text)
+            self.assertIn("Not bound", text)
+            self.assertNotIn("<script", r["svg"])
+        bad = L.default_layout()
+        bad["binds"]["KEY_A"] = {"button": 0, "turbo": True}
+        self.assertFalse(self.call("POST", "/api/diagram", {"layout": bad, "pad": "xbox"})[1]["ok"])
+        self.assertFalse(self.call("POST", "/api/diagram", {"layout": lay, "pad": "gamecube"})[1]["ok"])
+        self.assertEqual(self.call("POST", "/api/diagram", {"layout": lay, "pad": "xbox"}, key=False)[0], 403)
+
     def test_macros_refused_by_check_and_import_and_apply(self):
         sb = self.make()
         self.start(sb)
