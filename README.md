@@ -67,6 +67,12 @@ and the uninstall above work the same, and a later update keeps your layout. You
 can export a layout to a file, share it and import it; `--layout FILE` installs a
 file and `--reset-layout` goes back to the default.
 
+To open the screen later with one short command, add `--install-ui` (`-InstallUi`
+on Windows) to the install. It keeps a small copy next to PokeMMO's settings
+(`pokemmo-controller/remap.cmd` on Windows, `remap.sh` on macOS and Linux; the
+installer prints the exact command), and uninstall removes it. It needs Python 3.9
+or newer to be on the computer; without it, use the commands above.
+
 PokeMMO allows remapping while one input does one thing, so that is built in: an
 input holds one action, a wheel slice presses one key when you let go, and a
 layout with a repeat, a sequence, a delay or one input doing two things is

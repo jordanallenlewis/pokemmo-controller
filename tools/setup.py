@@ -3,6 +3,7 @@
     python tools/setup.py              install, or update an earlier install
     python tools/setup.py --no-wheel   binds only, no Steam involvement
     python tools/setup.py --uninstall  undo everything
+    python tools/setup.py --install-ui also keep the remap screen on this computer
     python tools/setup.py --version    print this version
 
 install.ps1 / install.sh run this for you without needing Python installed.
@@ -17,7 +18,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import platforms as P  # noqa: E402
-import apply_native, install_wheel, layout as layout_mod, uninstall  # noqa: E402
+import app, apply_native, install_wheel, layout as layout_mod, uninstall  # noqa: E402
 from common import VERSION, Plan  # noqa: E402
 
 for _s in (sys.stdout, sys.stderr):  # paths with any characters print on any console
@@ -73,11 +74,13 @@ def build_plan(a, pm, steam, steams):
     p = Plan(pm)
     if a.uninstall:
         uninstall.plan(p, pm, steams)
+        app.plan_uninstall(p, pm)
     else:
         apply_native.plan(p, pm, a.name, a.switch_positional, getattr(a, "layout_data", None),
                           getattr(a, "reset_layout", False))
         if steam:
             install_wheel.plan(p, pm, steam)
+        app.plan(p, pm, getattr(a, "install_ui", False))
     return p
 
 
@@ -155,6 +158,8 @@ def run(a):
         print(f"\nUpdated from {prev if prev.startswith('an ') else 'v' + prev} to v{VERSION}.", end="")
     print(" Launch PokeMMO from your Steam library to get the wheel." if steam
           else " Start PokeMMO and play.")
+    if p.state.get("app"):
+        print(f"Open the remap screen any time with:  {app.how_to_open(pm)}")
 
 
 def main():
@@ -170,6 +175,8 @@ def main():
     ap.add_argument("--switch-labels", dest="switch_positional", action="store_false",
                     help="Nintendo pads: confirm on the printed A (the default)")
     ap.add_argument("--ui", action="store_true", help="open the remap screen in your browser")
+    ap.add_argument("--install-ui", action="store_true",
+                    help="also keep the remap screen on this computer, with a launcher (undone by --uninstall)")
     ap.add_argument("--no-browser", action="store_true", help="with --ui: print the address instead of opening it")
     ap.add_argument("--layout", metavar="FILE", help="install your own layout (a file made by remap.py or the remap screen)")
     ap.add_argument("--reset-layout", action="store_true", help="go back to the default layout")

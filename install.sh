@@ -7,7 +7,7 @@
 # Nothing to install first. Downloads this project (and, only if Python 3.9+ is
 # missing, a private copy of Python via uv) into a temp folder, runs
 # tools/setup.py, then deletes the temp folder. Extra options go to setup.py:
-# --uninstall, --no-wheel, --switch-positional, --ui. POSIX sh: works under dash,
+# --uninstall, --no-wheel, --switch-positional, --ui, --install-ui. POSIX sh: works under dash,
 # bash and zsh.
 set -eu
 
