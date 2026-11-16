@@ -122,7 +122,8 @@ backups and the install record are removed; nothing is left behind.
 
 `-NoWheel` / `--no-wheel` (binds only, no Steam), `-SwitchPositional` /
 `--switch-positional`, `-Ui` / `--ui` and `-InstallUi` / `--install-ui` (the remap
-screen, above). From a clone, `python tools/setup.py` does the same thing
+screen, above), and `-DryRun` / `--dry-run` (list the files that would change and
+change nothing; PokeMMO may stay open). From a clone, `python tools/setup.py` does the same thing
 (`--help` lists everything, `--version` prints the version). Rarely needed:
 
 - `--pokemmo FOLDER` and `--steam FOLDER`: point at PokeMMO's data folder (the one
