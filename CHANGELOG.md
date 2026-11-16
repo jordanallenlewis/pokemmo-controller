@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- More tests, nothing changes for players: a golden file of the exact binds
+  PokeMMO reads for each pad family, a seeded fuzz that tries to sneak macros,
+  repeats and shared inputs into a layout (every attempt is refused, never a
+  crash), random valid layouts through install and uninstall byte for byte, and
+  static checks of the remap page (no outside files or hosts, labels, text that
+  scales, no macro controls). They run on every system in the CI matrix.
 - Button maps for PlayStation and Switch Pro pads (`docs/button-map-*.svg`) and
   `python tools/pads.py [xbox|playstation|switch]`, which prints the default
   layout with that pad's button names. Made from the layout itself, so a test
