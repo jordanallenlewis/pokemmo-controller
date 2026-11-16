@@ -47,6 +47,10 @@ pre { white-space: pre-wrap; margin: .25rem 0 0; font: .875rem/1.4 ui-monospace,
 #wheel text { fill: var(--ink); font-size: 11px; text-anchor: middle; pointer-events: none; }
 #wheel .centre { fill: var(--panel); stroke: var(--line); stroke-width: 1.5; }
 .sr { position: absolute; left: -999px; }
+.pad { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: center; margin: .75rem 0 0; }
+.pad select { width: auto; min-width: 12rem; }
+#map { display: block; width: 100%; height: auto; border-radius: .5rem; margin-top: .5rem; }
+.full { margin-top: 1rem; }
 </style>
 </head>
 <body data-key="__KEY__">
@@ -54,6 +58,15 @@ pre { white-space: pre-wrap; margin: .25rem 0 0; font: .875rem/1.4 ui-monospace,
   <h1>PokeMMO controller layout</h1>
   <p class="muted" id="where">Looking for PokeMMO…</p>
   <p class="muted">PokeMMO allows remapping while one input does one thing. Each input holds one action and each wheel slice presses one key when you let go, so this screen cannot set up anything else.</p>
+  <div class="pad">
+    <label for="pad"><strong>Your controller</strong></label>
+    <select id="pad">
+      <option value="xbox">Xbox</option>
+      <option value="playstation">PlayStation</option>
+      <option value="switch">Switch Pro</option>
+    </select>
+    <span class="muted" id="pad-note">Button names on this screen follow the controller you pick. One layout fits all three.</span>
+  </div>
 </header>
 <main>
   <div id="status" role="status" aria-live="polite"></div>
@@ -70,6 +83,11 @@ pre { white-space: pre-wrap; margin: .25rem 0 0; font: .875rem/1.4 ui-monospace,
       <div id="slices"></div>
     </section>
   </div>
+  <section class="panel full" aria-labelledby="h-map">
+    <h2 id="h-map">Button map</h2>
+    <p class="muted">Your layout on the controller you picked. It changes as you pick.</p>
+    <img id="map" alt="Button map of this layout" width="1800" height="990">
+  </section>
   <div class="bar">
     <button class="primary" id="apply">Apply to PokeMMO</button>
     <button id="defaults">Back to the default layout</button>
@@ -87,7 +105,7 @@ pre { white-space: pre-wrap; margin: .25rem 0 0; font: .875rem/1.4 ui-monospace,
 "use strict";
 const KEY = document.body.dataset.key;
 const $ = (id) => document.getElementById(id);
-let S = null, lay = null;
+let S = null, lay = null, pad = "xbox";
 
 const GROUPS = [
   ["Move", ["KEY_UP", "KEY_DOWN", "KEY_LEFT", "KEY_RIGHT"]],
@@ -113,14 +131,30 @@ const fromCode = (c) => {
   return p[0] === "b" ? {button: +p[1]} : {axis: +p[1], positive: p[2] === "+"};
 };
 function inputOptions() {
-  const o = [["", "Not bound"]];
-  S.buttons.forEach((n, i) => o.push(["b:" + i, n]));
-  const dir = {"0": ["left", "right"], "1": ["up", "down"]};
-  S.axes.forEach((a) => {
-    if (a.n in dir) { o.push(["a:" + a.n + ":-", "Left stick " + dir[a.n][0]]); o.push(["a:" + a.n + ":+", "Left stick " + dir[a.n][1]]); }
-    else o.push(["a:" + a.n + ":+", a.label]);
-  });
+  const o = [["", "Not bound"]], p = S.pads[pad];
+  p.buttons.forEach((n, i) => o.push(["b:" + i, n]));
+  p.axes.forEach((a) => o.push(["a:" + a.n + ":" + (a.positive ? "+" : "-"), a.label]));
   return o;
+}
+function padNote() {
+  if (pad !== "switch") return "Button names on this screen follow the controller you pick. One layout fits all three.";
+  return S.switch_positional
+    ? "Switch Pro, installed with --switch-positional: the bottom button (B) confirms, like Xbox."
+    : "Switch Pro: the printed A confirms, as on a Switch, so A here is the button marked A.";
+}
+let mapTimer = null, mapAsked = 0;
+function drawMap() {
+  clearTimeout(mapTimer);
+  mapTimer = setTimeout(async () => {
+    const n = ++mapAsked, forPad = pad, img = $("map");
+    let r;
+    try { r = await api("/api/diagram", {layout: lay, pad: forPad}); }
+    catch (e) { r = {ok: false, error: "the screen lost contact with the program that started it."}; }
+    if (n !== mapAsked) return;   // a newer picture was asked for: keep that one
+    if (!r.ok) { img.removeAttribute("src"); img.alt = "No picture: " + r.error; return; }
+    img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(r.svg);
+    img.alt = "Button map of this layout on a " + S.pads[forPad].title + " controller";
+  }, 120);
 }
 const labelOf = (id) => S.actions.find((a) => a.id === id).label;
 
@@ -164,7 +198,7 @@ function setBind(id, code) {
     } else say("status", "");
     lay.binds[id] = fromCode(code);
   } else { delete lay.binds[id]; say("status", ""); }
-  drawBinds();
+  drawBinds(); drawMap();
   $("b-" + id).focus();
 }
 
@@ -211,13 +245,13 @@ function drawSlices() {
       const j = lay.wheel.indexOf(sel.value);
       lay.wheel[j] = lay.wheel[i]; lay.wheel[i] = sel.value;
       say("status", "Each action goes on the wheel once, so the two slices swapped.", "warn");
-      drawWheel(); drawSlices(); $("s-" + i).focus();
+      drawWheel(); drawSlices(); drawMap(); $("s-" + i).focus();
     });
     row.append(lab, sel); root.appendChild(row);
   });
 }
 
-function redraw() { drawBinds(); drawWheel(); drawSlices(); }
+function redraw() { drawBinds(); drawWheel(); drawSlices(); drawMap(); }
 
 async function apply() {
   const check = await api("/api/check", {layout: lay});
@@ -234,6 +268,11 @@ async function apply() {
 }
 
 $("apply").addEventListener("click", apply);
+$("pad").addEventListener("change", () => {
+  pad = $("pad").value;
+  $("pad-note").textContent = padNote();
+  drawBinds(); drawMap();
+});
 $("defaults").addEventListener("click", () => { lay = JSON.parse(JSON.stringify(S.default)); say("status", "Default layout loaded here. Press Apply to put it in PokeMMO.", "warn"); redraw(); });
 $("export").addEventListener("click", async () => {
   const c = await api("/api/check", {layout: lay});
@@ -257,6 +296,9 @@ $("quit").addEventListener("click", async () => { await api("/api/quit", {}); do
 (async function init() {
   S = await api("/api/state");
   lay = JSON.parse(JSON.stringify(S.layout));
+  pad = S.pad;
+  $("pad").value = pad;
+  $("pad-note").textContent = padNote();
   $("where").textContent = S.pokemmo ? "PokeMMO found: " + S.pokemmo + (S.custom ? " (your own layout is installed)" : "") : "";
   if (S.problem) { say("status", S.problem, "bad"); $("apply").disabled = true; }
   redraw();

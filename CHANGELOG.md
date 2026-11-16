@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Remap screen: pick your controller (Xbox, PlayStation or Switch Pro) and
+  every input shows that pad's own button names (on Switch Pro, following the
+  installed A-confirms setting). It starts from a pad PokeMMO has logged on
+  this computer. A button map of your layout on that pad sits below and
+  updates as you pick; it is drawn by the same code as the pictures in `docs/`.
 - Fixed: on Switch Pro pads, a layout made in the remap screen could put two
   actions on one button (for example Confirm and Bag both on the printed A).
   The swap that makes the printed A confirm now swaps whole buttons, so every
