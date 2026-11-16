@@ -90,6 +90,34 @@ class Pads(unittest.TestCase):
             self.assertNotIn("<script", svg)
             self.assertNotIn("http://", svg.replace("http://www.w3.org/2000/svg", ""))
 
+    def test_every_input_has_a_spot_and_no_text_falls_off_the_picture(self):
+        # the remap screen draws any layout, not only the default: nothing may be cut off
+        import random
+        rng = random.Random(77)
+        inputs = [{"button": n} for n in range(L.BUTTONS)]
+        inputs += [{"axis": a, "positive": p} for a in range(L.AXES) if a not in L.RIGHT_STICK for p in (False, True)]
+        layouts = [{"format": L.FORMAT, "binds": {}, "wheel": list(L.WHEEL_ACTIONS)}]
+        guide = L.default_layout()
+        guide["binds"]["KEY_TEAM"] = {"button": 5}
+        layouts.append(guide)
+        for _ in range(100):
+            pick = rng.sample(inputs, rng.randrange(len(L.ACTIONS) + 1))
+            layouts.append({"format": L.FORMAT, "binds": dict(zip(rng.sample(list(L.ACTIONS), len(pick)), pick)),
+                            "wheel": list(L.WHEEL_ACTIONS)})
+        for lay in layouts:
+            L.validate(lay)
+            for fam in pads.FAMILIES:
+                root = ET.fromstring(pads.render_svg(lay, fam))
+                h = float(root.get("viewBox").split()[3])
+                for t in root.iter("{http://www.w3.org/2000/svg}text"):
+                    self.assertLess(float(t.get("y")), h - 8, (fam, "".join(t.itertext())))
+        # the Guide / PS / Home button gets its own spot on the pad, like every other button
+        svg = pads.render_svg(guide, "playstation")
+        self.assertIn(">PS</text>", svg)
+        for lay in layouts:
+            on_pad = [b for b in lay["binds"].values() if "button" in b or b["axis"] not in (0, 1)]
+            self.assertEqual(pads.render_svg(lay, "xbox").count("<circle"), len(on_pad))
+
     def test_committed_art_matches_the_generator(self):
         for fam in ("playstation", "switch"):
             f = ROOT / "docs" / f"button-map-{fam}.svg"

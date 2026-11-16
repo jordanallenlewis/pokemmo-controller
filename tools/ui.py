@@ -17,7 +17,9 @@ import http.server, json, os, secrets, subprocess, sys, tempfile, threading, web
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import apply_native  # noqa: E402
 import layout as L  # noqa: E402
+import pads  # noqa: E402
 import platforms as P  # noqa: E402
 from common import STATE_NAME, VERSION  # noqa: E402
 
@@ -25,29 +27,62 @@ HERE = Path(__file__).resolve().parent
 PAGE = HERE / "ui_page.html"
 MAX_BODY = L.MAX_BYTES + 1024
 
-# What each input is called on the pads this project supports (SDL3 numbers them by position).
-BUTTON_NAMES = [
-    "Bottom face button (A · Cross · B)", "Right face button (B · Circle · A)",
-    "Left face button (X · Square · Y)", "Top face button (Y · Triangle · X)",
-    "View · Share · Minus", "Guide · PS · Home", "Menu · Options · Plus",
-    "Left stick press (L3)", "Right stick press (R3)", "Left bumper (LB · L1 · L)",
-    "Right bumper (RB · R1 · R)", "D-pad up", "D-pad down", "D-pad left", "D-pad right",
-]
-AXIS_NAMES = ["Left stick left/right", "Left stick up/down", None, None,
-              "Left trigger (LT · L2 · ZL)", "Right trigger (RT · R2 · ZR)"]
+# The axes a bind may use (the right stick, 2 and 3, belongs to the wheel).
+BIND_AXES = [n for n in range(L.AXES) if n not in L.RIGHT_STICK]
+
+
+def _record(pokemmo):
+    try:
+        rec = json.loads((Path(pokemmo) / "config" / STATE_NAME).read_text(encoding="utf-8"))
+        return rec if isinstance(rec, dict) else {}
+    except (OSError, ValueError):
+        return {}
 
 
 def saved_layout(pokemmo):
     """The layout in the install record, or the default."""
-    try:
-        rec = json.loads((Path(pokemmo) / "config" / STATE_NAME).read_text(encoding="utf-8"))
-        lay = rec.get("layout")
-        if lay:
+    lay = _record(pokemmo).get("layout")
+    if lay:
+        try:
             L.validate(lay)
             return lay, True
-    except (OSError, ValueError, AttributeError):
-        pass
+        except L.LayoutError:
+            pass
     return L.default_layout(), False
+
+
+def pad_names(switch_positional):
+    """{family: {title, buttons, axes}}: what each layout input is printed as on that pad.
+    On Switch Pro the names follow the installed setting (see pads.py)."""
+    out = {}
+    for fam in pads.FAMILIES:
+        axes = []
+        for n in BIND_AXES:
+            if n in (0, 1):   # a stick axis: one entry per direction
+                axes += [{"n": n, "positive": pos, "label": pads.axis_label(fam, n, pos)} for pos in (False, True)]
+            else:             # a trigger: pulled is the only direction
+                axes.append({"n": n, "positive": True, "label": pads.axis_label(fam, n, True)})
+        out[fam] = {"title": pads.TITLES[fam], "axes": axes,
+                    "buttons": [pads.button_label(fam, b, switch_positional) for b in range(L.BUTTONS)]}
+    return out
+
+
+def guess_pad(pokemmo):
+    """A pad family PokeMMO has logged on this computer (the last name in its logs), else Xbox.
+    Only the starting pick: the player can change it on the page."""
+    try:
+        names = apply_native.logged_names(Path(pokemmo)) if pokemmo else []
+    except OSError:
+        names = []
+    for name in reversed(names):
+        low = name.lower()
+        if apply_native.is_nintendo(name):
+            return "switch"
+        if name in apply_native.PLAYSTATION or "dualsense" in low or "dualshock" in low:
+            return "playstation"
+        if name in apply_native.XBOX or "xbox" in low or "x-box" in low:
+            return "xbox"
+    return "xbox"
 
 
 class App:
@@ -66,18 +101,33 @@ class App:
         except SystemExit as e:
             problem = str(e).splitlines()[0]
         lay, custom = saved_layout(found) if found else (L.default_layout(), False)
+        positional = bool(_record(found).get("switch_positional")) if found else False
+        names = pad_names(positional)
+        pad = guess_pad(found)
         return {
             "version": VERSION, "layout": lay, "custom": custom, "default": L.default_layout(),
             "pokemmo": found, "problem": problem,
             "actions": [{"id": k, "label": v} for k, v in L.ACTIONS.items()],
             "wheel_actions": [{"id": k, "label": v[1], "key": v[0]} for k, v in L.WHEEL_ACTIONS.items()],
-            "buttons": BUTTON_NAMES,
-            "axes": [{"n": i, "label": n} for i, n in enumerate(AXIS_NAMES) if n],
+            "pads": names, "pad": pad, "switch_positional": positional,
+            "buttons": names[pad]["buttons"], "axes": names[pad]["axes"],
         }
 
     def check(self, lay):
         L.validate(lay)
         return {"ok": True}
+
+    def diagram(self, lay, pad):
+        """The button map (pads.py's picture) of this layout on this pad, as SVG text."""
+        if pad not in pads.FAMILIES:
+            raise L.LayoutError(f"Unknown controller {pad!r}: pick Xbox, PlayStation or Switch Pro.")
+        found = None
+        try:
+            found = P.find_pokemmo(self.pokemmo)
+        except SystemExit:
+            pass
+        positional = bool(_record(found).get("switch_positional")) if found else False
+        return {"ok": True, "svg": pads.render_svg(lay, pad, positional)}
 
     def apply(self, lay, reset=False):
         """Run setup.py with the layout: one writer for everything."""
@@ -189,6 +239,8 @@ class Handler(http.server.BaseHTTPRequestHandler):
                 if not isinstance(text, str):
                     raise L.LayoutError("No file text was sent.")
                 return self._json(200, {"ok": True, "layout": L.loads(text)})
+            if self.path == "/api/diagram":
+                return self._json(200, self.app.diagram(body.get("layout"), body.get("pad")))
             if self.path == "/api/apply":
                 return self._json(200, self.app.apply(body.get("layout")))
             if self.path == "/api/reset":

@@ -71,8 +71,10 @@ it installed. It needs no administrator rights; on macOS and Linux, don't use `s
 
 ### Change what a button does
 
-Open the remap screen in your browser: pick the input for each action, move the
-wheel slices around, press **Apply**. Close PokeMMO first.
+Open the remap screen in your browser: pick your controller (Xbox, PlayStation
+or Switch Pro, so the buttons carry their own names), pick the input for each
+action, move the wheel slices around, and watch the button map below update.
+Press **Apply**. Close PokeMMO first.
 
 ```powershell
 & ([scriptblock]::Create((irm https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.ps1))) -Ui
@@ -93,7 +95,7 @@ on Windows) to the install. It keeps a small copy next to PokeMMO's settings
 installer prints the exact command), and uninstall removes it. It needs Python 3.9
 or newer to be on the computer; without it, use the commands above.
 
-![The remap screen: a pick-list for every action and the labeled wheel beside it](docs/remap-screen.png)
+![The remap screen: your controller, a pick-list for every action, the labeled wheel, and the button map of your layout](docs/remap-screen.png)
 
 PokeMMO allows remapping while one input does one thing, so that is built in: an
 input holds one action, a wheel slice presses one key when you let go, and a
@@ -240,6 +242,9 @@ uses. Don't want any Steam involvement? Skip `install_wheel.py`; you lose only t
 - *"Page not found" or "forbidden"*: you opened an old address. Each run prints a
   new one; close the old tab and use the new address.
 - *Apply says PokeMMO is open*: close the game, then press **Apply** again.
+- *The button names are wrong for my pad*: pick your controller at the top of the
+  screen. It starts from a pad PokeMMO has seen on this computer.
+  One layout fits all three pad families; only the names change.
 - *It says an input swapped*: an input can do only one thing, so picking one that
   another action used gives that action your old input. That is the 1 input = 1 action
   rule, not a bug.
