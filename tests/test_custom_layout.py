@@ -104,7 +104,8 @@ class CustomLayout(Base):
 
     def test_golden_vdfs_match_the_shipped_files(self):
         for t in install_wheel.CONTROLLER_TYPES:
-            shipped = (install_wheel.OUT_DIR / f"{t}.vdf").read_bytes()
+            # git may check the files out with CRLF line endings on Windows
+            shipped = (install_wheel.OUT_DIR / f"{t}.vdf").read_bytes().replace(b"\r\n", b"\n")
             self.assertEqual(install_wheel.encode(install_wheel.build_layout(t)), shipped, t)
 
 

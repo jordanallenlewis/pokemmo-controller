@@ -47,16 +47,19 @@ jobs:
     container: archlinux:latest
     steps:
       - name: Tools
-        run: pacman -Syu --noconfirm python git tar gzip unzip curl
+        run: |
+          pacman -Syu --noconfirm python git tar gzip unzip curl
+          useradd -m deck
       - uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - name: Sandbox tests
         env:
           POKEMMO_CONTROLLER_NETWORK_TESTS: "1"
+        # The Deck's desktop user is not root, so run as a normal user too.
         run: |
-          git config --global --add safe.directory "$GITHUB_WORKSPACE"
-          python -m unittest discover -s tests -v
+          chown -R deck "$GITHUB_WORKSPACE"
+          su deck -c "cd '$GITHUB_WORKSPACE' && git config --global --add safe.directory '$GITHUB_WORKSPACE' && POKEMMO_CONTROLLER_NETWORK_TESTS=1 python -m unittest discover -s tests -v"
 
   all-platforms:
     name: all platforms
