@@ -12,6 +12,17 @@ controller support**. All 9 hotbar slots, Bag, Party, Pokédex,
 GTL, Friends, Team and the rest are on the controller, plus a labeled
 right-stick wheel so you can see what each direction does.
 
+**At a glance**
+
+- **Works with:** Xbox, PlayStation and Switch Pro pads on Windows, macOS, Linux
+  and Steam Deck (Desktop Mode). Which of these were played on real hardware is
+  listed honestly under [Tested with](#tested-with).
+- **Install in about a minute, one command:** nothing to install first, no
+  administrator rights, and uninstall puts every file back byte for byte.
+- **Allowed:** PokeMMO lets you remap while one input does one thing. This layout
+  keeps to that: 1 input = 1 action, no turbo, no macros ([details](#is-this-allowed)).
+- **Change any button yourself:** a remap screen in your browser, no extra software.
+
 ![Button map: every control on an Xbox controller](docs/button-map.png)
 
 ## Contents
@@ -24,6 +35,7 @@ right-stick wheel so you can see what each direction does.
 - [How it works](#how-it-works)
 - [Compared with other setups](#compared-with-other-setups)
 - [Roadmap](#roadmap)
+- [Tested with](#tested-with)
 
 ## Quick start
 
@@ -73,6 +85,8 @@ on Windows) to the install. It keeps a small copy next to PokeMMO's settings
 installer prints the exact command), and uninstall removes it. It needs Python 3.9
 or newer to be on the computer; without it, use the commands above.
 
+![The remap screen: a pick-list for every action and the labeled wheel beside it](docs/remap-screen.png)
+
 PokeMMO allows remapping while one input does one thing, so that is built in: an
 input holds one action, a wheel slice presses one key when you let go, and a
 layout with a repeat, a sequence, a delay or one input doing two things is
@@ -106,9 +120,17 @@ backups and the install record are removed; nothing is left behind.
 
 ### Options
 
-`-NoWheel` / `--no-wheel` (binds only, no Steam) and `-SwitchPositional` /
-`--switch-positional`. From a clone, `python tools/setup.py` does the same
-thing (`--help` lists everything, `--version` prints the version).
+`-NoWheel` / `--no-wheel` (binds only, no Steam), `-SwitchPositional` /
+`--switch-positional`, `-Ui` / `--ui` and `-InstallUi` / `--install-ui` (the remap
+screen, above). From a clone, `python tools/setup.py` does the same thing
+(`--help` lists everything, `--version` prints the version). Rarely needed:
+
+- `--pokemmo FOLDER` and `--steam FOLDER`: point at PokeMMO's data folder (the one
+  holding `config/main.properties`) or Steam's folder when the installer cannot
+  find them, for example a game library on another drive.
+- `--name "Pad name"`: also bind a pad that PokeMMO shows under another name.
+- `--switch-labels`: Nintendo pads confirm on the printed **A** (the default; undoes `--switch-positional`).
+- `--no-browser`: with `--ui`, print the address instead of opening a browser.
 
 ## Controls
 
@@ -199,6 +221,22 @@ uses. Don't want any Steam involvement? Skip `install_wheel.py`; you lose only t
   `#SettingsController_SteamController`, and the binds are written for that name too.
   Still nothing? Copy the name PokeMMO shows in Settings → Controls and run
   `apply_native.py --name "That Name"`.
+
+**The remap screen**
+- *The browser did not open*: the address is printed in the terminal
+  (`http://127.0.0.1:…`); copy it into any browser. To print it without trying
+  to open one, add `--no-browser` (`sh -s -- --ui --no-browser`, or
+  `python tools/setup.py --ui --no-browser` from a clone). The page only answers
+  on your own computer and only with the key in that address.
+- *"Page not found" or "forbidden"*: you opened an old address. Each run prints a
+  new one; close the old tab and use the new address.
+- *Apply says PokeMMO is open*: close the game, then press **Apply** again.
+- *It says an input swapped*: an input can do only one thing, so picking one that
+  another action used gives that action your old input. That is the 1 input = 1 action
+  rule, not a bug.
+- *A layout file is refused*: the message names the line. Files with repeats,
+  sequences, delays or extra fields are refused on purpose.
+- Nothing is sent anywhere. **Quit** stops it, and so does closing the terminal.
 
 **No wheel**
 - Launch PokeMMO **from the Steam library**, not the desktop shortcut.
