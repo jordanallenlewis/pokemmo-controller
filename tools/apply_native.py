@@ -66,8 +66,9 @@ LAYOUT = {
     "KEY_SCREENSHOT": B(8),      # R3: Screenshot
 }
 # On Nintendo pads the printed A is on the right. By default confirm follows the
-# label (A confirms, B cancels, like on a Switch); --switch-positional keeps
-# confirm on the bottom button like Xbox/PlayStation.
+# label (A confirms, B cancels, like on a Switch: the face buttons swap in pairs, see
+# layout.NINTENDO_LABEL_SWAP); --switch-positional keeps confirm on the bottom button
+# like Xbox/PlayStation.
 NINTENDO_LABELS = {"KEY_A": B(1), "KEY_B": B(0), "KEY_X": B(3), "KEY_Y": B(2)}
 
 LOG_LINE = re.compile(r"Controller (.+?) \( ax \d+ btn \d+\) .*attached")
@@ -87,15 +88,22 @@ def _parts(layout):
     return out
 
 
-# Nintendo pads: the four face-button actions swap to the printed label.
-_NINTENDO_SWAP = {0: 1, 1: 0, 2: 3, 3: 2}
-
-
 def _nintendo(binds):
+    """Nintendo pads, confirm on the printed A: every action on a face button moves to the
+    button with the same printed letter. A swap of whole buttons, so no two actions meet."""
+    swap = layout_mod.NINTENDO_LABEL_SWAP
+    return {a: (B(swap[s[1]]) if s[0] == "BUTTON" and s[1] in swap else s) for a, s in binds.items()}
+
+
+def _nintendo_face_actions_only(binds):
+    """What the first remap-screen code wrote for Nintendo pads: only the four face-button
+    actions moved, which could put two actions on one button. Still recognised as this
+    project's, so a rerun replaces it and uninstall removes it."""
+    swap = layout_mod.NINTENDO_LABEL_SWAP
     out = dict(binds)
     for a in ("KEY_A", "KEY_B", "KEY_X", "KEY_Y"):
-        if a in out and out[a][0] == "BUTTON" and out[a][1] in _NINTENDO_SWAP:
-            out[a] = B(_NINTENDO_SWAP[out[a][1]])
+        if a in out and out[a][0] == "BUTTON" and out[a][1] in swap:
+            out[a] = B(swap[out[a][1]])
     return out
 
 
@@ -108,8 +116,10 @@ def encode_one(name, nintendo_labels=True, binds=None):
 
 
 def layout_sets(binds):
-    """The two forms (labels / positional on Nintendo pads) of a layout, as sets of bind parts."""
-    return {frozenset(_parts(binds)), frozenset(_parts(_nintendo(binds)))}
+    """The forms of a layout this project writes (positional, and labels on Nintendo pads, plus
+    the older labels form), as sets of bind parts."""
+    return {frozenset(_parts(binds)), frozenset(_parts(_nintendo(binds))),
+            frozenset(_parts(_nintendo_face_actions_only(binds)))}
 
 
 OUR_LAYOUTS = layout_sets(LAYOUT)

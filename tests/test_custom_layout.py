@@ -8,6 +8,24 @@ import apply_native, install_wheel
 from test_setup import Base, diff
 
 
+def legacy_switch_entry(binds):
+    """The Switch entry the code before the fix wrote: only the four face actions moved."""
+    old = dict(binds)
+    for a in ("KEY_A", "KEY_B", "KEY_X", "KEY_Y"):
+        if a in old and old[a][0] == "BUTTON" and old[a][1] in (0, 1, 2, 3):
+            old[a] = ("BUTTON", {0: 1, 1: 0, 2: 3, 3: 2}[old[a][1]])
+    return "Nintendo Switch Pro Controller;" + ";".join(apply_native._parts(old))
+
+
+def clash():
+    """Confirm on the right button, Bag on the bottom one, Cancel on RB."""
+    lay = L.default_layout()
+    lay["binds"]["KEY_A"] = {"button": 1}
+    lay["binds"]["KEY_INVENTORY"] = {"button": 0}
+    lay["binds"]["KEY_B"] = {"button": 10}
+    return lay
+
+
 def custom():
     lay = L.default_layout()
     lay["binds"]["KEY_INVENTORY"] = {"button": 9}   # Bag on LB
@@ -88,6 +106,38 @@ class CustomLayout(Base):
         self.assertIn("KEY_A,BUTTON,1", entry)
         self.assertIn("KEY_INVENTORY,BUTTON,9", entry)   # not a face button: unchanged
         self.assertEqual(apply_native.encode_one("Xbox One Controller", True, binds).count("KEY_A,BUTTON,0"), 1)
+
+    def test_nintendo_swap_moves_buttons_not_actions(self):
+        # On a Switch pad (printed A on the right) they become the bottom and right
+        # buttons, never the same one.
+        entry = apply_native.encode_one("Nintendo Switch Pro Controller", True, L.native_binds(clash()))
+        self.assertIn("KEY_A,BUTTON,0", entry)
+        self.assertIn("KEY_INVENTORY,BUTTON,1", entry)
+        self.assertIn("KEY_B,BUTTON,10", entry)
+
+    def test_entries_written_by_the_older_swap_are_still_ours(self):
+        # a custom layout applied before the fix: update and uninstall must still know
+        # that entry as this project's and replace or remove it
+        binds = L.native_binds(clash())
+        self.assertTrue(apply_native.is_ours(legacy_switch_entry(binds), apply_native.layout_sets(binds)))
+
+    def test_rerun_and_uninstall_after_the_older_swap_wrote_a_custom_layout(self):
+        sb = self.make()
+        f = self.write(sb, clash())
+        before = sb.snapshot()
+        sb.setup("--layout", f)
+        binds = L.native_binds(clash())
+        text = sb.props.read_bytes().decode("utf-8")
+        new_entry = apply_native.encode_one("Nintendo Switch Pro Controller", True, binds)
+        self.assertIn(new_entry, text)
+        sb.props.write_bytes(text.replace(new_entry, legacy_switch_entry(binds)).encode("utf-8"))
+        sb.setup()                                   # rerun: the fixed entry is written back
+        self.assertIn(new_entry, sb.props.read_bytes().decode("utf-8"))
+        sb.props.write_bytes(sb.props.read_bytes().decode("utf-8")
+                             .replace(new_entry, legacy_switch_entry(binds)).encode("utf-8"))
+        sb.setup("--uninstall")
+        self.assertNotIn("KEY_RING_FOCUS", sb.props.read_text(encoding="utf-8"))
+        self.assertEqual(diff(before, sb.snapshot()), [])
 
     def test_uninstall_after_the_player_edited_the_file(self):
         sb = self.make()
