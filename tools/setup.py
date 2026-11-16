@@ -4,6 +4,7 @@
     python tools/setup.py --no-wheel   binds only, no Steam involvement
     python tools/setup.py --uninstall  undo everything
     python tools/setup.py --install-ui also keep the remap screen on this computer
+    python tools/setup.py --dry-run    show what would change, change nothing
     python tools/setup.py --version    print this version
 
 install.ps1 / install.sh run this for you without needing Python installed.
@@ -92,11 +93,23 @@ def previous_version(p, pm):
     return None
 
 
+def describe(p, pm):
+    """One line per file a run would write, for --dry-run."""
+    for path, data in sorted(p.pending().items(), key=lambda kv: str(kv[0])):
+        if data is None:
+            what = "remove"
+        elif not path.exists():
+            what = "create"
+        else:
+            what = "change"
+        print(f"  would {what}: {path}")
+
+
 def run(a):
     print(f"PokeMMO controller layout v{VERSION}")
     if not P.WINDOWS and not P.TEST and hasattr(os, "geteuid") and os.geteuid() == 0:
         sys.exit("Run this without sudo: as root it would write the settings of the wrong user.")
-    if P.pokemmo_running():
+    if P.pokemmo_running() and not a.dry_run:
         sys.exit("PokeMMO is open. Close it (it rewrites its settings on exit), then run this again.")
     try:
         pm = P.find_pokemmo(a.pokemmo)
@@ -117,6 +130,20 @@ def run(a):
 
     p = build_plan(a, pm, steam, steams)
     prev = previous_version(p, pm)
+    if a.dry_run:
+        print("Dry run: nothing will be written, closed or started.")
+        if pm:
+            print(f"  PokeMMO folder: {pm}")
+        if steams:
+            print(f"  Steam folder: {steams[0]}")
+        if not p.pending():
+            print("Nothing would change.")
+        else:
+            describe(p, pm)
+            if any(p.touches(s) for s in steams) and P.steam_running():
+                print("  Steam would be closed and started again.")
+            print("Run again without --dry-run to do this.")
+        return
     if not p.pending():
         if a.uninstall:
             print("Nothing to undo: the layout is not installed.")
@@ -174,6 +201,8 @@ def main():
                     help="Nintendo pads: confirm on the bottom button like Xbox (remembered)")
     ap.add_argument("--switch-labels", dest="switch_positional", action="store_false",
                     help="Nintendo pads: confirm on the printed A (the default)")
+    ap.add_argument("--dry-run", action="store_true",
+                    help="show which files would change and change nothing (PokeMMO may stay open)")
     ap.add_argument("--ui", action="store_true", help="open the remap screen in your browser")
     ap.add_argument("--install-ui", action="store_true",
                     help="also keep the remap screen on this computer, with a launcher (undone by --uninstall)")

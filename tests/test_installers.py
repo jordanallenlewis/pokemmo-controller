@@ -117,6 +117,17 @@ class PowerShell(InstallerBase):
         self.assertIn("main.properties", r.stdout + r.stderr)
         self.assertEqual(list(self.tmp.iterdir()), [])
 
+    def test_dry_run_passes_through_and_changes_nothing(self):
+        before = self.snapshot()
+        script = ROOT / "install.ps1"
+        r = subprocess.run(["powershell", "-NoProfile", "-Command",
+                            f"& ([scriptblock]::Create((Get-Content -Raw -LiteralPath '{script}'))) -DryRun"],
+                           env=self.env(), capture_output=True, text=True)
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        self.assertIn("Dry run", r.stdout)
+        self.assertIn("would change:", r.stdout)
+        self.assertEqual(before, self.snapshot())
+
     def test_no_network(self):
         r = subprocess.run(["powershell", "-NoProfile", "-Command",
                             f"Get-Content -Raw -LiteralPath '{ROOT / 'install.ps1'}' | iex"],
@@ -178,6 +189,15 @@ class PosixShell(InstallerBase):
     @unittest.skipUnless(NETWORK, "set POKEMMO_CONTROLLER_NETWORK_TESTS=1")
     def test_without_python_uses_private_copy(self):
         self.round_trip("sh", POKEMMO_CONTROLLER_FORCE_UV="1")
+
+    def test_dry_run_passes_through_and_changes_nothing(self):
+        before = self.snapshot()
+        r = subprocess.run(["sh", "-s", "--", "--dry-run"], input=(ROOT / "install.sh").read_bytes(),
+                           env=self.env(), capture_output=True)
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        self.assertIn(b"Dry run", r.stdout)
+        self.assertIn(b"would change:", r.stdout)
+        self.assertEqual(before, self.snapshot())
 
     def test_no_network(self):
         r = subprocess.run(["sh"], input=(ROOT / "install.sh").read_bytes(), capture_output=True,

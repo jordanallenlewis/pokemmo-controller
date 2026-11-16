@@ -7,7 +7,7 @@
 # missing, a private copy of Python via uv) into a temp folder, runs
 # tools/setup.py, then deletes the temp folder. Works in Windows PowerShell 5.1
 # and PowerShell 7; `irm | iex` is not blocked by the execution policy.
-param([switch]$Uninstall, [switch]$NoWheel, [switch]$SwitchPositional, [switch]$Ui, [switch]$InstallUi,
+param([switch]$Uninstall, [switch]$NoWheel, [switch]$SwitchPositional, [switch]$Ui, [switch]$InstallUi, [switch]$DryRun,
       [Parameter(ValueFromRemainingArguments = $true)][string[]]$Rest)
 
 # Everything runs in its own scope so your PowerShell session is left as it was.
@@ -48,6 +48,7 @@ param([switch]$Uninstall, [switch]$NoWheel, [switch]$SwitchPositional, [switch]$
         if ($SwitchPositional) { $toolArgs += '--switch-positional' }
         if ($Ui) { $toolArgs += '--ui' }
         if ($InstallUi) { $toolArgs += '--install-ui' }
+        if ($DryRun) { $toolArgs += '--dry-run' }
         if ($Rest) { $toolArgs += $Rest }
 
         # Use an existing Python 3.9+ if there is one (skips the Microsoft Store stub).
