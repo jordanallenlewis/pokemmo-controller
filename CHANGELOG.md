@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- Fixed: on Switch Pro pads, a layout made in the remap screen could put two
+  actions on one button (for example Confirm and Bag both on the printed A).
+  The swap that makes the printed A confirm now swaps whole buttons, so every
+  button still does exactly one thing; a rerun repairs an earlier layout and
+  uninstall still removes it. The default layout was never affected. A test now
+  writes hundreds of random layouts for every pad name and fails if any input
+  does two things.
+- Fixed: the Switch Pro button map showed B as Confirm; it now matches what is
+  installed (the printed A confirms, as on a Switch). `python tools/pads.py
+  switch --switch-positional` prints the other setting. Actions left unbound in
+  a layout are listed as "Not bound" instead of stopping the tool.
 - More tests, nothing changes for players: a golden file of the exact binds
   PokeMMO reads for each pad family, a seeded fuzz that tries to sneak macros,
   repeats and shared inputs into a layout (every attempt is refused, never a

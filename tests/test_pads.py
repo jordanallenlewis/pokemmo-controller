@@ -24,10 +24,46 @@ class Pads(unittest.TestCase):
     def test_known_names(self):
         self.assertEqual(pads.button_label("xbox", 0), "A")
         self.assertEqual(pads.button_label("playstation", 0), "Cross")
-        self.assertEqual(pads.button_label("switch", 0), "B")   # bottom button is B on a Switch pad
-        self.assertEqual(pads.button_label("switch", 1), "A")
+        # the bottom button is printed B on a Switch pad (positional = the physical button)
+        self.assertEqual(pads.button_label("switch", 0, switch_positional=True), "B")
+        self.assertEqual(pads.button_label("switch", 1, switch_positional=True), "A")
+        # by default the confirm action follows the printed A (the face buttons swap in pairs)
+        self.assertEqual(pads.button_label("switch", 0), "A")
+        self.assertEqual(pads.button_label("switch", 1), "B")
         self.assertEqual(pads.axis_label("playstation", 5, True), "R2")
         self.assertEqual(pads.axis_label("xbox", 1, False), "Left stick up")
+
+    def test_switch_names_follow_the_switch_setting(self):
+        # Default: the printed A confirms (like on a Switch). --switch-positional: the bottom
+        # button (printed B) confirms, like Xbox. The names must say what the game will do.
+        face = {r[0]: r[2] for r in pads.describe(L.default_layout(), "switch")}
+        self.assertEqual([face[a] for a in ("KEY_A", "KEY_B", "KEY_X", "KEY_Y")], ["A", "B", "X", "Y"])
+        pos = {r[0]: r[2] for r in pads.describe(L.default_layout(), "switch", switch_positional=True)}
+        self.assertEqual([pos[a] for a in ("KEY_A", "KEY_B", "KEY_X", "KEY_Y")], ["B", "A", "Y", "X"])
+
+    def test_switch_names_match_the_button_the_writer_uses(self):
+        # tie the names to apply_native: the printed name of the button actually written
+        # for a Nintendo pad is the name pads.py shows, for every button, in both settings
+        import apply_native
+        for positional in (False, True):
+            for n in range(L.BUTTONS):
+                lay = {"format": L.FORMAT, "binds": {"KEY_A": {"button": n}}, "wheel": list(L.WHEEL_ACTIONS)}
+                entry = apply_native.encode_one("Nintendo Switch Pro Controller", not positional,
+                                                L.native_binds(lay))
+                written = int(entry.split("KEY_A,BUTTON,")[1].split(";")[0])
+                self.assertEqual(pads.button_label("switch", n, switch_positional=positional),
+                                 pads.button_label("switch", written, switch_positional=True), (n, positional))
+
+    def test_unbound_actions_are_listed_not_a_crash(self):
+        lay = L.default_layout()
+        del lay["binds"]["KEY_TEAM"]
+        L.validate(lay)
+        for fam in pads.FAMILIES:
+            rows = {r[0]: r[2] for r in pads.describe(lay, fam)}
+            self.assertEqual(rows["KEY_TEAM"], "Not bound")
+            text = " ".join(ET.fromstring(pads.render_svg(lay, fam)).itertext())
+            self.assertIn("Not bound", text)
+            self.assertIn("Team", text)
 
     def test_each_default_action_has_a_name_per_family(self):
         for fam in pads.FAMILIES:
