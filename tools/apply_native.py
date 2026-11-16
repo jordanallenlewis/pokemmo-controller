@@ -24,6 +24,7 @@ import argparse, re, sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import layout as layout_mod  # noqa: E402
 from common import (MAP_KEY, NATIVE_KEY, Plan, backup_path, decode, encode, escape,  # noqa: E402
                     get_prop, join_lines, read_bytes, set_props, split_lines, unescape)
 from platforms import find_pokemmo, require_closed  # noqa: E402
@@ -86,19 +87,55 @@ def _parts(layout):
     return out
 
 
-def encode_one(name, nintendo_labels=True):
-    layout = dict(LAYOUT)
+# Nintendo pads: the four face-button actions swap to the printed label.
+_NINTENDO_SWAP = {0: 1, 1: 0, 2: 3, 3: 2}
+
+
+def _nintendo(binds):
+    out = dict(binds)
+    for a in ("KEY_A", "KEY_B", "KEY_X", "KEY_Y"):
+        if a in out and out[a][0] == "BUTTON" and out[a][1] in _NINTENDO_SWAP:
+            out[a] = B(_NINTENDO_SWAP[out[a][1]])
+    return out
+
+
+def encode_one(name, nintendo_labels=True, binds=None):
+    """The map entry for one pad name. binds: a custom layout's native_binds(); default when None."""
+    layout = dict(LAYOUT if binds is None else binds)
     if nintendo_labels and is_nintendo(name):
-        layout.update(NINTENDO_LABELS)
+        layout = _nintendo(layout) if binds is not None else dict(layout, **NINTENDO_LABELS)
     return ";".join([escape(name)] + _parts(layout))
 
 
-OUR_LAYOUTS = {frozenset(_parts(LAYOUT)), frozenset(_parts(dict(LAYOUT, **NINTENDO_LABELS)))}
+def layout_sets(binds):
+    """The two forms (labels / positional on Nintendo pads) of a layout, as sets of bind parts."""
+    return {frozenset(_parts(binds)), frozenset(_parts(_nintendo(binds)))}
 
 
-def is_ours(entry):
-    """True if a map entry is exactly one of this project's layouts (any order)."""
-    return frozenset(p for p in entry.split(";")[1:] if p) in OUR_LAYOUTS
+OUR_LAYOUTS = layout_sets(LAYOUT)
+
+
+def is_ours(entry, extra=frozenset()):
+    """True if a map entry is exactly one of this project's layouts (any order): the default,
+    or the player's custom one (extra = layout_sets of it)."""
+    return frozenset(p for p in entry.split(";")[1:] if p) in (OUR_LAYOUTS | set(extra))
+
+
+def custom_layout(state):
+    """The player's custom layout saved in the install record, or None for the default."""
+    lay = state.get("layout")
+    if lay is None:
+        return None
+    try:
+        layout_mod.validate(lay)
+    except layout_mod.LayoutError:
+        return None  # a record edited by hand is not trusted: fall back to the default
+    return lay
+
+
+def custom_sets(state):
+    lay = custom_layout(state)
+    return layout_sets(layout_mod.native_binds(lay)) if lay else set()
 
 
 def logged_names(pokemmo: Path):
@@ -128,21 +165,36 @@ def props_path(pm: Path):
     return Path(pm) / "config" / "main.properties"
 
 
-def installed(pm: Path):
+def installed(pm: Path, extra=frozenset()):
     """Our layout is in main.properties (written by any version)."""
     data = read_bytes(props_path(pm))
     if data is None:
         return False
     value = get_prop(split_lines(decode(data)[0])[0], MAP_KEY) or ""
-    return any(is_ours(e) for e in split_entries(value).values())
+    return any(is_ours(e, extra) for e in split_entries(value).values())
 
 
-def plan(p: Plan, pm: Path, extra_names=(), switch_positional=None):
-    """Add the binds for every known pad name to the plan. Returns the names."""
+def plan(p: Plan, pm: Path, extra_names=(), switch_positional=None, layout=None, reset_layout=False):
+    """Add the binds for every known pad name to the plan. Returns the names.
+
+    layout: a validated layout to install; None keeps the one saved in the install
+    record (the default when there is none); reset_layout goes back to the default."""
     path = props_path(pm)
     text, nl = decode(p.current(path))
     lines, final = split_lines(text)
     st = p.state
+    old_sets = custom_sets(st)          # what an earlier run of ours may have written
+    if reset_layout:
+        layout = layout_mod.default_layout()
+    if layout is not None:
+        layout_mod.validate(layout)
+        if layout == layout_mod.default_layout():
+            st.pop("layout", None)
+        else:
+            st["layout"] = layout
+    cust = custom_layout(st)
+    binds = layout_mod.native_binds(cust) if cust else None
+    ours = old_sets | custom_sets(st)
     if switch_positional is None:
         switch_positional = bool(st.get("switch_positional"))
     seen_here = logged_names(pm)
@@ -152,27 +204,27 @@ def plan(p: Plan, pm: Path, extra_names=(), switch_positional=None):
     bak = read_bytes(backup_path(path))
     bak_entries = split_entries(get_prop(split_lines(decode(bak)[0])[0], MAP_KEY) or "") if bak else {}
 
-    p.fresh = not st.get("version") and not installed(pm)
+    p.fresh = not st.get("version") and not installed(pm, ours)
     if p.fresh:
         bak_entries = {}  # a backup left by an old uninstall is not the current original
     elif not st.get("version") and bak is not None:
         # v1.0.0 replaced the whole map and dropped maps made by hand for other
         # pads: bring those back from the backup.
         for n, e in bak_entries.items():
-            if n not in entries and not is_ours(e):
+            if n not in entries and not is_ours(e, ours):
                 entries[n] = e
     for n in st.get("names", []):
         # names an older version wrote that this one no longer does
-        if n not in names and n in entries and is_ours(entries[n]):
+        if n not in names and n in entries and is_ours(entries[n], ours):
             if n in bak_entries:
                 entries[n] = bak_entries[n]
             else:
                 del entries[n]
     for n in names:
-        entries[n] = encode_one(n, not switch_positional)
+        entries[n] = encode_one(n, not switch_positional, binds)
 
     lines = set_props(lines, {MAP_KEY: "|".join(entries.values()), NATIVE_KEY: "true"})
-    p.put(path, encode(join_lines(lines, final), nl), backup_ok=not installed(pm))
+    p.put(path, encode(join_lines(lines, final), nl), backup_ok=not installed(pm, ours))
     st["names"] = names
     st["switch_positional"] = bool(switch_positional)
     st["extra_names"] = list(dict.fromkeys(list(st.get("extra_names", [])) + list(extra_names)))

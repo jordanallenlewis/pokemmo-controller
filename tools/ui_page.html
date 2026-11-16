@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PokeMMO controller layout</title>
+<style>
+:root {
+  color-scheme: light dark;
+  --bg: #f6f7f9; --panel: #ffffff; --ink: #14181f; --muted: #4b5563; --line: #cdd3dc;
+  --accent: #1d5fd1; --accent-ink: #ffffff; --warn: #8a4b00; --warn-bg: #fff3e0;
+  --bad: #a31621; --bad-bg: #fdecee; --ok: #14663a; --ok-bg: #e7f6ed; --slice: #e9edf4; --slice-on: #cfe0ff;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #11141a; --panel: #1a1f28; --ink: #eef1f6; --muted: #aab3c2; --line: #384152;
+    --accent: #7aa7ff; --accent-ink: #0b1220; --warn: #ffc880; --warn-bg: #33270f;
+    --bad: #ff9aa2; --bad-bg: #3a1519; --ok: #86e0ac; --ok-bg: #11301f; --slice: #262d3a; --slice-on: #34476e; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 1rem/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+header, main, footer { max-width: 72rem; margin: 0 auto; padding: 1rem 1.25rem; }
+h1 { font-size: 1.5rem; margin: 0 0 .25rem; }
+h2 { font-size: 1.125rem; margin: 0 0 .75rem; }
+h3 { font-size: .8125rem; margin: 1.25rem 0 .25rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+p { margin: .25rem 0; }
+.muted { color: var(--muted); }
+.grid { display: grid; gap: 1rem; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+@media (max-width: 54rem) { .grid { grid-template-columns: minmax(0, 1fr); } }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: .75rem; padding: 1rem 1.25rem; }
+.row { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.6fr); gap: .75rem; align-items: center; padding: .3rem 0; }
+.row label { font-weight: 500; }
+select, button { font: inherit; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: .5rem; padding: .45rem .65rem; min-height: 2.5rem; }
+select { width: 100%; }
+button { cursor: pointer; }
+button.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 600; }
+button:disabled { opacity: .55; cursor: not-allowed; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.bar { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1rem 0 0; }
+.note { border-radius: .5rem; padding: .6rem .8rem; margin: .75rem 0; border: 1px solid var(--line); }
+.note.warn { background: var(--warn-bg); color: var(--warn); border-color: var(--warn); }
+.note.bad { background: var(--bad-bg); color: var(--bad); border-color: var(--bad); }
+.note.ok { background: var(--ok-bg); color: var(--ok); border-color: var(--ok); }
+pre { white-space: pre-wrap; margin: .25rem 0 0; font: .875rem/1.4 ui-monospace, Menlo, Consolas, monospace; }
+#wheel { width: 100%; max-width: 26rem; display: block; margin: 0 auto; }
+#wheel .slice { fill: var(--slice); stroke: var(--line); stroke-width: 1.5; cursor: pointer; }
+#wheel .slice.on { fill: var(--slice-on); stroke: var(--accent); }
+#wheel text { fill: var(--ink); font-size: 11px; text-anchor: middle; pointer-events: none; }
+#wheel .centre { fill: var(--panel); stroke: var(--line); stroke-width: 1.5; }
+.sr { position: absolute; left: -999px; }
+</style>
+</head>
+<body data-key="__KEY__">
+<header>
+  <h1>PokeMMO controller layout</h1>
+  <p class="muted" id="where">Looking for PokeMMO…</p>
+  <p class="muted">PokeMMO allows remapping while one input does one thing. Each input holds one action and each wheel slice presses one key when you let go, so this screen cannot set up anything else.</p>
+</header>
+<main>
+  <div id="status" role="status" aria-live="polite"></div>
+  <div class="grid">
+    <section class="panel" aria-labelledby="h-binds">
+      <h2 id="h-binds">Buttons</h2>
+      <p class="muted">Pick the input for each action. If that input already does something else, the two swap.</p>
+      <div id="binds"></div>
+    </section>
+    <section class="panel" aria-labelledby="h-wheel">
+      <h2 id="h-wheel">Right-stick wheel (Steam)</h2>
+      <p class="muted">Tilt the right stick, let go on a slice. Slice 1 is at the top, then clockwise. The picture is a preview.</p>
+      <svg id="wheel" viewBox="-150 -150 300 300" role="img" aria-label="Wheel preview"></svg>
+      <div id="slices"></div>
+    </section>
+  </div>
+  <div class="bar">
+    <button class="primary" id="apply">Apply to PokeMMO</button>
+    <button id="defaults">Back to the default layout</button>
+    <button id="export">Export layout file</button>
+    <button id="import">Import layout file…</button>
+    <button id="quit">Quit</button>
+    <input type="file" id="file" accept=".json,application/json" class="sr" tabindex="-1" aria-hidden="true">
+  </div>
+  <div id="result" role="status" aria-live="polite"></div>
+</main>
+<footer class="muted">
+  <p>This page runs on your computer only and talks to nothing else. Not affiliated with PokeMMO. Close PokeMMO before you apply.</p>
+</footer>
+<script>
+"use strict";
+const KEY = document.body.dataset.key;
+const $ = (id) => document.getElementById(id);
+let S = null, lay = null;
+
+const GROUPS = [
+  ["Move", ["KEY_UP", "KEY_DOWN", "KEY_LEFT", "KEY_RIGHT"]],
+  ["Game", ["KEY_A", "KEY_B", "KEY_X", "KEY_Y"]],
+  ["Menus", ["KEY_RING_FOCUS", "KEY_GAMEMENU", "KEY_INVENTORY", "KEY_TEAM", "KEY_SCREENSHOT"]],
+  ["Hotbar", ["KEY_NEXT", "KEY_PREVIOUS", "KEY_HOTBAR_1", "KEY_HOTBAR_2", "KEY_HOTBAR_3", "KEY_HOTBAR_4", "KEY_HOTBAR_5"]],
+];
+
+async function api(path, body) {
+  const r = await fetch(path, {
+    method: body === undefined ? "GET" : "POST",
+    headers: Object.assign({"X-Key": KEY}, body === undefined ? {} : {"Content-Type": "application/json"}),
+    body: body === undefined ? undefined : JSON.stringify(body),
+  });
+  return r.json();
+}
+
+// an input as text: "b:3" or "a:1:-"; "" means not bound
+const toCode = (s) => !s ? "" : ("button" in s ? "b:" + s.button : "a:" + s.axis + ":" + (s.positive ? "+" : "-"));
+const fromCode = (c) => {
+  if (!c) return null;
+  const p = c.split(":");
+  return p[0] === "b" ? {button: +p[1]} : {axis: +p[1], positive: p[2] === "+"};
+};
+function inputOptions() {
+  const o = [["", "Not bound"]];
+  S.buttons.forEach((n, i) => o.push(["b:" + i, n]));
+  const dir = {"0": ["left", "right"], "1": ["up", "down"]};
+  S.axes.forEach((a) => {
+    if (a.n in dir) { o.push(["a:" + a.n + ":-", "Left stick " + dir[a.n][0]]); o.push(["a:" + a.n + ":+", "Left stick " + dir[a.n][1]]); }
+    else o.push(["a:" + a.n + ":+", a.label]);
+  });
+  return o;
+}
+const labelOf = (id) => S.actions.find((a) => a.id === id).label;
+
+function say(el, text, kind) {
+  const d = $(el);
+  d.textContent = "";
+  if (!text) return;
+  const n = document.createElement("div");
+  n.className = "note " + (kind || "");
+  const p = document.createElement("pre");
+  p.textContent = text;
+  n.appendChild(p);
+  d.appendChild(n);
+}
+
+function drawBinds() {
+  const root = $("binds");
+  root.textContent = "";
+  const opts = inputOptions();
+  for (const [group, ids] of GROUPS) {
+    const h = document.createElement("h3"); h.textContent = group; root.appendChild(h);
+    for (const id of ids) {
+      const row = document.createElement("div"); row.className = "row";
+      const lab = document.createElement("label"); lab.textContent = labelOf(id); lab.htmlFor = "b-" + id;
+      const sel = document.createElement("select"); sel.id = "b-" + id;
+      for (const [v, t] of opts) { const o = document.createElement("option"); o.value = v; o.textContent = t; sel.appendChild(o); }
+      sel.value = toCode(lay.binds[id]);
+      sel.addEventListener("change", () => setBind(id, sel.value));
+      row.append(lab, sel); root.appendChild(row);
+    }
+  }
+}
+
+function setBind(id, code) {
+  const old = lay.binds[id];
+  if (code) {
+    const other = Object.keys(lay.binds).find((k) => k !== id && toCode(lay.binds[k]) === code);
+    if (other) {
+      if (old) lay.binds[other] = old; else delete lay.binds[other];
+      say("status", labelOf(other) + " now uses " + (old ? "the input " + labelOf(id) + " had" : "nothing") + ", because one input does one action.", "warn");
+    } else say("status", "");
+    lay.binds[id] = fromCode(code);
+  } else { delete lay.binds[id]; say("status", ""); }
+  drawBinds();
+  $("b-" + id).focus();
+}
+
+function drawWheel() {
+  const svg = $("wheel");
+  svg.textContent = "";
+  const NS = "http://www.w3.org/2000/svg", n = lay.wheel.length, step = 2 * Math.PI / n;
+  const R = 140, r = 38, pt = (rad, a) => [Math.sin(a) * rad, -Math.cos(a) * rad];
+  lay.wheel.forEach((id, i) => {
+    const a0 = (i - 0.5) * step, a1 = (i + 0.5) * step;
+    const [x0, y0] = pt(R, a0), [x1, y1] = pt(R, a1), [x2, y2] = pt(r, a1), [x3, y3] = pt(r, a0);
+    const path = document.createElementNS(NS, "path");
+    path.setAttribute("d", `M${x0} ${y0} A${R} ${R} 0 0 1 ${x1} ${y1} L${x2} ${y2} A${r} ${r} 0 0 0 ${x3} ${y3}Z`);
+    path.setAttribute("class", "slice");
+    path.addEventListener("click", () => $("s-" + i).focus());
+    svg.appendChild(path);
+    const [tx, ty] = pt((R + r) / 2 + 6, i * step);
+    const t = document.createElementNS(NS, "text");
+    t.setAttribute("x", tx); t.setAttribute("y", ty);
+    const wa = S.wheel_actions.find((w) => w.id === id);
+    const words = wa.label.split(" ");
+    words.forEach((w, k) => {
+      const s = document.createElementNS(NS, "tspan");
+      s.setAttribute("x", tx); s.setAttribute("dy", k === 0 ? (1 - words.length) * 0.6 + "em" : "1.2em");
+      s.textContent = w; t.appendChild(s);
+    });
+    svg.appendChild(t);
+  });
+  const c = document.createElementNS(NS, "circle");
+  c.setAttribute("r", r - 4); c.setAttribute("class", "centre"); svg.appendChild(c);
+  const ct = document.createElementNS(NS, "text"); ct.setAttribute("y", 4); ct.textContent = "Cancel"; svg.appendChild(ct);
+}
+
+function drawSlices() {
+  const root = $("slices");
+  root.textContent = "";
+  lay.wheel.forEach((id, i) => {
+    const row = document.createElement("div"); row.className = "row";
+    const lab = document.createElement("label"); lab.textContent = "Slice " + (i + 1); lab.htmlFor = "s-" + i;
+    const sel = document.createElement("select"); sel.id = "s-" + i;
+    for (const w of S.wheel_actions) { const o = document.createElement("option"); o.value = w.id; o.textContent = w.label + " (key " + w.key + ")"; sel.appendChild(o); }
+    sel.value = id;
+    sel.addEventListener("change", () => {
+      const j = lay.wheel.indexOf(sel.value);
+      lay.wheel[j] = lay.wheel[i]; lay.wheel[i] = sel.value;
+      say("status", "Each action goes on the wheel once, so the two slices swapped.", "warn");
+      drawWheel(); drawSlices(); $("s-" + i).focus();
+    });
+    row.append(lab, sel); root.appendChild(row);
+  });
+}
+
+function redraw() { drawBinds(); drawWheel(); drawSlices(); }
+
+async function apply() {
+  const check = await api("/api/check", {layout: lay});
+  if (!check.ok) { say("result", check.error, "bad"); return; }
+  $("apply").disabled = true;
+  say("result", "Applying…");
+  try {
+    const r = await api("/api/apply", {layout: lay});
+    if (r.ok === false && r.error) say("result", r.error, "bad");
+    else say("result", r.output, r.ok ? "ok" : "bad");
+    if (r.ok) S = await api("/api/state");
+  } catch (e) { say("result", "The screen lost contact with the program that started it. Run the command again.", "bad"); }
+  $("apply").disabled = false;
+}
+
+$("apply").addEventListener("click", apply);
+$("defaults").addEventListener("click", () => { lay = JSON.parse(JSON.stringify(S.default)); say("status", "Default layout loaded here. Press Apply to put it in PokeMMO.", "warn"); redraw(); });
+$("export").addEventListener("click", async () => {
+  const c = await api("/api/check", {layout: lay});
+  if (!c.ok) { say("result", c.error, "bad"); return; }
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(lay, null, 2) + "\n"], {type: "application/json"}));
+  a.download = "pokemmo-controller-layout.json";
+  a.click(); URL.revokeObjectURL(a.href);
+});
+$("import").addEventListener("click", () => $("file").click());
+$("file").addEventListener("change", async (e) => {
+  const f = e.target.files[0]; e.target.value = "";
+  if (!f) return;
+  if (f.size > 65536) { say("result", "That file is too big to be a layout.", "bad"); return; }
+  const r = await api("/api/import", {text: await f.text()});
+  if (!r.ok) { say("result", "That file was not used: " + r.error, "bad"); return; }
+  lay = r.layout; say("result", "Loaded " + f.name + ". Press Apply to put it in PokeMMO.", "ok"); redraw();
+});
+$("quit").addEventListener("click", async () => { await api("/api/quit", {}); document.body.textContent = "Stopped. You can close this tab."; });
+
+(async function init() {
+  S = await api("/api/state");
+  lay = JSON.parse(JSON.stringify(S.layout));
+  $("where").textContent = S.pokemmo ? "PokeMMO found: " + S.pokemmo + (S.custom ? " (your own layout is installed)" : "") : "";
+  if (S.problem) { say("status", S.problem, "bad"); $("apply").disabled = true; }
+  redraw();
+})();
+</script>
+</body>
+</html>

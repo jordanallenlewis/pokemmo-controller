@@ -17,7 +17,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import platforms as P  # noqa: E402
-import apply_native, install_wheel, uninstall  # noqa: E402
+import apply_native, install_wheel, layout as layout_mod, uninstall  # noqa: E402
 from common import VERSION, Plan  # noqa: E402
 
 for _s in (sys.stdout, sys.stderr):  # paths with any characters print on any console
@@ -74,7 +74,8 @@ def build_plan(a, pm, steam, steams):
     if a.uninstall:
         uninstall.plan(p, pm, steams)
     else:
-        apply_native.plan(p, pm, a.name, a.switch_positional)
+        apply_native.plan(p, pm, a.name, a.switch_positional, getattr(a, "layout_data", None),
+                          getattr(a, "reset_layout", False))
         if steam:
             install_wheel.plan(p, pm, steam)
     return p
@@ -168,8 +169,23 @@ def main():
                     help="Nintendo pads: confirm on the bottom button like Xbox (remembered)")
     ap.add_argument("--switch-labels", dest="switch_positional", action="store_false",
                     help="Nintendo pads: confirm on the printed A (the default)")
+    ap.add_argument("--ui", action="store_true", help="open the remap screen in your browser")
+    ap.add_argument("--no-browser", action="store_true", help="with --ui: print the address instead of opening it")
+    ap.add_argument("--layout", metavar="FILE", help="install your own layout (a file made by remap.py or the remap screen)")
+    ap.add_argument("--reset-layout", action="store_true", help="go back to the default layout")
     ap.add_argument("--version", action="version", version=f"pokemmo-controller {VERSION}")
     a = ap.parse_args()
+    if a.layout:
+        try:
+            a.layout_data = layout_mod.loads(Path(a.layout).expanduser().read_bytes())
+        except OSError as e:
+            sys.exit(f"Could not read {a.layout}: {e.strerror or e}. Nothing was changed.")
+        except layout_mod.LayoutError as e:
+            sys.exit(f"{a.layout} was not used: {e}\nNothing was changed.")
+    if a.ui:
+        import ui
+        ui.serve(a.pokemmo, a.steam, a.no_wheel, not a.no_browser)
+        return
     try:
         run(a)
     except KeyboardInterrupt:

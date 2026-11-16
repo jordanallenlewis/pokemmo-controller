@@ -18,7 +18,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from common import (MAP_KEY, NATIVE_KEY, Plan, backup_path, decode, encode,  # noqa: E402
                     get_prop, join_lines, read_bytes, set_props, split_lines)
-from apply_native import installed, is_ours, props_path, split_entries  # noqa: E402
+from apply_native import custom_sets, installed, is_ours, props_path, split_entries  # noqa: E402
 from install_wheel import (BLOCK, CONFIG_DIR_NAME, CONTROLLER_TYPES, KEYBOARD_BINDS,  # noqa: E402
                            LAYOUT_TITLE, OUR_BLOCK, configset_with_block, is_pokemmo_shortcut,
                            read_shortcuts, restore_lost_shortcuts, write_shortcuts)
@@ -49,7 +49,7 @@ def revert_properties(p, pm: Path):
     path = props_path(pm)
     bak_path = backup_path(path)
     data = read_bytes(path)
-    if data is None or not (p.state.get("version") or installed(pm) or bak_path.exists()):
+    if data is None or not (p.state.get("version") or installed(pm, custom_sets(p.state)) or bak_path.exists()):
         return
     p.drop_backups.append(bak_path)
     if _restore_exact(p, path):
@@ -68,7 +68,7 @@ def revert_properties(p, pm: Path):
     old = split_entries(get_prop(blines, MAP_KEY) or "")
     keep = {}
     for n, e in entries.items():
-        if not is_ours(e):
+        if not is_ours(e, custom_sets(p.state)):
             keep[n] = e          # a map you made or changed yourself
         elif n in old:
             keep[n] = old[n]     # your map from before the install
