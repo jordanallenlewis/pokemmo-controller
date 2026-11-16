@@ -6,6 +6,8 @@
   (`--ui`). It runs on your computer only, needs nothing installed, and applies
   through the same installer as everything else, so the backup and exact
   uninstall work the same.
+- `--install-ui` (`-InstallUi`) keeps the remap screen on your computer with a
+  launcher, so it opens with one short command. Uninstall removes it.
 - Your own layout: `--layout FILE` installs a layout file, `--reset-layout`
   goes back to the default. Updates keep your layout.
 - One input does one action, checked in code: a layout with a shared input, a
