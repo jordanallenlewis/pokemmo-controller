@@ -1,0 +1,33 @@
+name: Something isn't working
+description: A button does nothing, the wheel looks wrong, the installer failed
+labels: [bug]
+body:
+  - type: dropdown
+    id: system
+    attributes:
+      label: Your system
+      options: [Windows, macOS, Linux, Steam Deck, Other]
+    validations: {required: true}
+  - type: dropdown
+    id: pad
+    attributes:
+      label: Your controller
+      options: [Xbox, PlayStation, Switch Pro, Steam Deck, Legion Go, Other]
+    validations: {required: true}
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: The release you installed, for example v1.1.0
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what you expected
+      description: Which button, which screen of the game. A screenshot helps.
+    validations: {required: true}
+  - type: textarea
+    id: output
+    attributes:
+      label: Installer or tool output
+      description: Paste the text if there is any. It is shown as code.
+      render: shell
