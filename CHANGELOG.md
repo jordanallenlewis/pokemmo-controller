@@ -8,6 +8,7 @@
   and the ten actions). Each action is still on the wheel once and presses one key.
   Re-run the installer (or Apply in the remap screen) to get it; Steam reads the new
   layout on the next launch from the Steam library.
+- Changed: the installers print, and the remap screen shows, one plain line: PokeMMO Controller is an unofficial, fan-made tool, not made, endorsed or supported by the PokeMMO team.
 - Fixed (Windows): `--follow` took the first window whose title began with "PokeMMO", so a
   browser tab or folder called "PokeMMO Forums" on top of the game made the wheel follow
   that window's size instead. It now reads the window of the PokeMMO program itself

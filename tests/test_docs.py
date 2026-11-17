@@ -38,9 +38,18 @@ class Docs(unittest.TestCase):
                      "steam deck", "one command", "allowed", "1 input = 1 action"):
             self.assertIn(word, top, f"the top of the README should say: {word}")
 
+    def test_unofficial_line_under_the_hero_and_in_is_this_allowed(self):
+        line = ("PokeMMO Controller is an unofficial, fan-made tool, made by and for PokeMMO players. "
+                "It is not made, endorsed or supported by the PokeMMO team.")
+        head, _, rest = README.partition("</h1>")
+        self.assertIn(line, rest.split("Play [PokeMMO]")[0], "the line sits right under the hero")
+        section = README.split("## Is this allowed?\n", 1)[1].split("\n## ", 1)[0]
+        self.assertIn(line, section)
+
+
     def test_ui_has_a_screenshot_and_troubleshooting(self):
         self.assertIn("docs/remap-screen.png", README)
-        self.assertRegex(README, r"(?m)^\*\*The remap screen")
+        self.assertRegex(README, r"(?m)^<summary><b>The remap screen")
 
     def test_claims_stay_honest(self):
         self.assertIn("not yet played on real hardware", README)
