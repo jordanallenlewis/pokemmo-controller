@@ -3,6 +3,7 @@
 "pads": {
  "xbox": {"photo": "docs/xbox-controller.webp", "img": "assets/controller.webp", "w": 1800, "h": 1303, "alt": "Xbox controller",
   "spots": {
+   "guide": {"x": 951, "y": 146, "r": 60},
    "ls": {"x": 435, "y": 345, "r": 120},
    "rs": {"x": 1257, "y": 630, "r": 112},
    "view": {"x": 810, "y": 348, "r": 46},
@@ -22,6 +23,7 @@
   }},
  "playstation": {"photo": "site/assets/ps5.webp", "img": "assets/ps5.webp", "w": 1799, "h": 1266, "alt": "PlayStation DualSense controller",
   "spots": {
+   "guide": {"x": 929, "y": 504, "r": 55},
    "ls": {"x": 652, "y": 488, "r": 112},
    "rs": {"x": 1213, "y": 488, "r": 112},
    "view": {"x": 495, "y": 95, "r": 40},
@@ -41,6 +43,7 @@
   }},
  "switch": {"photo": "site/assets/switch.webp", "img": "assets/switch.webp", "w": 1526, "h": 1233, "alt": "Nintendo Switch Pro Controller",
   "spots": {
+   "guide": {"x": 959, "y": 281, "r": 36},
    "ls": {"x": 465, "y": 185, "r": 98},
    "rs": {"x": 998, "y": 440, "r": 98},
    "view": {"x": 713, "y": 135, "r": 38},
@@ -60,6 +63,7 @@
   }},
  "deck": {"photo": "site/assets/deck.webp", "img": "assets/deck.webp", "w": 1244, "h": 462, "alt": "Steam Deck",
   "spots": {
+   "guide": {"x": 186, "y": 300, "r": 22},
    "ls": {"x": 198, "y": 83, "r": 46},
    "rs": {"x": 1040, "y": 72, "r": 46},
    "view": {"x": 158, "y": 28, "r": 15},
