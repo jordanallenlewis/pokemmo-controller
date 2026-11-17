@@ -30,6 +30,7 @@
       <span>PokeMMO <b>Controller</b></span>
     </a>
     <nav aria-label="Sections">
+      <a href="#demo">Demo</a>
       <a href="#map">Button map</a>
       <a href="#wheel">Wheel</a>
       <a href="#install">Install</a>
@@ -47,7 +48,7 @@
   <div class="wrap hero-in">
     <div class="hero-copy">
       <p class="eyebrow">Free · open source · v<span data-version>1.1.0</span></p>
-      <h1>Play PokeMMO<br>from the couch.</h1>
+      <h1><span class="nowrap">Play <img class="pmmo-word" src="assets/pokemmo-wordmark.svg" alt="PokeMMO" width="294" height="39"></span><br>from the couch</h1>
       <p class="lede">Every action in the game on your controller: battles, hotbar, Bag, GTL, Pokédex. Uses PokeMMO's own controller support, installs with one command, and stays out of your way.</p>
       <div class="cta">
         <a class="btn btn-primary" href="#install" data-dl>Install for <span data-os>your computer</span></a>
@@ -74,12 +75,34 @@
   </div>
 </section>
 
+<section class="sec" id="demo">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">In game</p>
+      <h2>Press a button, the game answers</h2>
+      <p>Recorded in PokeMMO with a controller and this layout: walking, the Bag, the Game Menu, hotbar pages, the Focus Ring and a screenshot. The pad on the right lights up with each press.</p>
+    </div>
+    <div class="demo">
+      <figure class="demo-video">
+        <video data-demo autoplay muted loop playsinline preload="metadata" poster="assets/demo-poster.jpg" aria-label="PokeMMO played with a controller">
+          <source src="assets/demo.webm" type="video/webm">
+          <source src="assets/demo.mp4" type="video/mp4">
+        </video>
+      </figure>
+      <div class="demo-side">
+        <div class="pad" data-pad="demo"></div>
+        <p class="demo-now" aria-live="polite"><span class="key" data-demo-key>—</span><span data-demo-act>Watching</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="sec" id="map">
   <div class="wrap">
     <div class="sec-head">
       <p class="eyebrow">Button map</p>
-      <h2>Everything has a button.</h2>
-      <p>Point at a button to see what it does. Pick your controller and the names change to match it.</p>
+      <h2>Every action has a button</h2>
+      <p>Point at a button to see what it does in PokeMMO. Pick your controller and the names follow its labels.</p>
     </div>
     <div class="map">
       <div class="seg" role="tablist" aria-label="Controller">
@@ -101,8 +124,9 @@
   <div class="wrap wheel-grid">
     <div class="sec-head">
       <p class="eyebrow">Right stick</p>
-      <h2>Ten more actions,<br>one flick away.</h2>
+      <h2>Ten more actions<br>on the right stick</h2>
       <p>Tilt the right stick and a wheel opens in the middle of the screen. Point at a slice, let go, done. Let go in the centre to cancel. It sizes itself to your screen, from a 720p handheld to 4K.</p>
+      <p class="wheel-now"><span class="key" data-wheel-key>N</span><span data-wheel-act>Pokédex</span></p>
       <p class="note">The wheel uses Steam's controller support. No Steam? You still get every other button.</p>
     </div>
     <figure class="wheel-fig">
@@ -115,37 +139,37 @@
 <section class="sec" id="features">
   <div class="wrap">
     <div class="sec-head">
-      <p class="eyebrow">Why it feels native</p>
-      <h2>Built to disappear.</h2>
+      <p class="eyebrow">Features</p>
+      <h2>Install it once and forget it</h2>
     </div>
     <div class="cards">
       <article class="card">
-        <span class="card-ico" aria-hidden="true">◎</span>
+        <svg class="card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z"/><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"/></svg>
         <h3>The game's own controller support</h3>
         <p>Your binds go straight into PokeMMO's settings. Nothing sits between your controller and the game.</p>
       </article>
       <article class="card">
-        <span class="card-ico" aria-hidden="true">✓</span>
+        <svg class="card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
         <h3>Within PokeMMO's rules</h3>
         <p>One input does one thing. No turbo, no macros, no sequences, and the tool refuses any layout that tries.</p>
       </article>
       <article class="card">
-        <span class="card-ico" aria-hidden="true">⇄</span>
+        <svg class="card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/></svg>
         <h3>Remap in your browser</h3>
         <p>Pick your controller, change any button, watch the map update, press Apply. Runs on your computer only.</p>
       </article>
       <article class="card">
-        <span class="card-ico" aria-hidden="true">↺</span>
+        <svg class="card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
         <h3>Updates keep your layout</h3>
         <p>Run the same command to update. Uninstall puts every file back exactly as it was.</p>
       </article>
       <article class="card">
-        <span class="card-ico" aria-hidden="true">⌂</span>
+        <svg class="card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1Z"/></svg>
         <h3>Finds the game by itself</h3>
         <p>Windows, the macOS app, the Linux zip, Flatpak and Snap. No settings to hunt for, no admin rights.</p>
       </article>
       <article class="card">
-        <span class="card-ico" aria-hidden="true">▣</span>
+        <svg class="card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="10" rx="2"/><path d="M7 7v10M11 7v10M15 7v10"/></svg>
         <h3>Your whole hotbar</h3>
         <p>Slots 1–5 on the D-pad and LB, 6–9 on the wheel, plus the Focus Ring to reach any item.</p>
       </article>
@@ -167,7 +191,7 @@
   <div class="wrap">
     <div class="sec-head">
       <p class="eyebrow">Install</p>
-      <h2>One line. About a minute.</h2>
+      <h2>One line to install</h2>
       <p>Close PokeMMO, leave Steam open, then paste the line for your system. Nothing to install first.</p>
     </div>
     <div class="install">
@@ -205,7 +229,7 @@
   <div class="wrap faq-wrap">
     <div class="sec-head">
       <p class="eyebrow">FAQ</p>
-      <h2>Good questions.</h2>
+      <h2>Questions</h2>
     </div>
     <div class="faq">
       <details>
@@ -238,7 +262,7 @@
 
 <section class="sec cta-end">
   <div class="wrap end-in">
-    <h2>Grab your controller.</h2>
+    <h2>Grab your controller</h2>
     <p>Free forever. If it makes the game better for you, a star on GitHub helps other players find it.</p>
     <div class="cta">
       <a class="btn btn-primary" href="#install">Install now</a>
