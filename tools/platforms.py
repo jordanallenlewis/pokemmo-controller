@@ -413,3 +413,80 @@ def start_detached(cmd):
         return True
     except OSError:
         return False
+
+# --- the app window --------------------------------------------------------------------------
+# The remap screen is a page served on 127.0.0.1. To feel like an app it opens in a browser's
+# "app mode" (its own window, no address bar, no tabs). Edge ships with Windows, so on the common
+# system there is nothing to install; where none is found the caller opens a normal browser tab.
+
+def _app_browser_names(windows=WINDOWS, mac=MAC):
+    """Browser programs that can open an app-mode window, best first."""
+    if windows:
+        roots = [os.environ.get(v) for v in ("ProgramFiles(x86)", "ProgramFiles", "LOCALAPPDATA")]
+        roots = [r for r in roots if r] or [r"C:\Program Files (x86)", r"C:\Program Files"]
+        rel = [r"Microsoft\Edge\Application\msedge.exe", r"Google\Chrome\Application\chrome.exe",
+               r"BraveSoftware\Brave-Browser\Application\brave.exe"]
+        return [str(Path(r, x)) for x in rel for r in roots]
+    if mac:
+        apps = ["Microsoft Edge", "Google Chrome", "Brave Browser", "Chromium"]
+        out = []
+        for base in ("/Applications", str(HOME / "Applications")):
+            out += [f"{base}/{a}.app/Contents/MacOS/{a}" for a in apps]
+        return out
+    return ["microsoft-edge", "microsoft-edge-stable", "google-chrome", "google-chrome-stable",
+            "chromium", "chromium-browser", "brave-browser", "brave"]
+
+
+def _on_path(name):
+    for d in os.environ.get("PATH", "").split(os.pathsep):
+        p = Path(d, name)
+        if d and p.is_file() and os.access(p, os.X_OK):
+            return str(p)
+    return None
+
+
+def app_browser_candidates():
+    """Browsers found on this machine. Sandbox tests never look at the real machine."""
+    if TEST:
+        return []
+    found = []
+    for n in _app_browser_names():
+        p = n if os.sep in n or "/" in n else _on_path(n)
+        if p and Path(p).is_file() and p not in found:
+            found.append(p)
+    return found
+
+
+def find_app_browser(override=None):
+    """The browser to use, or None. override / POKEMMO_CONTROLLER_BROWSER must exist."""
+    forced = override or os.environ.get("POKEMMO_CONTROLLER_BROWSER")
+    if forced:
+        return forced if Path(forced).is_file() else None
+    found = app_browser_candidates()
+    return found[0] if found else None
+
+
+def app_window_command(browser, url, profile):
+    """Command line for an app-mode window on `url`. Only the local remap address is accepted."""
+    if not re.match(r"^http://127\.0\.0\.1:\d+/", url):
+        raise ValueError("the app window only opens the local remap screen")
+    return [browser, f"--app={url}", f"--user-data-dir={profile}", "--window-size=1120,780",
+            "--no-first-run", "--no-default-browser-check", "--disable-extensions"]
+
+
+def open_app_window(url, override=None, profile=None, start=None):
+    """Open the remap screen in its own window. Returns the process, or None when no suitable
+    browser is found or it will not start (the caller then opens a normal tab)."""
+    browser = find_app_browser(override)
+    if not browser:
+        return None
+    if profile is None:
+        base = os.environ.get("LOCALAPPDATA") or os.environ.get("XDG_DATA_HOME") or str(HOME / ".local" / "share")
+        profile = str(Path(base, "pokemmo-controller", "app-window"))
+    Path(profile).mkdir(parents=True, exist_ok=True)
+    cmd = app_window_command(browser, url, profile)
+    try:
+        return (start or (lambda c: subprocess.Popen(c, stdout=subprocess.DEVNULL,
+                                                     stderr=subprocess.DEVNULL)))(cmd)
+    except OSError:
+        return None

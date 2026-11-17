@@ -286,6 +286,7 @@ change nothing; PokeMMO may stay open). From a clone, `python tools/setup.py` do
 - `--name "Pad name"`: also bind a pad that PokeMMO shows under another name.
 - `--switch-labels`: Nintendo pads confirm on the printed **A** (the default; undoes `--switch-positional`).
 - `--no-browser`: with `--ui`, print the address instead of opening a browser.
+- `--tab`: with `--ui`, open a normal browser tab instead of the app window (the remap screen opens in its own window using Edge, Chrome, Chromium or Brave when one is installed, which Windows always has; closing that window ends it).
 - `--follow`: keep the wheel sized while the game's resolution changes (see [Troubleshooting](#troubleshooting)).
   The installer already sets this up to run at login; `--no-follow` skips it (remembered) and `--follow-at-login` turns it back on.
 - `--resolution 1920x1080`: size the wheel for the picture the game draws (see
