@@ -356,9 +356,9 @@ func DefaultLayout() Layout {
 	m := map[string]Input{
 		"KEY_UP": ax(1, false), "KEY_DOWN": ax(1, true), "KEY_LEFT": ax(0, false), "KEY_RIGHT": ax(0, true),
 		"KEY_A": b(0), "KEY_B": b(1), "KEY_X": b(2), "KEY_Y": b(3),
-		"KEY_RING_FOCUS": b(4), "KEY_GAMEMENU": b(6), "KEY_INVENTORY": b(10),
+		"KEY_RING_FOCUS": b(9), "KEY_GAMEMENU": b(6), "KEY_INVENTORY": b(10),
 		"KEY_NEXT": ax(5, true), "KEY_PREVIOUS": ax(4, true),
-		"KEY_HOTBAR_1": b(11), "KEY_HOTBAR_2": b(14), "KEY_HOTBAR_3": b(12), "KEY_HOTBAR_4": b(13), "KEY_HOTBAR_5": b(9),
+		"KEY_HOTBAR_1": b(11), "KEY_HOTBAR_2": b(14), "KEY_HOTBAR_3": b(12), "KEY_HOTBAR_4": b(13), "KEY_HOTBAR_5": b(4),
 		"KEY_TEAM": b(7), "KEY_SCREENSHOT": b(8),
 	}
 	l := Layout{}
