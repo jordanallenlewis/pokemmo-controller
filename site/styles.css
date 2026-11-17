@@ -206,14 +206,7 @@ kbd { font: 500 12px/1 var(--mono); background: var(--surface-2); border: 1px so
 /* the PokeMMO word in the hero uses PokeMMO's own logo, with its own colours */
 .nowrap { white-space: nowrap; }
 .pmmo-word { display: inline-block; height: .6em; width: auto; vertical-align: -.02em; margin-left: .06em; image-rendering: pixelated; }
-/* demo */
-.demo { display: grid; grid-template-columns: 1.7fr 1fr; gap: 24px; align-items: center; }
-.demo-video { margin: 0; background: #000; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
-.demo-video video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; }
-.demo-side { display: flex; flex-direction: column; align-items: center; gap: 16px; }
-.demo-side .pad { width: 100%; max-width: 420px; }
-.demo-now, .wheel-now { display: flex; align-items: center; gap: 12px; margin: 0; min-height: 36px; font-weight: 500; }
-.demo-now .key, .wheel-now .key { font: 600 13px/1 var(--mono); background: var(--surface-2); color: var(--ink); border: 1px solid rgba(244,241,234,.14); border-bottom-width: 3px; border-radius: 8px; padding: 6px 10px; min-width: 44px; text-align: center; transition: background-color .15s var(--ease), color .15s var(--ease); }
-.demo-now.on .key, .wheel-now .key { background: var(--yellow); color: var(--yellow-ink); border-color: #c98a00; }
+.wheel-now { display: flex; align-items: center; gap: 12px; margin: 0; min-height: 36px; font-weight: 500; }
+.wheel-now .key { font: 600 13px/1 var(--mono); background: var(--surface-2); color: var(--ink); border: 1px solid rgba(244,241,234,.14); border-bottom-width: 3px; border-radius: 8px; padding: 6px 10px; min-width: 44px; text-align: center; transition: background-color .15s var(--ease), color .15s var(--ease); }
+.wheel-now .key { background: var(--yellow); color: var(--yellow-ink); border-color: #c98a00; }
 .wheel-now { margin-top: 24px; }
-@media (max-width: 900px) { .demo { grid-template-columns: 1fr; } .demo-side .pad { max-width: 360px; } }

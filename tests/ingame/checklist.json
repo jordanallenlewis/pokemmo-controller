@@ -40,16 +40,16 @@
         {"id": "C14", "action": "KEY_HOTBAR_2", "input": "button 14 (D-pad right)", "expect": "Hotbar slot 2 highlights or its item is used once.", "evidence": "screenshot"},
         {"id": "C15", "action": "KEY_HOTBAR_3", "input": "button 12 (D-pad down)", "expect": "Hotbar slot 3 highlights or its item is used once.", "evidence": "screenshot"},
         {"id": "C16", "action": "KEY_HOTBAR_4", "input": "button 13 (D-pad left)", "expect": "Hotbar slot 4 highlights or its item is used once.", "evidence": "screenshot"},
-        {"id": "C17", "action": "KEY_HOTBAR_5", "input": "LB (button 9)", "expect": "Hotbar slot 5 highlights or its item is used once.", "evidence": "screenshot"},
+        {"id": "C17", "action": "KEY_HOTBAR_5", "input": "View (button 4)", "expect": "Hotbar slot 5 highlights or its item (the Town Map) is used once.", "evidence": "screenshot"},
         {"id": "C18", "action": "KEY_NEXT", "input": "RT (axis 5, positive)", "expect": "The hotbar shows the next page, once.", "evidence": "screenshot"},
         {"id": "C19", "action": "KEY_PREVIOUS", "input": "LT (axis 4, positive)", "expect": "The hotbar returns to the previous page, once.", "evidence": "screenshot"},
-        {"id": "C20", "action": "KEY_RING_FOCUS", "input": "View (button 4)", "expect": "The Focus Ring highlight appears on screen.", "evidence": "screenshot"}
+        {"id": "C20", "action": "KEY_RING_FOCUS", "input": "LB (button 9)", "expect": "The Focus Ring highlight appears on screen.", "evidence": "screenshot"}
       ]
     },
     {
       "id": "D", "name": "Focus Ring reaches every hotbar item",
       "steps": [
-        {"id": "D1", "do": "Press View once, then move the ring with one press per move.", "expect": "The ring lands on hotbar slot 1.", "evidence": "screenshot"},
+        {"id": "D1", "do": "Press LB once, then move the ring with one press per move.", "expect": "The ring lands on hotbar slot 1.", "evidence": "screenshot"},
         {"id": "D2", "do": "Move to each of the 9 slots, one press per move.", "expect": "The ring has stood on every one of the 9 slots; the tally lists all 9.", "evidence": "screenshot per slot"},
         {"id": "D3", "do": "Press B once.", "expect": "The ring closes and the world is in control again.", "evidence": "screenshot"}
       ]
