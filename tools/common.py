@@ -8,7 +8,7 @@ is changed, its original is kept as <file>.bak-pokemmo-controller. The record
 installed version and a hash of every file written, so uninstall can put back
 the original bytes when nothing else changed the file since.
 """
-import hashlib, json, os, re, shutil, tempfile, time
+import glob, hashlib, json, os, re, shutil, tempfile, time
 from pathlib import Path
 
 VERSION = "1.1.0"
@@ -53,12 +53,30 @@ def _umask():
     return m
 
 
+def sweep_tmp(path, min_age=0):
+    """Delete leftovers of write_atomic next to path (name.XXXX.tmp) that a killed process left
+    behind. On Windows a process that is stopped while it waits for a busy file cannot clean up.
+    min_age: only those older than this many seconds (another run may be writing one right now)."""
+    path = Path(path)
+    try:
+        for f in path.parent.glob(glob.escape(path.name) + ".*.tmp"):
+            try:
+                if min_age and time.time() - f.stat().st_mtime < min_age:
+                    continue
+                f.unlink()
+            except OSError:
+                pass
+    except OSError:
+        pass
+
+
 def write_atomic(path, data: bytes):
     """Replace path with data in one step: readers see the old or the new file, never half."""
     path = Path(path)
     if path.exists() and not os.access(path, os.W_OK):
         raise SystemExit(f"{path} is read-only. Make it writable, then run this again. Nothing was changed in it.")
     path.parent.mkdir(parents=True, exist_ok=True)
+    sweep_tmp(path, min_age=60)
     try:
         fd, tmp = tempfile.mkstemp(prefix=path.name + ".", suffix=".tmp", dir=str(path.parent))
     except PermissionError:
@@ -257,10 +275,12 @@ class Plan:
             cur = read_bytes(p)
             if data is None:
                 remove(p)
+                sweep_tmp(p)
                 self.files.pop(key, None)
                 continue
             if uninstall:
                 write_atomic(p, data)
+                sweep_tmp(p)
                 self.files.pop(key, None)
                 continue
             rec = self.files.get(key)
