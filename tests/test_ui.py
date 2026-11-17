@@ -1,6 +1,6 @@
 """The remap screen's server: who may talk to it, what it refuses, and that Apply goes
 through the same installer (setup.py) as everything else. No browser needed."""
-import http.client, json, threading, unittest
+import http.client, http.server, json, threading, unittest
 
 import helpers  # noqa: F401  (tools/ on the path, test mode on)
 import layout as L
@@ -155,6 +155,64 @@ class UI(Base):
             pass
         self.assertEqual(self.call("POST", "/api/nothing", {})[0], 404)
         self.assertEqual(self.call("GET", "/api/nothing")[0], 404)
+
+    def test_refusals_read_the_body_first(self):
+        # A server that closes a connection with request bytes still unread makes Windows send a
+        # reset, and the browser (or a test) can lose the answer that was already sent: Apply from
+        # a page left open with an old key showed a network error, not "missing key". So every
+        # refusal reads the body it was sent (up to MAX_BODY) before answering. Checked on the
+        # server side, the same on every OS: what is left unread when the answer is done.
+        app = ui.App(pokemmo=str(self.make().pokemmo), steam=None)
+        ui.make_server(app).server_close()  # sets Handler.app
+        left = []
+
+        class Probe(ui.Handler):
+            def finish(self):
+                old = self.connection.gettimeout()
+                self.connection.settimeout(0)
+                n = 0
+                try:
+                    while True:
+                        chunk = self.rfile.read1(65536)
+                        if not chunk:
+                            break
+                        n += len(chunk)
+                except OSError:
+                    pass
+                self.connection.settimeout(old)
+                left.append(n)
+                super().finish()
+
+        srv = http.server.ThreadingHTTPServer(("127.0.0.1", 0), Probe)
+        srv.daemon_threads = True
+        threading.Thread(target=srv.serve_forever, daemon=True).start()
+        self.addCleanup(lambda: (srv.shutdown(), srv.server_close()))
+        self.app, self.port = app, srv.server_address[1]
+        ok = f"127.0.0.1:{self.port}"
+        big = {"layout": L.default_layout(), "pad": "x" * 30000}  # larger than the read buffer
+        cases = [  # (host, key, content type, expected answer)
+            ("evil.example", app.token, "application/json", 403),
+            (ok, None, "application/json", 403),
+            (ok, "stale-key-from-an-old-page", "application/json", 403),
+            (ok, app.token, "text/plain", 415),
+        ]
+        for body in ({"layout": 1}, big):
+            for host, key, ctype, want in cases:
+                del left[:]
+                c = http.client.HTTPConnection("127.0.0.1", self.port, timeout=60)
+                h = {"Host": host, "Content-Type": ctype}
+                if key:
+                    h["X-Key"] = key
+                c.request("POST", "/api/apply", body=json.dumps(body), headers=h)
+                r = c.getresponse()
+                self.assertEqual(r.status, want, (host, key, ctype))
+                self.assertIn("error", json.loads(r.read().decode("utf-8")))
+                c.close()
+                for _ in range(100):  # finish() runs just after the answer is sent
+                    if left:
+                        break
+                    threading.Event().wait(0.05)
+                self.assertEqual(left, [0], (host, key, ctype, len(json.dumps(body))))
 
     def test_apply_then_reset_then_uninstall(self):
         sb = self.make()
