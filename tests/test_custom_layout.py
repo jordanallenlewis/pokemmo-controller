@@ -30,7 +30,7 @@ def clash():
 def custom():
     lay = L.default_layout()
     lay["binds"]["KEY_INVENTORY"] = {"button": 9}   # Bag on LB
-    lay["binds"]["KEY_HOTBAR_5"] = {"button": 10}   # Hotbar 5 on RB
+    lay["binds"]["KEY_RING_FOCUS"] = {"button": 10}   # Focus Ring on RB
     lay["wheel"][0], lay["wheel"][1] = lay["wheel"][1], lay["wheel"][0]
     return lay
 
@@ -50,7 +50,7 @@ class CustomLayout(Base):
         self.assertIn("Xbox Series X Controller;", text)
         entry = [e for e in text.split("|") if e.startswith("Xbox Series X Controller;")][0]
         self.assertIn("KEY_INVENTORY,BUTTON,9", entry)
-        self.assertIn("KEY_HOTBAR_5,BUTTON,10", entry)
+        self.assertIn("KEY_RING_FOCUS,BUTTON,10", entry)
         vdf = (sb.cfg / "pokemmo" / "controller_xboxone.vdf").read_text()
         self.assertLess(vdf.index("key_press I, Egg Incubators"), vdf.index("key_press N, Pokedex"))  # slices swapped
         installed = sb.snapshot()

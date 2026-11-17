@@ -1,0 +1,1324 @@
+{
+ "cases": [
+  {
+   "label": "default",
+   "text": "{\n  \"format\": 1,\n  \"binds\": {\n    \"KEY_UP\": {\n      \"axis\": 1,\n      \"positive\": false\n    },\n    \"KEY_DOWN\": {\n      \"axis\": 1,\n      \"positive\": true\n    },\n    \"KEY_LEFT\": {\n      \"axis\": 0,\n      \"positive\": false\n    },\n    \"KEY_RIGHT\": {\n      \"axis\": 0,\n      \"positive\": true\n    },\n    \"KEY_A\": {\n      \"button\": 0\n    },\n    \"KEY_B\": {\n      \"button\": 1\n    },\n    \"KEY_X\": {\n      \"button\": 2\n    },\n    \"KEY_Y\": {\n      \"button\": 3\n    },\n    \"KEY_RING_FOCUS\": {\n      \"button\": 4\n    },\n    \"KEY_GAMEMENU\": {\n      \"button\": 6\n    },\n    \"KEY_INVENTORY\": {\n      \"button\": 10\n    },\n    \"KEY_NEXT\": {\n      \"axis\": 5,\n      \"positive\": true\n    },\n    \"KEY_PREVIOUS\": {\n      \"axis\": 4,\n      \"positive\": true\n    },\n    \"KEY_HOTBAR_1\": {\n      \"button\": 11\n    },\n    \"KEY_HOTBAR_2\": {\n      \"button\": 14\n    },\n    \"KEY_HOTBAR_3\": {\n      \"button\": 12\n    },\n    \"KEY_HOTBAR_4\": {\n      \"button\": 13\n    },\n    \"KEY_HOTBAR_5\": {\n      \"button\": 9\n    },\n    \"KEY_TEAM\": {\n      \"button\": 7\n    },\n    \"KEY_SCREENSHOT\": {\n      \"button\": 8\n    }\n  },\n  \"wheel\": [\n    \"codex\",\n    \"incubator\",\n    \"trainer\",\n    \"friendlist\",\n    \"tradelink\",\n    \"hotbar6\",\n    \"hotbar7\",\n    \"hotbar8\",\n    \"hotbar9\",\n    \"hidegui\"\n  ]\n}\n",
+   "ok": true,
+   "native": [
+    [
+     "KEY_UP",
+     "AXIS",
+     1,
+     false
+    ],
+    [
+     "KEY_DOWN",
+     "AXIS",
+     1,
+     true
+    ],
+    [
+     "KEY_LEFT",
+     "AXIS",
+     0,
+     false
+    ],
+    [
+     "KEY_RIGHT",
+     "AXIS",
+     0,
+     true
+    ],
+    [
+     "KEY_A",
+     "BUTTON",
+     0
+    ],
+    [
+     "KEY_B",
+     "BUTTON",
+     1
+    ],
+    [
+     "KEY_X",
+     "BUTTON",
+     2
+    ],
+    [
+     "KEY_Y",
+     "BUTTON",
+     3
+    ],
+    [
+     "KEY_RING_FOCUS",
+     "BUTTON",
+     4
+    ],
+    [
+     "KEY_GAMEMENU",
+     "BUTTON",
+     6
+    ],
+    [
+     "KEY_INVENTORY",
+     "BUTTON",
+     10
+    ],
+    [
+     "KEY_NEXT",
+     "AXIS",
+     5,
+     true
+    ],
+    [
+     "KEY_PREVIOUS",
+     "AXIS",
+     4,
+     true
+    ],
+    [
+     "KEY_HOTBAR_1",
+     "BUTTON",
+     11
+    ],
+    [
+     "KEY_HOTBAR_2",
+     "BUTTON",
+     14
+    ],
+    [
+     "KEY_HOTBAR_3",
+     "BUTTON",
+     12
+    ],
+    [
+     "KEY_HOTBAR_4",
+     "BUTTON",
+     13
+    ],
+    [
+     "KEY_HOTBAR_5",
+     "BUTTON",
+     9
+    ],
+    [
+     "KEY_TEAM",
+     "BUTTON",
+     7
+    ],
+    [
+     "KEY_SCREENSHOT",
+     "BUTTON",
+     8
+    ]
+   ],
+   "wheel": [
+    [
+     "N",
+     "Pokedex"
+    ],
+    [
+     "I",
+     "Egg Incubators"
+    ],
+    [
+     "C",
+     "Trainer Card"
+    ],
+    [
+     "V",
+     "Friends"
+    ],
+    [
+     "P",
+     "Global Trade Link"
+    ],
+    [
+     "6",
+     "Hotbar 6"
+    ],
+    [
+     "7",
+     "Hotbar 7"
+    ],
+    [
+     "8",
+     "Hotbar 8"
+    ],
+    [
+     "9",
+     "Hotbar 9"
+    ],
+    [
+     "F12",
+     "Hide GUI"
+    ]
+   ]
+  },
+  {
+   "label": "wheel reversed",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"button\": 7}, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"hidegui\", \"hotbar9\", \"hotbar8\", \"hotbar7\", \"hotbar6\", \"tradelink\", \"friendlist\", \"trainer\", \"incubator\", \"codex\"]}",
+   "ok": true,
+   "native": [
+    [
+     "KEY_UP",
+     "AXIS",
+     1,
+     false
+    ],
+    [
+     "KEY_DOWN",
+     "AXIS",
+     1,
+     true
+    ],
+    [
+     "KEY_LEFT",
+     "AXIS",
+     0,
+     false
+    ],
+    [
+     "KEY_RIGHT",
+     "AXIS",
+     0,
+     true
+    ],
+    [
+     "KEY_A",
+     "BUTTON",
+     0
+    ],
+    [
+     "KEY_B",
+     "BUTTON",
+     1
+    ],
+    [
+     "KEY_X",
+     "BUTTON",
+     2
+    ],
+    [
+     "KEY_Y",
+     "BUTTON",
+     3
+    ],
+    [
+     "KEY_RING_FOCUS",
+     "BUTTON",
+     4
+    ],
+    [
+     "KEY_GAMEMENU",
+     "BUTTON",
+     6
+    ],
+    [
+     "KEY_INVENTORY",
+     "BUTTON",
+     10
+    ],
+    [
+     "KEY_NEXT",
+     "AXIS",
+     5,
+     true
+    ],
+    [
+     "KEY_PREVIOUS",
+     "AXIS",
+     4,
+     true
+    ],
+    [
+     "KEY_HOTBAR_1",
+     "BUTTON",
+     11
+    ],
+    [
+     "KEY_HOTBAR_2",
+     "BUTTON",
+     14
+    ],
+    [
+     "KEY_HOTBAR_3",
+     "BUTTON",
+     12
+    ],
+    [
+     "KEY_HOTBAR_4",
+     "BUTTON",
+     13
+    ],
+    [
+     "KEY_HOTBAR_5",
+     "BUTTON",
+     9
+    ],
+    [
+     "KEY_TEAM",
+     "BUTTON",
+     7
+    ],
+    [
+     "KEY_SCREENSHOT",
+     "BUTTON",
+     8
+    ]
+   ],
+   "wheel": [
+    [
+     "F12",
+     "Hide GUI"
+    ],
+    [
+     "9",
+     "Hotbar 9"
+    ],
+    [
+     "8",
+     "Hotbar 8"
+    ],
+    [
+     "7",
+     "Hotbar 7"
+    ],
+    [
+     "6",
+     "Hotbar 6"
+    ],
+    [
+     "P",
+     "Global Trade Link"
+    ],
+    [
+     "V",
+     "Friends"
+    ],
+    [
+     "C",
+     "Trainer Card"
+    ],
+    [
+     "I",
+     "Egg Incubators"
+    ],
+    [
+     "N",
+     "Pokedex"
+    ]
+   ]
+  },
+  {
+   "label": "unbound action",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"button\": 7}}, \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"]}",
+   "ok": true,
+   "native": [
+    [
+     "KEY_UP",
+     "AXIS",
+     1,
+     false
+    ],
+    [
+     "KEY_DOWN",
+     "AXIS",
+     1,
+     true
+    ],
+    [
+     "KEY_LEFT",
+     "AXIS",
+     0,
+     false
+    ],
+    [
+     "KEY_RIGHT",
+     "AXIS",
+     0,
+     true
+    ],
+    [
+     "KEY_A",
+     "BUTTON",
+     0
+    ],
+    [
+     "KEY_B",
+     "BUTTON",
+     1
+    ],
+    [
+     "KEY_X",
+     "BUTTON",
+     2
+    ],
+    [
+     "KEY_Y",
+     "BUTTON",
+     3
+    ],
+    [
+     "KEY_RING_FOCUS",
+     "BUTTON",
+     4
+    ],
+    [
+     "KEY_GAMEMENU",
+     "BUTTON",
+     6
+    ],
+    [
+     "KEY_INVENTORY",
+     "BUTTON",
+     10
+    ],
+    [
+     "KEY_NEXT",
+     "AXIS",
+     5,
+     true
+    ],
+    [
+     "KEY_PREVIOUS",
+     "AXIS",
+     4,
+     true
+    ],
+    [
+     "KEY_HOTBAR_1",
+     "BUTTON",
+     11
+    ],
+    [
+     "KEY_HOTBAR_2",
+     "BUTTON",
+     14
+    ],
+    [
+     "KEY_HOTBAR_3",
+     "BUTTON",
+     12
+    ],
+    [
+     "KEY_HOTBAR_4",
+     "BUTTON",
+     13
+    ],
+    [
+     "KEY_HOTBAR_5",
+     "BUTTON",
+     9
+    ],
+    [
+     "KEY_TEAM",
+     "BUTTON",
+     7
+    ]
+   ],
+   "wheel": [
+    [
+     "N",
+     "Pokedex"
+    ],
+    [
+     "I",
+     "Egg Incubators"
+    ],
+    [
+     "C",
+     "Trainer Card"
+    ],
+    [
+     "V",
+     "Friends"
+    ],
+    [
+     "P",
+     "Global Trade Link"
+    ],
+    [
+     "6",
+     "Hotbar 6"
+    ],
+    [
+     "7",
+     "Hotbar 7"
+    ],
+    [
+     "8",
+     "Hotbar 8"
+    ],
+    [
+     "9",
+     "Hotbar 9"
+    ],
+    [
+     "F12",
+     "Hide GUI"
+    ]
+   ]
+  },
+  {
+   "label": "named",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"button\": 7}, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"], \"name\": \"mine\"}",
+   "ok": true,
+   "native": [
+    [
+     "KEY_UP",
+     "AXIS",
+     1,
+     false
+    ],
+    [
+     "KEY_DOWN",
+     "AXIS",
+     1,
+     true
+    ],
+    [
+     "KEY_LEFT",
+     "AXIS",
+     0,
+     false
+    ],
+    [
+     "KEY_RIGHT",
+     "AXIS",
+     0,
+     true
+    ],
+    [
+     "KEY_A",
+     "BUTTON",
+     0
+    ],
+    [
+     "KEY_B",
+     "BUTTON",
+     1
+    ],
+    [
+     "KEY_X",
+     "BUTTON",
+     2
+    ],
+    [
+     "KEY_Y",
+     "BUTTON",
+     3
+    ],
+    [
+     "KEY_RING_FOCUS",
+     "BUTTON",
+     4
+    ],
+    [
+     "KEY_GAMEMENU",
+     "BUTTON",
+     6
+    ],
+    [
+     "KEY_INVENTORY",
+     "BUTTON",
+     10
+    ],
+    [
+     "KEY_NEXT",
+     "AXIS",
+     5,
+     true
+    ],
+    [
+     "KEY_PREVIOUS",
+     "AXIS",
+     4,
+     true
+    ],
+    [
+     "KEY_HOTBAR_1",
+     "BUTTON",
+     11
+    ],
+    [
+     "KEY_HOTBAR_2",
+     "BUTTON",
+     14
+    ],
+    [
+     "KEY_HOTBAR_3",
+     "BUTTON",
+     12
+    ],
+    [
+     "KEY_HOTBAR_4",
+     "BUTTON",
+     13
+    ],
+    [
+     "KEY_HOTBAR_5",
+     "BUTTON",
+     9
+    ],
+    [
+     "KEY_TEAM",
+     "BUTTON",
+     7
+    ],
+    [
+     "KEY_SCREENSHOT",
+     "BUTTON",
+     8
+    ]
+   ],
+   "wheel": [
+    [
+     "N",
+     "Pokedex"
+    ],
+    [
+     "I",
+     "Egg Incubators"
+    ],
+    [
+     "C",
+     "Trainer Card"
+    ],
+    [
+     "V",
+     "Friends"
+    ],
+    [
+     "P",
+     "Global Trade Link"
+    ],
+    [
+     "6",
+     "Hotbar 6"
+    ],
+    [
+     "7",
+     "Hotbar 7"
+    ],
+    [
+     "8",
+     "Hotbar 8"
+    ],
+    [
+     "9",
+     "Hotbar 9"
+    ],
+    [
+     "F12",
+     "Hide GUI"
+    ]
+   ]
+  },
+  {
+   "label": "name too long",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"button\": 7}, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"], \"name\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"}",
+   "ok": false,
+   "error": "name must be text of at most 60 characters."
+  },
+  {
+   "label": "name not text",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"button\": 7}, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"], \"name\": 5}",
+   "ok": false,
+   "error": "name must be text of at most 60 characters."
+  },
+  {
+   "label": "swap buttons",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 9}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 10}, \"KEY_TEAM\": {\"button\": 7}, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"]}",
+   "ok": true,
+   "native": [
+    [
+     "KEY_UP",
+     "AXIS",
+     1,
+     false
+    ],
+    [
+     "KEY_DOWN",
+     "AXIS",
+     1,
+     true
+    ],
+    [
+     "KEY_LEFT",
+     "AXIS",
+     0,
+     false
+    ],
+    [
+     "KEY_RIGHT",
+     "AXIS",
+     0,
+     true
+    ],
+    [
+     "KEY_A",
+     "BUTTON",
+     0
+    ],
+    [
+     "KEY_B",
+     "BUTTON",
+     1
+    ],
+    [
+     "KEY_X",
+     "BUTTON",
+     2
+    ],
+    [
+     "KEY_Y",
+     "BUTTON",
+     3
+    ],
+    [
+     "KEY_RING_FOCUS",
+     "BUTTON",
+     4
+    ],
+    [
+     "KEY_GAMEMENU",
+     "BUTTON",
+     6
+    ],
+    [
+     "KEY_INVENTORY",
+     "BUTTON",
+     9
+    ],
+    [
+     "KEY_NEXT",
+     "AXIS",
+     5,
+     true
+    ],
+    [
+     "KEY_PREVIOUS",
+     "AXIS",
+     4,
+     true
+    ],
+    [
+     "KEY_HOTBAR_1",
+     "BUTTON",
+     11
+    ],
+    [
+     "KEY_HOTBAR_2",
+     "BUTTON",
+     14
+    ],
+    [
+     "KEY_HOTBAR_3",
+     "BUTTON",
+     12
+    ],
+    [
+     "KEY_HOTBAR_4",
+     "BUTTON",
+     13
+    ],
+    [
+     "KEY_HOTBAR_5",
+     "BUTTON",
+     10
+    ],
+    [
+     "KEY_TEAM",
+     "BUTTON",
+     7
+    ],
+    [
+     "KEY_SCREENSHOT",
+     "BUTTON",
+     8
+    ]
+   ],
+   "wheel": [
+    [
+     "N",
+     "Pokedex"
+    ],
+    [
+     "I",
+     "Egg Incubators"
+    ],
+    [
+     "C",
+     "Trainer Card"
+    ],
+    [
+     "V",
+     "Friends"
+    ],
+    [
+     "P",
+     "Global Trade Link"
+    ],
+    [
+     "6",
+     "Hotbar 6"
+    ],
+    [
+     "7",
+     "Hotbar 7"
+    ],
+    [
+     "8",
+     "Hotbar 8"
+    ],
+    [
+     "9",
+     "Hotbar 9"
+    ],
+    [
+     "F12",
+     "Hide GUI"
+    ]
+   ]
+  },
+  {
+   "label": "shared input",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"button\": 0}, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"]}",
+   "ok": false,
+   "error": "KEY_TEAM and KEY_A use the same input. PokeMMO allows one input to do one action: give one of them another input."
+  },
+  {
+   "label": "turbo field",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"button\": 5, \"turbo\": true}, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"]}",
+   "ok": false,
+   "error": "KEY_TEAM: unknown field 'turbo'. PokeMMO allows one input to do one action, so a bind holds only a button, or an axis with a direction."
+  },
+  {
+   "label": "repeat field",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"button\": 5, \"repeat\": 50}, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"]}",
+   "ok": false,
+   "error": "KEY_TEAM: unknown field 'repeat'. PokeMMO allows one input to do one action, so a bind holds only a button, or an axis with a direction."
+  },
+  {
+   "label": "button and axis",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"button\": 5, \"axis\": 0, \"positive\": true}, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"]}",
+   "ok": false,
+   "error": "KEY_TEAM: exactly one input is needed, not a button and an axis."
+  },
+  {
+   "label": "empty spec",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {}, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"]}",
+   "ok": false,
+   "error": "KEY_TEAM: exactly one input is needed: a \"button\" or an \"axis\"."
+  },
+  {
+   "label": "list spec",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": [{\"button\": 5}, {\"button\": 6}], \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"]}",
+   "ok": false,
+   "error": "KEY_TEAM: each action takes exactly one input, like {\"button\": 0}."
+  },
+  {
+   "label": "string spec",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": \"A\", \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"]}",
+   "ok": false,
+   "error": "KEY_TEAM: each action takes exactly one input, like {\"button\": 0}."
+  },
+  {
+   "label": "button 15",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"button\": 15}, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"]}",
+   "ok": false,
+   "error": "KEY_TEAM: button must be a whole number from 0 to 14."
+  },
+  {
+   "label": "button -1",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"button\": -1}, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"]}",
+   "ok": false,
+   "error": "KEY_TEAM: button must be a whole number from 0 to 14."
+  },
+  {
+   "label": "button true",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"button\": true}, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"]}",
+   "ok": false,
+   "error": "KEY_TEAM: button must be a whole number from 0 to 14."
+  },
+  {
+   "label": "button float",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"button\": 5.0}, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"]}",
+   "ok": false,
+   "error": "KEY_TEAM: button must be a whole number from 0 to 14."
+  },
+  {
+   "label": "button text",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"button\": \"5\"}, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"]}",
+   "ok": false,
+   "error": "KEY_TEAM: button must be a whole number from 0 to 14."
+  },
+  {
+   "label": "right stick",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"axis\": 2, \"positive\": true}, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"]}",
+   "ok": false,
+   "error": "KEY_TEAM: the right stick (axes 2 and 3) belongs to the wheel."
+  },
+  {
+   "label": "axis 6",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"axis\": 6, \"positive\": true}, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"]}",
+   "ok": false,
+   "error": "KEY_TEAM: axis must be a whole number from 0 to 5."
+  },
+  {
+   "label": "axis no direction",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"axis\": 0}, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"]}",
+   "ok": false,
+   "error": "KEY_TEAM: an axis needs \"positive\": true or false (which way it is pushed)."
+  },
+  {
+   "label": "axis direction text",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"axis\": 0, \"positive\": \"yes\"}, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"]}",
+   "ok": false,
+   "error": "KEY_TEAM: an axis needs \"positive\": true or false (which way it is pushed)."
+  },
+  {
+   "label": "trigger released",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"axis\": 4, \"positive\": false}, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"]}",
+   "ok": false,
+   "error": "KEY_TEAM: a trigger (axis 4) only works pulled, so it needs \"positive\": true. Released is its resting position and never sends anything."
+  },
+  {
+   "label": "trigger pulled",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"axis\": 4, \"positive\": true}, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"]}",
+   "ok": false,
+   "error": "KEY_TEAM and KEY_PREVIOUS use the same input. PokeMMO allows one input to do one action: give one of them another input."
+  },
+  {
+   "label": "stick left",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"axis\": 0, \"positive\": false}, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"]}",
+   "ok": false,
+   "error": "KEY_TEAM and KEY_LEFT use the same input. PokeMMO allows one input to do one action: give one of them another input."
+  },
+  {
+   "label": "none spec",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": null, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"]}",
+   "ok": false,
+   "error": "KEY_TEAM: each action takes exactly one input, like {\"button\": 0}."
+  },
+  {
+   "label": "trigger moved",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"axis\": 4, \"positive\": true}, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"]}",
+   "ok": true,
+   "native": [
+    [
+     "KEY_UP",
+     "AXIS",
+     1,
+     false
+    ],
+    [
+     "KEY_DOWN",
+     "AXIS",
+     1,
+     true
+    ],
+    [
+     "KEY_LEFT",
+     "AXIS",
+     0,
+     false
+    ],
+    [
+     "KEY_RIGHT",
+     "AXIS",
+     0,
+     true
+    ],
+    [
+     "KEY_A",
+     "BUTTON",
+     0
+    ],
+    [
+     "KEY_B",
+     "BUTTON",
+     1
+    ],
+    [
+     "KEY_X",
+     "BUTTON",
+     2
+    ],
+    [
+     "KEY_Y",
+     "BUTTON",
+     3
+    ],
+    [
+     "KEY_RING_FOCUS",
+     "BUTTON",
+     4
+    ],
+    [
+     "KEY_GAMEMENU",
+     "BUTTON",
+     6
+    ],
+    [
+     "KEY_INVENTORY",
+     "BUTTON",
+     10
+    ],
+    [
+     "KEY_NEXT",
+     "AXIS",
+     5,
+     true
+    ],
+    [
+     "KEY_HOTBAR_1",
+     "BUTTON",
+     11
+    ],
+    [
+     "KEY_HOTBAR_2",
+     "BUTTON",
+     14
+    ],
+    [
+     "KEY_HOTBAR_3",
+     "BUTTON",
+     12
+    ],
+    [
+     "KEY_HOTBAR_4",
+     "BUTTON",
+     13
+    ],
+    [
+     "KEY_HOTBAR_5",
+     "BUTTON",
+     9
+    ],
+    [
+     "KEY_TEAM",
+     "AXIS",
+     4,
+     true
+    ],
+    [
+     "KEY_SCREENSHOT",
+     "BUTTON",
+     8
+    ]
+   ],
+   "wheel": [
+    [
+     "N",
+     "Pokedex"
+    ],
+    [
+     "I",
+     "Egg Incubators"
+    ],
+    [
+     "C",
+     "Trainer Card"
+    ],
+    [
+     "V",
+     "Friends"
+    ],
+    [
+     "P",
+     "Global Trade Link"
+    ],
+    [
+     "6",
+     "Hotbar 6"
+    ],
+    [
+     "7",
+     "Hotbar 7"
+    ],
+    [
+     "8",
+     "Hotbar 8"
+    ],
+    [
+     "9",
+     "Hotbar 9"
+    ],
+    [
+     "F12",
+     "Hide GUI"
+    ]
+   ]
+  },
+  {
+   "label": "unknown action",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"button\": 7}, \"KEY_SCREENSHOT\": {\"button\": 8}, \"KEY_FLY\": {\"button\": 5}}, \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"]}",
+   "ok": false,
+   "error": "unknown action 'KEY_FLY'."
+  },
+  {
+   "label": "macro field",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"button\": 7}, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"], \"macro\": [1, 2]}",
+   "ok": false,
+   "error": "unknown field 'macro'. A layout holds only binds and the wheel: PokeMMO's rule is one input, one action, so there are no macros, turbo, repeats, sequences or delays."
+  },
+  {
+   "label": "format 2",
+   "text": "{\"format\": 2, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"button\": 7}, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"]}",
+   "ok": false,
+   "error": "This layout has format 2; this version reads format 1."
+  },
+  {
+   "label": "no format",
+   "text": "{\"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"button\": 7}, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"]}",
+   "ok": false,
+   "error": "This layout has format None; this version reads format 1."
+  },
+  {
+   "label": "format text",
+   "text": "{\"format\": \"1\", \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"button\": 7}, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"]}",
+   "ok": false,
+   "error": "This layout has format '1'; this version reads format 1."
+  },
+  {
+   "label": "binds list",
+   "text": "{\"format\": 1, \"binds\": [], \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"]}",
+   "ok": false,
+   "error": "\"binds\" must be an object: action -> one input."
+  },
+  {
+   "label": "no wheel",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"button\": 7}, \"KEY_SCREENSHOT\": {\"button\": 8}}}",
+   "ok": false,
+   "error": "\"wheel\" must list exactly 10 slices."
+  },
+  {
+   "label": "short wheel",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"button\": 7}, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\"]}",
+   "ok": false,
+   "error": "\"wheel\" must list exactly 10 slices."
+  },
+  {
+   "label": "wheel twice",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"button\": 7}, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", \"codex\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"]}",
+   "ok": false,
+   "error": "wheel slice 2: codex is on the wheel more than once; each action goes on it once."
+  },
+  {
+   "label": "wheel unknown",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"button\": 7}, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", \"teleport\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"]}",
+   "ok": false,
+   "error": "wheel slice 2: unknown action 'teleport'."
+  },
+  {
+   "label": "wheel number",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"button\": 7}, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", 7, \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"]}",
+   "ok": false,
+   "error": "wheel slice 2: one action per slice, written as its name."
+  },
+  {
+   "label": "wheel slice list",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"button\": 7}, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", [\"codex\", \"trainer\"], \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"]}",
+   "ok": false,
+   "error": "wheel slice 2: one action per slice, written as its name."
+  },
+  {
+   "label": "array",
+   "text": "[1, 2]",
+   "ok": false,
+   "error": "A layout is a JSON object with \"format\", \"binds\" and \"wheel\"."
+  },
+  {
+   "label": "number",
+   "text": "5",
+   "ok": false,
+   "error": "A layout is a JSON object with \"format\", \"binds\" and \"wheel\"."
+  },
+  {
+   "label": "null",
+   "text": "null",
+   "ok": false,
+   "error": "A layout is a JSON object with \"format\", \"binds\" and \"wheel\"."
+  },
+  {
+   "label": "not json",
+   "text": "{nope",
+   "ok": false,
+   "error": "This is not a layout file (it is not valid JSON)."
+  },
+  {
+   "label": "empty",
+   "text": "",
+   "ok": false,
+   "error": "This is not a layout file (it is not valid JSON)."
+  },
+  {
+   "label": "duplicate key",
+   "text": "{\"format\": 1, \"format\": 1, \"binds\": {}, \"wheel\": []}",
+   "ok": false,
+   "error": "'format' appears twice in the file."
+  },
+  {
+   "label": "duplicate bind",
+   "text": "{\"format\": 1, \"binds\": {\"KEY_UP\": {\"button\": 1}, \"KEY_UP\": {\"axis\": 1, \"positive\": false}, \"KEY_DOWN\": {\"axis\": 1, \"positive\": true}, \"KEY_LEFT\": {\"axis\": 0, \"positive\": false}, \"KEY_RIGHT\": {\"axis\": 0, \"positive\": true}, \"KEY_A\": {\"button\": 0}, \"KEY_B\": {\"button\": 1}, \"KEY_X\": {\"button\": 2}, \"KEY_Y\": {\"button\": 3}, \"KEY_RING_FOCUS\": {\"button\": 4}, \"KEY_GAMEMENU\": {\"button\": 6}, \"KEY_INVENTORY\": {\"button\": 10}, \"KEY_NEXT\": {\"axis\": 5, \"positive\": true}, \"KEY_PREVIOUS\": {\"axis\": 4, \"positive\": true}, \"KEY_HOTBAR_1\": {\"button\": 11}, \"KEY_HOTBAR_2\": {\"button\": 14}, \"KEY_HOTBAR_3\": {\"button\": 12}, \"KEY_HOTBAR_4\": {\"button\": 13}, \"KEY_HOTBAR_5\": {\"button\": 9}, \"KEY_TEAM\": {\"button\": 7}, \"KEY_SCREENSHOT\": {\"button\": 8}}, \"wheel\": [\"codex\", \"incubator\", \"trainer\", \"friendlist\", \"tradelink\", \"hotbar6\", \"hotbar7\", \"hotbar8\", \"hotbar9\", \"hidegui\"]}",
+   "ok": false,
+   "error": "'KEY_UP' appears twice in the file."
+  },
+  {
+   "label": "too big",
+   "text": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ",
+   "ok": false,
+   "error": "This file is too big to be a layout."
+  }
+ ],
+ "wheel_scale": [
+  [
+   1920,
+   1080,
+   200
+  ],
+  [
+   3840,
+   2160,
+   400
+  ],
+  [
+   2560,
+   1440,
+   267
+  ],
+  [
+   1280,
+   720,
+   133
+  ],
+  [
+   800,
+   600,
+   111
+  ],
+  [
+   320,
+   320,
+   60
+  ],
+  [
+   7680,
+   4320,
+   400
+  ],
+  [
+   3440,
+   1440,
+   267
+  ]
+ ],
+ "resolution": [
+  [
+   "1920x1080",
+   true,
+   [
+    1920,
+    1080
+   ]
+  ],
+  [
+   " 1920 x 1080 ",
+   true,
+   [
+    1920,
+    1080
+   ]
+  ],
+  [
+   "1920*1080",
+   true,
+   [
+    1920,
+    1080
+   ]
+  ],
+  [
+   "1920,1080",
+   true,
+   [
+    1920,
+    1080
+   ]
+  ],
+  [
+   "1920X1080",
+   true,
+   [
+    1920,
+    1080
+   ]
+  ],
+  [
+   "1920\u00d71080",
+   true,
+   [
+    1920,
+    1080
+   ]
+  ],
+  [
+   "100x100",
+   false,
+   "100x100 is outside 320 to 16384 pixels a side."
+  ],
+  [
+   "99999x1080",
+   false,
+   "99999x1080 is outside 320 to 16384 pixels a side."
+  ],
+  [
+   "20000x20000",
+   false,
+   "20000x20000 is outside 320 to 16384 pixels a side."
+  ],
+  [
+   "abc",
+   false,
+   "'abc' is not a resolution. Write it like 1920x1080."
+  ],
+  [
+   "",
+   false,
+   "'' is not a resolution. Write it like 1920x1080."
+  ],
+  [
+   "1920x",
+   false,
+   "'1920x' is not a resolution. Write it like 1920x1080."
+  ],
+  [
+   "320x320",
+   true,
+   [
+    320,
+    320
+   ]
+  ],
+  [
+   "16384x16384",
+   true,
+   [
+    16384,
+    16384
+   ]
+  ],
+  [
+   "16385x1080",
+   false,
+   "16385x1080 is outside 320 to 16384 pixels a side."
+  ],
+  [
+   "1920x1080x3",
+   false,
+   "'1920x1080x3' is not a resolution. Write it like 1920x1080."
+  ]
+ ]
+}

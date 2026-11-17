@@ -28,7 +28,7 @@ ACTIONS = {
     "KEY_RING_FOCUS": "Focus Ring", "KEY_GAMEMENU": "Game Menu", "KEY_INVENTORY": "Bag",
     "KEY_NEXT": "Next hotbar page", "KEY_PREVIOUS": "Previous hotbar page",
     "KEY_HOTBAR_1": "Hotbar 1", "KEY_HOTBAR_2": "Hotbar 2", "KEY_HOTBAR_3": "Hotbar 3",
-    "KEY_HOTBAR_4": "Hotbar 4", "KEY_HOTBAR_5": "Hotbar 5",
+    "KEY_HOTBAR_4": "Hotbar 4", "KEY_HOTBAR_5": "Hotbar 5 (Town Map)",
     "KEY_TEAM": "Team", "KEY_SCREENSHOT": "Screenshot",
 }
 
@@ -65,10 +65,10 @@ DEFAULT_BINDS = {
     "KEY_UP": {"axis": 1, "positive": False}, "KEY_DOWN": {"axis": 1, "positive": True},
     "KEY_LEFT": {"axis": 0, "positive": False}, "KEY_RIGHT": {"axis": 0, "positive": True},
     "KEY_A": {"button": 0}, "KEY_B": {"button": 1}, "KEY_X": {"button": 2}, "KEY_Y": {"button": 3},
-    "KEY_RING_FOCUS": {"button": 4}, "KEY_GAMEMENU": {"button": 6}, "KEY_INVENTORY": {"button": 10},
+    "KEY_RING_FOCUS": {"button": 9}, "KEY_GAMEMENU": {"button": 6}, "KEY_INVENTORY": {"button": 10},
     "KEY_NEXT": {"axis": 5, "positive": True}, "KEY_PREVIOUS": {"axis": 4, "positive": True},
     "KEY_HOTBAR_1": {"button": 11}, "KEY_HOTBAR_2": {"button": 14}, "KEY_HOTBAR_3": {"button": 12},
-    "KEY_HOTBAR_4": {"button": 13}, "KEY_HOTBAR_5": {"button": 9},
+    "KEY_HOTBAR_4": {"button": 13}, "KEY_HOTBAR_5": {"button": 4},
     "KEY_TEAM": {"button": 7}, "KEY_SCREENSHOT": {"button": 8},
 }
 DEFAULT_WHEEL = list(WHEEL_ACTIONS)
