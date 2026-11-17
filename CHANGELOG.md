@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- Changed: the top slice of the wheel does nothing. A stray release of the right stick
+  straight up used to fire an action; now it sends nothing, like letting go in the middle.
+  The ten actions moved one slice clockwise (the wheel has 11 slices: the empty top one
+  and the ten actions). Each action is still on the wheel once and presses one key.
+  Re-run the installer (or Apply in the remap screen) to get it; Steam reads the new
+  layout on the next launch from the Steam library.
 - New: `--follow` keeps the wheel sized while the game's resolution changes mid-play
   (4K, 1080p, 1440p and back, in any order; fullscreen, borderless or windowed;
   other monitor or display scaling). It rewrites only the wheel layout files once a

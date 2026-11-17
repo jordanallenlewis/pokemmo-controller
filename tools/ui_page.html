@@ -43,6 +43,7 @@ button:disabled { opacity: .55; cursor: not-allowed; }
 pre { white-space: pre-wrap; margin: .25rem 0 0; font: .875rem/1.4 ui-monospace, Menlo, Consolas, monospace; }
 #wheel { width: 100%; max-width: 26rem; display: block; margin: 0 auto; }
 #wheel .slice { fill: var(--slice); stroke: var(--line); stroke-width: 1.5; cursor: pointer; }
+#wheel .slice.idle { fill: none; stroke-dasharray: 4 3; cursor: default; }
 #wheel .slice.on { fill: var(--slice-on); stroke: var(--accent); }
 #wheel text { fill: var(--ink); font-size: 11px; text-anchor: middle; pointer-events: none; }
 #wheel .centre { fill: var(--panel); stroke: var(--line); stroke-width: 1.5; }
@@ -78,7 +79,7 @@ pre { white-space: pre-wrap; margin: .25rem 0 0; font: .875rem/1.4 ui-monospace,
     </section>
     <section class="panel" aria-labelledby="h-wheel">
       <h2 id="h-wheel">Right-stick wheel (Steam)</h2>
-      <p class="muted">Tilt the right stick, let go on a slice. Slice 1 is at the top, then clockwise. The picture is a preview.</p>
+      <p class="muted">Tilt the right stick, let go on a slice. The top slice does nothing, so a stray flick up fires no action; slice 2 comes next, then clockwise. The picture is a preview.</p>
       <svg id="wheel" viewBox="-150 -150 300 300" role="img" aria-label="Wheel preview"></svg>
       <div id="slices"></div>
     </section>
@@ -205,20 +206,20 @@ function setBind(id, code) {
 function drawWheel() {
   const svg = $("wheel");
   svg.textContent = "";
-  const NS = "http://www.w3.org/2000/svg", n = lay.wheel.length, step = 2 * Math.PI / n;
+  const NS = "http://www.w3.org/2000/svg", n = lay.wheel.length + 1, step = 2 * Math.PI / n;
   const R = 140, r = 38, pt = (rad, a) => [Math.sin(a) * rad, -Math.cos(a) * rad];
-  lay.wheel.forEach((id, i) => {
+  [null, ...lay.wheel].forEach((id, i) => {
     const a0 = (i - 0.5) * step, a1 = (i + 0.5) * step;
     const [x0, y0] = pt(R, a0), [x1, y1] = pt(R, a1), [x2, y2] = pt(r, a1), [x3, y3] = pt(r, a0);
     const path = document.createElementNS(NS, "path");
     path.setAttribute("d", `M${x0} ${y0} A${R} ${R} 0 0 1 ${x1} ${y1} L${x2} ${y2} A${r} ${r} 0 0 0 ${x3} ${y3}Z`);
     path.setAttribute("class", "slice");
-    path.addEventListener("click", () => $("s-" + i).focus());
+    if (id) path.addEventListener("click", () => $("s-" + (i - 1)).focus()); else path.classList.add("idle");
     svg.appendChild(path);
     const [tx, ty] = pt((R + r) / 2 + 6, i * step);
     const t = document.createElementNS(NS, "text");
     t.setAttribute("x", tx); t.setAttribute("y", ty);
-    const wa = S.wheel_actions.find((w) => w.id === id);
+    const wa = id ? S.wheel_actions.find((w) => w.id === id) : {label: "Does nothing"};
     const words = wa.label.split(" ");
     words.forEach((w, k) => {
       const s = document.createElementNS(NS, "tspan");
@@ -237,7 +238,7 @@ function drawSlices() {
   root.textContent = "";
   lay.wheel.forEach((id, i) => {
     const row = document.createElement("div"); row.className = "row";
-    const lab = document.createElement("label"); lab.textContent = "Slice " + (i + 1); lab.htmlFor = "s-" + i;
+    const lab = document.createElement("label"); lab.textContent = "Slice " + (i + 2); lab.htmlFor = "s-" + i;
     const sel = document.createElement("select"); sel.id = "s-" + i;
     for (const w of S.wheel_actions) { const o = document.createElement("option"); o.value = w.id; o.textContent = w.label + " (key " + w.key + ")"; sel.appendChild(o); }
     sel.value = id;
