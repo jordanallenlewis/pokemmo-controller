@@ -599,7 +599,8 @@ def main(out=None):
     for t in THEMES:
         def put(name, data):
             p = OUT / f"{name}-{t}.svg"
-            p.write_text(data, encoding="utf-8", newline="\n")
+            with open(p, "w", encoding="utf-8", newline="\n") as fh:
+                fh.write(data)
             made.append(p.name)
         put("hero", hero(t))
         put("hero-phone", hero_phone(t))
