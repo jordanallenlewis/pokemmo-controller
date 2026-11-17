@@ -214,9 +214,9 @@ refused, also in a file edited by hand.
 Run the same command again. It updates whatever an earlier version wrote and
 tells you what happened:
 
-- `Installed v1.1.0`: first install.
-- `Updated from v1.0.0 to v1.1.0`: an older version was there.
-- `Already up to date (v1.1.0). Nothing changed.`: Steam isn't even restarted.
+- `Installed v1.2.0`: first install.
+- `Updated from v1.1.0 to v1.2.0`: an older version was there.
+- `Already up to date (v1.2.0). Nothing changed.`: Steam isn't even restarted.
 
 Your choices (`--switch-positional`, extra `--name` pads) are remembered.
 
