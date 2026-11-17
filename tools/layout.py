@@ -290,11 +290,15 @@ def recorded_screen(state):
         return None
 
 
-def set_screen(state, screen=None, reset=False):
-    """Save (or with reset, forget) the game resolution in the install record."""
+def set_screen(state, screen=None, reset=False, manual=False):
+    """Save (or with reset, forget) the game resolution in the install record. manual: the player
+    chose it (--resolution), so a later install keeps it instead of measuring the screen again."""
     if reset:
         state.pop("screen", None)
+        state.pop("screen_manual", None)
     elif screen is not None:
+        if manual:
+            state["screen_manual"] = True
         if wheel_scale(*screen) == WHEEL_SCALE_AT_4K:
             state.pop("screen", None)       # the default size: leave no trace
         else:
