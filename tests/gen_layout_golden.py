@@ -25,7 +25,7 @@ def texts():
     lay = copy.deepcopy(d); lay["name"] = "mine"; t.append(("named", json.dumps(lay)))
     lay = copy.deepcopy(d); lay["name"] = "x" * 61; t.append(("name too long", json.dumps(lay)))
     lay = copy.deepcopy(d); lay["name"] = 5; t.append(("name not text", json.dumps(lay)))
-    lay = copy.deepcopy(d); lay["binds"]["KEY_INVENTORY"] = {"button": 9}; lay["binds"]["KEY_HOTBAR_5"] = {"button": 10}
+    lay = copy.deepcopy(d); lay["binds"]["KEY_INVENTORY"] = {"button": 4}; lay["binds"]["KEY_HOTBAR_5"] = {"button": 10}
     t.append(("swap buttons", json.dumps(lay)))
     for label, spec in [
         ("shared input", {"button": 0}), ("turbo field", {"button": 5, "turbo": True}),
