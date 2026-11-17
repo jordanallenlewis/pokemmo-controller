@@ -431,7 +431,7 @@ def steps(t):
              ("2", "Paste one line", "Your system's line from below. Nothing to install first, no admin rights."),
              ("3", "Play from Steam", "Launch PokeMMO from your Steam library. Done in about a minute.")]
     body = ""
-    cw, gap = 490, 45
+    cw, gap = 470, 42
     for i, (n, h, d) in enumerate(items):
         x = 60 + i * (cw + gap)
         body += f'<rect x="{x}" y="40" width="{cw}" height="280" rx="20" fill="{c["card"]}" stroke="{c["line"]}" stroke-width="2"/>'

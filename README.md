@@ -26,7 +26,7 @@ controller support**. All 9 hotbar slots, Bag, Party, Pokédex, GTL, Friends and
 Team are on the controller, plus a labeled right-stick wheel so you can see what
 each direction does.
 
-| | |
+| What you get | In short |
 |---|---|
 | **One command** | Nothing to install first, no administrator rights. Uninstall puts every file back byte for byte. |
 | **Your pad, your names** | Xbox, PlayStation and Switch Pro, plus Steam Deck and Legion Go S. Each button map below uses your pad's own labels. |
