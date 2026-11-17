@@ -107,7 +107,7 @@ class UI(Base):
         import xml.etree.ElementTree as ET
         self.start(self.make())
         lay = L.default_layout()
-        lay["binds"]["KEY_INVENTORY"], lay["binds"]["KEY_HOTBAR_5"] = ({"button": 9}, {"button": 10})
+        lay["binds"]["KEY_INVENTORY"], lay["binds"]["KEY_RING_FOCUS"] = ({"button": 9}, {"button": 10})
         del lay["binds"]["KEY_TEAM"]
         for fam, word in (("xbox", "LB"), ("playstation", "Cross"), ("switch", "ZR")):
             code, r = self.call("POST", "/api/diagram", {"layout": lay, "pad": fam})
@@ -219,7 +219,7 @@ class UI(Base):
         self.start(sb)
         before = sb.snapshot()
         lay = L.default_layout()
-        lay["binds"]["KEY_INVENTORY"], lay["binds"]["KEY_HOTBAR_5"] = ({"button": 9}, {"button": 10})
+        lay["binds"]["KEY_INVENTORY"], lay["binds"]["KEY_RING_FOCUS"] = ({"button": 9}, {"button": 10})
         r = self.call("POST", "/api/apply", {"layout": lay})[1]
         self.assertTrue(r["ok"], r)
         self.assertIn("KEY_INVENTORY,BUTTON,9", sb.props.read_text(encoding="utf-8"))

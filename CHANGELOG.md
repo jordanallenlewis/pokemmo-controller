@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- Changed: **View** (Create on PlayStation, − on Switch Pro) now opens the map. PokeMMO has
+  no controller action for the map, so View presses Hotbar 5: put the Town Map in
+  hotbar slot 5 (of each page you use) once and View always opens it. The Focus Ring
+  moved to **LB** (L1, L), which used to be Hotbar 5, so nothing else is lost. A rerun
+  of the installer moves your binds; a layout you made in the remap screen is left as it is.
+  The button maps in `docs/` and the remap screen show the new default.
+
 - New: `--follow` keeps the wheel sized while the game's resolution changes mid-play
   (4K, 1080p, 1440p and back, in any order; fullscreen, borderless or windowed;
   other monitor or display scaling). It rewrites only the wheel layout files once a
