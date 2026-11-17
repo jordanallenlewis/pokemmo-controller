@@ -19,7 +19,7 @@ Built in a Claude session on ax1, 2026-11-17, at Jordan's ask; now owned by Maya
 - Logo: PMC (PM white, C yellow = the controller), original pixel lettering from `site/logo/make.py`; exports in `site/assets/brand/`.
 - Hero word "PokeMMO" uses PokeMMO's own wordmark (`assets/pokemmo-wordmark.svg`, traced from pokemmo.com). Footer says not affiliated; swap to text if PokeMMO asks.
 - Controller photos: Wikimedia Commons (credits in the footer), backgrounds removed.
-
+- Demo: recorded on Jordan's PC in PokeMMO launched from Steam (Route 6, 2560x1440, scaled to 720p), a controller only, cursor hidden; other players' name tags blurred; captions and timings in `site/data/demo.json` (the pad lights `rs` for each wheel slice).
 - Design: unslop + design-taste-frontend passes; one accent (PMC yellow), no glows/floating loops, keycap labels.
 - Public repo: no AI attribution anywhere.
 
