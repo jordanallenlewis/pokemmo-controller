@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- New: `--follow` keeps the wheel sized while the game's resolution changes mid-play
+  (4K, 1080p, 1440p and back, in any order; fullscreen, borderless or windowed;
+  other monitor or display scaling). It rewrites only the wheel layout files once a
+  new size has held for a moment, ignores a window that briefly reports 0x0 or half
+  a size, and ends on the last size that held after a rapid string of changes. It
+  sends no input. Whether Steam reloads the file with the game already running is
+  not verified on real hardware; restart the game from Steam if the wheel keeps its old size.
 - Fixed: the wheel was always drawn at the 4K size, so at a lower game
   resolution it grew until it ran off the screen. Add `--resolution 1920x1080`
   (the size of the game picture) and the wheel is sized to fit: the shorter side

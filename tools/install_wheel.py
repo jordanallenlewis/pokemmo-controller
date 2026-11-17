@@ -317,13 +317,25 @@ def layout_plan(p, steam: Path, account: str, layouts):
         p.put(cs, encode(new, nl), backup_ok=OUR_BLOCK not in text_cs)
 
 
-def plan(p, pm: Path, steam: Path):
+def wheel_layouts(p):
+    """{pad type: layout text} for the layout and game resolution in this install record."""
     from apply_native import custom_layout  # the layout chosen in apply_native.plan (same install record)
     lay = custom_layout(p.state)
     wheel = layout_mod.wheel_slices(lay) if lay else None
     screen = layout_mod.recorded_screen(p.state)
     scale = layout_mod.wheel_scale(*screen) if screen else None
-    layouts = {t: build_layout(t, wheel, scale) for t in CONTROLLER_TYPES}
+    return {t: build_layout(t, wheel, scale) for t in CONTROLLER_TYPES}, screen, scale
+
+
+def resize_plan(p, steam: Path):
+    """Only the wheel layout files, for the size in the install record (no shortcut, no binds)."""
+    layouts, _, _ = wheel_layouts(p)
+    for u in userdirs(steam):
+        layout_plan(p, steam, u.name, layouts)
+
+
+def plan(p, pm: Path, steam: Path):
+    layouts, screen, scale = wheel_layouts(p)
     props_plan(p, pm)
     for u in userdirs(steam):
         shortcut_plan(p, u, pm)
