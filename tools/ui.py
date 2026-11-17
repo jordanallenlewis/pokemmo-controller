@@ -170,18 +170,6 @@ class App:
         L.validate(lay)
         return {"ok": True}
 
-    def diagram(self, lay, pad):
-        """The button map (pads.py's picture) of this layout on this pad, as SVG text."""
-        if pad not in pads.FAMILIES:
-            raise L.LayoutError(f"Unknown controller {pad!r}: pick Xbox, PlayStation or Switch Pro.")
-        found = None
-        try:
-            found = P.find_pokemmo(self.pokemmo)
-        except SystemExit:
-            pass
-        positional = bool(_record(found).get("switch_positional")) if found else False
-        return {"ok": True, "svg": pads.render_svg(lay, pad, positional)}
-
     def apply(self, lay, reset=False):
         """Run setup.py with the layout: one writer for everything."""
         if not reset:
@@ -300,8 +288,6 @@ class Handler(http.server.BaseHTTPRequestHandler):
                 if not isinstance(text, str):
                     raise L.LayoutError("No file text was sent.")
                 return self._json(200, {"ok": True, "layout": L.loads(text)})
-            if self.path == "/api/diagram":
-                return self._json(200, self.app.diagram(body.get("layout"), body.get("pad")))
             if self.path == "/api/apply":
                 return self._json(200, self.app.apply(body.get("layout")))
             if self.path == "/api/reset":

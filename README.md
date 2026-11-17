@@ -76,18 +76,39 @@ curl -fsSL https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller
 
 ## Your button map
 
-Pick your controller. Every map shows the default layout. These are drawn
-outlines, not photos, so shapes are approximate.
+Pick your controller. Every map shows the default layout on a photo of the real
+controller, and the table under it says the same in words.
 
 <details open>
 <summary><b>Xbox</b> (One, Series, 360)</summary>
 
 <picture>
-  <source media="(max-width: 700px) and (prefers-color-scheme: dark)" srcset="docs/img/map-xbox-phone-dark.svg">
-  <source media="(max-width: 700px)" srcset="docs/img/map-xbox-phone-light.svg">
-  <source media="(prefers-color-scheme: dark)" srcset="docs/img/map-xbox-dark.svg">
-  <img src="docs/img/map-xbox-light.svg" alt="Xbox button map">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/map-xbox-dark.png">
+  <img src="docs/img/map-xbox-light.png" alt="Xbox controller with each button labelled by what it does in PokeMMO">
 </picture>
+
+<!-- generated:map-xbox -->
+| On the pad | Does |
+|---|---|
+| LT | Previous hotbar page |
+| LB | Focus Ring |
+| Left stick | Move |
+| L3 | Team |
+| View | Hotbar 5 (Town Map) |
+| D-pad up | Hotbar 1 |
+| D-pad right | Hotbar 2 |
+| D-pad down | Hotbar 3 |
+| D-pad left | Hotbar 4 |
+| RT | Next hotbar page |
+| RB | Bag |
+| Y | Action Y |
+| X | Action X |
+| B | Cancel / run |
+| A | Confirm / interact |
+| Menu | Game Menu |
+| Right stick | Action wheel |
+| R3 | Screenshot |
+<!-- /generated -->
 
 </details>
 
@@ -95,11 +116,32 @@ outlines, not photos, so shapes are approximate.
 <summary><b>PlayStation</b> (DualSense, DualShock 4)</summary>
 
 <picture>
-  <source media="(max-width: 700px) and (prefers-color-scheme: dark)" srcset="docs/img/map-playstation-phone-dark.svg">
-  <source media="(max-width: 700px)" srcset="docs/img/map-playstation-phone-light.svg">
-  <source media="(prefers-color-scheme: dark)" srcset="docs/img/map-playstation-dark.svg">
-  <img src="docs/img/map-playstation-light.svg" alt="PlayStation button map">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/map-playstation-dark.png">
+  <img src="docs/img/map-playstation-light.png" alt="PlayStation DualSense controller with each button labelled by what it does in PokeMMO">
 </picture>
+
+<!-- generated:map-playstation -->
+| On the pad | Does |
+|---|---|
+| L2 | Previous hotbar page |
+| L1 | Focus Ring |
+| Left stick | Move |
+| L3 | Team |
+| Create | Hotbar 5 (Town Map) |
+| D-pad up | Hotbar 1 |
+| D-pad right | Hotbar 2 |
+| D-pad down | Hotbar 3 |
+| D-pad left | Hotbar 4 |
+| R2 | Next hotbar page |
+| R1 | Bag |
+| Triangle | Action Y |
+| Square | Action X |
+| Circle | Cancel / run |
+| Cross | Confirm / interact |
+| Options | Game Menu |
+| Right stick | Action wheel |
+| R3 | Screenshot |
+<!-- /generated -->
 
 </details>
 
@@ -107,11 +149,32 @@ outlines, not photos, so shapes are approximate.
 <summary><b>Switch Pro</b> (the printed A confirms, as on a Switch)</summary>
 
 <picture>
-  <source media="(max-width: 700px) and (prefers-color-scheme: dark)" srcset="docs/img/map-switch-phone-dark.svg">
-  <source media="(max-width: 700px)" srcset="docs/img/map-switch-phone-light.svg">
-  <source media="(prefers-color-scheme: dark)" srcset="docs/img/map-switch-dark.svg">
-  <img src="docs/img/map-switch-light.svg" alt="Switch Pro button map">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/map-switch-dark.png">
+  <img src="docs/img/map-switch-light.png" alt="Switch Pro controller with each button labelled by what it does in PokeMMO">
 </picture>
+
+<!-- generated:map-switch -->
+| On the pad | Does |
+|---|---|
+| ZL | Previous hotbar page |
+| L | Focus Ring |
+| Left stick | Move |
+| L3 | Team |
+| Minus | Hotbar 5 (Town Map) |
+| D-pad up | Hotbar 1 |
+| D-pad right | Hotbar 2 |
+| D-pad down | Hotbar 3 |
+| D-pad left | Hotbar 4 |
+| ZR | Next hotbar page |
+| R | Bag |
+| X | Action X |
+| Y | Action Y |
+| A | Confirm / interact |
+| B | Cancel / run |
+| Plus | Game Menu |
+| Right stick | Action wheel |
+| R3 | Screenshot |
+<!-- /generated -->
 
 </details>
 
@@ -119,28 +182,40 @@ outlines, not photos, so shapes are approximate.
 <summary><b>Steam Deck</b> (Desktop Mode; Game Mode not yet tested on a Deck)</summary>
 
 <picture>
-  <source media="(max-width: 700px) and (prefers-color-scheme: dark)" srcset="docs/img/map-deck-phone-dark.svg">
-  <source media="(max-width: 700px)" srcset="docs/img/map-deck-phone-light.svg">
-  <source media="(prefers-color-scheme: dark)" srcset="docs/img/map-deck-dark.svg">
-  <img src="docs/img/map-deck-light.svg" alt="Steam Deck button map">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/map-deck-dark.png">
+  <img src="docs/img/map-deck-light.png" alt="Steam Deck with each button labelled by what it does in PokeMMO">
 </picture>
 
-</details>
-
-<details>
-<summary><b>Lenovo Legion Go S</b></summary>
-
-<picture>
-  <source media="(max-width: 700px) and (prefers-color-scheme: dark)" srcset="docs/img/map-legion-phone-dark.svg">
-  <source media="(max-width: 700px)" srcset="docs/img/map-legion-phone-light.svg">
-  <source media="(prefers-color-scheme: dark)" srcset="docs/img/map-legion-dark.svg">
-  <img src="docs/img/map-legion-light.svg" alt="Lenovo Legion Go S button map">
-</picture>
+<!-- generated:map-deck -->
+| On the pad | Does |
+|---|---|
+| L2 | Previous hotbar page |
+| L1 | Focus Ring |
+| Left stick | Move |
+| L3 | Team |
+| View | Hotbar 5 (Town Map) |
+| D-pad up | Hotbar 1 |
+| D-pad right | Hotbar 2 |
+| D-pad down | Hotbar 3 |
+| D-pad left | Hotbar 4 |
+| R2 | Next hotbar page |
+| R1 | Bag |
+| Y | Action Y |
+| X | Action X |
+| B | Cancel / run |
+| A | Confirm / interact |
+| Menu | Game Menu |
+| Right stick | Action wheel |
+| R3 | Screenshot |
+<!-- /generated -->
 
 </details>
 
 Or print any of them in your terminal: `python tools/pads.py playstation` (also
 `switch`, `xbox`; add `--switch-positional` to see that setting).
+
+The Lenovo Legion Go S has its own wheel layout (in `steam/`) but no map picture
+yet: there is no photo of it that we may use. Its buttons are the same ones.
 
 ## The wheel
 
@@ -150,20 +225,17 @@ does nothing**, so a stray flick up presses nothing. Let go in the center to
 cancel.
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/img/wheel-demo-dark.svg">
-  <img src="docs/img/wheel-demo-light.svg" alt="The wheel, animated: the highlight moves from slice to slice">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/wheel-dark.png">
+  <img src="docs/img/wheel-light.png" alt="The wheel: ten slices, clockwise from the empty top, each labelled with the key it presses">
 </picture>
 
-| In game | Slices, clockwise from the empty top |
-|---|---|
-| <img src="docs/wheel-in-game.png" alt="The wheel in game, pointing at Egg Incubators" width="360"> | <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/img/wheel-dark.svg">
-  <img src="docs/img/wheel-light.svg" alt="Wheel slice map" width="360">
-</picture> |
+<img src="docs/wheel-in-game.png" alt="The wheel in game, pointing at Egg Incubators" width="360">
 
-Each slice shows the key it presses (N = Pokédex, I = Egg Incubators,
-C = Trainer Card, V = Friends, P = Global Trade Link, 6-9 = Hotbar 6-9,
-F12 = Hide GUI) and sends exactly one key press when you let go.
+Each slice sends exactly one key press when you let go.
+
+<!-- generated:wheel -->
+Slices, clockwise from the empty top: N = Pokedex, I = Egg Incubators, C = Trainer Card, V = Friends, P = Global Trade Link, 6 = Hotbar 6, 7 = Hotbar 7, 8 = Hotbar 8, 9 = Hotbar 9, F12 = Hide GUI.
+<!-- /generated -->
 
 ## Install it once and forget it
 
@@ -570,5 +642,5 @@ Ideas and controller reports welcome: [open an issue](https://github.com/jordana
 ---
 
 No game files or ROMs are included.
-Code released under the [MIT License](LICENSE). The pictures in `docs/img/` are original drawings made for this project (built by `docs/art/build.py`), also MIT.
+Code released under the [MIT License](LICENSE). The controller pictures in `docs/img/` are rendered from real photos (credits in `site/README.md`) by `docs/art/render.py`.
 Xbox, PlayStation, Nintendo Switch, Steam and Lenovo are trademarks of their owners; they are named only to say which pads work.
