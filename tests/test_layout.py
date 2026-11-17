@@ -153,6 +153,31 @@ class MacroPolicy(unittest.TestCase):
         self.assertEqual(ok, L.inputs())
         self.assertGreaterEqual(len(L.inputs()), len(L.ACTIONS))
 
+    def test_a_record_with_a_pushed_trigger_keeps_the_rest_and_names_what_was_dropped(self):
+        old = default()
+        old["binds"]["KEY_SCREENSHOT"] = {"axis": 4, "positive": False}
+        fixed, dropped = L.recorded(old)
+        self.assertEqual(dropped, ["KEY_SCREENSHOT"])
+        self.assertNotIn("KEY_SCREENSHOT", fixed["binds"])
+        self.assertEqual(old["binds"]["KEY_SCREENSHOT"], {"axis": 4, "positive": False})  # not changed in place
+        L.validate(fixed)
+        self.assertEqual(L.recorded_binds(old)["KEY_SCREENSHOT"], ("AXIS", 4, False))
+        self.assertEqual(L.recorded(default()), (default(), []))
+
+    def test_a_record_is_still_refused_for_everything_else(self):
+        bad = []
+        lay = default(); lay["binds"]["KEY_SCREENSHOT"] = {"axis": 4, "positive": False, "turbo": True}; bad.append(lay)
+        lay = default(); lay["binds"]["KEY_SCREENSHOT"] = {"axis": 5, "positive": True}; bad.append(lay)  # = KEY_NEXT
+        lay = default(); lay["binds"]["KEY_SCREENSHOT"] = {"axis": 4, "positive": False}
+        lay["binds"]["KEY_TEAM"] = {"axis": 4, "positive": False}; bad.append(lay)                     # shared
+        lay = default(); lay["macro"] = ["KEY_A", "KEY_A"]; bad.append(lay)
+        for lay in bad:
+            with self.subTest(lay=lay):
+                with self.assertRaises(L.LayoutError):
+                    L.recorded(lay)
+                with self.assertRaises(L.LayoutError):
+                    L.recorded_binds(lay)
+
     def test_sticks_still_work_both_ways(self):
         lay = default()
         lay["binds"]["KEY_UP"], lay["binds"]["KEY_DOWN"] = lay["binds"]["KEY_DOWN"], lay["binds"]["KEY_UP"]

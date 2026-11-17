@@ -1,6 +1,7 @@
 """A custom layout goes through the same writers and the same safety as the default:
 one backup, exact uninstall, rerun is a no-op, and the rules refuse a macro."""
-import json, unittest
+import hashlib, json, unittest
+from pathlib import Path
 
 from helpers import Sandbox
 import layout as L
@@ -148,6 +149,67 @@ class CustomLayout(Base):
         text = sb.props.read_text(encoding="utf-8")
         self.assertNotIn("KEY_RING_FOCUS", text)
         self.assertIn("client.ui.theme=light", text)
+
+    def pushed_trigger_install(self, sb):
+        """What the code before the trigger rule wrote for a layout with Screenshot on LT
+        pushed away (a bind that never fires): the map entries and the install record."""
+        lay = custom()
+        f = self.write(sb, lay)
+        sb.setup("--layout", f)
+        Path(f).unlink()
+        old = json.loads(json.dumps(lay))
+        old["binds"]["KEY_SCREENSHOT"] = {"axis": 4, "positive": False}
+        now, then = L.native_binds(lay), dict(L.native_binds(lay), KEY_SCREENSHOT=("AXIS", 4, False))
+        rec_path = sb.pokemmo / "config" / "pokemmo-controller.json"
+        rec = json.loads(rec_path.read_text(encoding="utf-8"))
+        swap = {apply_native.encode_one(n, True, now): apply_native.encode_one(n, True, then) for n in rec["names"]}
+        lines = sb.props.read_bytes().decode("utf-8").split("\r\n")
+        key = apply_native.MAP_KEY + "="
+        i = [j for j, ln in enumerate(lines) if ln.startswith(key)][0]
+        entries = lines[i][len(key):].split("|")
+        self.assertEqual(len(set(swap) & set(entries)), len(rec["names"]))
+        lines[i] = key + "|".join(swap.get(e, e) for e in entries)
+        text = "\r\n".join(lines)
+        sb.props.write_bytes(text.encode("utf-8"))
+        rec["layout"] = old
+        key = [k for k in rec["files"] if k.endswith("main.properties")][0]
+        rec["files"][key]["sha"] = hashlib.sha256(text.encode("utf-8")).hexdigest()
+        rec_path.write_text(json.dumps(rec), encoding="utf-8")
+        return rec_path
+
+    def test_update_keeps_a_layout_saved_with_a_pushed_trigger_and_says_what_changed(self):
+        sb = self.make()
+        rec_path = self.pushed_trigger_install(sb)
+        r = sb.setup()
+        self.assertIn("Screenshot", r.stdout)
+        self.assertIn("not bound", r.stdout)
+        rec = json.loads(rec_path.read_text(encoding="utf-8"))
+        expected = custom()
+        del expected["binds"]["KEY_SCREENSHOT"]
+        self.assertEqual(rec["layout"], expected)        # the rest of the player's layout is kept
+        text = sb.props.read_text(encoding="utf-8")
+        self.assertNotIn("KEY_SCREENSHOT,AXIS", text)
+        self.assertIn("KEY_INVENTORY,BUTTON,9", text)
+        vdf = (sb.cfg / "pokemmo" / "controller_xboxone.vdf").read_text()
+        self.assertLess(vdf.index("key_press I, Egg Incubators"), vdf.index("key_press N, Pokedex"))
+
+    def test_uninstall_removes_a_layout_saved_with_a_pushed_trigger(self):
+        for edited in (False, True):
+            with self.subTest(edited=edited):
+                sb = self.make()
+                before = sb.snapshot()
+                self.pushed_trigger_install(sb)
+                if edited:   # something else changed the file, so the exact restore cannot run
+                    with open(sb.props, "ab") as f:
+                        f.write(b"client.ui.theme=light\r\n")
+                sb.setup("--uninstall")
+                text = sb.props.read_text(encoding="utf-8")
+                self.assertNotIn("KEY_RING_FOCUS", text)
+                self.assertNotIn("KEY_SCREENSHOT", text)
+                if edited:
+                    self.assertIn("client.ui.theme=light", text)
+                else:
+                    self.assertEqual(diff(before, sb.snapshot()), [])
 
     def test_keyboard_binds_match_the_wheel_table(self):
         self.assertEqual(install_wheel.KEYBOARD_BINDS, L.keyboard_binds())
