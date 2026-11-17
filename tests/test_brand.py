@@ -31,10 +31,19 @@ class Brand(unittest.TestCase):
     def test_site_dark_values_match_the_tokens(self):
         d = TOKENS["dark"]
         for site, token in (("bg", "bg"), ("bg-2", "bg2"), ("surface", "surface"), ("surface-2", "surface2"),
-                            ("ink", "ink"), ("yellow", "accent"), ("yellow-ink", "accent-ink")):
+                            ("ink", "ink"), ("muted", "muted"), ("dim", "dim"), ("yellow", "accent"),
+                            ("yellow-ink", "accent-ink")):
             m = re.search(rf"--{re.escape(site)}:\s*(#[0-9a-fA-F]{{6}})", SITE_CSS)
             self.assertIsNotNone(m, site)
             self.assertEqual(m.group(1).lower(), d[token].lower(), f"site --{site} drifted from brand token {token}")
+
+    def test_site_line_and_soft_accent_match_the_tokens(self):
+        d = TOKENS["dark"]
+        for site, token in (("line", "line"), ("accent-soft", "accent-soft")):
+            m = re.search(rf"--{re.escape(site)}:\s*(rgba\([^)]*\))", SITE_CSS)
+            self.assertIsNotNone(m, site)
+            norm = lambda v: re.sub(r"\s+|(?<=[ ,.])0(?=\.)", "", v).replace("(0.", "(.")
+            self.assertEqual(norm(m.group(1)), norm(d[token]), f"site --{site} drifted from brand token {token}")
 
     def test_text_is_readable_in_both_themes(self):
         for theme in ("dark", "light"):
