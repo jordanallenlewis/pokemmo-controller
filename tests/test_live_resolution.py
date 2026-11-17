@@ -138,8 +138,17 @@ class Following(Base):
     """setup.py --follow against a sandbox: the screen is a file the test rewrites."""
 
     def scales(self, sb):
-        found = {int(re.search(r'"touch_menu_scale"\t\t"(\d+)"', f.read_text()).group(1))
-                 for f in (sb.cfg / "pokemmo").glob("controller_*.vdf")}
+        found = set()
+        for f in (sb.cfg / "pokemmo").glob("controller_*.vdf"):
+            for _ in range(50):      # Windows refuses a read while the file is being swapped in
+                try:
+                    text = f.read_text()
+                    break
+                except OSError:
+                    time.sleep(0.02)
+            else:
+                raise AssertionError(f"could not read {f}")
+            found.add(int(re.search(r'"touch_menu_scale"\t\t"(\d+)"', text).group(1)))
         return found
 
     def wait_for(self, sb, want, secs=40):
