@@ -257,8 +257,10 @@ uses. Don't want any Steam involvement? Skip `install_wheel.py`; you lose only t
 
 **The wheel is too big or too small**
 - Steam draws the wheel in screen pixels, so a size made for 4K looks huge at a
-  lower resolution. Tell the installer the size of the game picture and it sizes the
-  wheel to fit: add `--resolution 1920x1080` after the install command (on Windows, the
+  lower resolution. The installer now measures your screen when it installs (the game
+  window if PokeMMO is open, otherwise your main screen) and sizes the wheel to fit, so
+  you do not need to do anything. If the game picture is not the size of your screen
+  (windowed, or a lower resolution than the desktop), tell the installer the size: add `--resolution 1920x1080` after the install command (on Windows, the
   `& ([scriptblock]::Create(...))` form, then a space and `--resolution 1920x1080`; on
   macOS, Linux and Deck, `sh -s -- --resolution 1920x1080`), or run
   `python tools/setup.py --resolution 1920x1080` from a clone. Close PokeMMO first.
@@ -274,7 +276,8 @@ uses. Don't want any Steam involvement? Skip `install_wheel.py`; you lose only t
   in screen pixels and reads the layout file; whether your Steam picks the new file up while
   PokeMMO is already running is not verified on real hardware. If the wheel keeps its old
   size after a change, restart PokeMMO from Steam once (the file is already right).
-  Without `--follow`, the size is set when you install, so run the command again with the new size.
+  Without `--follow`, the size is set when you install (and again each time you run the installer,
+  unless you gave `--resolution`, which is kept), so run the command again after a change.
 - The size follows the shorter side of the picture, so ultrawide (3440x1440), 4:3
   (1600x1200), 720p windows and 4K all fit, and it never goes above the 4K size.
   Windowed, fullscreen and borderless: use the size of the game's picture, not of your
