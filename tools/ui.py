@@ -110,6 +110,30 @@ class App:
             "wheel_actions": [{"id": k, "label": v[1], "key": v[0]} for k, v in L.WHEEL_ACTIONS.items()],
             "pads": names, "pad": pad, "switch_positional": positional,
             "buttons": names[pad]["buttons"], "axes": names[pad]["axes"],
+            # where each layout button sits on the picture: the SDL position it ends up on, per pad
+            "phys": {fam: [pads.physical_button(fam, n, positional) for n in range(L.BUTTONS)] for fam in pads.FAMILIES},
+            "status": self.status(found),
+        }
+
+    def status(self, found=None):
+        """What the app keeps true, from the install record (not a probe of the game): the page
+        shows it as ticks and in the status bar."""
+        if found is None:
+            try:
+                found = str(P.find_pokemmo(self.pokemmo))
+            except SystemExit:
+                found = None
+        rec = _record(found) if found else {}
+        files = [str(k) for k in (rec.get("files") or {})]
+        screen = L.recorded_screen(rec) if rec else None
+        return {
+            "pokemmo": bool(found),
+            "installed": bool(rec),
+            "binds": any(f.endswith("main.properties") for f in files),
+            "steam": any(f.endswith(".vdf") for f in files),
+            "wheel_screen": list(screen) if screen else None,
+            "custom": bool(rec.get("layout")),
+            "version": VERSION,
         }
 
     def check(self, lay):
@@ -209,6 +233,10 @@ class Handler(http.server.BaseHTTPRequestHandler):
             if not self._authorized():
                 return self._json(403, {"error": "missing key"})
             return self._json(200, self.app.state())
+        if path == "/api/status":
+            if not self._authorized():
+                return self._json(403, {"error": "missing key"})
+            return self._json(200, self.app.status())
         self._json(404, {"error": "not found"})
 
     def do_POST(self):
