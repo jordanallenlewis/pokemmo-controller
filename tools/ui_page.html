@@ -206,15 +206,23 @@ function setBind(id, code) {
 function drawWheel() {
   const svg = $("wheel");
   svg.textContent = "";
-  const NS = "http://www.w3.org/2000/svg", n = lay.wheel.length, step = 2 * Math.PI / n;
+  const NS = "http://www.w3.org/2000/svg", n = lay.wheel.length + 1, step = 2 * Math.PI / n;   // the top slice does nothing, so a stray flick sends no key
   const R = 140, r = 38, pt = (rad, a) => [Math.sin(a) * rad, -Math.cos(a) * rad];
-  lay.wheel.forEach((id, i) => {
+  const blank = document.createElementNS(NS, "path"), b0 = -0.5 * step, b1 = 0.5 * step;
+  const [bx0, by0] = pt(R, b0), [bx1, by1] = pt(R, b1), [bx2, by2] = pt(r, b1), [bx3, by3] = pt(r, b0);
+  blank.setAttribute("d", `M${bx0} ${by0} A${R} ${R} 0 0 1 ${bx1} ${by1} L${bx2} ${by2} A${r} ${r} 0 0 0 ${bx3} ${by3}Z`);
+  blank.setAttribute("class", "slice"); blank.setAttribute("style", "opacity:.45;cursor:default");
+  svg.appendChild(blank);
+  const [nx, ny] = pt((R + r) / 2 + 6, 0), nt = document.createElementNS(NS, "text");
+  nt.setAttribute("x", nx); nt.setAttribute("y", ny); nt.textContent = "Nothing"; svg.appendChild(nt);
+  lay.wheel.forEach((id, i0) => {
+    const i = i0 + 1;
     const a0 = (i - 0.5) * step, a1 = (i + 0.5) * step;
     const [x0, y0] = pt(R, a0), [x1, y1] = pt(R, a1), [x2, y2] = pt(r, a1), [x3, y3] = pt(r, a0);
     const path = document.createElementNS(NS, "path");
     path.setAttribute("d", `M${x0} ${y0} A${R} ${R} 0 0 1 ${x1} ${y1} L${x2} ${y2} A${r} ${r} 0 0 0 ${x3} ${y3}Z`);
     path.setAttribute("class", "slice");
-    path.addEventListener("click", () => $("s-" + i).focus());
+    path.addEventListener("click", () => $("s-" + i0).focus());
     svg.appendChild(path);
     const [tx, ty] = pt((R + r) / 2 + 6, i * step);
     const t = document.createElementNS(NS, "text");
@@ -236,9 +244,12 @@ function drawWheel() {
 function drawSlices() {
   const root = $("slices");
   root.textContent = "";
+  const top = document.createElement("p"); top.className = "muted";
+  top.textContent = "Slice 1 (the top) does nothing on purpose, so letting go of the stick while it points up presses no key.";
+  root.appendChild(top);
   lay.wheel.forEach((id, i) => {
     const row = document.createElement("div"); row.className = "row";
-    const lab = document.createElement("label"); lab.textContent = "Slice " + (i + 1); lab.htmlFor = "s-" + i;
+    const lab = document.createElement("label"); lab.textContent = "Slice " + (i + 2); lab.htmlFor = "s-" + i;
     const sel = document.createElement("select"); sel.id = "s-" + i;
     for (const w of S.wheel_actions) { const o = document.createElement("option"); o.value = w.id; o.textContent = w.label + " (key " + w.key + ")"; sel.appendChild(o); }
     sel.value = id;

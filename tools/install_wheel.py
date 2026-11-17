@@ -31,8 +31,9 @@ CONTROLLER_TYPES = ("controller_xboxone", "controller_xbox360", "controller_ps5"
                     "controller_ps4", "controller_switch_pro", "controller_neptune",
                     "controller_legion_go_s")
 
-# Wheel slices, clockwise from the top: (Steam key, label). Keys must match
-# PokeMMO's keyboard binds (set below in KEYBOARD_BINDS).
+# Wheel slices, clockwise after the top one: (Steam key, label). The top slice itself is always
+# left empty (see build_layout): pointing the stick straight up and letting go sends nothing.
+# Keys must match PokeMMO's keyboard binds (set below in KEYBOARD_BINDS).
 WHEEL = [
     ("N", "Pokedex"), ("I", "Egg Incubators"), ("C", "Trainer Card"),
     ("V", "Friends"), ("P", "Global Trade Link"), ("6", "Hotbar 6"),
@@ -69,6 +70,8 @@ def _group(gid, mode, inputs, settings=None):
 
 def build_layout(controller_type, wheel=None, scale=None):
     WHEEL_ = WHEEL if wheel is None else wheel
+    # slice 1 is the top: no binding, so releasing there does nothing; the actions follow it
+    SLICES = [None] + list(WHEEL_)
     x = lambda b: f"xinput_button {b}"
     g = ""
     g += _group(0, "four_buttons", [("button_a", x("A")), ("button_b", x("B")),
@@ -80,9 +83,9 @@ def build_layout(controller_type, wheel=None, scale=None):
     g += _group(3, "radial_menu",
                 # button 0 is the wheel's center: left empty so releasing in the
                 # middle cancels. Slices start at 1, clockwise from the top.
-                [(f"touch_menu_button_{i}", f"key_press {k}, {label}, , ")
-                 for i, (k, label) in enumerate(WHEEL_, start=1)] + [("click", x("JOYSTICK_RIGHT"))],
-                {"touch_menu_button_count": str(len(WHEEL_) + 1),
+                [(f"touch_menu_button_{i}", f"key_press {s[0]}, {s[1]}, , ")
+                 for i, s in enumerate(SLICES, start=1) if s] + [("click", x("JOYSTICK_RIGHT"))],
+                {"touch_menu_button_count": str(len(SLICES) + 1),
                  "touchmenu_button_fire_type": "2",  # fire on release
                  "touch_menu_show_labels": "1",
                  "touch_menu_position_x": "50",  # screen center
@@ -99,7 +102,7 @@ def build_layout(controller_type, wheel=None, scale=None):
 \t"version"\t\t"3"
 \t"revision"\t\t"1"
 \t"title"\t\t"PokeMMO - native + right-stick wheel"
-\t"description"\t\t"All buttons pass through to PokeMMO's own controller binds. Right stick opens a labeled wheel: Pokedex, Incubators, Trainer, Friends, GTL, Hotbar 6-9, Hide GUI."
+\t"description"\t\t"All buttons pass through to PokeMMO's own controller binds. Right stick opens a labeled wheel (top slice does nothing): Pokedex, Incubators, Trainer, Friends, GTL, Hotbar 6-9, Hide GUI."
 \t"creator"\t\t"0"
 \t"progenitor"\t\t""
 \t"url"\t\t""

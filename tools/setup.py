@@ -80,11 +80,24 @@ def build_plan(a, pm, steam, steams):
     else:
         apply_native.plan(p, pm, a.name, a.switch_positional, getattr(a, "layout_data", None),
                           getattr(a, "reset_layout", False))
-        layout_mod.set_screen(p.state, getattr(a, "screen", None), getattr(a, "reset_screen", False))
+        pick_screen(a, p)
         if steam:
             install_wheel.plan(p, pm, steam)
         app.plan(p, pm, getattr(a, "install_ui", False))
     return p
+
+
+def pick_screen(a, p):
+    """The wheel is sized for the game picture. A size the player gave is kept for good; otherwise
+    measure the screen now, so a plain install already fits (a measurement that fails keeps what
+    was recorded, or the 4K size)."""
+    chosen, reset = getattr(a, "screen", None), getattr(a, "reset_screen", False)
+    if chosen or reset:
+        layout_mod.set_screen(p.state, chosen, reset, manual=True)
+    elif not p.state.get("screen_manual"):
+        measured = fit.sanitize(P.game_size())
+        if measured:
+            layout_mod.set_screen(p.state, measured)
 
 
 def previous_version(p, pm):

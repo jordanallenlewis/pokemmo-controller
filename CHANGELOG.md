@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- Fixed: the installer never looked at your screen, so unless you knew about `--resolution`
+  the wheel came out at the 4K size and ran off a smaller screen. A plain install now
+  measures the game picture (the PokeMMO window if it is open, otherwise your main screen)
+  and sizes the wheel to it; running the installer again measures again. A size you gave
+  with `--resolution` is kept until `--reset-resolution`. A 4K screen is unchanged.
+- Changed: the top slice of the right-stick wheel now does nothing, so letting go of the
+  stick while it points straight up presses no key. The other ten slices follow it
+  clockwise, starting with the Pokedex, and still press one key each. (The empty slice
+  has not been checked on a real Steam yet: tell us if the wheel looks wrong.)
 - Changed: the installers print, and the remap screen shows, one plain line: PokeMMO Controller is an unofficial, fan-made tool, not made, endorsed or supported by the PokeMMO team.
 - Fixed (Windows): `--follow` took the first window whose title began with "PokeMMO", so a
   browser tab or folder called "PokeMMO Forums" on top of the game made the wheel follow
