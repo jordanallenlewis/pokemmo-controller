@@ -2,6 +2,20 @@
 
 ## Unreleased
 
+## 1.3.0-beta.1 - 2026-11-17 (pre-release)
+
+A beta of the zero-touch install work. The one-line installers fetch from `main`, so they already
+install this. Tell us what breaks.
+
+- New: the installer finds PokeMMO in any Steam library folder and on other Windows drives
+  (D: to H:), as well as the Flatpak, snap and macOS places it already knew.
+- New: the installer binds the controllers that are plugged in, found by name on Linux, macOS
+  and Windows (Xbox, PlayStation, Switch Pro), instead of asking you which one you have. If it
+  cannot tell, it keeps the default and says so.
+- Tested: a computer with PokeMMO but no Steam gets the native binds only and no Steam folder;
+  your own pad map is kept; installing twice changes nothing; install then uninstall restores
+  every byte, with and without Steam. If you never started the game, the installer says
+  "start PokeMMO once, close it, try again" and writes nothing.
 - Changed: the README's button maps are now the website's own maps on the real controller photos
   (Xbox, PlayStation, Switch Pro, Steam Deck), in light and dark, with a table under each. The
   drawn outlines are gone. The Legion Go S has no map picture because there is no photo of it we
