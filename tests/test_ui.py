@@ -61,6 +61,18 @@ class UI(Base):
         self.assertNotIn("http://", html.replace("http://www.w3.org/2000/svg", ""))
         self.assertNotIn("https://", html)
 
+    def test_status_reports_what_the_install_record_says(self):
+        self.start(self.make())
+        self.assertEqual(self.call("GET", "/api/status", key=False)[0], 403)
+        code, st = self.call("GET", "/api/status")
+        self.assertEqual(code, 200)
+        self.assertTrue(st["pokemmo"])
+        self.assertFalse(st["installed"] or st["binds"] or st["steam"], "nothing installed yet in this sandbox")
+        self.assertEqual(self.call("GET", "/api/state")[1]["status"], st)
+        phys = self.call("GET", "/api/state")[1]["phys"]
+        self.assertEqual(sorted(phys["xbox"]), list(range(L.BUTTONS)))
+        self.assertEqual(sorted(phys["switch"]), list(range(L.BUTTONS)), "every button sits on exactly one spot")
+
     def test_state(self):
         self.start(self.make())
         code, st = self.call("GET", "/api/state")
