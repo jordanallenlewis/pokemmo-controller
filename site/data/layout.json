@@ -1,0 +1,121 @@
+{
+ "version": "1.1.0",
+ "controls": {
+  "ls": "Move",
+  "a": "Confirm / interact",
+  "b": "Cancel / run",
+  "x": "Action X",
+  "y": "Action Y",
+  "view": "Focus Ring",
+  "menu": "Game Menu",
+  "rb": "Bag",
+  "rt": "Next hotbar page",
+  "lt": "Previous hotbar page",
+  "dup": "Hotbar 1",
+  "dright": "Hotbar 2",
+  "ddown": "Hotbar 3",
+  "dleft": "Hotbar 4",
+  "lb": "Hotbar 5",
+  "ls_click": "Team",
+  "rs_click": "Screenshot",
+  "rs": "Action wheel"
+ },
+ "wheel": [
+  {
+   "key": "N",
+   "label": "Pokedex"
+  },
+  {
+   "key": "I",
+   "label": "Egg Incubators"
+  },
+  {
+   "key": "C",
+   "label": "Trainer Card"
+  },
+  {
+   "key": "V",
+   "label": "Friends"
+  },
+  {
+   "key": "P",
+   "label": "Global Trade Link"
+  },
+  {
+   "key": "6",
+   "label": "Hotbar 6"
+  },
+  {
+   "key": "7",
+   "label": "Hotbar 7"
+  },
+  {
+   "key": "8",
+   "label": "Hotbar 8"
+  },
+  {
+   "key": "9",
+   "label": "Hotbar 9"
+  },
+  {
+   "key": "F12",
+   "label": "Hide GUI"
+  }
+ ],
+ "names": {
+  "xbox": {
+   "a": "A",
+   "b": "B",
+   "x": "X",
+   "y": "Y",
+   "view": "View",
+   "menu": "Menu",
+   "ls": "Left stick",
+   "rs": "Right stick",
+   "lb": "LB",
+   "rb": "RB",
+   "lt": "LT",
+   "rt": "RT",
+   "dup": "D-pad up",
+   "ddown": "D-pad down",
+   "dleft": "D-pad left",
+   "dright": "D-pad right"
+  },
+  "playstation": {
+   "a": "Cross",
+   "b": "Circle",
+   "x": "Square",
+   "y": "Triangle",
+   "view": "Create",
+   "menu": "Options",
+   "ls": "L3 / left stick",
+   "rs": "Right stick",
+   "lb": "L1",
+   "rb": "R1",
+   "lt": "L2",
+   "rt": "R2",
+   "dup": "D-pad up",
+   "ddown": "D-pad down",
+   "dleft": "D-pad left",
+   "dright": "D-pad right"
+  },
+  "switch": {
+   "a": "B",
+   "b": "A",
+   "x": "Y",
+   "y": "X",
+   "view": "Minus",
+   "menu": "Plus",
+   "ls": "Left stick",
+   "rs": "Right stick",
+   "lb": "L",
+   "rb": "R",
+   "lt": "ZL",
+   "rt": "ZR",
+   "dup": "D-pad up",
+   "ddown": "D-pad down",
+   "dleft": "D-pad left",
+   "dright": "D-pad right"
+  }
+ }
+}
