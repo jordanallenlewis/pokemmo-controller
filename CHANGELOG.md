@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 1.2.0 - 2026-11-17
+
 - Fixed: the installer never looked at your screen, so unless you knew about `--resolution`
   the wheel came out at the 4K size and ran off a smaller screen. A plain install now
   measures the game picture (the PokeMMO window if it is open, otherwise your main screen)
