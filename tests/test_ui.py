@@ -288,7 +288,11 @@ class Launch(Base):
         p = subprocess.Popen([sys.executable, "-u", str(TOOLS / "setup.py"), "--ui", "--no-browser",
                               "--pokemmo", str(sb.pokemmo), "--no-wheel"], env=sb.env(),
                              stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding="utf-8")
-        self.addCleanup(lambda: p.poll() is None and p.kill())
+        def stop():
+            if p.poll() is None:
+                p.kill()
+            p.communicate(timeout=30)      # waits, and closes the output pipe
+        self.addCleanup(stop)
         url = None
         for line in p.stdout:
             m = re.search(r"http://127\.0\.0\.1:(\d+)/\?k=(\S+)", line)
