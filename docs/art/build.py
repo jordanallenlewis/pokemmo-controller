@@ -221,6 +221,69 @@ def leader(c, pts):
             f'<circle cx="{x2:g}" cy="{y2:g}" r="6.5" fill="{c["accent"]}" stroke="{c["bg"]}" stroke-width="2.5"/>')
 
 
+def specs(cfg):
+    """The cards both layouts show: (left side dict, right side dict) of key -> (chip, title, sub, lines)."""
+    confirm, cancel, kx, ky = face_roles(cfg)
+    left = {
+        "lt": (cfg["lt"], "Previous hotbar page", None, None),
+        "lb": (cfg["lb"], "Focus Ring", "Highlights anything on screen", None),
+        "ls": ("Left stick", None, None, [("Stick", "Move"), (cfg["l3"], "Team")]),
+        "dpad": ("D-pad", None, None, [("↑ / →", "Hotbar 1 / 2"), ("↓ / ←", "Hotbar 3 / 4")]),
+        "view": (cfg["view"], "Map", "Hotbar 5: keep the Town Map in slot 5", None),
+    }
+    right = {
+        "rt": (cfg["rt"], "Next hotbar page", None, None),
+        "rb": (cfg["rb"], "Bag", None, None),
+        "face": ("Face buttons", None, None, [(confirm, "Confirm"), (cancel, "Cancel"), (kx, "Key X"), (ky, "Key Y")]),
+        "rs": ("Right stick", None, None, [("Stick", "Wheel"), (cfg["r3"], "Screenshot")]),
+        "menu": (cfg["menu"], "Game Menu", "Party, settings and more", None),
+    }
+    return left, right
+
+
+def button_map_phone(t, key):
+    """The same map for a narrow screen: the pad on top with numbered spots, big numbered cards below."""
+    c = THEMES[t]
+    cfg = PADS[key]
+    W = 900
+    g, A = pad_art(c, cfg)
+    L_, R_ = specs(cfg)
+    order = [("lt", L_), ("lb", L_), ("view", L_), ("ls", L_), ("dpad", L_),
+             ("rt", R_), ("rb", R_), ("menu", R_), ("face", R_), ("rs", R_)]
+    anchor = {}
+    sc, cx, cy = 0.9, W / 2, 400
+    body = text(40, 76, cfg["title"], 52, c["ink"], 800)
+    body += text(40, 118, "Default layout", 26, c["mute"])
+    body += f'<g transform="translate({cx:g},{cy}) scale({sc})">{g}</g>'
+    cards = marks = ""
+    y0, ch, gap = 640, 0, 20
+    ys = [y0, y0]
+    for n, (name, spec) in enumerate(order, 1):
+        chip, title, sub, lines = spec[name]
+        ax, ay = A[anchor.get(name, name)]
+        px, py = cx + ax * sc, cy + ay * sc
+        marks += (f'<circle cx="{px:g}" cy="{py:g}" r="17" fill="{c["accent"]}" stroke="{c["bg"]}" stroke-width="3"/>'
+                  + text(px, py + 7, str(n), 20, c["on"], 800, "middle"))
+        col = 0 if n <= 5 else 1
+        h = (46 + 44 * len(lines) + 24) if lines else 150
+        x, y = 30 + col * 435, ys[col]
+        cards += (f'<rect x="{x}" y="{y}" width="420" height="{h}" rx="20" fill="{c["card"]}" stroke="{c["line"]}" stroke-width="2.5"/>'
+                  f'<circle cx="{x+40}" cy="{y+44}" r="22" fill="{c["accent"]}"/>' + text(x + 40, y + 53, str(n), 26, c["on"], 800, "middle")
+                  + text(x + 78, y + 52, chip, 26, c["accent"], 700))
+        if lines:
+            for i, (k, v) in enumerate(lines):
+                cards += text(x + 28, y + 100 + i * 44, k, 28, c["mute"], 600) + text(x + 28 + 150, y + 100 + i * 44, v, 32, c["ink"], 700)
+        else:
+            cards += text(x + 28, y + 104, title, 33, c["ink"], 700)
+            if sub:
+                cards += text(x + 28, y + 134, sub.replace("Hotbar 5: keep the Town Map in slot 5", "Put the Town Map in slot 5"), 22, c["mute"])
+        ys[col] += h + gap
+    H = max(ys) + 30
+    body += marks + cards
+    return svg(W, H, t, body, f"{cfg['title']} button map (narrow screens)",
+               f"The default layout on {cfg['title']}, as a numbered list of spots and actions.")
+
+
 def button_map(t, key):
     c = THEMES[t]
     cfg = PADS[key]
@@ -231,21 +294,7 @@ def button_map(t, key):
     confirm, cancel, kx, ky = face_roles(cfg)
     CW = 390
     lx, rx = 50, W - 50 - CW
-    two = lambda a, b: [a, b]
-    L_ = {
-        "lt": (cfg["lt"], "Previous hotbar page", None, None),
-        "lb": (cfg["lb"], "Focus Ring", "Highlights anything on screen", None),
-        "ls": ("Left stick", None, None, [("Stick", "Move"), (cfg["l3"], "Team")]),
-        "dpad": ("D-pad", None, None, [("↑ / →", "Hotbar 1 / 2"), ("↓ / ←", "Hotbar 3 / 4")]),
-        "view": (cfg["view"], "Map", "Hotbar 5: keep the Town Map in slot 5", None),
-    }
-    R_ = {
-        "rt": (cfg["rt"], "Next hotbar page", None, None),
-        "rb": (cfg["rb"], "Bag", None, None),
-        "face": ("Face buttons", None, None, [(confirm, "Confirm"), (cancel, "Cancel"), (kx, "Key X"), (ky, "Key Y")]),
-        "rs": ("Right stick", None, None, [("Stick", "Wheel"), (cfg["r3"], "Screenshot")]),
-        "menu": (cfg["menu"], "Game Menu", "Party, settings and more", None),
-    }
+    L_, R_ = specs(cfg)
     if hand:
         lorder, rorder = ["lt", "lb", "ls", "view", "dpad"], ["rt", "rb", "face", "menu", "rs"]
         top = []
@@ -406,17 +455,10 @@ def hero(t):
     g, _ = pad_art(c, PADS["xbox"])
     body = f'<circle cx="1240" cy="270" r="215" fill="{c["glow"]}"/>'
     body += f'<g transform="translate(1240,300) scale(.64)">{g}</g>'
-    body += text(80, 128, "POKEMMO", 26, c["accent"], 800, extra='letter-spacing="5"')
-    body += text(80, 214, "Controller Layout", 84, c["ink"], 850)
-    body += text(80, 272, "Every hotbar slot, the Bag, Party and GTL on your pad.", 28, c["mute"])
-    body += text(80, 312, "A labeled wheel on the right stick. Change any button on screen.", 28, c["mute"])
-    x = 80
-    for label, wd in (("Xbox", 112), ("PlayStation", 160), ("Switch Pro", 150), ("Steam Deck", 156), ("Legion Go S", 156)):
-        body += (f'<rect x="{x}" y="352" width="{wd}" height="42" rx="21" fill="{c["soft"]}"/>'
-                 + text(x + wd / 2, 380, label, 20, c["accent"], 700, "middle"))
-        x += wd + 14
-    body += text(80, 452, "Windows · macOS · Linux · Steam Deck", 22, c["ink"], 650)
-    body += text(80, 484, "One command. No admin rights. Nothing to install first.", 22, c["mute"], 400)
+    body += text(80, 168, "POKEMMO", 32, c["accent"], 800, extra='letter-spacing="6"')
+    body += text(80, 282, "Controller", 118, c["ink"], 850)
+    body += text(80, 394, "Layout", 118, c["ink"], 850)
+    body += text(80, 462, "Play PokeMMO on your pad.", 40, c["mute"], 500)
     return svg(W, H, t, body, "PokeMMO Controller Layout",
                "Play PokeMMO with an Xbox, PlayStation or Switch Pro controller on Windows, macOS, Linux and Steam Deck.")
 
@@ -426,8 +468,8 @@ def os_icon(c, kind, x, y):
     if kind == "win":
         return "".join(f'<rect x="{x+dx}" y="{y+dy}" width="14" height="14" rx="2" fill="{f}"/>' for dx in (0, 17) for dy in (0, 17))
     if kind == "mac":
-        return (f'<rect x="{x}" y="{y}" width="31" height="31" rx="8" fill="none" stroke="{f}" stroke-width="3"/>'
-                + text(x + 15.5, y + 24, "⌘", 22, f, 700, "middle"))
+        return (f'<rect x="{x+3}" y="{y+3}" width="25" height="17" rx="3" fill="none" stroke="{f}" stroke-width="3"/>'
+                f'<path d="M {x},{y+27} H {x+31}" stroke="{f}" stroke-width="3.5" stroke-linecap="round"/>')
     return (f'<rect x="{x}" y="{y}" width="31" height="31" rx="8" fill="none" stroke="{f}" stroke-width="3"/>'
             + text(x + 15.5, y + 22, ">_", 17, f, 800, "middle"))
 
@@ -458,6 +500,7 @@ def main(out=None):
         put("wheel-demo", wheel_demo(t))
         for k in PADS:
             put(f"map-{k}", button_map(t, k))
+            put(f"map-{k}-phone", button_map_phone(t, k))
         put("get-windows", button(t, "win", "Windows", "One PowerShell line"))
         put("get-mac", button(t, "mac", "macOS", "One Terminal line"))
         put("get-linux", button(t, "lin", "Linux · Steam Deck", "One Terminal line"))

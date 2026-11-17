@@ -49,6 +49,8 @@ outlines, not photos, so shapes are approximate.
 <summary><b>Xbox</b> (One, Series, 360)</summary>
 
 <picture>
+  <source media="(max-width: 700px) and (prefers-color-scheme: dark)" srcset="docs/img/map-xbox-phone-dark.svg">
+  <source media="(max-width: 700px)" srcset="docs/img/map-xbox-phone-light.svg">
   <source media="(prefers-color-scheme: dark)" srcset="docs/img/map-xbox-dark.svg">
   <img src="docs/img/map-xbox-light.svg" alt="Xbox button map">
 </picture>
@@ -59,6 +61,8 @@ outlines, not photos, so shapes are approximate.
 <summary><b>PlayStation</b> (DualSense, DualShock 4)</summary>
 
 <picture>
+  <source media="(max-width: 700px) and (prefers-color-scheme: dark)" srcset="docs/img/map-playstation-phone-dark.svg">
+  <source media="(max-width: 700px)" srcset="docs/img/map-playstation-phone-light.svg">
   <source media="(prefers-color-scheme: dark)" srcset="docs/img/map-playstation-dark.svg">
   <img src="docs/img/map-playstation-light.svg" alt="PlayStation button map">
 </picture>
@@ -69,6 +73,8 @@ outlines, not photos, so shapes are approximate.
 <summary><b>Switch Pro</b> (the printed A confirms, as on a Switch)</summary>
 
 <picture>
+  <source media="(max-width: 700px) and (prefers-color-scheme: dark)" srcset="docs/img/map-switch-phone-dark.svg">
+  <source media="(max-width: 700px)" srcset="docs/img/map-switch-phone-light.svg">
   <source media="(prefers-color-scheme: dark)" srcset="docs/img/map-switch-dark.svg">
   <img src="docs/img/map-switch-light.svg" alt="Switch Pro button map">
 </picture>
@@ -79,6 +85,8 @@ outlines, not photos, so shapes are approximate.
 <summary><b>Steam Deck</b> (Desktop Mode; Game Mode not yet tested on a Deck)</summary>
 
 <picture>
+  <source media="(max-width: 700px) and (prefers-color-scheme: dark)" srcset="docs/img/map-deck-phone-dark.svg">
+  <source media="(max-width: 700px)" srcset="docs/img/map-deck-phone-light.svg">
   <source media="(prefers-color-scheme: dark)" srcset="docs/img/map-deck-dark.svg">
   <img src="docs/img/map-deck-light.svg" alt="Steam Deck button map">
 </picture>
@@ -89,6 +97,8 @@ outlines, not photos, so shapes are approximate.
 <summary><b>Lenovo Legion Go S</b></summary>
 
 <picture>
+  <source media="(max-width: 700px) and (prefers-color-scheme: dark)" srcset="docs/img/map-legion-phone-dark.svg">
+  <source media="(max-width: 700px)" srcset="docs/img/map-legion-phone-light.svg">
   <source media="(prefers-color-scheme: dark)" srcset="docs/img/map-legion-dark.svg">
   <img src="docs/img/map-legion-light.svg" alt="Lenovo Legion Go S button map">
 </picture>
