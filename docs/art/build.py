@@ -529,7 +529,7 @@ def features_phone(t):
     for i, (ic, h, d) in enumerate(FEATURES):
         y = 24 + i * (ch + gap)
         body += f'<rect x="24" y="{y}" width="{W-48}" height="{ch}" rx="24" fill="{c["card"]}" stroke="{c["line"]}" stroke-width="2.5"/>'
-        body += f'<rect x="54" y="{y+34}" width="104" height="104" rx="24" fill="{c["soft"]}"/>' + icon(c, ic, 54 + 8, y + 42)
+        body += f'<rect x="54" y="{y+34}" width="104" height="104" rx="24" fill="{c["soft"]}"/>' + icon(c, ic, 54 + 20, y + 34 + 20)
         body += text(190, y + 68, h, 44, c["ink"], 800)
         for j, ln in enumerate(wrap(d, 38)):
             body += text(190, y + 120 + j * 40, ln, 31, c["mute"])

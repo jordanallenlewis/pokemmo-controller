@@ -8,9 +8,9 @@
 </h1>
 
 <p align="center">
-<a href="#windows"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/img/get-windows-dark.svg"><img src="docs/img/get-windows-light.svg" alt="Install on Windows" width="250"></picture></a>
-<a href="#macos"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/img/get-mac-dark.svg"><img src="docs/img/get-mac-light.svg" alt="Install on macOS" width="250"></picture></a>
-<a href="#linux-and-steam-deck"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/img/get-linux-dark.svg"><img src="docs/img/get-linux-light.svg" alt="Install on Linux or Steam Deck" width="250"></picture></a>
+<a href="#windows"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/img/get-windows-dark.svg"><img src="docs/img/get-windows-light.svg" alt="Install on Windows" width="210"></picture></a>
+<a href="#macos"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/img/get-mac-dark.svg"><img src="docs/img/get-mac-light.svg" alt="Install on macOS" width="210"></picture></a>
+<a href="#linux-and-steam-deck"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/img/get-linux-dark.svg"><img src="docs/img/get-linux-light.svg" alt="Install on Linux or Steam Deck" width="210"></picture></a>
 </p>
 
 <p align="center">Free, MIT licensed · 1 input = 1 action (<a href="#is-this-allowed">is this allowed?</a>)</p>
