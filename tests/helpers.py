@@ -94,7 +94,7 @@ class Sandbox:
         e.update(extra)
         return e
 
-    def setup(self, *args, steam=True, check=True, login=False):
+    def setup(self, *args, steam=True, check=True, login=False, env=None):
         """login=True: leave the login helper at its default (on). Otherwise installs here pass
         --no-follow, so the older tests keep checking the same files; test_login_helper.py
         covers the default."""
@@ -103,7 +103,7 @@ class Sandbox:
             cmd.append("--no-follow")
         if steam:
             cmd += ["--steam", str(self.steam)]
-        r = subprocess.run(cmd + list(args), env=self.env(), capture_output=True, text=True,
+        r = subprocess.run(cmd + list(args), env=self.env(**(env or {})), capture_output=True, text=True,
                            encoding="utf-8", errors="replace")
         if check and r.returncode:
             raise AssertionError(f"setup failed ({r.returncode}):\n{r.stdout}\n{r.stderr}")

@@ -169,7 +169,7 @@ class Failures(Base):
         sb = self.make()
         before = sb.snapshot()
         argv = ["setup.py", "--pokemmo", str(sb.pokemmo), "--steam", str(sb.steam), "--no-follow"]
-        with mock.patch.dict(os.environ, sb.env()), mock.patch.object(sys, "argv", argv), \
+        with mock.patch.dict(os.environ, sb.env()), mock.patch.object(sys, "argv", argv), mock.patch.object(platforms, "game_size", return_value=None), \
                 mock.patch.object(platforms, "pokemmo_running", return_value=True), mock.patch("builtins.print"):
             with self.assertRaises(SystemExit) as cm:
                 setup_mod.main()
@@ -180,7 +180,7 @@ class Failures(Base):
         sb = self.make()
         before = sb.snapshot()
         argv = ["setup.py", "--pokemmo", str(sb.pokemmo), "--steam", str(sb.steam), "--no-follow"]
-        with mock.patch.dict(os.environ, sb.env()), mock.patch.object(sys, "argv", argv), \
+        with mock.patch.dict(os.environ, sb.env()), mock.patch.object(sys, "argv", argv), mock.patch.object(platforms, "game_size", return_value=None), \
                 mock.patch.object(platforms, "steam_running", return_value=True), \
                 mock.patch.object(platforms, "steam_game_running", return_value=440), \
                 mock.patch.object(subprocess, "Popen") as popen, mock.patch("builtins.print"):
@@ -194,7 +194,7 @@ class Failures(Base):
         sb = self.make()
         argv = ["setup.py", "--pokemmo", str(sb.pokemmo), "--steam", str(sb.steam), "--no-follow"]
         running = iter([True] + [False] * 10)
-        with mock.patch.dict(os.environ, sb.env()), mock.patch.object(sys, "argv", argv), \
+        with mock.patch.dict(os.environ, sb.env()), mock.patch.object(sys, "argv", argv), mock.patch.object(platforms, "game_size", return_value=None), \
                 mock.patch.object(platforms, "steam_running", side_effect=lambda: next(running)), \
                 mock.patch.object(setup_mod.time, "sleep"), \
                 mock.patch.object(common, "write_atomic", side_effect=PermissionError(13, "denied", "x")), \
@@ -210,7 +210,7 @@ class Failures(Base):
         sb = self.make()
         sb.setup()
         argv = ["setup.py", "--pokemmo", str(sb.pokemmo), "--steam", str(sb.steam), "--no-follow"]
-        with mock.patch.dict(os.environ, sb.env()), mock.patch.object(sys, "argv", argv), \
+        with mock.patch.dict(os.environ, sb.env()), mock.patch.object(sys, "argv", argv), mock.patch.object(platforms, "game_size", return_value=None), \
                 mock.patch.object(platforms, "steam_running", return_value=True), \
                 mock.patch.object(subprocess, "Popen") as popen, mock.patch("builtins.print"):
             setup_mod.main()
@@ -408,7 +408,7 @@ class DryRun(Base):
         sb = self.make()
         before = sb.snapshot()
         argv = ["setup.py", "--pokemmo", str(sb.pokemmo), "--steam", str(sb.steam), "--dry-run"]
-        with mock.patch.dict(os.environ, sb.env()), mock.patch.object(sys, "argv", argv), \
+        with mock.patch.dict(os.environ, sb.env()), mock.patch.object(sys, "argv", argv), mock.patch.object(platforms, "game_size", return_value=None), \
                 mock.patch.object(platforms, "pokemmo_running", return_value=True), mock.patch("builtins.print"):
             setup_mod.main()  # no SystemExit: reading is safe with the game open
         self.assertSame(before, sb.snapshot())

@@ -301,7 +301,9 @@ def game_size():
     None when it cannot be told right now. Any value may be 0 or odd mid-switch: the caller
     (fit.py) filters. Never raises."""
     forced = os.environ.get("POKEMMO_CONTROLLER_TEST_SIZE_FILE")
-    if TEST and forced:     # sandbox tests: the "screen" is a file holding WxH
+    if TEST and not forced:
+        return None         # sandbox tests never read the real display of the machine they run on
+    if TEST:                # sandbox tests: the "screen" is a file holding WxH
         try:
             m = re.search(r"(-?\d+)\s*x\s*(-?\d+)", Path(forced).read_text())
             return (int(m.group(1)), int(m.group(2))) if m else None
