@@ -16,8 +16,7 @@ GOLDEN = ROOT / "tests" / "golden" / "binds-default.txt"
 
 def random_valid(rng):
     """A layout that obeys every rule: each action on its own input, wheel shuffled."""
-    inputs = [{"button": n} for n in range(L.BUTTONS)]
-    inputs += [{"axis": a, "positive": p} for a in range(L.AXES) if a not in L.RIGHT_STICK for p in (False, True)]
+    inputs = L.inputs()
     rng.shuffle(inputs)
     lay = {"format": L.FORMAT, "binds": dict(zip(L.ACTIONS, inputs)), "wheel": list(L.WHEEL_ACTIONS)}
     rng.shuffle(lay["wheel"])
@@ -88,6 +87,7 @@ class Fuzz(unittest.TestCase):
                 self.fail(f"validate crashed on {lay!r}: {e!r}")
             inputs = list(L.native_binds(lay).values())
             self.assertEqual(len(inputs), len(set(inputs)), lay)
+            self.assertFalse([i for i in inputs if i[0] == "AXIS" and i[1] in L.TRIGGERS and not i[2]], lay)
             self.assertEqual(len(set(lay["wheel"])), len(lay["wheel"]))
         self.assertGreater(refused, 300)
 

@@ -44,8 +44,7 @@ def saved_layout(pokemmo):
     lay = _record(pokemmo).get("layout")
     if lay:
         try:
-            L.validate(lay)
-            return lay, True
+            return L.recorded(lay)[0], True
         except L.LayoutError:
             pass
     return L.default_layout(), False
