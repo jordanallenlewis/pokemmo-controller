@@ -27,7 +27,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import layout as layout_mod  # noqa: E402
 from common import (MAP_KEY, NATIVE_KEY, Plan, backup_path, decode, encode, escape,  # noqa: E402
                     get_prop, join_lines, read_bytes, set_props, split_lines, unescape)
-from platforms import find_pokemmo, require_closed  # noqa: E402
+from platforms import connected_pad_names, find_pokemmo, require_closed  # noqa: E402
 
 # Names from SDL3's source (controller_list.h and the HIDAPI drivers) and the
 # Apple / Linux fallbacks. Steam Input's virtual pad covers the wheel setup.
@@ -226,8 +226,9 @@ def plan(p: Plan, pm: Path, extra_names=(), switch_positional=None, layout=None,
     if switch_positional is None:
         switch_positional = bool(st.get("switch_positional"))
     seen_here = logged_names(pm)
+    here_now = connected_pad_names()
     names = list(dict.fromkeys(CONTROLLER_NAMES + list(st.get("extra_names", [])) + list(extra_names)
-                               + seen_here))
+                               + seen_here + here_now))
     entries = split_entries(get_prop(lines, MAP_KEY) or "")
     bak = read_bytes(backup_path(path))
     bak_entries = split_entries(get_prop(split_lines(decode(bak)[0])[0], MAP_KEY) or "") if bak else {}
@@ -256,9 +257,9 @@ def plan(p: Plan, pm: Path, extra_names=(), switch_positional=None, layout=None,
     st["names"] = names
     st["switch_positional"] = bool(switch_positional)
     st["extra_names"] = list(dict.fromkeys(list(st.get("extra_names", [])) + list(extra_names)))
-    new = [n for n in seen_here if n not in CONTROLLER_NAMES]
+    new = [n for n in dict.fromkeys(seen_here + here_now) if n not in CONTROLLER_NAMES]
     p.notes.append(f"Controller binds for {len(names)} pad names in {path}"
-                   + (f" (including pads PokeMMO logged here: {', '.join(new)})" if new else ""))
+                   + (f" (including pads found here: {', '.join(new)})" if new else ""))
     return names
 
 
