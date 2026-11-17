@@ -53,14 +53,14 @@ LAYOUT = {
     "KEY_LEFT": AX(0, False), "KEY_RIGHT": AX(0, True),
     "KEY_A": B(0), "KEY_B": B(1), "KEY_X": B(2), "KEY_Y": B(3),
     # menus
-    "KEY_RING_FOCUS": B(4),      # View/Share/Minus: Focus Ring, reaches every hotbar slot, party, windows
+    "KEY_RING_FOCUS": B(9),      # LB/L1/L: Focus Ring, reaches every hotbar slot, party, windows
     "KEY_GAMEMENU": B(6),        # Menu/Options/Plus: Game Menu (Party, Pokedex, Settings...)
     "KEY_INVENTORY": B(10),      # RB/R1/R: Bag
     "KEY_NEXT": AX(5, True),     # RT/R2/ZR: next hotbar page
     "KEY_PREVIOUS": AX(4, True), # LT/L2/ZL: previous hotbar page
     # hotbar
     "KEY_HOTBAR_1": B(11), "KEY_HOTBAR_2": B(14), "KEY_HOTBAR_3": B(12), "KEY_HOTBAR_4": B(13),
-    "KEY_HOTBAR_5": B(9),        # LB/L1/L
+    "KEY_HOTBAR_5": B(4),        # View/Share/Minus: Hotbar 5, kept for the Town Map (always opens the map)
     # right stick: left free for the Steam wheel (tools/install_wheel.py)
     "KEY_TEAM": B(7),            # L3: Team
     "KEY_SCREENSHOT": B(8),      # R3: Screenshot
@@ -122,7 +122,10 @@ def layout_sets(binds):
             frozenset(_parts(_nintendo_face_actions_only(binds)))}
 
 
-OUR_LAYOUTS = layout_sets(LAYOUT)
+# v1.0.0 to v1.1.1 put the Focus Ring on View and Hotbar 5 on LB. Still recognised as this
+# project's, so a rerun replaces it and uninstall removes it.
+LEGACY_LAYOUT = dict(LAYOUT, KEY_RING_FOCUS=B(4), KEY_HOTBAR_5=B(9))
+OUR_LAYOUTS = layout_sets(LAYOUT) | layout_sets(LEGACY_LAYOUT)
 
 
 def is_ours(entry, extra=frozenset()):
