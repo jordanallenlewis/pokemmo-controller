@@ -10,6 +10,10 @@ layout files (the same writer the installer uses). Rules, all in this one place:
     fast 4K -> 1080p -> 1440p -> 4K never leaves a stale size behind;
   - a change that gives the same wheel size (a move to another monitor at the same
     resolution, a window nudged a few pixels) writes nothing;
+  - PokeMMO's 640x480 login window is not a game picture: it is skipped, so a launch does not
+    shrink the wheel for the login screen and grow it again after (real hardware, 2026-11-16);
+  - a small change in the wheel size (under 4 %, as a move between monitors of different display
+    scale causes) is kept as it was while the old size still fits;
   - the size is never above the 4K wheel's share of the picture, so it fits at any size.
 It sends no input to anything and never touches the game.
 """
@@ -20,6 +24,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import layout as L  # noqa: E402
 
 SETTLE = 3            # equal samples in a row before a new size counts
+LOGIN_SIZE = (640, 480)   # the launcher/login window, always this size
+TOLERANCE = 0.04      # a wheel size this close to the current one is not worth a rewrite
 MAX_ASPECT = 8        # wider or taller than 8:1 is a half-finished resize, not a picture
 
 
@@ -36,7 +42,9 @@ def sanitize(sample):
         w, h = L.check_resolution(w, h)
     except (TypeError, ValueError, L.LayoutError, OverflowError):
         return None
-    return (w, h) if max(w, h) <= MAX_ASPECT * min(w, h) else None
+    if (w, h) == LOGIN_SIZE or max(w, h) > MAX_ASPECT * min(w, h):
+        return None
+    return (w, h)
 
 
 def fits(scale, w, h):
@@ -65,7 +73,8 @@ class Follower:
         if self._n < self.settle:
             return None
         scale = L.wheel_scale(*s)
-        if scale == self.scale:
+        if scale == self.scale or (self.scale and abs(scale - self.scale) < TOLERANCE * self.scale
+                                   and fits(self.scale, *s)):
             self.size = s
             return None
         self.size, self.scale = s, scale
