@@ -13,6 +13,8 @@
 <a href="#linux-and-steam-deck"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/img/get-linux-dark.svg"><img src="docs/img/get-linux-light.svg" alt="Install on Linux or Steam Deck" width="210"></picture></a>
 </p>
 
+<p align="center"><em>PokeMMO Controller is an unofficial, fan-made tool, made by and for PokeMMO players. It is not made, endorsed or supported by the PokeMMO team.</em></p>
+
 <p align="center">Free, MIT licensed · 1 input = 1 action (<a href="#is-this-allowed">is this allowed?</a>)</p>
 
 Play [PokeMMO](https://pokemmo.com) on Windows, macOS or Linux (Steam Deck too)
@@ -330,6 +332,8 @@ F12 = Hide GUI) and sends exactly one key press when you let go.
 
 ## Is this allowed?
 
+PokeMMO Controller is an unofficial, fan-made tool, made by and for PokeMMO players. It is not made, endorsed or supported by the PokeMMO team.
+
 PokeMMO allows remapping as long as **one input from you produces no more than
 one input to the game**, with no turbo, no sequences and no cursor jumps
 ([macro policy](https://support.pokemmo.com/knowledgebase/article/macroing-faq),
@@ -543,6 +547,6 @@ Ideas and controller reports welcome: [open an issue](https://github.com/jordana
 
 ---
 
-Not affiliated with or endorsed by PokeMMO. No game files or ROMs are included.
+No game files or ROMs are included.
 Code released under the [MIT License](LICENSE). The pictures in `docs/img/` are original drawings made for this project (built by `docs/art/build.py`), also MIT.
 Xbox, PlayStation, Nintendo Switch, Steam and Lenovo are trademarks of their owners; they are named only to say which pads work.
