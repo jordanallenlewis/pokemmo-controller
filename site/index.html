@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PokeMMO Controller: play PokeMMO with any gamepad</title>
+<meta name="description" content="Free controller layout for PokeMMO. Every action on your Xbox, PlayStation or Switch Pro controller, on Windows, Mac, Linux and Steam Deck. One command to install.">
+<meta name="theme-color" content="#121418">
+<meta property="og:title" content="PokeMMO Controller">
+<meta property="og:description" content="Play PokeMMO from the couch. Every action on your controller, one command to install. Free and open source.">
+<link rel="canonical" href="https://pokemmocontroller.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PokeMMO Controller">
+<meta property="og:url" content="https://pokemmocontroller.com/">
+<meta property="og:image" content="https://pokemmocontroller.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="PokeMMO Controller: the PMC logo over an Xbox controller button map">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PokeMMO Controller">
+<meta name="twitter:description" content="Play PokeMMO from the couch. Every action on your controller, one command to install.">
+<meta name="twitter:image" content="https://pokemmocontroller.com/assets/og.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"PokeMMO Controller","applicationCategory":"GameApplication","operatingSystem":"Windows, macOS, Linux, SteamOS","url":"https://pokemmocontroller.com/","downloadUrl":"https://github.com/jordanallenlewis/pokemmo-controller/releases/latest","license":"https://github.com/jordanallenlewis/pokemmo-controller/blob/main/LICENSE","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/brand/icon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/brand/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Geist:wght@400..600&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top" aria-label="PokeMMO Controller home">
+      <img src="assets/logo.svg" alt="" height="30" style="width:auto">
+      <span>PokeMMO <b>Controller</b></span>
+    </a>
+    <nav aria-label="Sections">
+      <a href="#map">Button map</a>
+      <a href="#wheel">Wheel</a>
+      <a href="#install">Install</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn-ghost btn-sm gh" href="https://github.com/jordanallenlewis/pokemmo-controller" data-gh>
+      <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38v-1.33c-2.23.48-2.7-1.07-2.7-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.06-.49.06-.49.8.06 1.23.83 1.23.83.72 1.23 1.88.87 2.34.67.07-.52.28-.87.5-1.07-1.78-.2-3.65-.89-3.65-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+      <span>Star</span><span class="stars" data-stars hidden></span>
+    </a>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero" id="top">
+  <div class="wrap hero-in">
+    <div class="hero-copy">
+      <p class="eyebrow">Free · open source · v<span data-version>1.1.0</span></p>
+      <h1><span class="nowrap">Play <img class="pmmo-word" src="assets/pokemmo-wordmark.svg" alt="PokeMMO" width="294" height="39"></span><br>from the couch</h1>
+      <p class="lede">Every action in the game on your controller: battles, hotbar, Bag, GTL, Pokédex. Uses PokeMMO's own controller support, installs with one command, and stays out of your way.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="#install" data-dl>Install for <span data-os>your computer</span></a>
+        <a class="btn btn-ghost" href="#map">See the button map</a>
+      </div>
+      <ul class="chips" aria-label="Works with">
+        <li>Windows</li><li>macOS</li><li>Linux</li><li>Steam Deck</li><li>Legion Go</li>
+      </ul>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="glow"></div>
+      <div class="pad" data-pad="hero"></div>
+      <div class="ticker"><span class="ticker-key" data-ticker-key>RB</span><span class="ticker-arrow">→</span><span data-ticker-act>Bag</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="strip" aria-label="Highlights">
+  <div class="wrap strip-in">
+    <div><b>20+</b><span>actions on the pad</span></div>
+    <div><b>1</b><span>command to install</span></div>
+    <div><b>0</b><span>apps to keep open</span></div>
+    <div><b>1 = 1</b><span>one press, one action</span></div>
+  </div>
+</section>
+
+<section class="sec" id="map">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Button map</p>
+      <h2>Every action has a button</h2>
+      <p>Point at a button to see what it does in PokeMMO. Pick your controller and the names follow its labels.</p>
+    </div>
+    <div class="map">
+      <div class="seg" role="tablist" aria-label="Controller">
+        <button role="tab" aria-selected="true" data-pad-kind="xbox">Xbox</button>
+        <button role="tab" aria-selected="false" data-pad-kind="playstation">PlayStation</button>
+        <button role="tab" aria-selected="false" data-pad-kind="switch">Switch Pro</button>
+        <button role="tab" aria-selected="false" data-pad-kind="deck">Steam Deck</button>
+      </div>
+      <div class="map-grid">
+        <ul class="binds" data-binds="left"></ul>
+        <div class="pad pad-lg" data-pad="map"></div>
+        <ul class="binds" data-binds="right"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-alt" id="wheel">
+  <div class="wrap wheel-grid">
+    <div class="sec-head">
+      <p class="eyebrow">Right stick</p>
+      <h2>Ten more actions<br>on the right stick</h2>
+      <p>Tilt the right stick and a wheel opens in the middle of the screen. Point at a slice, let go, done. Let go in the centre to cancel. It sizes itself to your screen, from a 720p handheld to 4K.</p>
+      <p class="wheel-now"><span class="key" data-wheel-key>N</span><span data-wheel-act>Pokédex</span></p>
+      <p class="note">The wheel uses Steam's controller support. No Steam? You still get every other button.</p>
+    </div>
+    <figure class="wheel-fig">
+      <svg class="wheel" data-wheel viewBox="-200 -200 400 400" role="img" aria-label="The action wheel"></svg>
+      <figcaption>Slices, clockwise from the top. Each presses one key when you let go.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="sec" id="features">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Features</p>
+      <h2>Install it once and forget it</h2>
+    </div>
+    <div class="cards">
+      <article class="card">
+        <svg class="card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z"/><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"/></svg>
+        <h3>The game's own controller support</h3>
+        <p>Your binds go straight into PokeMMO's settings. Nothing sits between your controller and the game.</p>
+      </article>
+      <article class="card">
+        <svg class="card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+        <h3>Within PokeMMO's rules</h3>
+        <p>One input does one thing. No turbo, no macros, no sequences, and the tool refuses any layout that tries.</p>
+      </article>
+      <article class="card">
+        <svg class="card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/></svg>
+        <h3>Remap in your browser</h3>
+        <p>Pick your controller, change any button, watch the map update, press Apply. Runs on your computer only.</p>
+      </article>
+      <article class="card">
+        <svg class="card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+        <h3>Updates keep your layout</h3>
+        <p>Run the same command to update. Uninstall puts every file back exactly as it was.</p>
+      </article>
+      <article class="card">
+        <svg class="card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1Z"/></svg>
+        <h3>Finds the game by itself</h3>
+        <p>Windows, the macOS app, the Linux zip, Flatpak and Snap. No settings to hunt for, no admin rights.</p>
+      </article>
+      <article class="card">
+        <svg class="card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="10" rx="2"/><path d="M7 7v10M11 7v10M15 7v10"/></svg>
+        <h3>Your whole hotbar</h3>
+        <p>Slots 1–5 on the D-pad and LB, 6–9 on the wheel, plus the Focus Ring to reach any item.</p>
+      </article>
+    </div>
+    <div class="shots">
+      <figure class="shot">
+        <img src="assets/game-menu.png" alt="PokeMMO's game menu showing controller hints: RB on Bag, B on Return" loading="lazy" width="920" height="460">
+        <figcaption>The game shows your controller's buttons in its own menus.</figcaption>
+      </figure>
+      <figure class="shot shot-tall">
+        <img src="assets/remap-screen.png" alt="The remap screen: a pick-list for every action and the button map of your layout" loading="lazy" width="1100" height="2320">
+        <figcaption>The remap screen.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-alt" id="install">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Install</p>
+      <h2>One line to install</h2>
+      <p>Close PokeMMO, leave Steam open, then paste the line for your system. Nothing to install first.</p>
+    </div>
+    <div class="install">
+      <p class="step1"><span>1</span> Paste this line for your system.</p>
+      <div class="seg" role="tablist" aria-label="Your system">
+        <button role="tab" aria-selected="true" data-os-tab="win">Windows</button>
+        <button role="tab" aria-selected="false" data-os-tab="mac">macOS</button>
+        <button role="tab" aria-selected="false" data-os-tab="linux">Linux &amp; Steam Deck</button>
+      </div>
+      <div class="term" data-os-panel="win">
+        <div class="term-bar"><span>PowerShell</span><button class="copy" data-copy>Copy</button></div>
+        <pre><code>irm https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.ps1 | iex</code></pre>
+        <p class="term-hint">Press <kbd>Win</kbd>, type <b>PowerShell</b>, open it, paste, press <kbd>Enter</kbd>.</p>
+      </div>
+      <div class="term" data-os-panel="mac" hidden>
+        <div class="term-bar"><span>Terminal</span><button class="copy" data-copy>Copy</button></div>
+        <pre><code>curl -fsSL https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.sh | sh</code></pre>
+        <p class="term-hint">Press <kbd>⌘</kbd> <kbd>Space</kbd>, type <b>Terminal</b>, paste, press <kbd>Return</kbd>. Don't use sudo.</p>
+      </div>
+      <div class="term" data-os-panel="linux" hidden>
+        <div class="term-bar"><span>Terminal</span><button class="copy" data-copy>Copy</button></div>
+        <pre><code>curl -fsSL https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.sh | sh</code></pre>
+        <p class="term-hint">On Steam Deck, switch to Desktop Mode and open Konsole. Don't use sudo.</p>
+      </div>
+      <ol class="steps" start="2">
+        <li><b>Launch PokeMMO from your Steam library.</b> The installer adds it there for you.</li>
+        <li><b>Pick up your controller.</b> That's it. Run the same line again any time to update.</li>
+      </ol>
+      <p class="small">Prefer to read the script first? <a href="https://github.com/jordanallenlewis/pokemmo-controller/blob/main/install.sh">install.sh</a> · <a href="https://github.com/jordanallenlewis/pokemmo-controller/blob/main/install.ps1">install.ps1</a> · <a href="https://github.com/jordanallenlewis/pokemmo-controller#uninstall">Uninstall</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="faq">
+  <div class="wrap faq-wrap">
+    <div class="sec-head">
+      <p class="eyebrow">FAQ</p>
+      <h2>Questions</h2>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>Is this allowed in PokeMMO?</summary>
+        <p>PokeMMO lets you remap your controls as long as one input from you produces no more than one input to the game. This layout is built around that rule: every button and every wheel slice does exactly one thing, and the tool refuses any layout with a repeat, a sequence or a delay. It is a fan project and not made or endorsed by the PokeMMO team.</p>
+      </details>
+      <details>
+        <summary>Which controllers work?</summary>
+        <p>Xbox (One, Series, 360, Elite, Adaptive), PlayStation (DualShock 4, DualSense, Edge), Switch Pro, Steam Deck and Legion Go. Most other gamepads that show up as one of these work too.</p>
+      </details>
+      <details>
+        <summary>Do I need Steam?</summary>
+        <p>Only for the right-stick wheel. Without Steam you still get every other button through the game's own controller support.</p>
+      </details>
+      <details>
+        <summary>Can I change the buttons?</summary>
+        <p>Yes. The remap screen opens in your browser, lets you pick the input for every action and move the wheel slices, and checks that each input still does just one thing.</p>
+      </details>
+      <details>
+        <summary>Something isn't working.</summary>
+        <p>Close other controller tools (DS4Windows, reWASD and similar), then run the install line again. Still stuck? <a href="https://github.com/jordanallenlewis/pokemmo-controller/issues/new">Open an issue</a> and say which system and controller you use.</p>
+      </details>
+      <details>
+        <summary>How do I uninstall?</summary>
+        <p>One line, listed in the <a href="https://github.com/jordanallenlewis/pokemmo-controller#uninstall">README</a>. It restores PokeMMO's and Steam's settings exactly as they were.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="sec cta-end">
+  <div class="wrap end-in">
+    <h2>Grab your controller</h2>
+    <p>Free forever. If it makes the game better for you, a star on GitHub helps other players find it.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="#install">Install now</a>
+      <a class="btn btn-ghost" href="https://github.com/jordanallenlewis/pokemmo-controller" data-gh>★ Star on GitHub</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <p>PokeMMO Controller is a free, MIT-licensed fan project. Not affiliated with or endorsed by PokeMMO, Nintendo, Game Freak or The Pokémon Company.</p>
+    <p class="credit">Controller photo: <a href="https://commons.wikimedia.org/wiki/File:Xbox_Series_Controller_Carbon_Black.jpg">"Xbox Series Controller Carbon Black"</a> by UKER, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, background removed. <a href="https://commons.wikimedia.org/wiki/File:Playstation_5_DualSense_controller_in_Midnight_Black,_2026-02-07_(front).jpg">DualSense photo</a> by Chris Woodrich, CC BY-SA 4.0. <a href="https://commons.wikimedia.org/wiki/File:Nintendo-Switch-Pro-Controller-FL.jpg">Switch Pro photo</a> by Evan-Amos, public domain. <a href="https://commons.wikimedia.org/wiki/File:Steam_Deck_(front).png">Steam Deck photo</a> by Liam Dawe/GamingOnLinux (PNG by VulcanSphere), CC BY-SA 4.0. Backgrounds removed.</p>
+    <p><a href="https://github.com/jordanallenlewis/pokemmo-controller">GitHub</a> · <a href="https://github.com/jordanallenlewis/pokemmo-controller/issues">Report a problem</a> · <a href="https://github.com/jordanallenlewis/pokemmo-controller/blob/main/CHANGELOG.md">Changelog</a></p>
+  </div>
+</footer>
+
+<script src="app.js" defer></script>
+</body>
+</html>
