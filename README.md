@@ -1,41 +1,106 @@
-# PokeMMO Controller Layout
+<h1 align="center">PokeMMO Controller Layout</h1>
 
-![Windows · macOS · Linux](https://img.shields.io/badge/platform-Windows%20%C2%B7%20macOS%20%C2%B7%20Linux-0078d4)
-![Xbox · PlayStation · Switch Pro](https://img.shields.io/badge/controllers-Xbox%20%C2%B7%20PlayStation%20%C2%B7%20Switch%20Pro-107c10)
-![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-3776ab)
-![License: MIT](https://img.shields.io/badge/license-MIT-2ea44f)
-![Macro policy: 1 input = 1 action](https://img.shields.io/badge/macro%20policy-1%20input%20%3D%201%20action-6b6b70)
+<p align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/hero-dark.svg">
+  <img src="docs/img/hero-light.svg" alt="PokeMMO Controller Layout: play PokeMMO with an Xbox, PlayStation or Switch Pro controller">
+</picture>
+</p>
+
+<p align="center">
+<a href="#windows"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/img/get-windows-dark.svg"><img src="docs/img/get-windows-light.svg" alt="Install on Windows" width="280"></picture></a>
+<a href="#macos"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/img/get-mac-dark.svg"><img src="docs/img/get-mac-light.svg" alt="Install on macOS" width="280"></picture></a>
+<a href="#linux-and-steam-deck"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/img/get-linux-dark.svg"><img src="docs/img/get-linux-light.svg" alt="Install on Linux or Steam Deck" width="280"></picture></a>
+</p>
+
+<p align="center">
+<img alt="Windows, macOS, Linux" src="https://img.shields.io/badge/platform-Windows%20%C2%B7%20macOS%20%C2%B7%20Linux-4338ca">
+<img alt="Xbox, PlayStation, Switch Pro" src="https://img.shields.io/badge/controllers-Xbox%20%C2%B7%20PlayStation%20%C2%B7%20Switch%20Pro-4338ca">
+<img alt="Macro policy: 1 input = 1 action" src="https://img.shields.io/badge/macro%20policy-1%20input%20%3D%201%20action-6b7280">
+<img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-2ea44f">
+</p>
 
 Play [PokeMMO](https://pokemmo.com) on Windows, macOS or Linux (Steam Deck too)
 with an **Xbox, PlayStation or Switch Pro** controller, using the game's **own
-controller support**. All 9 hotbar slots, Bag, Party, Pokédex,
-GTL, Friends, Team and the rest are on the controller, plus a labeled
-right-stick wheel so you can see what each direction does.
+controller support**. All 9 hotbar slots, Bag, Party, Pokédex, GTL, Friends and
+Team are on the controller, plus a labeled right-stick wheel so you can see what
+each direction does.
 
-**At a glance**
+| | |
+|---|---|
+| **One command** | Nothing to install first, no administrator rights. Uninstall puts every file back byte for byte. |
+| **Your pad, your names** | Xbox, PlayStation and Switch Pro, plus Steam Deck and Legion Go S. Each button map below uses your pad's own labels. |
+| **A wheel you can read** | Tilt the right stick, point at a slice, let go: one key press. |
+| **Change any button** | A remap screen in your browser. Nothing is sent anywhere. |
+| **Allowed** | PokeMMO lets you remap while one input does one thing. This layout keeps to that: 1 input = 1 action, no turbo, no macros ([details](#is-this-allowed)). |
+| **Honest about testing** | Real-hardware results are listed under [Tested with](#tested-with). |
 
-- **Works with:** Xbox, PlayStation and Switch Pro pads on Windows, macOS, Linux
-  and Steam Deck (Desktop Mode). Which of these were played on real hardware is
-  listed honestly under [Tested with](#tested-with).
-- **Install in about a minute, one command:** nothing to install first, no
-  administrator rights, and uninstall puts every file back byte for byte.
-- **Allowed:** PokeMMO lets you remap while one input does one thing. This layout
-  keeps to that: 1 input = 1 action, no turbo, no macros ([details](#is-this-allowed)).
-- **Change any button yourself:** a remap screen in your browser, no extra software.
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/steps-dark.svg">
+  <img src="docs/img/steps-light.svg" alt="Install in three steps: close PokeMMO, paste one line, play from Steam">
+</picture>
 
-![Button map: every control on an Xbox controller](docs/button-map.png)
+### Your button map
 
-Playing on another pad? The same spots, with that pad's own button names (a
-drawn outline, not a photo, so the shapes are approximate; on Switch Pro the
-printed A confirms, as on a Switch):
-[PlayStation](docs/button-map-playstation.svg) ·
-[Switch Pro](docs/button-map-switch.svg). Or print them:
-`python tools/pads.py playstation` (also `switch`, `xbox`; add
-`--switch-positional` to see that setting).
+Pick your controller. Every map shows the default layout. These are drawn
+outlines, not photos, so shapes are approximate.
+
+<details open>
+<summary><b>Xbox</b> (One, Series, 360)</summary>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/map-xbox-dark.svg">
+  <img src="docs/img/map-xbox-light.svg" alt="Xbox button map">
+</picture>
+
+</details>
+
+<details>
+<summary><b>PlayStation</b> (DualSense, DualShock 4)</summary>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/map-playstation-dark.svg">
+  <img src="docs/img/map-playstation-light.svg" alt="PlayStation button map">
+</picture>
+
+</details>
+
+<details>
+<summary><b>Switch Pro</b> (the printed A confirms, as on a Switch)</summary>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/map-switch-dark.svg">
+  <img src="docs/img/map-switch-light.svg" alt="Switch Pro button map">
+</picture>
+
+</details>
+
+<details>
+<summary><b>Steam Deck</b> (Desktop Mode; Game Mode not yet tested on a Deck)</summary>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/map-deck-dark.svg">
+  <img src="docs/img/map-deck-light.svg" alt="Steam Deck button map">
+</picture>
+
+</details>
+
+<details>
+<summary><b>Lenovo Legion Go S</b></summary>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/map-legion-dark.svg">
+  <img src="docs/img/map-legion-light.svg" alt="Lenovo Legion Go S button map">
+</picture>
+
+</details>
+
+Or print any of them in your terminal: `python tools/pads.py playstation` (also
+`switch`, `xbox`; add `--switch-positional` to see that setting).
 
 ## Contents
 
-- [Quick start](#quick-start)
+- [Quick start](#quick-start): [Windows](#windows), [macOS](#macos), [Linux and Steam Deck](#linux-and-steam-deck)
 - [Controls](#controls)
 - [How do I… with a controller](#how-do-i-with-a-controller)
 - [Is this allowed?](#is-this-allowed)
@@ -51,18 +116,35 @@ One command. Nothing to install first (no Python, no git).
 
 1. Close PokeMMO. Leave Steam open: the installer closes it and opens it again
    when it has to (never while a Steam game is running).
-2. Paste the line for your system:
-
-   **Windows** (PowerShell):
-   ```powershell
-   irm https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.ps1 | iex
-   ```
-   **macOS / Linux / Steam Deck** (Terminal; on Deck use Desktop Mode):
-   ```sh
-   curl -fsSL https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.sh | sh
-   ```
+2. Paste the line for your system (next section).
 3. Launch **PokeMMO from your Steam library** (the installer adds it). No Steam?
    You still get every bind; only the wheel needs Steam.
+
+### Windows
+
+Open **PowerShell** (Start menu, type `powershell`) and paste:
+
+```powershell
+irm https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.ps1 | iex
+```
+
+### macOS
+
+Open **Terminal** and paste:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.sh | sh
+```
+
+### Linux and Steam Deck
+
+Open a terminal (on a Deck, switch to **Desktop Mode** first) and paste the same line as on macOS:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.sh | sh
+```
+
+### After the install
 
 The installer finds PokeMMO and Steam by itself (Windows install folder, macOS
 app, Linux zip, Flatpak, Snap). If you don't have Python 3.9+, it fetches a
@@ -189,12 +271,21 @@ not only the ones with their own button.
 ### The wheel
 
 Tilt the right stick to open the wheel in the middle of the screen. Point at a
-slice (its name shows above the wheel) and let go to use it. Let go in the
-center to cancel.
+slice (its name shows above the wheel) and let go to use it. The **top slice
+does nothing**, so a stray flick up presses nothing. Let go in the center to
+cancel.
 
-| In game | Slices, clockwise from the top |
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/wheel-demo-dark.svg">
+  <img src="docs/img/wheel-demo-light.svg" alt="The wheel, animated: the highlight moves from slice to slice">
+</picture>
+
+| In game | Slices, clockwise from the empty top |
 |---|---|
-| <img src="docs/wheel-in-game.png" alt="The wheel in game, pointing at Egg Incubators" width="300"> | <img src="docs/wheel.svg" alt="Wheel slice map" width="300"> |
+| <img src="docs/wheel-in-game.png" alt="The wheel in game, pointing at Egg Incubators" width="360"> | <picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/wheel-dark.svg">
+  <img src="docs/img/wheel-light.svg" alt="Wheel slice map" width="360">
+</picture> |
 
 Each slice shows the key it presses (N = Pokédex, I = Egg Incubators,
 C = Trainer Card, V = Friends, P = Global Trade Link, 6-9 = Hotbar 6-9,
@@ -235,7 +326,11 @@ uses. Don't want any Steam involvement? Skip `install_wheel.py`; you lose only t
 
 ## Troubleshooting
 
-**Controller not detected / buttons do nothing**
+Tap a heading to open it.
+
+<details>
+<summary><b>Controller not detected / buttons do nothing</b></summary>
+
 - Start PokeMMO once with the controller connected, close it, then run
   `apply_native.py` again. It reads PokeMMO's log and adds the name your pad
   reported, so third-party pads (8BitDo, PowerA…) are covered too.
@@ -247,7 +342,11 @@ uses. Don't want any Steam involvement? Skip `install_wheel.py`; you lose only t
   Still nothing? Copy the name PokeMMO shows in Settings → Controls and run
   `apply_native.py --name "That Name"`.
 
-**The remap screen**
+</details>
+
+<details>
+<summary><b>The remap screen</b></summary>
+
 - *The browser did not open*: the address is printed in the terminal
   (`http://127.0.0.1:…`); copy it into any browser. To print it without trying
   to open one, add `--no-browser` (`sh -s -- --ui --no-browser`, or
@@ -266,7 +365,11 @@ uses. Don't want any Steam involvement? Skip `install_wheel.py`; you lose only t
   sequences, delays or extra fields are refused on purpose.
 - Nothing is sent anywhere. **Quit** stops it, and so does closing the terminal.
 
-**The wheel is too big or too small**
+</details>
+
+<details>
+<summary><b>The wheel is too big or too small</b></summary>
+
 - Steam draws the wheel in screen pixels, so a size made for 4K looks huge at a
   lower resolution. Tell the installer the size of the game picture and it sizes the
   wheel to fit: add `--resolution 1920x1080` after the install command (on Windows, the
@@ -291,20 +394,36 @@ uses. Don't want any Steam involvement? Skip `install_wheel.py`; you lose only t
   Windowed, fullscreen and borderless: use the size of the game's picture, not of your
   monitor. `--reset-resolution` returns to the 4K size.
 
-**No wheel**
+</details>
+
+<details>
+<summary><b>No wheel</b></summary>
+
 - Launch PokeMMO **from the Steam library**, not the desktop shortcut.
 - Steam → Settings → Controller: Steam Input must be on for your pad type
   (Xbox is off by default; PlayStation and Switch are on).
 
-**A button fires twice**
+</details>
+
+<details>
+<summary><b>A button fires twice</b></summary>
+
 - Another remapper is running, or a Steam layout other than this one is active
   for PokeMMO (Steam → PokeMMO → Controller Layout).
 
-**Settings went back to default**
+</details>
+
+<details>
+<summary><b>Settings went back to default</b></summary>
+
 - PokeMMO was open during install. Close it and run the install command again.
   The installer stops if PokeMMO is open.
 
-**The installer stops with a message**
+</details>
+
+<details>
+<summary><b>The installer stops with a message</b></summary>
+
 - *A Steam game is running*: close the game; the installer won't restart Steam under it.
 - *… is read-only*: make that file writable again (Properties → untick Read-only), then rerun.
   Nothing was changed.
@@ -315,9 +434,15 @@ uses. Don't want any Steam involvement? Skip `install_wheel.py`; you lose only t
 - Stopped it halfway (Ctrl-C, closed the window)? Every file is either fully
   updated or untouched. Run the command again to finish, or uninstall.
 
-**Undo**
+</details>
+
+<details>
+<summary><b>Undo</b></summary>
+
 - The uninstall command above reverts only what the installer changed. Other PokeMMO
   settings you changed since then are kept.
+
+</details>
 
 ## How it works
 
@@ -396,8 +521,5 @@ Ideas and controller reports welcome: [open an issue](https://github.com/jordana
 ---
 
 Not affiliated with or endorsed by PokeMMO. No game files or ROMs are included.
-Code released under the [MIT License](LICENSE). The button map image uses
-["Xbox Series Controller Carbon Black"](https://commons.wikimedia.org/wiki/File:Xbox_Series_Controller_Carbon_Black.jpg)
-by UKER, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), with the
-background removed; `docs/button-map.*` and `docs/xbox-controller.webp` are CC BY-SA 4.0.
-Xbox is a trademark of Microsoft.
+Code released under the [MIT License](LICENSE). The pictures in `docs/img/` are original drawings made for this project (built by `docs/art/build.py`), also MIT.
+Xbox, PlayStation, Nintendo Switch, Steam and Lenovo are trademarks of their owners; they are named only to say which pads work.

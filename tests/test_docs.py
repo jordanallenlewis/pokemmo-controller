@@ -40,7 +40,7 @@ class Docs(unittest.TestCase):
 
     def test_ui_has_a_screenshot_and_troubleshooting(self):
         self.assertIn("docs/remap-screen.png", README)
-        self.assertRegex(README, r"(?m)^\*\*The remap screen")
+        self.assertRegex(README, r"(?m)^<summary><b>The remap screen")
 
     def test_claims_stay_honest(self):
         self.assertIn("not yet played on real hardware", README)
