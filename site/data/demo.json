@@ -21,65 +21,55 @@
    "label": "Run"
   },
   {
-   "t": 4.2,
-   "id": "b",
-   "label": "Run"
-  },
-  {
-   "t": 4.9,
-   "id": "b",
-   "label": "Run"
-  },
-  {
-   "t": 6.16,
+   "t": 4.86,
    "id": "rs",
    "label": "Wheel: Pokédex"
   },
   {
-   "t": 8.76,
+   "t": 7.46,
    "id": "b",
    "label": "Close"
   },
   {
-   "t": 9.58,
+   "t": 8.28,
    "id": "rs",
    "label": "Wheel: Trainer Card"
   },
   {
-   "t": 12.18,
+   "t": 10.88,
    "id": "b",
    "label": "Close"
   },
   {
-   "t": 13.0,
+   "t": 11.7,
    "id": "rs",
    "label": "Wheel: Global Trade Link"
   },
   {
-   "t": 16.3,
+   "t": 15.0,
    "id": "b",
    "label": "Close"
   },
   {
-   "t": 17.32,
+   "t": 16.02,
    "id": "rb",
    "label": "Bag"
   },
   {
-   "t": 19.56,
+   "t": 18.26,
    "id": "b",
    "label": "Close"
   },
   {
-   "t": 20.48,
+   "t": 19.18,
    "id": "menu",
    "label": "Game Menu"
   },
   {
-   "t": 22.11,
+   "t": 20.81,
    "id": "b",
    "label": "Close"
   }
  ],
- "end": 22.55
+ "end": 21.25
 }
