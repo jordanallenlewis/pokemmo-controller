@@ -5,108 +5,266 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PokeMMO controller layout</title>
 <style>
+/*brand:start*/
 :root {
-  color-scheme: light dark;
-  --bg: #f6f7f9; --panel: #ffffff; --ink: #14181f; --muted: #4b5563; --line: #cdd3dc;
-  --accent: #1d5fd1; --accent-ink: #ffffff; --warn: #8a4b00; --warn-bg: #fff3e0;
-  --bad: #a31621; --bad-bg: #fdecee; --ok: #14663a; --ok-bg: #e7f6ed; --slice: #e9edf4; --slice-on: #cfe0ff;
+  --bg: #121418;
+  --bg2: #171a1f;
+  --surface: #1e2127;
+  --surface2: #262a31;
+  --line: rgba(244, 241, 234, .12);
+  --ink: #f4f1ea;
+  --muted: #a3a8b3;
+  --dim: #8a909b;
+  --accent: #ffc833;
+  --accent-ink: #1a1408;
+  --accent-soft: rgba(255, 200, 51, .14);
+  --accent-text: #ffc833;
+  --ok: #7fd6a0;
+  --ok-bg: rgba(127, 214, 160, .12);
+  --bad: #ff9aa2;
+  --bad-bg: rgba(255, 154, 162, .12);
+  --warn: #ffc880;
+  --warn-bg: rgba(255, 200, 128, .12);
+  --display: "Bricolage Grotesque", "Segoe UI Variable Display", system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --text: Geist, "Segoe UI Variable Text", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --radius: 14px;
+  color-scheme: dark;
 }
-@media (prefers-color-scheme: dark) {
-  :root { --bg: #11141a; --panel: #1a1f28; --ink: #eef1f6; --muted: #aab3c2; --line: #384152;
-    --accent: #7aa7ff; --accent-ink: #0b1220; --warn: #ffc880; --warn-bg: #33270f;
-    --bad: #ff9aa2; --bad-bg: #3a1519; --ok: #86e0ac; --ok-bg: #11301f; --slice: #262d3a; --slice-on: #34476e; }
+@media (prefers-color-scheme: light) {
+:root {
+  --bg: #f6f4ef;
+  --bg2: #efece5;
+  --surface: #ffffff;
+  --surface2: #f0ede6;
+  --line: rgba(20, 22, 26, .16);
+  --ink: #14161a;
+  --muted: #4d535e;
+  --dim: #667080;
+  --accent: #ffc833;
+  --accent-ink: #1a1408;
+  --accent-soft: rgba(255, 200, 51, .28);
+  --accent-text: #7a5200;
+  --ok: #14663a;
+  --ok-bg: #e3f4ea;
+  --bad: #a31621;
+  --bad-bg: #fdecee;
+  --warn: #7a4b00;
+  --warn-bg: #fff1d9;
+  color-scheme: light;
 }
+}
+/*brand:end*/
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--ink); font: 1rem/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-header, main, footer { max-width: 72rem; margin: 0 auto; padding: 1rem 1.25rem; }
-h1 { font-size: 1.5rem; margin: 0 0 .25rem; }
-h2 { font-size: 1.125rem; margin: 0 0 .75rem; }
-h3 { font-size: .8125rem; margin: 1.25rem 0 .25rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
-p { margin: .25rem 0; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.5 var(--text); -webkit-font-smoothing: antialiased; display: flex; flex-direction: column; min-height: 100%; }
+h1, h2, h3, p { margin: 0; }
+h2 { font: 600 1.25rem/1.25 var(--display); }
+h3 { font: 600 .75rem/1.2 var(--text); text-transform: uppercase; letter-spacing: .08em; color: var(--dim); margin: 1rem 0 .4rem; }
 .muted { color: var(--muted); }
-.grid { display: grid; gap: 1rem; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-@media (max-width: 54rem) { .grid { grid-template-columns: minmax(0, 1fr); } }
-.panel { background: var(--panel); border: 1px solid var(--line); border-radius: .75rem; padding: 1rem 1.25rem; }
-.row { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.6fr); gap: .75rem; align-items: center; padding: .3rem 0; }
-.row label { font-weight: 500; }
-select, button { font: inherit; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: .5rem; padding: .45rem .65rem; min-height: 2.5rem; }
-select { width: 100%; }
-button { cursor: pointer; }
-button.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 600; }
-button:disabled { opacity: .55; cursor: not-allowed; }
-:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
-.bar { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1rem 0 0; }
-.note { border-radius: .5rem; padding: .6rem .8rem; margin: .75rem 0; border: 1px solid var(--line); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: .5rem; }
+.sr { position: absolute; left: -999px; }
+
+/* top bar with tabs */
+.top { display: flex; align-items: center; gap: 1.25rem; padding: .6rem 1.25rem; background: var(--bg2); border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: .65rem; font: 600 1.05rem/1 var(--display); }
+.brand .mark { width: 2rem; height: 2rem; border-radius: .5rem; }
+.brand h1 { font: inherit; }
+.brand b { color: var(--accent-text); font-weight: 700; }
+.tabs { display: flex; gap: .25rem; margin-left: auto; }
+.tab { font: 500 .95rem/1 var(--text); color: var(--muted); background: none; border: 0; border-bottom: 2px solid transparent; padding: .8rem .9rem; cursor: pointer; transition: color .15s, border-color .15s; }
+.tab:hover { color: var(--ink); }
+.tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+.tab .n { display: inline-block; min-width: 1.2rem; margin-left: .35rem; padding: .1rem .35rem; border-radius: 1rem; font: 600 .7rem/1.2 var(--mono); background: var(--accent-soft); color: var(--accent-text); }
+
+/* content */
+main { flex: 1; width: 100%; max-width: 76rem; margin: 0 auto; padding: 1.25rem 1.25rem 7rem; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.1rem 1.25rem; }
+.cols { display: grid; gap: 1rem; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); align-items: start; }
+@media (max-width: 68rem) { .cols { grid-template-columns: minmax(0, 1fr); } }
+.lead { margin: .35rem 0 .9rem; }
+.note { border-radius: .6rem; padding: .55rem .8rem; margin: 0 0 .8rem; border: 1px solid var(--line); }
 .note.warn { background: var(--warn-bg); color: var(--warn); border-color: var(--warn); }
 .note.bad { background: var(--bad-bg); color: var(--bad); border-color: var(--bad); }
 .note.ok { background: var(--ok-bg); color: var(--ok); border-color: var(--ok); }
-pre { white-space: pre-wrap; margin: .25rem 0 0; font: .875rem/1.4 ui-monospace, Menlo, Consolas, monospace; }
-#wheel { width: 100%; max-width: 26rem; display: block; margin: 0 auto; }
-#wheel .slice { fill: var(--slice); stroke: var(--line); stroke-width: 1.5; cursor: pointer; }
-#wheel .slice.on { fill: var(--slice-on); stroke: var(--accent); }
-#wheel text { fill: var(--ink); font-size: 11px; text-anchor: middle; pointer-events: none; }
-#wheel .centre { fill: var(--panel); stroke: var(--line); stroke-width: 1.5; }
-.sr { position: absolute; left: -999px; }
-.pad { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: center; margin: .75rem 0 0; }
-.pad select { width: auto; min-width: 12rem; }
-#map { display: block; width: 100%; height: auto; border-radius: .5rem; margin-top: .5rem; }
-.full { margin-top: 1rem; }
+.note pre { white-space: pre-wrap; margin: 0; font: .85rem/1.45 var(--mono); }
+.note:empty, #status:empty, #result:empty { display: none; }
+
+/* buttons */
+button { font: inherit; }
+.btn { font: 600 .95rem/1 var(--text); color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: .7rem 1.1rem; min-height: 2.6rem; cursor: pointer; transition: background-color .15s, border-color .15s, transform .1s; }
+.btn:hover { background: var(--surface2); border-color: var(--dim); }
+.btn:active { transform: scale(.98); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.primary:hover { filter: brightness(1.08); }
+.btn.small { min-height: 2.2rem; padding: .5rem .9rem; font-size: .875rem; }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+.row { display: flex; flex-wrap: wrap; gap: .5rem; margin: .75rem 0 0; }
+
+/* the controller picture */
+#map, #wheel { width: 100%; height: auto; display: block; }
+.mapwrap { overflow-x: auto; }
+#map { min-width: 40rem; }
+@media (max-width: 40rem) { .statusbar { position: static; } main { padding-bottom: 1rem; } .tabs { margin-left: 0; width: 100%; } .tab { padding: .7rem .6rem; } }
+#map .body { fill: var(--surface2); stroke: var(--line); stroke-width: 2; }
+#map .deco { fill: none; stroke: var(--line); stroke-width: 2; }
+#map .hot { fill: var(--bg2); stroke: var(--dim); stroke-width: 2; cursor: pointer; transition: fill .15s, stroke .15s; }
+#map .hot.empty { stroke-dasharray: 4 4; opacity: .75; }
+#map .hot.set { stroke: var(--accent-text); }
+#map g.spot:hover .hot { stroke: var(--accent); fill: var(--accent-soft); }
+#map g.spot.on .hot { fill: var(--accent); stroke: var(--accent); opacity: 1; stroke-dasharray: none; }
+#map g.spot:focus-visible { outline: none; }
+#map g.spot:focus-visible .hot { stroke: var(--ink); stroke-width: 3; }
+#map .lead-line { stroke: var(--line); stroke-width: 1.5; fill: none; }
+#map .lead-line.on { stroke: var(--accent); }
+#map .c1 { fill: var(--ink); font: 600 16px var(--text); }
+#map .c2 { fill: var(--muted); font: 400 13px var(--text); }
+#map g.callout { cursor: pointer; }
+#map g.callout:hover .c1, #map g.callout.on .c1 { fill: var(--accent-text); }
+#map g.callout:focus-visible { outline: none; }
+#map g.callout:focus-visible .c1 { text-decoration: underline; }
+#map .cap { fill: var(--dim); font: 500 12px var(--text); text-anchor: middle; }
+#map .cap.link { cursor: pointer; fill: var(--accent-text); }
+#wheel .slice { fill: var(--surface2); stroke: var(--bg); stroke-width: 3; cursor: pointer; transition: fill .15s; }
+#wheel g.sl:hover .slice { fill: var(--accent-soft); }
+#wheel g.sl.on .slice { fill: var(--accent); }
+#wheel g.sl.on text { fill: var(--accent-ink); }
+#wheel g.sl:focus-visible { outline: none; }
+#wheel g.sl:focus-visible .slice { stroke: var(--ink); }
+#wheel .blank { fill: var(--bg2); cursor: default; }
+#wheel text { fill: var(--ink); font: 500 11px var(--text); text-anchor: middle; pointer-events: none; }
+#wheel .centre { fill: var(--bg); stroke: var(--line); stroke-width: 2; }
+#wheel .dim { fill: var(--dim); }
+
+/* inspector: what does this input do */
+.who { display: flex; align-items: baseline; gap: .6rem; flex-wrap: wrap; }
+.who .big { font: 600 1.5rem/1.1 var(--display); }
+.chips { display: flex; flex-wrap: wrap; gap: .4rem; }
+.chip { font: 500 .9rem/1.1 var(--text); color: var(--ink); background: var(--bg2); border: 1px solid var(--line); border-radius: .6rem; padding: .5rem .7rem; min-height: 2.25rem; cursor: pointer; transition: background-color .15s, border-color .15s; }
+.chip:hover { border-color: var(--accent); }
+.chip[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 600; }
+.chip.none { border-style: dashed; color: var(--muted); }
+.hint { display: flex; gap: .5rem; align-items: center; color: var(--muted); font-size: .875rem; margin-top: .8rem; }
+.dot { width: .55rem; height: .55rem; border-radius: 50%; background: var(--dim); flex: none; }
+.dot.ok { background: var(--ok); }
+.dot.warn { background: var(--warn); }
+.dot.bad { background: var(--bad); }
+
+/* first-run checklist */
+.steps { list-style: none; margin: .5rem 0 0; padding: 0; display: grid; gap: .6rem; }
+.step { display: grid; grid-template-columns: 2.25rem minmax(0, 1fr) auto; gap: .9rem; align-items: center; padding: .8rem .9rem; border: 1px solid var(--line); border-radius: .8rem; background: var(--bg2); }
+.step .num { width: 2.25rem; height: 2.25rem; border-radius: 50%; border: 2px solid var(--dim); display: grid; place-items: center; font: 600 .95rem/1 var(--mono); color: var(--muted); }
+.step.done { border-color: var(--ok); }
+.step.done .num { background: var(--ok); border-color: var(--ok); color: var(--bg); }
+.step.done .num svg { display: block; }
+.step b { display: block; font-weight: 600; }
+.step span { color: var(--muted); font-size: .9rem; }
+.settings { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); }
+select { font: inherit; color: var(--ink); background: var(--bg2); border: 1px solid var(--line); border-radius: .6rem; padding: .55rem .7rem; min-height: 2.6rem; min-width: 12rem; }
+label { font-weight: 600; display: block; margin-bottom: .35rem; }
+
+/* the bar at the bottom: what the app keeps true, live */
+.statusbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 5; background: var(--bg2); border-top: 1px solid var(--line); }
+.statusbar .in { max-width: 76rem; margin: 0 auto; padding: .55rem 1.25rem; display: flex; align-items: center; gap: .5rem 1.25rem; flex-wrap: wrap; }
+#bar { display: flex; gap: .4rem 1.1rem; flex-wrap: wrap; flex: 1; font-size: .875rem; color: var(--muted); }
+#bar span { display: inline-flex; align-items: center; gap: .45rem; }
+#result { max-width: 76rem; margin: 0 auto; padding: 0 1.25rem .5rem; }
+footer.legal { max-width: 76rem; margin: 0 auto; padding: 0 1.25rem 1rem; color: var(--dim); font-size: .8125rem; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
 <body data-key="__KEY__">
-<header>
-  <h1>PokeMMO controller layout</h1>
-  <p class="muted" id="where">Looking for PokeMMO…</p>
-  <p class="muted">PokeMMO allows remapping while one input does one thing. Each input holds one action and each wheel slice presses one key when you let go, so this screen cannot set up anything else.</p>
-  <div class="pad">
-    <label for="pad"><strong>Your controller</strong></label>
-    <select id="pad">
-      <option value="xbox">Xbox</option>
-      <option value="playstation">PlayStation</option>
-      <option value="switch">Switch Pro</option>
-    </select>
-    <span class="muted" id="pad-note">Button names on this screen follow the controller you pick. One layout fits all three.</span>
-  </div>
+<header class="top">
+  <div class="brand"><!--brand:mark--><img class="mark" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii02IC02IDI2OCAyNjgiIHNoYXBlLXJlbmRlcmluZz0iY3Jpc3BFZGdlcyI+PHJlY3Qgd2lkdGg9IjI1NiIgaGVpZ2h0PSIyNTYiIHJ4PSI1NiIgZmlsbD0iIzEyMTQxOCIvPjxyZWN0IHg9IjEwIiB5PSIxMCIgd2lkdGg9IjIzNiIgaGVpZ2h0PSIyMzYiIHJ4PSI0OCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZjODMzIiBzdHJva2Utd2lkdGg9IjgiLz48cGF0aCBkPSJNMjUgOTNoMTB2MTBoLTEwek0zNSA5M2gxMHYxMGgtMTB6TTQ1IDkzaDEwdjEwaC0xMHpNNTUgOTNoMTB2MTBoLTEwek0yNSAxMDNoMTB2MTBoLTEwek0zNSAxMDNoMTB2MTBoLTEwek01NSAxMDNoMTB2MTBoLTEwek02NSAxMDNoMTB2MTBoLTEwek0yNSAxMTNoMTB2MTBoLTEwek0zNSAxMTNoMTB2MTBoLTEwek01NSAxMTNoMTB2MTBoLTEwek02NSAxMTNoMTB2MTBoLTEwek0yNSAxMjNoMTB2MTBoLTEwek0zNSAxMjNoMTB2MTBoLTEwek00NSAxMjNoMTB2MTBoLTEwek01NSAxMjNoMTB2MTBoLTEwek0yNSAxMzNoMTB2MTBoLTEwek0zNSAxMzNoMTB2MTBoLTEwek0yNSAxNDNoMTB2MTBoLTEwek0zNSAxNDNoMTB2MTBoLTEwek0yNSAxNTNoMTB2MTBoLTEwek0zNSAxNTNoMTB2MTBoLTEwek04NSA5M2gxMHYxMGgtMTB6TTk1IDkzaDEwdjEwaC0xMHpNMTM1IDkzaDEwdjEwaC0xMHpNMTQ1IDkzaDEwdjEwaC0xMHpNODUgMTAzaDEwdjEwaC0xMHpNOTUgMTAzaDEwdjEwaC0xMHpNMTA1IDEwM2gxMHYxMGgtMTB6TTEyNSAxMDNoMTB2MTBoLTEwek0xMzUgMTAzaDEwdjEwaC0xMHpNMTQ1IDEwM2gxMHYxMGgtMTB6TTg1IDExM2gxMHYxMGgtMTB6TTk1IDExM2gxMHYxMGgtMTB6TTEwNSAxMTNoMTB2MTBoLTEwek0xMTUgMTEzaDEwdjEwaC0xMHpNMTI1IDExM2gxMHYxMGgtMTB6TTEzNSAxMTNoMTB2MTBoLTEwek0xNDUgMTEzaDEwdjEwaC0xMHpNODUgMTIzaDEwdjEwaC0xMHpNOTUgMTIzaDEwdjEwaC0xMHpNMTE1IDEyM2gxMHYxMGgtMTB6TTEzNSAxMjNoMTB2MTBoLTEwek0xNDUgMTIzaDEwdjEwaC0xMHpNODUgMTMzaDEwdjEwaC0xMHpNOTUgMTMzaDEwdjEwaC0xMHpNMTM1IDEzM2gxMHYxMGgtMTB6TTE0NSAxMzNoMTB2MTBoLTEwek04NSAxNDNoMTB2MTBoLTEwek05NSAxNDNoMTB2MTBoLTEwek0xMzUgMTQzaDEwdjEwaC0xMHpNMTQ1IDE0M2gxMHYxMGgtMTB6TTg1IDE1M2gxMHYxMGgtMTB6TTk1IDE1M2gxMHYxMGgtMTB6TTEzNSAxNTNoMTB2MTBoLTEwek0xNDUgMTUzaDEwdjEwaC0xMHpNMjggOTZoMTB2MTBoLTEwek0zOCA5NmgxMHYxMGgtMTB6TTQ4IDk2aDEwdjEwaC0xMHpNNTggOTZoMTB2MTBoLTEwek0yOCAxMDZoMTB2MTBoLTEwek0zOCAxMDZoMTB2MTBoLTEwek01OCAxMDZoMTB2MTBoLTEwek02OCAxMDZoMTB2MTBoLTEwek0yOCAxMTZoMTB2MTBoLTEwek0zOCAxMTZoMTB2MTBoLTEwek01OCAxMTZoMTB2MTBoLTEwek02OCAxMTZoMTB2MTBoLTEwek0yOCAxMjZoMTB2MTBoLTEwek0zOCAxMjZoMTB2MTBoLTEwek00OCAxMjZoMTB2MTBoLTEwek01OCAxMjZoMTB2MTBoLTEwek0yOCAxMzZoMTB2MTBoLTEwek0zOCAxMzZoMTB2MTBoLTEwek0yOCAxNDZoMTB2MTBoLTEwek0zOCAxNDZoMTB2MTBoLTEwek0yOCAxNTZoMTB2MTBoLTEwek0zOCAxNTZoMTB2MTBoLTEwek04OCA5NmgxMHYxMGgtMTB6TTk4IDk2aDEwdjEwaC0xMHpNMTM4IDk2aDEwdjEwaC0xMHpNMTQ4IDk2aDEwdjEwaC0xMHpNODggMTA2aDEwdjEwaC0xMHpNOTggMTA2aDEwdjEwaC0xMHpNMTA4IDEwNmgxMHYxMGgtMTB6TTEyOCAxMDZoMTB2MTBoLTEwek0xMzggMTA2aDEwdjEwaC0xMHpNMTQ4IDEwNmgxMHYxMGgtMTB6TTg4IDExNmgxMHYxMGgtMTB6TTk4IDExNmgxMHYxMGgtMTB6TTEwOCAxMTZoMTB2MTBoLTEwek0xMTggMTE2aDEwdjEwaC0xMHpNMTI4IDExNmgxMHYxMGgtMTB6TTEzOCAxMTZoMTB2MTBoLTEwek0xNDggMTE2aDEwdjEwaC0xMHpNODggMTI2aDEwdjEwaC0xMHpNOTggMTI2aDEwdjEwaC0xMHpNMTE4IDEyNmgxMHYxMGgtMTB6TTEzOCAxMjZoMTB2MTBoLTEwek0xNDggMTI2aDEwdjEwaC0xMHpNODggMTM2aDEwdjEwaC0xMHpNOTggMTM2aDEwdjEwaC0xMHpNMTM4IDEzNmgxMHYxMGgtMTB6TTE0OCAxMzZoMTB2MTBoLTEwek04OCAxNDZoMTB2MTBoLTEwek05OCAxNDZoMTB2MTBoLTEwek0xMzggMTQ2aDEwdjEwaC0xMHpNMTQ4IDE0NmgxMHYxMGgtMTB6TTg4IDE1NmgxMHYxMGgtMTB6TTk4IDE1NmgxMHYxMGgtMTB6TTEzOCAxNTZoMTB2MTBoLTEwek0xNDggMTU2aDEwdjEwaC0xMHoiIGZpbGw9IiMxMjE0MTgiIHN0cm9rZT0iIzEyMTQxOCIgc3Ryb2tlLXdpZHRoPSI4IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIi8+PHBhdGggZD0iTTI4IDk2aDEwdjEwaC0xMHpNMzggOTZoMTB2MTBoLTEwek00OCA5NmgxMHYxMGgtMTB6TTU4IDk2aDEwdjEwaC0xMHpNMjggMTA2aDEwdjEwaC0xMHpNMzggMTA2aDEwdjEwaC0xMHpNNTggMTA2aDEwdjEwaC0xMHpNNjggMTA2aDEwdjEwaC0xMHpNMjggMTE2aDEwdjEwaC0xMHpNMzggMTE2aDEwdjEwaC0xMHpNNTggMTE2aDEwdjEwaC0xMHpNNjggMTE2aDEwdjEwaC0xMHpNMjggMTI2aDEwdjEwaC0xMHpNMzggMTI2aDEwdjEwaC0xMHpNNDggMTI2aDEwdjEwaC0xMHpNNTggMTI2aDEwdjEwaC0xMHpNMjggMTM2aDEwdjEwaC0xMHpNMzggMTM2aDEwdjEwaC0xMHpNMjggMTQ2aDEwdjEwaC0xMHpNMzggMTQ2aDEwdjEwaC0xMHpNMjggMTU2aDEwdjEwaC0xMHpNMzggMTU2aDEwdjEwaC0xMHpNODggOTZoMTB2MTBoLTEwek05OCA5NmgxMHYxMGgtMTB6TTEzOCA5NmgxMHYxMGgtMTB6TTE0OCA5NmgxMHYxMGgtMTB6TTg4IDEwNmgxMHYxMGgtMTB6TTk4IDEwNmgxMHYxMGgtMTB6TTEwOCAxMDZoMTB2MTBoLTEwek0xMjggMTA2aDEwdjEwaC0xMHpNMTM4IDEwNmgxMHYxMGgtMTB6TTE0OCAxMDZoMTB2MTBoLTEwek04OCAxMTZoMTB2MTBoLTEwek05OCAxMTZoMTB2MTBoLTEwek0xMDggMTE2aDEwdjEwaC0xMHpNMTE4IDExNmgxMHYxMGgtMTB6TTEyOCAxMTZoMTB2MTBoLTEwek0xMzggMTE2aDEwdjEwaC0xMHpNMTQ4IDExNmgxMHYxMGgtMTB6TTg4IDEyNmgxMHYxMGgtMTB6TTk4IDEyNmgxMHYxMGgtMTB6TTExOCAxMjZoMTB2MTBoLTEwek0xMzggMTI2aDEwdjEwaC0xMHpNMTQ4IDEyNmgxMHYxMGgtMTB6TTg4IDEzNmgxMHYxMGgtMTB6TTk4IDEzNmgxMHYxMGgtMTB6TTEzOCAxMzZoMTB2MTBoLTEwek0xNDggMTM2aDEwdjEwaC0xMHpNODggMTQ2aDEwdjEwaC0xMHpNOTggMTQ2aDEwdjEwaC0xMHpNMTM4IDE0NmgxMHYxMGgtMTB6TTE0OCAxNDZoMTB2MTBoLTEwek04OCAxNTZoMTB2MTBoLTEwek05OCAxNTZoMTB2MTBoLTEwek0xMzggMTU2aDEwdjEwaC0xMHpNMTQ4IDE1NmgxMHYxMGgtMTB6IiBmaWxsPSIjOWFhMGFiIi8+PHBhdGggZD0iTTI1IDkzaDEwdjEwaC0xMHpNMzUgOTNoMTB2MTBoLTEwek00NSA5M2gxMHYxMGgtMTB6TTU1IDkzaDEwdjEwaC0xMHpNMjUgMTAzaDEwdjEwaC0xMHpNMzUgMTAzaDEwdjEwaC0xMHpNNTUgMTAzaDEwdjEwaC0xMHpNNjUgMTAzaDEwdjEwaC0xMHpNMjUgMTEzaDEwdjEwaC0xMHpNMzUgMTEzaDEwdjEwaC0xMHpNNTUgMTEzaDEwdjEwaC0xMHpNNjUgMTEzaDEwdjEwaC0xMHpNMjUgMTIzaDEwdjEwaC0xMHpNMzUgMTIzaDEwdjEwaC0xMHpNNDUgMTIzaDEwdjEwaC0xMHpNNTUgMTIzaDEwdjEwaC0xMHpNMjUgMTMzaDEwdjEwaC0xMHpNMzUgMTMzaDEwdjEwaC0xMHpNMjUgMTQzaDEwdjEwaC0xMHpNMzUgMTQzaDEwdjEwaC0xMHpNMjUgMTUzaDEwdjEwaC0xMHpNMzUgMTUzaDEwdjEwaC0xMHpNODUgOTNoMTB2MTBoLTEwek05NSA5M2gxMHYxMGgtMTB6TTEzNSA5M2gxMHYxMGgtMTB6TTE0NSA5M2gxMHYxMGgtMTB6TTg1IDEwM2gxMHYxMGgtMTB6TTk1IDEwM2gxMHYxMGgtMTB6TTEwNSAxMDNoMTB2MTBoLTEwek0xMjUgMTAzaDEwdjEwaC0xMHpNMTM1IDEwM2gxMHYxMGgtMTB6TTE0NSAxMDNoMTB2MTBoLTEwek04NSAxMTNoMTB2MTBoLTEwek05NSAxMTNoMTB2MTBoLTEwek0xMDUgMTEzaDEwdjEwaC0xMHpNMTE1IDExM2gxMHYxMGgtMTB6TTEyNSAxMTNoMTB2MTBoLTEwek0xMzUgMTEzaDEwdjEwaC0xMHpNMTQ1IDExM2gxMHYxMGgtMTB6TTg1IDEyM2gxMHYxMGgtMTB6TTk1IDEyM2gxMHYxMGgtMTB6TTExNSAxMjNoMTB2MTBoLTEwek0xMzUgMTIzaDEwdjEwaC0xMHpNMTQ1IDEyM2gxMHYxMGgtMTB6TTg1IDEzM2gxMHYxMGgtMTB6TTk1IDEzM2gxMHYxMGgtMTB6TTEzNSAxMzNoMTB2MTBoLTEwek0xNDUgMTMzaDEwdjEwaC0xMHpNODUgMTQzaDEwdjEwaC0xMHpNOTUgMTQzaDEwdjEwaC0xMHpNMTM1IDE0M2gxMHYxMGgtMTB6TTE0NSAxNDNoMTB2MTBoLTEwek04NSAxNTNoMTB2MTBoLTEwek05NSAxNTNoMTB2MTBoLTEwek0xMzUgMTUzaDEwdjEwaC0xMHpNMTQ1IDE1M2gxMHYxMGgtMTB6IiBmaWxsPSIjZjRmMWVhIi8+PHBhdGggZD0iTTE4MCA5M2gxMHYxMGgtMTB6TTE5MCA5M2gxMHYxMGgtMTB6TTIwMCA5M2gxMHYxMGgtMTB6TTIxMCA5M2gxMHYxMGgtMTB6TTE3MCAxMDNoMTB2MTBoLTEwek0xODAgMTAzaDEwdjEwaC0xMHpNMTcwIDExM2gxMHYxMGgtMTB6TTE4MCAxMTNoMTB2MTBoLTEwek0xNzAgMTIzaDEwdjEwaC0xMHpNMTgwIDEyM2gxMHYxMGgtMTB6TTE3MCAxMzNoMTB2MTBoLTEwek0xODAgMTMzaDEwdjEwaC0xMHpNMTcwIDE0M2gxMHYxMGgtMTB6TTE4MCAxNDNoMTB2MTBoLTEwek0xODAgMTUzaDEwdjEwaC0xMHpNMTkwIDE1M2gxMHYxMGgtMTB6TTIwMCAxNTNoMTB2MTBoLTEwek0yMTAgMTUzaDEwdjEwaC0xMHpNMTgzIDk2aDEwdjEwaC0xMHpNMTkzIDk2aDEwdjEwaC0xMHpNMjAzIDk2aDEwdjEwaC0xMHpNMjEzIDk2aDEwdjEwaC0xMHpNMTczIDEwNmgxMHYxMGgtMTB6TTE4MyAxMDZoMTB2MTBoLTEwek0xNzMgMTE2aDEwdjEwaC0xMHpNMTgzIDExNmgxMHYxMGgtMTB6TTE3MyAxMjZoMTB2MTBoLTEwek0xODMgMTI2aDEwdjEwaC0xMHpNMTczIDEzNmgxMHYxMGgtMTB6TTE4MyAxMzZoMTB2MTBoLTEwek0xNzMgMTQ2aDEwdjEwaC0xMHpNMTgzIDE0NmgxMHYxMGgtMTB6TTE4MyAxNTZoMTB2MTBoLTEwek0xOTMgMTU2aDEwdjEwaC0xMHpNMjAzIDE1NmgxMHYxMGgtMTB6TTIxMyAxNTZoMTB2MTBoLTEweiIgZmlsbD0iIzEyMTQxOCIgc3Ryb2tlPSIjMTIxNDE4IiBzdHJva2Utd2lkdGg9IjgiIHN0cm9rZS1saW5lam9pbj0ibWl0ZXIiLz48cGF0aCBkPSJNMTgzIDk2aDEwdjEwaC0xMHpNMTkzIDk2aDEwdjEwaC0xMHpNMjAzIDk2aDEwdjEwaC0xMHpNMjEzIDk2aDEwdjEwaC0xMHpNMTczIDEwNmgxMHYxMGgtMTB6TTE4MyAxMDZoMTB2MTBoLTEwek0xNzMgMTE2aDEwdjEwaC0xMHpNMTgzIDExNmgxMHYxMGgtMTB6TTE3MyAxMjZoMTB2MTBoLTEwek0xODMgMTI2aDEwdjEwaC0xMHpNMTczIDEzNmgxMHYxMGgtMTB6TTE4MyAxMzZoMTB2MTBoLTEwek0xNzMgMTQ2aDEwdjEwaC0xMHpNMTgzIDE0NmgxMHYxMGgtMTB6TTE4MyAxNTZoMTB2MTBoLTEwek0xOTMgMTU2aDEwdjEwaC0xMHpNMjAzIDE1NmgxMHYxMGgtMTB6TTIxMyAxNTZoMTB2MTBoLTEweiIgZmlsbD0iI2M5OGEwMCIvPjxwYXRoIGQ9Ik0xODAgOTNoMTB2MTBoLTEwek0xOTAgOTNoMTB2MTBoLTEwek0yMDAgOTNoMTB2MTBoLTEwek0yMTAgOTNoMTB2MTBoLTEwek0xNzAgMTAzaDEwdjEwaC0xMHpNMTgwIDEwM2gxMHYxMGgtMTB6TTE3MCAxMTNoMTB2MTBoLTEwek0xODAgMTEzaDEwdjEwaC0xMHpNMTcwIDEyM2gxMHYxMGgtMTB6TTE4MCAxMjNoMTB2MTBoLTEwek0xNzAgMTMzaDEwdjEwaC0xMHpNMTgwIDEzM2gxMHYxMGgtMTB6TTE3MCAxNDNoMTB2MTBoLTEwek0xODAgMTQzaDEwdjEwaC0xMHpNMTgwIDE1M2gxMHYxMGgtMTB6TTE5MCAxNTNoMTB2MTBoLTEwek0yMDAgMTUzaDEwdjEwaC0xMHpNMjEwIDE1M2gxMHYxMGgtMTB6IiBmaWxsPSIjZmZjODMzIi8+PC9zdmc+" alt="" width="32" height="32"><!--/brand:mark--><h1>PokeMMO <b>Controller</b></h1></div>
+  <nav class="tabs" role="tablist" aria-label="Sections">
+    <button class="tab" role="tab" id="t-layout" aria-controls="p-layout" aria-selected="true">Layout</button>
+    <button class="tab" role="tab" id="t-wheel" aria-controls="p-wheel" aria-selected="false" tabindex="-1">Wheel</button>
+    <button class="tab" role="tab" id="t-status" aria-controls="p-status" aria-selected="false" tabindex="-1">Status<span class="n" id="todo" hidden></span></button>
+    <button class="tab" role="tab" id="t-settings" aria-controls="p-settings" aria-selected="false" tabindex="-1">Settings</button>
+  </nav>
 </header>
+
 <main>
   <div id="status" role="status" aria-live="polite"></div>
-  <div class="grid">
-    <section class="panel" aria-labelledby="h-binds">
-      <h2 id="h-binds">Buttons</h2>
-      <p class="muted">Pick the input for each action. If that input already does something else, the two swap.</p>
-      <div id="binds"></div>
-    </section>
-    <section class="panel" aria-labelledby="h-wheel">
-      <h2 id="h-wheel">Right-stick wheel (Steam)</h2>
-      <p class="muted">Tilt the right stick, let go on a slice. Slice 1 is at the top, then clockwise. The picture is a preview.</p>
-      <svg id="wheel" viewBox="-150 -150 300 300" role="img" aria-label="Wheel preview"></svg>
-      <div id="slices"></div>
-    </section>
-  </div>
-  <section class="panel full" aria-labelledby="h-map">
-    <h2 id="h-map">Button map</h2>
-    <p class="muted">Your layout on the controller you picked. It changes as you pick.</p>
-    <img id="map" alt="Button map of this layout" width="1800" height="990">
+
+  <section id="p-layout" role="tabpanel" aria-labelledby="t-layout">
+    <div class="cols">
+      <div class="card">
+        <h2>Your controller</h2>
+        <p class="muted lead">Click a button to change what it does. Each button does one thing: if you give it an action another button has, the two swap.</p>
+        <div class="mapwrap"><svg id="map" viewBox="0 0 900 520" role="group" aria-label="Controller. Each button is listed with the action it does."></svg></div>
+        <p class="hint"><span class="dot" id="seen-dot"></span><span id="seen">Press a button on your controller and it is picked here.</span></p>
+      </div>
+      <div class="card" id="inspector" aria-live="polite"></div>
+    </div>
   </section>
-  <div class="bar">
-    <button class="primary" id="apply">Apply to PokeMMO</button>
-    <button id="defaults">Back to the default layout</button>
-    <button id="export">Export layout file</button>
-    <button id="import">Import layout file…</button>
-    <button id="quit">Quit</button>
-    <input type="file" id="file" accept=".json,application/json" class="sr" tabindex="-1" aria-hidden="true">
-  </div>
-  <div id="result" role="status" aria-live="polite"></div>
+
+  <section id="p-wheel" role="tabpanel" aria-labelledby="t-wheel" hidden>
+    <div class="cols">
+      <div class="card">
+        <h2>Right-stick wheel</h2>
+        <p class="muted lead">Tilt the right stick toward a slice and let go: it presses that slice's key once. The top slice does nothing on purpose, so letting go while pointing up sends no key.</p>
+        <svg id="wheel" viewBox="-150 -150 300 300" role="group" aria-label="Right-stick wheel. Each slice is listed with its action."></svg>
+      </div>
+      <div class="card" id="winspector" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section id="p-status" role="tabpanel" aria-labelledby="t-status" hidden>
+    <div class="card">
+      <h2 id="setup-h">Setup</h2>
+      <p class="muted lead" id="setup-sub">What PokeMMO needs to find, and what this app keeps true.</p>
+      <ol class="steps" id="checklist"></ol>
+    </div>
+  </section>
+
+  <section id="p-settings" role="tabpanel" aria-labelledby="t-settings" hidden>
+    <div class="settings">
+      <div class="card">
+        <h2>Controller</h2>
+        <p class="muted lead" id="pad-note">Button names follow the controller you pick. One layout fits all three.</p>
+        <label for="pad">Names on the screen</label>
+        <select id="pad">
+          <option value="xbox">Xbox</option>
+          <option value="playstation">PlayStation</option>
+          <option value="switch">Switch Pro</option>
+        </select>
+      </div>
+      <div class="card">
+        <h2>Layout file</h2>
+        <p class="muted lead">Keep a copy of your layout, or load one a friend sent. A file that breaks the one-button-one-action rule is refused.</p>
+        <div class="row">
+          <button class="btn" id="defaults">Back to the default layout</button>
+          <button class="btn" id="export">Save layout file</button>
+          <button class="btn" id="import">Load layout file…</button>
+          <input type="file" id="file" accept=".json,application/json" class="sr" tabindex="-1" aria-hidden="true">
+        </div>
+      </div>
+      <div class="card">
+        <h2>About</h2>
+        <p class="muted lead" id="unofficial">PokeMMO Controller is an unofficial, fan-made tool, made by and for PokeMMO players. It is not made, endorsed or supported by the PokeMMO team.</p>
+        <p class="muted">PokeMMO allows remapping while one input does one thing. Each button holds one action and each wheel slice presses one key when you let go, so this screen cannot set up anything else. It runs on your computer only and talks to nothing else.</p>
+        <div class="row"><button class="btn" id="quit">Quit</button></div>
+      </div>
+    </div>
+  </section>
 </main>
-<footer class="muted">
-  <p id="unofficial">PokeMMO Controller is an unofficial, fan-made tool, made by and for PokeMMO players. It is not made, endorsed or supported by the PokeMMO team.</p>
-  <p>This page runs on your computer only and talks to nothing else. Close PokeMMO before you apply.</p>
-</footer>
+
+<div class="statusbar">
+  <div id="result" role="status" aria-live="polite"></div>
+  <div class="in">
+    <div id="bar" aria-label="Live status"></div>
+    <span class="muted" id="dirty" hidden>Changes not applied yet</span>
+    <button class="btn primary" id="apply">Apply to PokeMMO</button>
+  </div>
+</div>
+
 <script>
 "use strict";
 const KEY = document.body.dataset.key;
 const $ = (id) => document.getElementById(id);
-let S = null, lay = null, pad = "xbox";
+const NS = "http://www.w3.org/2000/svg";
+let S = null, lay = null, pad = "xbox", dirty = false, sel = null, wsel = 1, seenPad = null, TAB = "layout";
 
 const GROUPS = [
   ["Move", ["KEY_UP", "KEY_DOWN", "KEY_LEFT", "KEY_RIGHT"]],
@@ -123,6 +281,24 @@ async function api(path, body) {
   });
   return r.json();
 }
+function el(tag, attrs, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) e.setAttribute(k, v);
+  e.append(...kids);
+  return e;
+}
+function sv(tag, attrs, ...kids) {
+  const e = document.createElementNS(NS, tag);
+  for (const [k, v] of Object.entries(attrs || {})) e.setAttribute(k, v);
+  e.append(...kids);
+  return e;
+}
+function say(id, text, kind) {
+  const d = $(id);
+  d.textContent = "";
+  if (!text) return;
+  d.appendChild(el("div", {class: "note " + (kind || "")}, el("pre", {}, text)));
+}
 
 // an input as text: "b:3" or "a:1:-"; "" means not bound
 const toCode = (s) => !s ? "" : ("button" in s ? "b:" + s.button : "a:" + s.axis + ":" + (s.positive ? "+" : "-"));
@@ -131,139 +307,282 @@ const fromCode = (c) => {
   const p = c.split(":");
   return p[0] === "b" ? {button: +p[1]} : {axis: +p[1], positive: p[2] === "+"};
 };
-function inputOptions() {
-  const o = [["", "Not bound"]], p = S.pads[pad];
-  p.buttons.forEach((n, i) => o.push(["b:" + i, n]));
-  p.axes.forEach((a) => o.push(["a:" + a.n + ":" + (a.positive ? "+" : "-"), a.label]));
-  return o;
-}
-function padNote() {
-  if (pad !== "switch") return "Button names on this screen follow the controller you pick. One layout fits all three.";
-  return S.switch_positional
-    ? "Switch Pro, installed with --switch-positional: the bottom button (B) confirms, like Xbox."
-    : "Switch Pro: the printed A confirms, as on a Switch, so A here is the button marked A.";
-}
-let mapTimer = null, mapAsked = 0;
-function drawMap() {
-  clearTimeout(mapTimer);
-  mapTimer = setTimeout(async () => {
-    const n = ++mapAsked, forPad = pad, img = $("map");
-    let r;
-    try { r = await api("/api/diagram", {layout: lay, pad: forPad}); }
-    catch (e) { r = {ok: false, error: "the screen lost contact with the program that started it."}; }
-    if (n !== mapAsked) return;   // a newer picture was asked for: keep that one
-    if (!r.ok) { img.removeAttribute("src"); img.alt = "No picture: " + r.error; return; }
-    img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(r.svg);
-    img.alt = "Button map of this layout on a " + S.pads[forPad].title + " controller";
-  }, 120);
-}
 const labelOf = (id) => S.actions.find((a) => a.id === id).label;
+const actionOn = (code) => Object.keys(lay.binds).find((k) => toCode(lay.binds[k]) === code) || null;
 
-function say(el, text, kind) {
-  const d = $(el);
-  d.textContent = "";
-  if (!text) return;
-  const n = document.createElement("div");
-  n.className = "note " + (kind || "");
-  const p = document.createElement("pre");
-  p.textContent = text;
-  n.appendChild(p);
-  d.appendChild(n);
+// ------------------------------------------------------------------ the controller picture
+// Positions on the drawing. Buttons are named by where they sit (SDL position) so one drawing serves
+// every pad; the names printed on them come from the controller picked in Settings.
+const PHYS = ["A", "B", "X", "Y", "back", "guide", "start", "ls-press", "rs-press", "lb", "rb", "up", "down", "left", "right"];
+const SPOTS = {
+  lt: {x: 298, y: 52, w: 92, h: 32, r: 14}, lb: {x: 240, y: 78, w: 116, h: 26, r: 12},
+  rt: {x: 510, y: 52, w: 92, h: 32, r: 14}, rb: {x: 544, y: 78, w: 116, h: 26, r: 12},
+  "ls-up": {x: 300, y: 140, c: 15}, "ls-down": {x: 300, y: 252, c: 15}, "ls-left": {x: 244, y: 196, c: 15}, "ls-right": {x: 356, y: 196, c: 15},
+  "ls-press": {x: 300, y: 196, c: 24},
+  up: {x: 360, y: 270, w: 28, h: 28, r: 6}, down: {x: 360, y: 330, w: 28, h: 28, r: 6}, left: {x: 330, y: 300, w: 28, h: 28, r: 6}, right: {x: 390, y: 300, w: 28, h: 28, r: 6},
+  "rs-press": {x: 540, y: 300, c: 34},
+  Y: {x: 630, y: 154, c: 20}, X: {x: 588, y: 196, c: 20}, B: {x: 672, y: 196, c: 20}, A: {x: 630, y: 238, c: 20},
+  back: {x: 410, y: 190, c: 13}, guide: {x: 450, y: 156, c: 13}, start: {x: 490, y: 190, c: 13},
+};
+const AXIS_SPOT = {"0:-": "ls-left", "0:+": "ls-right", "1:-": "ls-up", "1:+": "ls-down", "4:+": "lt", "5:+": "rt"};
+const centre = (s) => s.c ? [s.x, s.y] : [s.x + s.w / 2, s.y + s.h / 2];
+
+// every spot as {key, code, name}: the input it stands for on this pad
+function spotInputs() {
+  const out = [], phys = S.phys[pad];
+  S.pads[pad].buttons.forEach((name, n) => out.push({key: PHYS[phys[n]], code: "b:" + n, name}));
+  S.pads[pad].axes.forEach((a) => {
+    const code = "a:" + a.n + ":" + (a.positive ? "+" : "-");
+    out.push({key: AXIS_SPOT[a.n + ":" + (a.positive ? "+" : "-")], code, name: a.label});
+  });
+  return out.filter((i) => i.key && SPOTS[i.key]);
 }
 
-function drawBinds() {
-  const root = $("binds");
+function drawMap() {
+  const svg = $("map");
+  svg.textContent = "";
+  svg.appendChild(sv("path", {class: "body", d: "M225 140 Q260 98 360 98 L540 98 Q640 98 675 140 L774 372 Q800 445 738 452 Q684 456 652 405 L621 356 L279 356 L248 405 Q216 456 162 452 Q100 445 126 372 Z"}));
+  svg.appendChild(sv("circle", {class: "deco", cx: 300, cy: 196, r: 44}));
+  svg.appendChild(sv("circle", {class: "deco", cx: 540, cy: 300, r: 44}));
+  const inputs = spotInputs();
+  const placed = [];
+  const spots = sv("g", {});
+  for (const inp of inputs) {
+    const s = SPOTS[inp.key], act = actionOn(inp.code), on = sel === inp.code;
+    const g = sv("g", {class: "spot" + (on ? " on" : ""), tabindex: 0, role: "button", "aria-pressed": on ? "true" : "false",
+                       "aria-label": inp.name + (act ? ": " + labelOf(act) : ": not bound")});
+    const shape = s.c ? sv("circle", {cx: s.x, cy: s.y, r: s.c}) : sv("rect", {x: s.x, y: s.y, width: s.w, height: s.h, rx: s.r});
+    shape.setAttribute("class", "hot " + (act ? "set" : "empty"));
+    g.appendChild(shape);
+    g.appendChild(sv("title", {}, inp.name + (act ? " · " + labelOf(act) : " · not bound")));
+    const pick = () => { sel = inp.code; refreshLayout(); };
+    g.addEventListener("click", pick);
+    g.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(); } });
+    spots.appendChild(g);
+    if (act) placed.push({inp, act, s, on, pick});
+  }
+  // call-outs: the action each button does, in a column on each side, joined to its button
+  for (const side of ["L", "R"]) {
+    const list = placed.filter((p) => (side === "L") === (centre(p.s)[0] < 450))
+      .sort((a, b) => centre(a.s)[1] - centre(b.s)[1] || (side === "L" ? 1 : -1) * (centre(a.s)[0] - centre(b.s)[0]));
+    const gap = Math.min(40, 430 / Math.max(list.length, 1));
+    list.forEach((p, i) => {
+      const y = 40 + i * gap + 14, x = side === "L" ? 196 : 704, anchor = side === "L" ? "end" : "start";
+      const [cx, cy] = centre(p.s);
+      svg.appendChild(sv("polyline", {class: "lead-line" + (p.on ? " on" : ""), points: `${side === "L" ? x + 8 : x - 8},${y - 5} ${side === "L" ? x + 24 : x - 24},${y - 5} ${cx},${cy}`}));
+      const g = sv("g", {class: "callout" + (p.on ? " on" : ""), tabindex: 0, role: "button", "aria-label": p.inp.name + ": " + labelOf(p.act)});
+      const t1 = sv("text", {class: "c1", x, y, "text-anchor": anchor}, p.inp.name);
+      const t2 = sv("text", {class: "c2", x, y: y + 15, "text-anchor": anchor}, labelOf(p.act));
+      g.append(t1, t2);
+      g.addEventListener("click", p.pick);
+      g.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); p.pick(); } });
+      svg.appendChild(g);
+    });
+  }
+  svg.appendChild(spots);
+  const cap = sv("text", {class: "cap link", x: 540, y: 362, tabindex: 0, role: "link"}, "Right stick: the wheel");
+  cap.addEventListener("click", () => showTab("wheel"));
+  cap.addEventListener("keydown", (e) => { if (e.key === "Enter") showTab("wheel"); });
+  svg.appendChild(cap);
+}
+
+function drawInspector() {
+  const root = $("inspector");
   root.textContent = "";
-  const opts = inputOptions();
+  const inp = spotInputs().find((i) => i.code === sel);
+  if (!inp) {
+    root.append(el("h2", {}, "Pick a button"), el("p", {class: "muted lead"}, "Click a button on the controller, or press it on your controller, to see what it does and change it."));
+    return;
+  }
+  const cur = actionOn(inp.code);
+  root.append(el("div", {class: "who"}, el("span", {class: "big"}, inp.name), el("span", {class: "muted"}, cur ? "does " + labelOf(cur) : "does nothing yet")));
+  root.append(el("p", {class: "muted lead"}, "Pick what it should do."));
   for (const [group, ids] of GROUPS) {
-    const h = document.createElement("h3"); h.textContent = group; root.appendChild(h);
+    root.append(el("h3", {}, group));
+    const box = el("div", {class: "chips"});
     for (const id of ids) {
-      const row = document.createElement("div"); row.className = "row";
-      const lab = document.createElement("label"); lab.textContent = labelOf(id); lab.htmlFor = "b-" + id;
-      const sel = document.createElement("select"); sel.id = "b-" + id;
-      for (const [v, t] of opts) { const o = document.createElement("option"); o.value = v; o.textContent = t; sel.appendChild(o); }
-      sel.value = toCode(lay.binds[id]);
-      sel.addEventListener("change", () => setBind(id, sel.value));
-      row.append(lab, sel); root.appendChild(row);
+      const b = el("button", {class: "chip", type: "button", "aria-pressed": id === cur ? "true" : "false"}, labelOf(id));
+      b.addEventListener("click", () => assign(inp.code, id));
+      box.appendChild(b);
     }
+    root.append(box);
+  }
+  root.append(el("h3", {}, "Or"));
+  const none = el("button", {class: "chip none", type: "button", "aria-pressed": cur ? "false" : "true"}, "Nothing");
+  none.addEventListener("click", () => assign(inp.code, null));
+  root.append(el("div", {class: "chips"}, none));
+}
+
+// give this input this action; whoever had either side of the trade gets what is left
+function assign(code, id) {
+  const holder = actionOn(code);
+  if (id === null) {
+    if (holder) { delete lay.binds[holder]; touched(); }
+    return refreshLayout();
+  }
+  if (holder === id) return;
+  const old = lay.binds[id];
+  if (holder) {
+    if (old) lay.binds[holder] = old; else delete lay.binds[holder];
+    say("status", labelOf(holder) + " now uses " + (old ? "the button " + labelOf(id) + " had" : "no button") + ", because each button does one thing.", "warn");
+  } else say("status", "");
+  lay.binds[id] = fromCode(code);
+  touched();
+  refreshLayout();
+}
+function touched() { dirty = true; renderBar(); }
+function refreshLayout() { drawMap(); drawInspector(); drawWheel(); }
+
+// ------------------------------------------------------------------ the wheel, same strokes
+function drawWheel() {
+  const svg = $("wheel"), insp = $("winspector");
+  svg.textContent = "";
+  const n = lay.wheel.length + 1, step = 2 * Math.PI / n, R = 142, r = 42;   // the top slice does nothing
+  const pt = (rad, a) => [Math.sin(a) * rad, -Math.cos(a) * rad];
+  const wedge = (i) => {
+    const a0 = (i - .5) * step, a1 = (i + .5) * step, [x0, y0] = pt(R, a0), [x1, y1] = pt(R, a1), [x2, y2] = pt(r, a1), [x3, y3] = pt(r, a0);
+    return `M${x0} ${y0} A${R} ${R} 0 0 1 ${x1} ${y1} L${x2} ${y2} A${r} ${r} 0 0 0 ${x3} ${y3}Z`;
+  };
+  const label = (i, words, cls) => {
+    const [tx, ty] = pt((R + r) / 2 + 6, i * step), t = sv("text", {x: tx, y: ty, class: cls || ""});
+    words.forEach((w, k) => t.appendChild(sv("tspan", {x: tx, dy: k === 0 ? (1 - words.length) * 0.6 + "em" : "1.2em"}, w)));
+    return t;
+  };
+  svg.append(sv("path", {class: "slice blank", d: wedge(0)}), label(0, ["Nothing"], "dim"));
+  lay.wheel.forEach((id, i0) => {
+    const i = i0 + 1, wa = S.wheel_actions.find((w) => w.id === id), on = wsel === i0;
+    const g = sv("g", {class: "sl" + (on ? " on" : ""), tabindex: 0, role: "button", "aria-pressed": on ? "true" : "false", "aria-label": "Slice " + (i + 1) + ": " + wa.label});
+    g.append(sv("path", {class: "slice", d: wedge(i)}), label(i, wa.label.split(" ")));
+    const pick = () => { wsel = i0; drawWheel(); };
+    g.addEventListener("click", pick);
+    g.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(); } });
+    svg.appendChild(g);
+  });
+  svg.append(sv("circle", {class: "centre", r: r - 4}), sv("text", {y: 4, class: "dim"}, "Cancel"));
+  // inspector
+  insp.textContent = "";
+  const cur = lay.wheel[wsel], wa = S.wheel_actions.find((w) => w.id === cur);
+  insp.append(el("div", {class: "who"}, el("span", {class: "big"}, "Slice " + (wsel + 2)), el("span", {class: "muted"}, "presses " + wa.key + " (" + wa.label + ")")),
+              el("p", {class: "muted lead"}, "Slice 1, at the top, does nothing. The rest run clockwise. Each action sits on the wheel once, so picking one that is on another slice swaps the two."));
+  const box = el("div", {class: "chips"});
+  for (const w of S.wheel_actions) {
+    const b = el("button", {class: "chip", type: "button", "aria-pressed": w.id === cur ? "true" : "false"}, w.label + " · " + w.key);
+    b.addEventListener("click", () => {
+      const j = lay.wheel.indexOf(w.id);
+      if (j === wsel) return;
+      lay.wheel[j] = lay.wheel[wsel]; lay.wheel[wsel] = w.id;
+      say("status", "Each action goes on the wheel once, so the two slices swapped.", "warn");
+      touched(); drawWheel();
+    });
+    box.appendChild(b);
+  }
+  insp.append(box);
+}
+
+// ------------------------------------------------------------------ setup checklist and live bar
+const TICK = () => sv("svg", {viewBox: "0 0 20 20", width: "18", height: "18", "aria-hidden": "true"}, sv("path", {d: "M4 10.5l4 4 8-9", fill: "none", stroke: "currentColor", "stroke-width": "2.6", "stroke-linecap": "round", "stroke-linejoin": "round"}));
+function steps() {
+  const st = S.status;
+  return [
+    {ok: st.pokemmo, title: "PokeMMO found", ok_text: S.pokemmo, no_text: S.problem || "Install PokeMMO and start it once, then reload this page."},
+    {ok: !!seenPad, title: "Controller detected", ok_text: seenPad || "", no_text: "Press any button on your controller while this window is in front. Xbox, PlayStation and Switch Pro pads are all fine."},
+    {ok: st.binds, title: "Buttons applied", ok_text: "Your layout is in PokeMMO's settings.", no_text: "Close PokeMMO, then apply. Your own settings are backed up first.", fix: st.pokemmo ? "Apply to PokeMMO" : null},
+    {ok: st.steam, title: "Steam wheel installed", ok_text: st.wheel_screen ? "Sized for " + st.wheel_screen.join("x") + "." : "Right stick opens the wheel.", no_text: "Adds the right-stick wheel to your controller in Steam.", fix: st.pokemmo ? "Install the wheel" : null},
+  ];
+}
+function drawChecklist() {
+  const list = steps(), left = list.filter((s) => !s.ok).length;
+  $("setup-h").textContent = left ? "Setup: " + (list.length - left) + " of " + list.length + " done" : "Setup: all done";
+  $("setup-sub").textContent = left ? "Each step is a tick or a button that fixes it." : "Everything is in place. Start PokeMMO and play.";
+  const t = $("todo");
+  t.hidden = !left; t.textContent = left;
+  const ol = $("checklist");
+  ol.textContent = "";
+  list.forEach((s, i) => {
+    const li = el("li", {class: "step" + (s.ok ? " done" : "")});
+    const num = el("div", {class: "num"});
+    if (s.ok) num.appendChild(TICK()); else num.textContent = i + 1;
+    li.append(num, el("div", {}, el("b", {}, s.title), el("span", {}, s.ok ? s.ok_text : s.no_text)));
+    if (!s.ok && s.fix) { const b = el("button", {class: "btn primary small", type: "button"}, s.fix); b.addEventListener("click", apply); li.appendChild(b); }
+    ol.appendChild(li);
+  });
+}
+function renderBar() {
+  const st = S.status, bar = $("bar");
+  bar.textContent = "";
+  const seg = (kind, text) => bar.appendChild(el("span", {}, el("i", {class: "dot " + kind}), text));
+  seg(st.pokemmo ? "ok" : "bad", st.pokemmo ? "PokeMMO found" : "PokeMMO not found");
+  seg(st.binds ? "ok" : "warn", st.binds ? "Buttons applied" : "Buttons not applied");
+  seg(st.steam ? "ok" : "warn", st.steam ? (st.wheel_screen ? "Wheel sized for " + st.wheel_screen.join("x") : "Steam wheel installed") : "Steam wheel not installed");
+  seg(seenPad ? "ok" : "", seenPad ? "Controller: " + seenPad : "No controller seen yet");
+  $("dirty").hidden = !dirty;
+  drawChecklist();
+}
+async function refreshStatus() {
+  try { S.status = await api("/api/status"); renderBar(); } catch (e) { /* the program stopped: leave the last state */ }
+}
+
+// ------------------------------------------------------------------ the controller itself (browser's own gamepad support)
+const STD = {0: "A", 1: "B", 2: "X", 3: "Y", 4: "lb", 5: "rb", 6: "lt", 7: "rt", 8: "back", 9: "start", 10: "ls-press", 11: "rs-press", 12: "up", 13: "down", 14: "left", 15: "right", 16: "guide"};
+const lastDown = {};
+function familyOf(id) {
+  const low = id.toLowerCase();
+  if (/054c|dualsense|dualshock|playstation|wireless controller/.test(low)) return "playstation";
+  if (/057e|pro controller|nintendo|switch/.test(low)) return "switch";
+  return "xbox";
+}
+function pollPads() {
+  const gps = (navigator.getGamepads && navigator.getGamepads()) || [];
+  for (const gp of gps) {
+    if (!gp) continue;
+    if (seenPad !== gp.id.replace(/\s*\(.*\)\s*$/, "")) {
+      seenPad = gp.id.replace(/\s*\(.*\)\s*$/, "");
+      $("seen").textContent = "Seen: " + seenPad + ". Press a button to pick it here.";
+      $("seen-dot").className = "dot ok";
+      const fam = familyOf(gp.id);
+      if (!S.userPad && fam !== pad) { pad = fam; $("pad").value = pad; setPadNote(); refreshLayout(); }
+      renderBar();
+    }
+    gp.buttons.forEach((b, i) => {
+      const k = gp.index + ":" + i, down = b.pressed || b.value > .6;
+      if (down && !lastDown[k] && STD[i] && TAB === "layout") {
+        const phys = S.phys[pad], n = phys.findIndex((p) => PHYS[p] === STD[i]);
+        if (n >= 0) { sel = "b:" + n; refreshLayout(); }
+        else {   // a trigger
+          const a = S.pads[pad].axes.find((x) => AXIS_SPOT[x.n + ":+"] === STD[i]);
+          if (a) { sel = "a:" + a.n + ":+"; refreshLayout(); }
+        }
+      }
+      lastDown[k] = down;
+    });
   }
 }
 
-function setBind(id, code) {
-  const old = lay.binds[id];
-  if (code) {
-    const other = Object.keys(lay.binds).find((k) => k !== id && toCode(lay.binds[k]) === code);
-    if (other) {
-      if (old) lay.binds[other] = old; else delete lay.binds[other];
-      say("status", labelOf(other) + " now uses " + (old ? "the input " + labelOf(id) + " had" : "nothing") + ", because one input does one action.", "warn");
-    } else say("status", "");
-    lay.binds[id] = fromCode(code);
-  } else { delete lay.binds[id]; say("status", ""); }
-  drawBinds(); drawMap();
-  $("b-" + id).focus();
+// ------------------------------------------------------------------ tabs, apply, files
+function showTab(name) {
+  TAB = name;
+  for (const t of ["layout", "wheel", "status", "settings"]) {
+    const on = t === name;
+    $("p-" + t).hidden = !on;
+    $("t-" + t).setAttribute("aria-selected", on ? "true" : "false");
+    $("t-" + t).tabIndex = on ? 0 : -1;
+  }
+  history.replaceState(null, "", "#" + name);
 }
-
-function drawWheel() {
-  const svg = $("wheel");
-  svg.textContent = "";
-  const NS = "http://www.w3.org/2000/svg", n = lay.wheel.length + 1, step = 2 * Math.PI / n;   // the top slice does nothing, so a stray flick sends no key
-  const R = 140, r = 38, pt = (rad, a) => [Math.sin(a) * rad, -Math.cos(a) * rad];
-  const blank = document.createElementNS(NS, "path"), b0 = -0.5 * step, b1 = 0.5 * step;
-  const [bx0, by0] = pt(R, b0), [bx1, by1] = pt(R, b1), [bx2, by2] = pt(r, b1), [bx3, by3] = pt(r, b0);
-  blank.setAttribute("d", `M${bx0} ${by0} A${R} ${R} 0 0 1 ${bx1} ${by1} L${bx2} ${by2} A${r} ${r} 0 0 0 ${bx3} ${by3}Z`);
-  blank.setAttribute("class", "slice"); blank.setAttribute("style", "opacity:.45;cursor:default");
-  svg.appendChild(blank);
-  const [nx, ny] = pt((R + r) / 2 + 6, 0), nt = document.createElementNS(NS, "text");
-  nt.setAttribute("x", nx); nt.setAttribute("y", ny); nt.textContent = "Nothing"; svg.appendChild(nt);
-  lay.wheel.forEach((id, i0) => {
-    const i = i0 + 1;
-    const a0 = (i - 0.5) * step, a1 = (i + 0.5) * step;
-    const [x0, y0] = pt(R, a0), [x1, y1] = pt(R, a1), [x2, y2] = pt(r, a1), [x3, y3] = pt(r, a0);
-    const path = document.createElementNS(NS, "path");
-    path.setAttribute("d", `M${x0} ${y0} A${R} ${R} 0 0 1 ${x1} ${y1} L${x2} ${y2} A${r} ${r} 0 0 0 ${x3} ${y3}Z`);
-    path.setAttribute("class", "slice");
-    path.addEventListener("click", () => $("s-" + i0).focus());
-    svg.appendChild(path);
-    const [tx, ty] = pt((R + r) / 2 + 6, i * step);
-    const t = document.createElementNS(NS, "text");
-    t.setAttribute("x", tx); t.setAttribute("y", ty);
-    const wa = S.wheel_actions.find((w) => w.id === id);
-    const words = wa.label.split(" ");
-    words.forEach((w, k) => {
-      const s = document.createElementNS(NS, "tspan");
-      s.setAttribute("x", tx); s.setAttribute("dy", k === 0 ? (1 - words.length) * 0.6 + "em" : "1.2em");
-      s.textContent = w; t.appendChild(s);
-    });
-    svg.appendChild(t);
+document.querySelectorAll(".tab").forEach((b) => {
+  b.addEventListener("click", () => showTab(b.id.slice(2)));
+  b.addEventListener("keydown", (e) => {
+    const tabs = [...document.querySelectorAll(".tab")], i = tabs.indexOf(b);
+    const j = e.key === "ArrowRight" ? (i + 1) % tabs.length : e.key === "ArrowLeft" ? (i + tabs.length - 1) % tabs.length : -1;
+    if (j >= 0) { e.preventDefault(); tabs[j].focus(); showTab(tabs[j].id.slice(2)); }
   });
-  const c = document.createElementNS(NS, "circle");
-  c.setAttribute("r", r - 4); c.setAttribute("class", "centre"); svg.appendChild(c);
-  const ct = document.createElementNS(NS, "text"); ct.setAttribute("y", 4); ct.textContent = "Cancel"; svg.appendChild(ct);
-}
+});
 
-function drawSlices() {
-  const root = $("slices");
-  root.textContent = "";
-  const top = document.createElement("p"); top.className = "muted";
-  top.textContent = "Slice 1 (the top) does nothing on purpose, so letting go of the stick while it points up presses no key.";
-  root.appendChild(top);
-  lay.wheel.forEach((id, i) => {
-    const row = document.createElement("div"); row.className = "row";
-    const lab = document.createElement("label"); lab.textContent = "Slice " + (i + 2); lab.htmlFor = "s-" + i;
-    const sel = document.createElement("select"); sel.id = "s-" + i;
-    for (const w of S.wheel_actions) { const o = document.createElement("option"); o.value = w.id; o.textContent = w.label + " (key " + w.key + ")"; sel.appendChild(o); }
-    sel.value = id;
-    sel.addEventListener("change", () => {
-      const j = lay.wheel.indexOf(sel.value);
-      lay.wheel[j] = lay.wheel[i]; lay.wheel[i] = sel.value;
-      say("status", "Each action goes on the wheel once, so the two slices swapped.", "warn");
-      drawWheel(); drawSlices(); drawMap(); $("s-" + i).focus();
-    });
-    row.append(lab, sel); root.appendChild(row);
-  });
+function setPadNote() {
+  $("pad-note").textContent = pad !== "switch" ? "Button names follow the controller you pick. One layout fits all three."
+    : S.switch_positional ? "Switch Pro, installed with --switch-positional: the bottom button (B) confirms, like Xbox."
+    : "Switch Pro: the printed A confirms, as on a Switch, so A here is the button marked A.";
 }
-
-function redraw() { drawBinds(); drawWheel(); drawSlices(); drawMap(); }
 
 async function apply() {
   const check = await api("/api/check", {layout: lay});
@@ -274,18 +593,17 @@ async function apply() {
     const r = await api("/api/apply", {layout: lay});
     if (r.ok === false && r.error) say("result", r.error, "bad");
     else say("result", r.output, r.ok ? "ok" : "bad");
-    if (r.ok) S = await api("/api/state");
+    if (r.ok) { dirty = false; await refreshStatus(); }
   } catch (e) { say("result", "The screen lost contact with the program that started it. Run the command again.", "bad"); }
   $("apply").disabled = false;
+  renderBar();
 }
-
 $("apply").addEventListener("click", apply);
-$("pad").addEventListener("change", () => {
-  pad = $("pad").value;
-  $("pad-note").textContent = padNote();
-  drawBinds(); drawMap();
+$("pad").addEventListener("change", () => { pad = $("pad").value; S.userPad = true; setPadNote(); refreshLayout(); });
+$("defaults").addEventListener("click", () => {
+  lay = JSON.parse(JSON.stringify(S.default)); touched();
+  say("status", "Default layout loaded here. Press Apply to put it in PokeMMO.", "warn"); refreshLayout(); showTab("layout");
 });
-$("defaults").addEventListener("click", () => { lay = JSON.parse(JSON.stringify(S.default)); say("status", "Default layout loaded here. Press Apply to put it in PokeMMO.", "warn"); redraw(); });
 $("export").addEventListener("click", async () => {
   const c = await api("/api/check", {layout: lay});
   if (!c.ok) { say("result", c.error, "bad"); return; }
@@ -301,19 +619,24 @@ $("file").addEventListener("change", async (e) => {
   if (f.size > 65536) { say("result", "That file is too big to be a layout.", "bad"); return; }
   const r = await api("/api/import", {text: await f.text()});
   if (!r.ok) { say("result", "That file was not used: " + r.error, "bad"); return; }
-  lay = r.layout; say("result", "Loaded " + f.name + ". Press Apply to put it in PokeMMO.", "ok"); redraw();
+  lay = r.layout; touched(); say("result", "Loaded " + f.name + ". Press Apply to put it in PokeMMO.", "ok"); refreshLayout(); showTab("layout");
 });
-$("quit").addEventListener("click", async () => { await api("/api/quit", {}); document.body.textContent = "Stopped. You can close this tab."; });
+$("quit").addEventListener("click", async () => { await api("/api/quit", {}); document.body.textContent = "Stopped. You can close this window."; });
 
 (async function init() {
   S = await api("/api/state");
   lay = JSON.parse(JSON.stringify(S.layout));
   pad = S.pad;
   $("pad").value = pad;
-  $("pad-note").textContent = padNote();
-  $("where").textContent = S.pokemmo ? "PokeMMO found: " + S.pokemmo + (S.custom ? " (your own layout is installed)" : "") : "";
+  setPadNote();
   if (S.problem) { say("status", S.problem, "bad"); $("apply").disabled = true; }
-  redraw();
+  sel = "b:" + 0;
+  refreshLayout();
+  renderBar();
+  const first = location.hash.slice(1);
+  showTab(["layout", "wheel", "status", "settings"].includes(first) ? first : (S.status.installed ? "layout" : "status"));
+  setInterval(pollPads, 120);
+  setInterval(() => { if (!document.hidden) refreshStatus(); }, 5000);
 })();
 </script>
 </body>
