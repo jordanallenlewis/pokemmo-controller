@@ -49,6 +49,11 @@
    "h": 1303,
    "alt": "Xbox controller",
    "spots": {
+    "guide": {
+     "x": 951,
+     "y": 146,
+     "r": 60
+    },
     "ls": {
      "x": 435,
      "y": 345,
@@ -183,6 +188,11 @@
    "h": 1266,
    "alt": "PlayStation DualSense controller",
    "spots": {
+    "guide": {
+     "x": 929,
+     "y": 504,
+     "r": 55
+    },
     "ls": {
      "x": 652,
      "y": 488,
@@ -317,6 +327,11 @@
    "h": 1233,
    "alt": "Nintendo Switch Pro Controller",
    "spots": {
+    "guide": {
+     "x": 959,
+     "y": 281,
+     "r": 36
+    },
     "ls": {
      "x": 465,
      "y": 185,
@@ -451,6 +466,11 @@
    "h": 462,
    "alt": "Steam Deck",
    "spots": {
+    "guide": {
+     "x": 186,
+     "y": 300,
+     "r": 22
+    },
     "ls": {
      "x": 198,
      "y": 83,

@@ -1,21 +1,21 @@
 {
- "inputs": "77ba2d0cb06748d8b7d8d2bc5a03feccff69d439f90017483fbe21defc348d45",
+ "inputs": "1f6f4f12cd3c7415adc1248611ae67247e6daf5168d3931cdb0b89c00bf43e71",
  "pictures": {
   "map-xbox-light.png": [
    3840,
-   1773
+   1776
   ],
   "map-xbox-dark.png": [
    3840,
-   1773
+   1776
   ],
   "map-playstation-light.png": [
    3840,
-   1738
+   1741
   ],
   "map-playstation-dark.png": [
    3840,
-   1738
+   1741
   ],
   "map-switch-light.png": [
    3840,
