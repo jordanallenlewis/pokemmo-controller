@@ -11,7 +11,7 @@
   <polyline points="406,242 432,242 650,285" fill="none" stroke="#7d8696" stroke-width="1.8"/>
   <circle cx="650" cy="285" r="6.5" fill="#7dd3fc" stroke="#0c0e12" stroke-width="2.5"/>
   <text x="392" y="248" text-anchor="end" font-size="22" font-weight="700" fill="#f2f3f5">L1</text>
-  <text x="392" y="272" text-anchor="end" font-size="17" fill="#a8adb7">Hotbar 5</text>
+  <text x="392" y="272" text-anchor="end" font-size="17" fill="#a8adb7">Focus Ring</text>
   <polyline points="406,300 432,300 640,390" fill="none" stroke="#7d8696" stroke-width="1.8"/>
   <circle cx="640" cy="390" r="6.5" fill="#7dd3fc" stroke="#0c0e12" stroke-width="2.5"/>
   <text x="392" y="306" text-anchor="end" font-size="22" font-weight="700" fill="#f2f3f5">L3</text>
@@ -19,7 +19,7 @@
   <polyline points="406,358 432,358 860,390" fill="none" stroke="#7d8696" stroke-width="1.8"/>
   <circle cx="860" cy="390" r="6.5" fill="#7dd3fc" stroke="#0c0e12" stroke-width="2.5"/>
   <text x="392" y="364" text-anchor="end" font-size="22" font-weight="700" fill="#f2f3f5">Create</text>
-  <text x="392" y="388" text-anchor="end" font-size="17" fill="#a8adb7">Focus Ring</text>
+  <text x="392" y="388" text-anchor="end" font-size="17" fill="#a8adb7">Hotbar 5 (Town Map)</text>
   <polyline points="406,416 432,416 760,480" fill="none" stroke="#7d8696" stroke-width="1.8"/>
   <circle cx="760" cy="480" r="6.5" fill="#7dd3fc" stroke="#0c0e12" stroke-width="2.5"/>
   <text x="392" y="422" text-anchor="end" font-size="22" font-weight="700" fill="#f2f3f5">D-pad up</text>

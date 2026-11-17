@@ -1,0 +1,53 @@
+name: site
+
+# Publishes site/ (pokemmocontroller.com) to GitHub Pages. site/data/layout.json is
+# generated from tools/layout.py, so a layout change that forgets to rebuild it fails here.
+on:
+  push:
+    branches: [main]
+    paths: ["site/**", "tools/layout.py", "tools/common.py", ".github/workflows/site.yml"]
+  pull_request:
+    paths: ["site/**", "tools/layout.py", "tools/common.py", ".github/workflows/site.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: layout data is current
+        run: python site/build.py --check
+      - name: assemble the published files
+        run: |
+          bash site/assemble.sh _site
+      - uses: actions/upload-pages-artifact@v3
+        if: github.event_name != 'pull_request'
+        with:
+          path: _site
+
+  deploy:
+    # Runs on the ax1 box runner. The repo is public, so this is the only job allowed on it,
+    # and only for a push to main: never a pull request, fork or manual run. The job runs no
+    # repository code: it only publishes the artifact the GitHub-hosted build job made.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: [self-hosted, linux, x64, box]
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

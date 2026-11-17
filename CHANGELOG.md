@@ -8,6 +8,16 @@
   and the ten actions). Each action is still on the wheel once and presses one key.
   Re-run the installer (or Apply in the remap screen) to get it; Steam reads the new
   layout on the next launch from the Steam library.
+- Changed: **View** (Create on PlayStation, − on Switch Pro) now opens the map. PokeMMO has
+  no controller action for the map, so View presses Hotbar 5: put the Town Map in
+  hotbar slot 5 (of each page you use) once and View always opens it. The Focus Ring
+  moved to **LB** (L1, L), which used to be Hotbar 5, so nothing else is lost. A rerun
+  of the installer moves your binds; a layout you made in the remap screen is left as it is.
+  The button maps in `docs/` and the remap screen show the new default.
+- Fixed: a run stopped while it waited for a busy file (Windows cannot let it clean up)
+  left a `name.XXXX.tmp` file in the Steam or PokeMMO folder. The next write clears old
+  ones, and uninstall removes any next to the files it removes.
+
 - New: `--follow` keeps the wheel sized while the game's resolution changes mid-play
   (4K, 1080p, 1440p and back, in any order; fullscreen, borderless or windowed;
   other monitor or display scaling). It rewrites only the wheel layout files once a
