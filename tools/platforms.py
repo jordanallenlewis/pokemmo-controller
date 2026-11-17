@@ -12,7 +12,7 @@ POKEMMO_CONTROLLER_POKEMMO_DIR / POKEMMO_CONTROLLER_STEAM_DIR.
 POKEMMO_CONTROLLER_TEST=1 is for sandbox tests: it never looks at system-wide
 folders or the registry, and treats PokeMMO and Steam as closed.
 """
-import os, re, subprocess, sys
+import os, re, shutil, subprocess, sys, tempfile
 from pathlib import Path
 
 HOME = Path.home()
@@ -318,3 +318,98 @@ def game_size():
                 or parse_xrandr(_run_text(["xrandr", "--current"])))
     except Exception:  # noqa: BLE001  a display query must never stop the follower
         return None
+
+
+# ------------------------------------------------ the follower at login, and one copy only
+def python_for_login():
+    """True when this computer has a Python 3.9+ the login entry can start. The installers may
+    have used a private copy that is gone after the run: then nothing could start at login."""
+    probe = "import sys; sys.exit(0 if sys.version_info >= (3, 9) else 1)"
+    for name in (("py", "python") if WINDOWS else ("python3", "python")):
+        exe = shutil.which(name)
+        if not exe:
+            continue
+        if MAC and exe == "/usr/bin/" + name and not _run_text(["xcode-select", "-p"]).strip():
+            continue  # the stub that pops an install dialog
+        cmd = [exe, "-3", "-c", probe] if name == "py" else [exe, "-c", probe]
+        try:
+            if subprocess.run(cmd, capture_output=True, timeout=20).returncode == 0:
+                return True
+        except (OSError, subprocess.SubprocessError):
+            pass
+    return False
+
+
+def _xml(text):
+    return text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
+def login_entries(follow_launcher: Path):
+    """{path: bytes}: the files that start follow_launcher when this user logs in.
+    Windows: a script in the user's Startup folder. macOS: a LaunchAgent. Linux and Steam Deck
+    Desktop Mode: an XDG autostart entry. Nothing needs admin rights; each file is one entry."""
+    launcher = str(follow_launcher)
+    if WINDOWS:
+        base = _env_path("APPDATA") or HOME / "AppData" / "Roaming"
+        text = ('Set sh = CreateObject("WScript.Shell")\r\n'
+                'sh.Run Chr(34) & "' + launcher.replace('"', '') + '" & Chr(34), 0, False\r\n')
+        return {base / "Microsoft" / "Windows" / "Start Menu" / "Programs" / "Startup"
+                / "pokemmo-controller-follow.vbs": b"\xff\xfe" + text.encode("utf-16-le")}
+    if MAC:
+        text = ('<?xml version="1.0" encoding="UTF-8"?>\n'
+                '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" '
+                '"http://www.apple.com/DTDs/PropertyList-1.0.dtd">\n<plist version="1.0">\n<dict>\n'
+                '  <key>Label</key><string>com.pokemmo-controller.follow</string>\n'
+                '  <key>ProgramArguments</key><array><string>/bin/sh</string><string>'
+                + _xml(launcher) + '</string></array>\n'
+                '  <key>RunAtLoad</key><true/>\n</dict>\n</plist>\n')
+        return {HOME / "Library" / "LaunchAgents" / "com.pokemmo-controller.follow.plist": text.encode("utf-8")}
+    quoted = launcher.replace("\\", "\\\\").replace('"', '\\"').replace("`", "\\`").replace("$", "\\$")
+    quoted = quoted.replace("%", "%%")
+    text = ("[Desktop Entry]\nType=Application\nName=PokeMMO controller wheel\n"
+            "Comment=Keeps the controller wheel sized for the game\n"
+            f'Exec=sh "{quoted}"\nTerminal=false\nX-GNOME-Autostart-enabled=true\n')
+    base = _env_path("XDG_CONFIG_HOME") or HOME / ".config"
+    return {base / "autostart" / "pokemmo-controller-follow.desktop": text.encode("utf-8")}
+
+
+_LOCKS = []
+
+
+def single_instance(key):
+    """True for the first process to ask with this key, False while another still holds it.
+    The lock goes when the process ends, however it ends."""
+    import hashlib
+    path = Path(tempfile.gettempdir()) / ("pokemmo-controller-follow-"
+                                          + hashlib.sha1(str(key).encode("utf-8", "replace")).hexdigest()[:12] + ".lock")
+    try:
+        f = open(path, "a+b")
+    except OSError:
+        return True    # cannot lock: better two followers than none
+    try:
+        if WINDOWS:
+            import msvcrt
+            f.seek(0)
+            msvcrt.locking(f.fileno(), msvcrt.LK_NBLCK, 1)
+        else:
+            import fcntl
+            fcntl.flock(f, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except OSError:
+        f.close()
+        return False
+    _LOCKS.append(f)
+    return True
+
+
+def start_detached(cmd):
+    """Start cmd on its own, unattached from this console, so it outlives the installer."""
+    kw = dict(stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    if WINDOWS:
+        kw["creationflags"] = 0x00000008 | 0x00000200 | 0x08000000   # detached, new group, no window
+    else:
+        kw["start_new_session"] = True
+    try:
+        subprocess.Popen(cmd, **kw)
+        return True
+    except OSError:
+        return False
