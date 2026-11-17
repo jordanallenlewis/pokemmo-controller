@@ -3,6 +3,10 @@
 ## Unreleased
 
 - Changed: the installers print, and the remap screen shows, one plain line: PokeMMO Controller is an unofficial, fan-made tool, not made, endorsed or supported by the PokeMMO team.
+- Fixed (Windows): `--follow` took the first window whose title began with "PokeMMO", so a
+  browser tab or folder called "PokeMMO Forums" on top of the game made the wheel follow
+  that window's size instead. It now reads the window of the PokeMMO program itself
+  (the largest, if there are several), in fullscreen, borderless and windowed alike.
 - Changed: **View** (Create on PlayStation, − on Switch Pro) now opens the map. PokeMMO has
   no controller action for the map, so View presses Hotbar 5: put the Town Map in
   hotbar slot 5 (of each page you use) once and View always opens it. The Focus Ring

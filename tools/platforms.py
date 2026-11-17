@@ -221,6 +221,31 @@ def _run_text(cmd):
         return ""
 
 
+GAME_EXE = re.compile(r"^pokemmo[\w .-]*\.exe$", re.I)
+GAME_TITLE = re.compile(r"^pokemmo( -.*)?$", re.I)
+
+
+def pick_game_window(windows):
+    """windows: (title, exe name, width, height, minimized) of every visible window.
+    -> ("size", (w, h)) for the game window, ("minimized", None) when only a minimized one is
+    there, or (None, None) when there is no game window. The game is the window of the
+    PokeMMO program; where the program is unknown, a title that is exactly "PokeMMO" counts.
+    A browser tab or folder called "PokeMMO Forums" does not: its size is not the game's.
+    With several game windows (a launcher, the client) the largest picture wins."""
+    shown, hidden = [], False
+    for title, exe, w, h, minimized in windows:
+        ours = bool(GAME_EXE.match(exe or "")) or (not exe and bool(GAME_TITLE.match(title or "")))
+        if not ours:
+            continue
+        if minimized:
+            hidden = True
+        else:
+            shown.append((w, h))
+    if shown:
+        return "size", max(shown, key=lambda s: s[0] * s[1])
+    return ("minimized", None) if hidden else (None, None)
+
+
 def _windows_game_size():
     import ctypes
     from ctypes import wintypes
@@ -232,23 +257,41 @@ def _windows_game_size():
             u.SetProcessDPIAware()
         except AttributeError:
             pass
-    found, minimized = [], []
+    k = ctypes.windll.kernel32
+    k.OpenProcess.restype = wintypes.HANDLE
+    seen = []
+
+    def exe_of(hwnd):
+        pid = wintypes.DWORD()
+        u.GetWindowThreadProcessId(hwnd, ctypes.byref(pid))
+        h = k.OpenProcess(0x1000, False, pid.value)       # PROCESS_QUERY_LIMITED_INFORMATION
+        if not h:
+            return ""
+        try:
+            buf, n = ctypes.create_unicode_buffer(1024), wintypes.DWORD(1024)
+            if k.QueryFullProcessImageNameW(h, 0, buf, ctypes.byref(n)):
+                return buf.value.replace("/", "\\").rsplit("\\", 1)[-1]
+            return ""
+        finally:
+            k.CloseHandle(h)
 
     def each(hwnd, _):
+        if not u.IsWindowVisible(hwnd):
+            return True
         buf = ctypes.create_unicode_buffer(256)
         u.GetWindowTextW(hwnd, buf, 256)
-        if buf.value.startswith("PokeMMO") and u.IsWindowVisible(hwnd) and u.IsIconic(hwnd):
-            minimized.append(hwnd)    # its client area reads 0x0: the game is still there
-        elif buf.value.startswith("PokeMMO") and u.IsWindowVisible(hwnd):
-            r = wintypes.RECT()
-            u.GetClientRect(hwnd, ctypes.byref(r))
-            found.append((r.right - r.left, r.bottom - r.top))
+        if not buf.value.lower().startswith("pokemmo") and "pokemmo" not in exe_of(hwnd).lower():
+            return True
+        r = wintypes.RECT()
+        u.GetClientRect(hwnd, ctypes.byref(r))
+        seen.append((buf.value, exe_of(hwnd), r.right - r.left, r.bottom - r.top, bool(u.IsIconic(hwnd))))
         return True
 
     u.EnumWindows(ctypes.WINFUNCTYPE(ctypes.c_bool, wintypes.HWND, wintypes.LPARAM)(each), 0)
-    if found:
-        return found[0]
-    if minimized:
+    kind, size = pick_game_window(seen)
+    if kind == "size":
+        return size
+    if kind == "minimized":
         return None     # minimized: no picture to read now, the caller keeps the last good size
     return u.GetSystemMetrics(0), u.GetSystemMetrics(1)   # no game window: the main screen
 
