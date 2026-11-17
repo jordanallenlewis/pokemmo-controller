@@ -45,6 +45,7 @@ pre { white-space: pre-wrap; margin: .25rem 0 0; font: .875rem/1.4 ui-monospace,
 #wheel .slice { fill: var(--slice); stroke: var(--line); stroke-width: 1.5; cursor: pointer; }
 #wheel .slice.on { fill: var(--slice-on); stroke: var(--accent); }
 #wheel text { fill: var(--ink); font-size: 11px; text-anchor: middle; pointer-events: none; }
+#wheel text.blank { fill: var(--muted); font-style: italic; }
 #wheel .centre { fill: var(--panel); stroke: var(--line); stroke-width: 1.5; }
 .sr { position: absolute; left: -999px; }
 .pad { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: center; margin: .75rem 0 0; }
@@ -219,6 +220,7 @@ function drawWheel() {
     const t = document.createElementNS(NS, "text");
     t.setAttribute("x", tx); t.setAttribute("y", ty);
     const wa = S.wheel_actions.find((w) => w.id === id);
+    if (id === "none") t.setAttribute("class", "blank");
     const words = wa.label.split(" ");
     words.forEach((w, k) => {
       const s = document.createElementNS(NS, "tspan");
@@ -239,12 +241,15 @@ function drawSlices() {
     const row = document.createElement("div"); row.className = "row";
     const lab = document.createElement("label"); lab.textContent = "Slice " + (i + 1); lab.htmlFor = "s-" + i;
     const sel = document.createElement("select"); sel.id = "s-" + i;
-    for (const w of S.wheel_actions) { const o = document.createElement("option"); o.value = w.id; o.textContent = w.label + " (key " + w.key + ")"; sel.appendChild(o); }
+    for (const w of S.wheel_actions) { const o = document.createElement("option"); o.value = w.id; o.textContent = w.key ? w.label + " (key " + w.key + ")" : w.label + " (sends no key)"; sel.appendChild(o); }
     sel.value = id;
     sel.addEventListener("change", () => {
-      const j = lay.wheel.indexOf(sel.value);
-      lay.wheel[j] = lay.wheel[i]; lay.wheel[i] = sel.value;
-      say("status", "Each action goes on the wheel once, so the two slices swapped.", "warn");
+      const j = sel.value === "none" ? -1 : lay.wheel.indexOf(sel.value);
+      if (j >= 0) {
+        lay.wheel[j] = lay.wheel[i];
+        say("status", "Each action goes on the wheel once, so the two slices swapped.", "warn");
+      }
+      lay.wheel[i] = sel.value;
       drawWheel(); drawSlices(); drawMap(); $("s-" + i).focus();
     });
     row.append(lab, sel); root.appendChild(row);

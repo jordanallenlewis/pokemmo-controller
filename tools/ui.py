@@ -107,7 +107,8 @@ class App:
             "version": VERSION, "layout": lay, "custom": custom, "default": L.default_layout(),
             "pokemmo": found, "problem": problem,
             "actions": [{"id": k, "label": v} for k, v in L.ACTIONS.items()],
-            "wheel_actions": [{"id": k, "label": v[1], "key": v[0]} for k, v in L.WHEEL_ACTIONS.items()],
+            "wheel_actions": [{"id": L.WHEEL_NONE, "label": L.BLANK_LABEL, "key": ""}]
+                             + [{"id": k, "label": v[1], "key": v[0]} for k, v in L.WHEEL_ACTIONS.items()],
             "pads": names, "pad": pad, "switch_positional": positional,
             "buttons": names[pad]["buttons"], "axes": names[pad]["axes"],
         }

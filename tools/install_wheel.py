@@ -32,8 +32,10 @@ CONTROLLER_TYPES = ("controller_xboxone", "controller_xbox360", "controller_ps5"
                     "controller_legion_go_s")
 
 # Wheel slices, clockwise from the top: (Steam key, label). Keys must match
-# PokeMMO's keyboard binds (set below in KEYBOARD_BINDS).
+# PokeMMO's keyboard binds (set below in KEYBOARD_BINDS). The top slice is blank
+# (key None): it gets no input, so letting go on it sends nothing.
 WHEEL = [
+    (None, "Do nothing"),
     ("N", "Pokedex"), ("I", "Egg Incubators"), ("C", "Trainer Card"),
     ("V", "Friends"), ("P", "Global Trade Link"), ("6", "Hotbar 6"),
     ("7", "Hotbar 7"), ("8", "Hotbar 8"), ("9", "Hotbar 9"), ("F12", "Hide GUI"),
@@ -81,7 +83,7 @@ def build_layout(controller_type, wheel=None, scale=None):
                 # button 0 is the wheel's center: left empty so releasing in the
                 # middle cancels. Slices start at 1, clockwise from the top.
                 [(f"touch_menu_button_{i}", f"key_press {k}, {label}, , ")
-                 for i, (k, label) in enumerate(WHEEL_, start=1)] + [("click", x("JOYSTICK_RIGHT"))],
+                 for i, (k, label) in enumerate(WHEEL_, start=1) if k is not None] + [("click", x("JOYSTICK_RIGHT"))],
                 {"touch_menu_button_count": str(len(WHEEL_) + 1),
                  "touchmenu_button_fire_type": "2",  # fire on release
                  "touch_menu_show_labels": "1",

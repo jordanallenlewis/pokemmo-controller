@@ -31,7 +31,7 @@ def custom():
     lay = L.default_layout()
     lay["binds"]["KEY_INVENTORY"] = {"button": 9}   # Bag on LB
     lay["binds"]["KEY_HOTBAR_5"] = {"button": 10}   # Hotbar 5 on RB
-    lay["wheel"][0], lay["wheel"][1] = lay["wheel"][1], lay["wheel"][0]
+    lay["wheel"][1], lay["wheel"][2] = lay["wheel"][2], lay["wheel"][1]
     return lay
 
 
@@ -177,6 +177,27 @@ class CustomLayout(Base):
         rec_path.write_text(json.dumps(rec), encoding="utf-8")
         return rec_path
 
+    def test_update_and_uninstall_with_a_record_from_the_ten_slice_wheel(self):
+        sb = self.make()
+        before = sb.snapshot()
+        lay = custom()
+        f = self.write(sb, lay)
+        sb.setup("--layout", f)
+        Path(f).unlink()
+        rec_path = sb.pokemmo / "config" / "pokemmo-controller.json"
+        rec = json.loads(rec_path.read_text(encoding="utf-8"))
+        rec["version"] = "1.0.0"                                     # an install from an earlier release
+        rec["layout"]["wheel"] = rec["layout"]["wheel"][1:]          # what it recorded: ten slices
+        self.assertEqual(len(rec["layout"]["wheel"]), 10)
+        rec_path.write_text(json.dumps(rec), encoding="utf-8")
+        sb.setup()
+        rec = json.loads(rec_path.read_text(encoding="utf-8"))
+        self.assertEqual(rec["layout"]["wheel"], lay["wheel"])       # a blank top slice was added
+        vdf = (sb.cfg / "pokemmo" / "controller_xboxone.vdf").read_text()
+        self.assertNotIn('"touch_menu_button_1"', vdf)
+        sb.setup("--uninstall")
+        self.assertEqual(sb.snapshot(), before)
+
     def test_update_keeps_a_layout_saved_with_a_pushed_trigger_and_says_what_changed(self):
         sb = self.make()
         rec_path = self.pushed_trigger_install(sb)
@@ -213,6 +234,17 @@ class CustomLayout(Base):
 
     def test_keyboard_binds_match_the_wheel_table(self):
         self.assertEqual(install_wheel.KEYBOARD_BINDS, L.keyboard_binds())
+
+    def test_default_wheel_top_slice_sends_nothing(self):
+        for t in install_wheel.CONTROLLER_TYPES:
+            vdf = install_wheel.build_layout(t)
+            self.assertNotIn('"touch_menu_button_1"', vdf, t)            # the blank top slice has no input
+            self.assertIn('"touch_menu_button_2"', vdf, t)
+            self.assertIn("key_press N, Pokedex", vdf, t)                # still reachable, one key
+            self.assertEqual(vdf.count("key_press N,"), 1, t)
+            self.assertIn('"touch_menu_button_count"\t\t"12"', vdf, t)   # 11 slices + the centre
+            self.assertEqual(vdf.count("key_press"), 10, t)              # ten keys, nothing more
+            self.assertLess(vdf.index('"touch_menu_button_2"'), vdf.index("key_press N, Pokedex"))
 
     def test_golden_vdfs_match_the_shipped_files(self):
         for t in install_wheel.CONTROLLER_TYPES:

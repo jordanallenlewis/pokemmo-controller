@@ -26,6 +26,26 @@ class Model(unittest.TestCase):
         import install_wheel
         self.assertEqual(L.wheel_slices(default()), install_wheel.WHEEL)
 
+    def test_top_slice_is_blank_by_default_and_pokedex_is_next(self):
+        lay = default()
+        self.assertEqual(lay["wheel"][0], L.WHEEL_NONE)
+        self.assertEqual(lay["wheel"][1], "codex")
+        self.assertEqual(L.wheel_slices(lay)[0], (None, "Do nothing"))
+        self.assertEqual(L.wheel_slices(lay)[1], ("N", "Pokedex"))
+        self.assertEqual(len(L.wheel_slices(lay)), 11)
+
+    def test_ten_slice_layout_from_before_gets_a_blank_top_and_loses_nothing(self):
+        old = default()
+        old["wheel"] = list(L.WHEEL_ACTIONS)          # the old wheel: Pokedex on top, no blank slice
+        up = L.loads(json.dumps(old))                  # a layout file
+        self.assertEqual(up["wheel"], [L.WHEEL_NONE] + list(L.WHEEL_ACTIONS))
+        got, dropped = L.recorded(old)                 # an install record
+        self.assertEqual(got["wheel"], up["wheel"])
+        self.assertEqual(dropped, [])
+        self.assertEqual(L.recorded_binds(old), L.native_binds(up))
+        with self.assertRaises(L.LayoutError):         # the writers' strict check still refuses ten
+            L.validate(old)
+
     def test_round_trip_through_json(self):
         text = L.dumps(default())
         self.assertEqual(L.loads(text), default())
@@ -200,8 +220,21 @@ class MacroPolicy(unittest.TestCase):
 
     def test_wheel_slice_repeated(self):
         lay = default()
-        lay["wheel"][1] = lay["wheel"][0]
+        lay["wheel"][2] = lay["wheel"][1]
         self.refused(lay, "once")
+
+    def test_blank_slice_is_allowed_anywhere_and_more_than_once(self):
+        lay = default()
+        lay["wheel"][3] = L.WHEEL_NONE
+        lay["wheel"][7] = L.WHEEL_NONE
+        L.validate(lay)
+        self.assertEqual(L.wheel_slices(lay)[3], (None, "Do nothing"))
+
+    def test_blank_slice_has_no_key_and_no_extra_fields(self):
+        lay = default()
+        lay["wheel"][0] = {"action": "none", "key": "F5"}
+        with self.assertRaises(L.LayoutError):
+            L.validate(lay)
 
     def test_wheel_slice_unknown_action(self):
         lay = default()
@@ -215,7 +248,7 @@ class MacroPolicy(unittest.TestCase):
             L.validate(lay)
 
     def test_wheel_size_is_fixed(self):
-        for n in (9, 11, 0):
+        for n in (9, 10, 12, 0):
             with self.subTest(n=n):
                 lay = default()
                 lay["wheel"] = (lay["wheel"] + ["x"] * 3)[:n]

@@ -120,7 +120,7 @@ def render_svg(lay, family, switch_positional=False):
     other = [r for r in rows if not r[3] and r[2] != NOT_BOUND]  # left stick directions: listed in a box
     unbound = [r[1] for r in rows if r[2] == NOT_BOUND]
     # the lists under the pad grow with the layout: the picture grows with them
-    h = max(_H, 898 + (max(len(other), len(unbound), 1) - 1) * 22 + 26)
+    h = max(_H, 898 + (max(len(other), len(unbound), 2, 1) - 1) * 22 + 26)
     o = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {_W} {h}" width="{_W}" height="{h}" '
          'font-family="\'Segoe UI\',Inter,system-ui,-apple-system,sans-serif" role="img" '
          f'aria-label="PokeMMO button map for a {t} controller">',
@@ -153,8 +153,11 @@ def render_svg(lay, family, switch_positional=False):
             o.append(f'  <text x="1736" y="{898 + i * 22}" text-anchor="end" font-size="17" fill="#a8adb7">{xml_escape(name)}</text>')
     o.append('  <text x="900" y="870" text-anchor="middle" font-size="20" font-weight="700" fill="#f2f3f5">'
              'Right stick: the wheel (let go on a slice)</text>')
-    slices = " · ".join(f"{label} ({key})" for key, label in L.wheel_slices(lay))
-    o.append(f'  <text x="900" y="900" text-anchor="middle" font-size="16" fill="#a8adb7">{xml_escape(slices)}</text>')
+    names = [f"{label} ({key})" if key else label for key, label in L.wheel_slices(lay)]
+    half = (len(names) + 1) // 2   # two lines, so the list stays clear of the lists on either side
+    for i, chunk in enumerate((names[:half], names[half:])):
+        o.append(f'  <text x="900" y="{900 + i * 22}" text-anchor="middle" font-size="16" fill="#a8adb7">'
+                 f'{xml_escape(" · ".join(chunk))}</text>')
     o.append("</svg>")
     return "\n".join(o) + "\n"
 

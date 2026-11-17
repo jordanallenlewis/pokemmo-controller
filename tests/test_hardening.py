@@ -18,7 +18,7 @@ def random_valid(rng):
     """A layout that obeys every rule: each action on its own input, wheel shuffled."""
     inputs = L.inputs()
     rng.shuffle(inputs)
-    lay = {"format": L.FORMAT, "binds": dict(zip(L.ACTIONS, inputs)), "wheel": list(L.WHEEL_ACTIONS)}
+    lay = {"format": L.FORMAT, "binds": dict(zip(L.ACTIONS, inputs)), "wheel": list(L.DEFAULT_WHEEL)}
     rng.shuffle(lay["wheel"])
     return lay
 

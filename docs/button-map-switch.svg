@@ -74,5 +74,6 @@
   <text x="64" y="942" font-size="17" fill="#a8adb7">Left stick left: Move left</text>
   <text x="64" y="964" font-size="17" fill="#a8adb7">Left stick right: Move right</text>
   <text x="900" y="870" text-anchor="middle" font-size="20" font-weight="700" fill="#f2f3f5">Right stick: the wheel (let go on a slice)</text>
-  <text x="900" y="900" text-anchor="middle" font-size="16" fill="#a8adb7">Pokedex (N) · Egg Incubators (I) · Trainer Card (C) · Friends (V) · Global Trade Link (P) · Hotbar 6 (6) · Hotbar 7 (7) · Hotbar 8 (8) · Hotbar 9 (9) · Hide GUI (F12)</text>
+  <text x="900" y="900" text-anchor="middle" font-size="16" fill="#a8adb7">Do nothing · Pokedex (N) · Egg Incubators (I) · Trainer Card (C) · Friends (V) · Global Trade Link (P)</text>
+  <text x="900" y="922" text-anchor="middle" font-size="16" fill="#a8adb7">Hotbar 6 (6) · Hotbar 7 (7) · Hotbar 8 (8) · Hotbar 9 (9) · Hide GUI (F12)</text>
 </svg>

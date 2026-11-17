@@ -211,9 +211,10 @@ def plan(p: Plan, pm: Path, extra_names=(), switch_positional=None, layout=None,
         try:
             fixed, dropped = layout_mod.recorded(st["layout"])
         except layout_mod.LayoutError:
-            dropped = []
+            fixed, dropped = st["layout"], []
+        if fixed != st["layout"]:
+            st["layout"] = fixed   # also upgrades a ten-slice wheel to the one with a blank top slice
         if dropped:
-            st["layout"] = fixed
             names = ", ".join(layout_mod.ACTIONS[a] for a in dropped)
             p.notes.append(f"Your layout had {names} on a trigger pushed away, which never sends anything, "
                            "so it is now not bound. Give it another button in the remap screen.")

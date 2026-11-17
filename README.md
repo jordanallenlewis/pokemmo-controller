@@ -179,15 +179,32 @@ not only the ones with their own button.
 
 Tilt the right stick to open the wheel in the middle of the screen. Point at a
 slice (its name shows above the wheel) and let go to use it. Let go in the
-center to cancel.
+center to cancel. The top slice is blank on purpose: let go straight up and
+nothing is sent, so a flick that ends at the top does nothing.
 
 | In game | Slices, clockwise from the top |
 |---|---|
 | <img src="docs/wheel-in-game.png" alt="The wheel in game, pointing at Egg Incubators" width="300"> | <img src="docs/wheel.svg" alt="Wheel slice map" width="300"> |
 
-Each slice shows the key it presses (N = Pokédex, I = Egg Incubators,
-C = Trainer Card, V = Friends, P = Global Trade Link, 6-9 = Hotbar 6-9,
-F12 = Hide GUI) and sends exactly one key press when you let go.
+| Slice, clockwise from the top | Does | Key it presses |
+|---|---|---|
+| 1 (top) | Nothing | none |
+| 2 | Pokédex | N |
+| 3 | Egg Incubators | I |
+| 4 | Trainer Card | C |
+| 5 | Friends | V |
+| 6 | Global Trade Link | P |
+| 7 | Hotbar 6 | 6 |
+| 8 | Hotbar 7 | 7 |
+| 9 | Hotbar 8 | 8 |
+| 10 | Hotbar 9 | 9 |
+| 11 | Hide GUI | F12 |
+
+Every slice with a key sends exactly one key press when you let go; the blank slice
+sends nothing. The same wheel is used on every controller type (Xbox, PlayStation,
+Switch Pro, Steam Deck). In the remap screen you can put the blank slice, or any
+action, on another slice. The in-game picture above was taken before the blank top
+slice and shows the earlier ten-slice wheel; the slice map next to it is current.
 
 ## How do I… with a controller
 

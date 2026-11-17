@@ -47,7 +47,7 @@ class Pads(unittest.TestCase):
         import apply_native
         for positional in (False, True):
             for n in range(L.BUTTONS):
-                lay = {"format": L.FORMAT, "binds": {"KEY_A": {"button": n}}, "wheel": list(L.WHEEL_ACTIONS)}
+                lay = {"format": L.FORMAT, "binds": {"KEY_A": {"button": n}}, "wheel": list(L.DEFAULT_WHEEL)}
                 entry = apply_native.encode_one("Nintendo Switch Pro Controller", not positional,
                                                 L.native_binds(lay))
                 written = int(entry.split("KEY_A,BUTTON,")[1].split(";")[0])
@@ -95,14 +95,14 @@ class Pads(unittest.TestCase):
         import random
         rng = random.Random(77)
         inputs = L.inputs()
-        layouts = [{"format": L.FORMAT, "binds": {}, "wheel": list(L.WHEEL_ACTIONS)}]
+        layouts = [{"format": L.FORMAT, "binds": {}, "wheel": list(L.DEFAULT_WHEEL)}]
         guide = L.default_layout()
         guide["binds"]["KEY_TEAM"] = {"button": 5}
         layouts.append(guide)
         for _ in range(100):
             pick = rng.sample(inputs, rng.randrange(len(L.ACTIONS) + 1))
             layouts.append({"format": L.FORMAT, "binds": dict(zip(rng.sample(list(L.ACTIONS), len(pick)), pick)),
-                            "wheel": list(L.WHEEL_ACTIONS)})
+                            "wheel": list(L.DEFAULT_WHEEL)})
         for lay in layouts:
             L.validate(lay)
             for fam in pads.FAMILIES:

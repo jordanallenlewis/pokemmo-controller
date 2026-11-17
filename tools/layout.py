@@ -8,7 +8,8 @@ The rule PokeMMO sets for remapping is "one input from the player produces no
 more than one input to the game", and this file enforces it. A layout holds
 only:
   binds  one input (a button, or one direction of an axis) for each action
-  wheel  ten right-stick slices, each one action, each action at most once
+  wheel  eleven right-stick slices, each one action or "none" (a blank slice that
+         sends no key), each real action at most once
 Nothing else is accepted: no turbo, repeat, sequence, delay, combo, macro,
 cursor or script field, no input shared by two actions, no list of actions on
 one input. A hand-edited layout file is checked by the same code, so it is
@@ -46,7 +47,12 @@ WHEEL_ACTIONS = {
     "hotbar9": ("9", "Hotbar 9", "client.controls.gdx.hotbar9", 16),
     "hidegui": ("F12", "Hide GUI", "client.controls.gdx.hidegui", 142),
 }
-WHEEL_SIZE = len(WHEEL_ACTIONS)
+# A blank slice: letting go on it sends nothing (the same as the centre, which cancels).
+# The top slice is blank by default so a stick flick that ends straight up does nothing.
+WHEEL_NONE = "none"
+BLANK_LABEL = "Do nothing"
+OLD_WHEEL_SIZE = len(WHEEL_ACTIONS)    # layouts saved before the blank slice had no "none" slice
+WHEEL_SIZE = len(WHEEL_ACTIONS) + 1
 
 # SDL3 numbers pad inputs by position, the same on Xbox, PlayStation and Switch Pro.
 BUTTONS = 15            # 0..14
@@ -71,7 +77,7 @@ DEFAULT_BINDS = {
     "KEY_HOTBAR_4": {"button": 13}, "KEY_HOTBAR_5": {"button": 9},
     "KEY_TEAM": {"button": 7}, "KEY_SCREENSHOT": {"button": 8},
 }
-DEFAULT_WHEEL = list(WHEEL_ACTIONS)
+DEFAULT_WHEEL = [WHEEL_NONE] + list(WHEEL_ACTIONS)
 
 
 class LayoutError(ValueError):
@@ -166,6 +172,8 @@ def validate(lay, _pushed_triggers=False):
     for i, a in enumerate(wheel, start=1):
         if not isinstance(a, str):
             raise LayoutError(f"wheel slice {i}: one action per slice, written as its name.")
+        if a == WHEEL_NONE:
+            continue   # a blank slice sends no key; any number of them is fine
         if a not in WHEEL_ACTIONS:
             raise LayoutError(f"wheel slice {i}: unknown action {a!r}.")
         if a in used:
@@ -185,6 +193,7 @@ def recorded(lay):
     other way, a bind that never fires. Those binds are dropped (the action is left unbound)
     and named so the player can be told; the rest of the layout is kept. Anything else the
     rules refuse raises LayoutError, as validate() does."""
+    lay = upgrade_wheel(lay)
     validate(lay, _pushed_triggers=True)
     dropped = [a for a, spec in lay["binds"].items() if _pushed(spec)]
     if not dropped:
@@ -197,6 +206,7 @@ def recorded(lay):
 def recorded_binds(lay):
     """native_binds() of a recorded layout exactly as an earlier run wrote it (a pushed trigger
     included), so update and uninstall still know those map entries as this project's."""
+    lay = upgrade_wheel(lay)
     validate(lay, _pushed_triggers=True)
     return {a: _input_of(a, lay["binds"][a], True) for a in ACTIONS if a in lay["binds"]}
 
@@ -209,9 +219,11 @@ def native_binds(lay):
 
 
 def wheel_slices(lay):
-    """[(Steam key, label)] clockwise from the top (what install_wheel draws)."""
+    """[(Steam key, label)] clockwise from the top (what install_wheel draws). A blank slice is
+    (None, "Do nothing"): it gets no input in the Steam layout, so letting go on it sends nothing."""
     validate(lay)
-    return [(WHEEL_ACTIONS[a][0], WHEEL_ACTIONS[a][1]) for a in lay["wheel"]]
+    return [(None, BLANK_LABEL) if a == WHEEL_NONE else (WHEEL_ACTIONS[a][0], WHEEL_ACTIONS[a][1])
+            for a in lay["wheel"]]
 
 
 def keyboard_binds():
@@ -229,6 +241,16 @@ def _no_duplicates(pairs):
     return d
 
 
+def upgrade_wheel(lay):
+    """A layout saved before the blank top slice had ten slices: put a blank slice on top (the
+    others keep their order, so nothing is lost). Anything else is returned unchanged for
+    validate() to judge."""
+    w = lay.get("wheel") if isinstance(lay, dict) else None
+    if isinstance(w, list) and len(w) == OLD_WHEEL_SIZE and WHEEL_NONE not in w:
+        return dict(lay, wheel=[WHEEL_NONE] + w)
+    return lay
+
+
 def loads(text):
     if isinstance(text, bytes):
         text = text.decode("utf-8", "replace")
@@ -240,6 +262,7 @@ def loads(text):
         if isinstance(e, LayoutError):
             raise
         raise LayoutError("This is not a layout file (it is not valid JSON).") from None
+    lay = upgrade_wheel(lay)
     validate(lay)
     return lay
 

@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- Changed: the top slice of the right-stick wheel now does nothing. Letting go
+  straight up sends no key, on every controller type (it is a blank slice with
+  no input in the Steam layout). Pokédex moved one slice clockwise (key N, same
+  as before), so the wheel has 11 slices and every action is still on it. The
+  remap screen shows the blank slice as "Do nothing" and still lets you put any
+  action there, or the blank slice anywhere else. A layout, install record or
+  exported file from before has its ten slices kept in order with the blank slice
+  added on top, so an update or an import loses nothing and uninstall still
+  restores your files byte for byte. One key press per slice on release is
+  unchanged. Whether Steam draws a blank slice exactly like this on real
+  hardware has not been tested by a person yet.
 - New: `--follow` keeps the wheel sized while the game's resolution changes mid-play
   (4K, 1080p, 1440p and back, in any order; fullscreen, borderless or windowed;
   other monitor or display scaling). It rewrites only the wheel layout files once a
