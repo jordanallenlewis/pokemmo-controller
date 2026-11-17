@@ -8,6 +8,7 @@
   time, and ends on its own when you uninstall. It needs Python 3.9 or newer on the computer:
   the installer says so when there is none and the wheel then keeps the size it was made for.
   `--no-follow` skips it (remembered), `--follow-at-login` turns it back on. It sends no input.
+- Changed: the installers print, and the remap screen shows, one plain line: PokeMMO Controller is an unofficial, fan-made tool, not made, endorsed or supported by the PokeMMO team.
 - Fixed (Windows): `--follow` took the first window whose title began with "PokeMMO", so a
   browser tab or folder called "PokeMMO Forums" on top of the game made the wheel follow
   that window's size instead. It now reads the window of the PokeMMO program itself

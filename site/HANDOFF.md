@@ -11,7 +11,7 @@ Built in a Claude session on ax1, 2026-11-17, at Jordan's ask; now owned by Maya
 1. DNS in the Cloudflare zone: CNAME `@` -> `jordanallenlewis.github.io` and CNAME `www` -> `jordanallenlewis.github.io`, both DNS only (grey cloud).
 2. When GitHub shows the domain verified and the certificate issued: `gh api -X PUT repos/jordanallenlewis/pokemmo-controller/pages -F https_enforced=true`. Check https://pokemmocontroller.com and https://www.pokemmocontroller.com load.
 3. Point README, the repo "website" field and future Reddit drafts at https://pokemmocontroller.com.
-4. Right-stick wheel demo: Jordan is asked to record a 20-30 s clip on his PC (Win+Alt+R in PokeMMO launched from Steam, picking wheel slices). When it arrives: trim, blur chat/other names, add as the main demo with a wheel event track like `site/data/demo.json` (the pad lights `rs` with a caption per slice).
+
 5. Legion Go S tab in the button map once Jordan sends a front photo of his device (no free-licence photo exists).
 6. Keep the site in step with releases: View = map, top wheel slice = do nothing, Focus Ring on LB once those PRs ship (rebuild `site/data/layout.json`, update captions).
 
@@ -19,7 +19,7 @@ Built in a Claude session on ax1, 2026-11-17, at Jordan's ask; now owned by Maya
 - Logo: PMC (PM white, C yellow = the controller), original pixel lettering from `site/logo/make.py`; exports in `site/assets/brand/`.
 - Hero word "PokeMMO" uses PokeMMO's own wordmark (`assets/pokemmo-wordmark.svg`, traced from pokemmo.com). Footer says not affiliated; swap to text if PokeMMO asks.
 - Controller photos: Wikimedia Commons (credits in the footer), backgrounds removed.
-- Demo: recorded on the ax1 rig (`pokemmo-test`), `ffmpeg -draw_mouse 0`, chat blurred; captions/timings in `site/data/demo.json`.
+
 - Design: unslop + design-taste-frontend passes; one accent (PMC yellow), no glows/floating loops, keycap labels.
 - Public repo: no AI attribution anywhere.
 
