@@ -90,12 +90,18 @@ class Sandbox:
                 del e[k]
         e.update(POKEMMO_CONTROLLER_TEST="1", HOME=str(self.home), USERPROFILE=str(self.home),
                  LOCALAPPDATA=str(self.home / "AppData" / "Local"), APPDATA=str(self.home / "AppData" / "Roaming"),
-                 XDG_DATA_HOME=str(self.home / ".local" / "share"), PYTHONIOENCODING="utf-8")
+                 XDG_DATA_HOME=str(self.home / ".local" / "share"), XDG_CONFIG_HOME=str(self.home / ".config"),
+                 PYTHONIOENCODING="utf-8")
         e.update(extra)
         return e
 
-    def setup(self, *args, steam=True, check=True, env=None):
+    def setup(self, *args, steam=True, check=True, login=False, env=None):
+        """login=True: leave the login helper at its default (on). Otherwise installs here pass
+        --no-follow, so the older tests keep checking the same files; test_login_helper.py
+        covers the default."""
         cmd = [sys.executable, str(TOOLS / "setup.py"), "--pokemmo", str(self.pokemmo)]
+        if not login and "--follow" not in args and "--follow-at-login" not in args:
+            cmd.append("--no-follow")
         if steam:
             cmd += ["--steam", str(self.steam)]
         r = subprocess.run(cmd + list(args), env=self.env(**(env or {})), capture_output=True, text=True,

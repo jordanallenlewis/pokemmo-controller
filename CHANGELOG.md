@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- New: the wheel now follows the game's resolution by itself. The installer sets up a small
+  background helper that starts when you log in (a Startup entry on Windows, a LaunchAgent on
+  macOS, an autostart entry on Linux and Steam Deck), runs `--follow` quietly, runs once at a
+  time, and ends on its own when you uninstall. It needs Python 3.9 or newer on the computer:
+  the installer says so when there is none and the wheel then keeps the size it was made for.
+  `--no-follow` skips it (remembered), `--follow-at-login` turns it back on. It sends no input.
 - Changed: the remap screen is now an app-style screen in the project's own look (dark ink, one
   yellow accent; light theme follows your system). Click a button on the picture of your
   controller to change what it does, instead of choosing from a list of dropdowns; the wheel
