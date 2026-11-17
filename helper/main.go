@@ -31,10 +31,12 @@ func main() {
 		fmt.Println("http://" + l.Addr().String())
 		os.Stdout.Sync()
 		_ = http.Serve(l, handler())
+	case "layout":
+		os.Exit(runLayout(args[1:], os.Stdout, os.Stderr))
 	case "tray":
 		runTray()
 	default:
-		fmt.Fprintln(os.Stderr, "usage: helper [serve|tray|version]")
+		fmt.Fprintln(os.Stderr, "usage: helper [serve|tray|layout check FILE|version]")
 		os.Exit(2)
 	}
 }
