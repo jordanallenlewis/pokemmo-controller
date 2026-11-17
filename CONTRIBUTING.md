@@ -7,7 +7,8 @@ Thanks for helping. Bug reports and ideas go in [Issues](https://github.com/jord
 - Fork, make a branch, open a pull request against `main`. Keep each pull request to one change.
 - Run the tests: `python -m pytest`. They run on Windows, macOS and Linux for every pull request.
 - The layout follows PokeMMO's rules: one input does one action, and nothing here sends a keypress for you, so no macros, turbo or sequences. A change that needs any of those will not be merged.
-- `tools/layout.py` is the single source for the button map. If you change the default layout, run `python site/build.py` to refresh the website's data; CI fails if it is stale.
+- `tools/layout.py` is the single source for the layout: the actions, the default binds, the wheel slices and what each button is printed as on each controller. Nothing restates them by hand. After changing any of it, run `python site/build.py` (writes the website data and the README tables) and, for the pictures, `python docs/art/render.py` (needs Node and Playwright; screenshots the website's own map). The tests fail when a generated copy or a picture is stale.
+- Controller pictures are only ever the real photos (`site/assets/`, `docs/xbox-controller.webp`) with the hotspots in `site/data/hotspots.json`. Do not draw or generate a controller or wheel diagram.
 - Website changes live in `site/` and publish to [pokemmocontroller.com](https://pokemmocontroller.com) when merged to `main`.
 
 ## Release notes

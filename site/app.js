@@ -6,35 +6,9 @@
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // One photo per controller, with hotspots in that photo's pixels. Positions follow the
-  // button's place on the pad (a = bottom face button), like the layout itself.
-  const PILLS = (W, xl, xr) => {
-    const w = W * 0.12, gap = W * 0.06;
-    return { lb: { pill: true, x: xl, y: -gap, w }, rb: { pill: true, x: xr, y: -gap, w },
-             lt: { pill: true, x: xl, y: -gap * 2.4, w }, rt: { pill: true, x: xr, y: -gap * 2.4, w } };
-  };
-  const MODELS = {
-    xbox: { img: "assets/controller.webp", w: 1800, h: 1303, alt: "Xbox controller", spots: {
-      ls: { x: 435, y: 345, r: 120 }, rs: { x: 1257, y: 630, r: 112 }, view: { x: 810, y: 348, r: 46 }, menu: { x: 1100, y: 348, r: 46 },
-      y: { x: 1437, y: 228, r: 58 }, x: { x: 1323, y: 353, r: 58 }, b: { x: 1565, y: 365, r: 58 }, a: { x: 1463, y: 480, r: 58 },
-      dup: { x: 698, y: 598, r: 46 }, ddown: { x: 698, y: 770, r: 46 }, dleft: { x: 606, y: 683, r: 46 }, dright: { x: 792, y: 683, r: 46 },
-      ...PILLS(1800, 430, 1370) } },
-    playstation: { img: "assets/ps5.webp", w: 1799, h: 1266, alt: "PlayStation DualSense controller", spots: {
-      ls: { x: 652, y: 488, r: 112 }, rs: { x: 1213, y: 488, r: 112 }, view: { x: 495, y: 95, r: 40 }, menu: { x: 1322, y: 95, r: 40 },
-      y: { x: 1467, y: 155, r: 62 }, x: { x: 1340, y: 272, r: 62 }, b: { x: 1597, y: 272, r: 62 }, a: { x: 1477, y: 397, r: 62 },
-      dup: { x: 363, y: 180, r: 48 }, ddown: { x: 375, y: 358, r: 48 }, dleft: { x: 270, y: 268, r: 48 }, dright: { x: 455, y: 262, r: 48 },
-      ...PILLS(1799, 330, 1470) } },
-    switch: { img: "assets/switch.webp", w: 1526, h: 1233, alt: "Nintendo Switch Pro Controller", spots: {
-      ls: { x: 465, y: 185, r: 98 }, rs: { x: 998, y: 440, r: 98 }, view: { x: 713, y: 135, r: 38 }, menu: { x: 1070, y: 205, r: 38 },
-      y: { x: 1278, y: 248, r: 58 }, x: { x: 1138, y: 308, r: 58 }, b: { x: 1370, y: 357, r: 58 }, a: { x: 1228, y: 415, r: 58 },
-      dup: { x: 590, y: 330, r: 40 }, ddown: { x: 555, y: 455, r: 40 }, dleft: { x: 500, y: 375, r: 40 }, dright: { x: 648, y: 395, r: 40 },
-      ...PILLS(1526, 400, 1250) } },
-    deck: { img: "assets/deck.webp", w: 1244, h: 462, alt: "Steam Deck", spots: {
-      ls: { x: 198, y: 83, r: 46 }, rs: { x: 1040, y: 72, r: 46 }, view: { x: 158, y: 28, r: 15 }, menu: { x: 1092, y: 12, r: 15 },
-      y: { x: 1163, y: 22, r: 21 }, x: { x: 1128, y: 55, r: 21 }, b: { x: 1205, y: 55, r: 21 }, a: { x: 1168, y: 88, r: 21 },
-      dup: { x: 90, y: 45, r: 18 }, ddown: { x: 90, y: 100, r: 18 }, dleft: { x: 62, y: 72, r: 18 }, dright: { x: 118, y: 72, r: 18 },
-      ...PILLS(1244, 160, 1080) } },
-  };
+  // Photos, hotspots, button names and what each button does all come from data/layout.json,
+  // which site/build.py writes from tools/layout.py and data/hotspots.json. Nothing is restated here.
+  let PADS = {};
   const ORDER_LEFT = ["lt", "lb", "ls", "ls_click", "view", "dup", "dright", "ddown", "dleft"];
   const ORDER_RIGHT = ["rt", "rb", "y", "x", "b", "a", "menu", "rs", "rs_click"];
   const TICKER = ["rb", "a", "menu", "dup", "rt", "view", "b", "lb", "y", "ls_click"];
@@ -47,7 +21,7 @@
   };
 
   function padSvg(kind, interactive) {
-    const m = MODELS[kind], top = m.w * 0.06 * 2.4 + m.w * 0.04, sw = m.w / 300;
+    const m = PADS[kind], top = m.w * 0.06 * 2.4 + m.w * 0.04, sw = m.w / 300;
     const svg = el("svg", { viewBox: `0 ${-top} ${m.w} ${m.h + top}`, role: "img", "aria-label": m.alt });
     const fid = `gl-${kind}-${interactive ? "m" : "h"}`;
     const f = el("filter", { id: fid, x: "-50%", y: "-50%", width: "200%", height: "200%" }, el("defs", {}, svg));
@@ -59,7 +33,7 @@
         const h = m.w * 0.045;
         el("rect", { class: "part", x: s.x - s.w / 2, y: s.y - h / 2, width: s.w, height: h, rx: h / 2, "stroke-width": sw / 2 }, g);
         const t = el("text", { x: s.x, y: s.y + h * 0.18, "text-anchor": "middle", class: "pill-t", "font-size": h * 0.55 }, g);
-        t.textContent = (MODEL_NAMES[kind] || {})[id] || id.toUpperCase();
+        t.textContent = m.names[id] || id.toUpperCase();
       } else {
         el("circle", { class: "halo", cx: s.x, cy: s.y, r: s.r + sw * 1.7, filter: `url(#${fid})`, "stroke-width": sw * 3.7 }, g);
         el("circle", { class: "part ring", cx: s.x, cy: s.y, r: s.r, "stroke-width": sw }, g);
@@ -67,7 +41,6 @@
     }
     return svg;
   }
-  let MODEL_NAMES = {};
 
   function setOn(root, id, on) {
     const base = id.replace("_click", "");
@@ -78,7 +51,7 @@
     let data;
     try { data = await (await fetch("data/layout.json")).json(); } catch { return; }
     $$("[data-version]").forEach((n) => (n.textContent = data.version));
-    MODEL_NAMES = data.names;
+    PADS = data.pads;
 
     // hero: cycle through buttons
     const hero = $('[data-pad="hero"]');
@@ -91,7 +64,7 @@
         if (prev) setOn(hero, prev, false);
         setOn(hero, id, true); prev = id;
         keyEl.textContent = label("xbox", id);
-        actEl.textContent = data.controls[id] || "";
+        actEl.textContent = PADS.xbox.controls[id] || "";
       };
       tick();
       if (!reduced) setInterval(tick, 1900);
@@ -100,25 +73,18 @@
     // button map
     const map = $('[data-pad="map"]');
     let kind = "xbox";
-    function label(k, id) {
-      const base = id.replace("_click", "");
-      const n = data.names[k][base] || base.toUpperCase();
-      if (id === "ls_click") return k === "playstation" ? "L3" : "LS click";
-      if (id === "rs_click") return k === "playstation" ? "R3" : "RS click";
-      if (id === "ls" && k === "playstation") return "Left stick";
-      return n;
-    }
+    function label(k, id) { return data.pads[k].names[id] || id.toUpperCase(); }
     function renderBinds() {
       for (const [side, order] of [["left", ORDER_LEFT], ["right", ORDER_RIGHT]]) {
         const ul = $(`[data-binds="${side}"]`);
         ul.replaceChildren();
         for (const id of order) {
-          if (!data.controls[id]) continue;
+          if (!data.pads[kind].controls[id]) continue;
           const li = document.createElement("li");
           li.dataset.id = id;
           li.innerHTML = `<span class="key"></span><span class="act"></span>`;
           li.firstChild.textContent = label(kind, id);
-          li.lastChild.textContent = data.controls[id];
+          li.lastChild.textContent = data.pads[kind].controls[id];
           li.addEventListener("mouseenter", () => setOn(map, id, true));
           li.addEventListener("mouseleave", () => setOn(map, id, false));
           ul.appendChild(li);
@@ -155,7 +121,7 @@
       const slices = $$(".slice", wheel), k = $("[data-wheel-key]"), a = $("[data-wheel-act]");
       let i = 0;
       const step = () => {
-        slices.forEach((g, j) => g.classList.toggle("on", j === i));
+        slices.forEach((g, j) => g.classList.toggle("on", j - 1 === i));
         k.textContent = data.wheel[i].key; a.textContent = data.wheel[i].label.replace("Pokedex", "Pokédex");
         i = (i + 1) % slices.length;
       };
@@ -165,6 +131,7 @@
   }
 
   function drawWheel(svg, slices) {
+    slices = [{ key: "", label: "Nothing" }, ...slices];   // the top slice does nothing, so a stray flick up presses nothing
     const n = slices.length, R = 190, r0 = 62, step = (2 * Math.PI) / n;
     const pt = (a, rad) => [Math.sin(a) * rad, -Math.cos(a) * rad];
     slices.forEach((s, i) => {
@@ -174,13 +141,21 @@
       el("path", { d: `M${x0} ${y0}A${R} ${R} 0 0 1 ${x1} ${y1}L${x2} ${y2}A${r0} ${r0} 0 0 0 ${x3} ${y3}Z` }, g);
       const [tx, ty] = pt(i * step, (R + r0) / 2);
       const words = s.label.split(" ");
-      const lines = s.label.length > 12 && words.length > 1 ? [words.slice(0, -1).join(" "), words.at(-1)] : [s.label];
+      let lines = [s.label];
+      if (s.label.length > 9 && words.length > 1) {          // two short lines fit a slice better than one long one
+        let best = 1;
+        for (let j = 1; j < words.length; j++)
+          if (Math.abs(words.slice(0, j).join(" ").length - words.slice(j).join(" ").length) < Math.abs(words.slice(0, best).join(" ").length - words.slice(best).join(" ").length)) best = j;
+        lines = [words.slice(0, best).join(" "), words.slice(best).join(" ")];
+      }
       lines.forEach((ln, j) => {
         const t = el("text", { x: tx, y: ty - 6 + (j - (lines.length - 1) / 2) * 15, "text-anchor": "middle" }, g);
         t.textContent = ln.replace("Pokedex", "Pokédex");
       });
-      const k = el("text", { x: tx, y: ty + 12 + (lines.length - 1) * 7, "text-anchor": "middle", class: "k" }, g);
-      k.textContent = s.key;
+      if (s.key) {
+        const k = el("text", { x: tx, y: ty + 12 + (lines.length - 1) * 7, "text-anchor": "middle", class: "k" }, g);
+        k.textContent = s.key;
+      }
     });
     el("circle", { class: "hub", r: r0 - 8 }, svg);
     const t = el("text", { class: "hub-t", "text-anchor": "middle", y: 4 }, svg);

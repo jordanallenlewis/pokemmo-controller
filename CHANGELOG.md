@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- Changed: the README's button maps are now the website's own maps on the real controller photos
+  (Xbox, PlayStation, Switch Pro, Steam Deck), in light and dark, with a table under each. The
+  drawn outlines are gone. The Legion Go S has no map picture because there is no photo of it we
+  may use.
+- Fixed: the website's Switch Pro map showed B as the confirm button; the printed A confirms.
+  The website's wheel now shows the empty top slice, like the game.
+
 ## 1.2.0 - 2026-11-17
 
 - New: the wheel now follows the game's resolution by itself. The installer sets up a small
