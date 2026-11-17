@@ -51,6 +51,9 @@ WHEEL_SIZE = len(WHEEL_ACTIONS)
 BUTTONS = 15            # 0..14
 AXES = 6                # 0 left X, 1 left Y, 2 right X, 3 right Y, 4 left trigger, 5 right trigger
 RIGHT_STICK = (2, 3)    # belongs to the wheel
+# SDL3 reports a trigger from 0 (released) to its maximum (pulled), never below 0, so a
+# trigger has one direction: pulled ("positive": true). The other would be a dead bind.
+TRIGGERS = (4, 5)
 
 # Nintendo pads print A on the right, B at the bottom, X on top and Y on the left: the
 # letters of an Xbox pad on the other button of each pair. Following the printed letters
@@ -72,6 +75,15 @@ DEFAULT_WHEEL = list(WHEEL_ACTIONS)
 
 class LayoutError(ValueError):
     """The layout breaks a rule. The message says which and what to do."""
+
+
+def inputs():
+    """Every input a bind may use: each button, each stick direction, each trigger pulled."""
+    out = [{"button": n} for n in range(BUTTONS)]
+    for a in range(AXES):
+        if a not in RIGHT_STICK:
+            out += [{"axis": a, "positive": p} for p in ((True,) if a in TRIGGERS else (False, True))]
+    return out
 
 
 def default_layout():
@@ -114,6 +126,9 @@ def _input_of(action, spec):
         raise LayoutError(f"{action}: the right stick (axes 2 and 3) belongs to the wheel.")
     if not isinstance(pos, bool):
         raise LayoutError(f"{action}: an axis needs \"positive\": true or false (which way it is pushed).")
+    if n in TRIGGERS and not pos:
+        raise LayoutError(f"{action}: a trigger (axis {n}) only works pulled, so it needs \"positive\": true. "
+                          "Released is its resting position and never sends anything.")
     return ("AXIS", n, pos)
 
 

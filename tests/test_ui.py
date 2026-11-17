@@ -131,7 +131,9 @@ class UI(Base):
         bad["binds"]["KEY_A"] = {"button": 0, "turbo": True}
         dup = L.default_layout()
         dup["binds"]["KEY_SCREENSHOT"] = {"button": 0}
-        for lay in (bad, dup):
+        pushed = L.default_layout()   # a trigger never reports the "pushed away" direction
+        pushed["binds"]["KEY_SCREENSHOT"] = {"axis": 4, "positive": False}
+        for lay in (bad, dup, pushed):
             r = self.call("POST", "/api/check", {"layout": lay})[1]
             self.assertFalse(r["ok"])
             r = self.call("POST", "/api/import", {"text": json.dumps(lay)})[1]

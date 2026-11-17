@@ -116,6 +116,48 @@ class MacroPolicy(unittest.TestCase):
         lay["binds"]["KEY_SCREENSHOT"] = {"axis": 4}
         self.refused(lay, "positive")
 
+    def test_trigger_only_works_pulled(self):
+        # SDL3 reports a trigger from 0 (released) to its maximum (pulled): the other
+        # direction never happens, so such a bind would be a dead button. Refuse it.
+        for axis in (4, 5):
+            with self.subTest(axis=axis):
+                lay = default()
+                lay["binds"]["KEY_SCREENSHOT"] = {"axis": axis, "positive": False}
+                self.refused(lay, "KEY_SCREENSHOT", "trigger", "pulled")
+
+    def test_trigger_pulled_still_works(self):
+        lay = default()
+        lay["binds"]["KEY_NEXT"] = {"button": 8}
+        lay["binds"]["KEY_SCREENSHOT"] = {"axis": 5, "positive": True}
+        L.validate(lay)
+        self.assertEqual(L.native_binds(lay)["KEY_SCREENSHOT"], ("AXIS", 5, True))
+
+    def test_hand_edited_file_with_a_pushed_trigger_is_refused(self):
+        lay = default()
+        lay["binds"]["KEY_PREVIOUS"] = {"axis": 4, "positive": False}
+        with self.assertRaises(L.LayoutError) as cm:
+            L.loads(json.dumps(lay))
+        self.assertIn("trigger", str(cm.exception))
+
+    def test_inputs_lists_exactly_what_a_bind_may_use(self):
+        ok = []
+        for spec in ([{"button": n} for n in range(-1, L.BUTTONS + 1)]
+                     + [{"axis": a, "positive": p} for a in range(-1, L.AXES + 1) for p in (False, True)]):
+            lay = default()
+            lay["binds"] = {"KEY_A": spec}
+            try:
+                L.validate(lay)
+                ok.append(spec)
+            except L.LayoutError:
+                pass
+        self.assertEqual(ok, L.inputs())
+        self.assertGreaterEqual(len(L.inputs()), len(L.ACTIONS))
+
+    def test_sticks_still_work_both_ways(self):
+        lay = default()
+        lay["binds"]["KEY_UP"], lay["binds"]["KEY_DOWN"] = lay["binds"]["KEY_DOWN"], lay["binds"]["KEY_UP"]
+        L.validate(lay)
+
     def test_button_and_axis_together(self):
         lay = default()
         lay["binds"]["KEY_SCREENSHOT"] = {"button": 8, "axis": 4, "positive": True}
