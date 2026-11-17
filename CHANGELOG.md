@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Changed: the installers print, and the remap screen shows, one plain line: PokeMMO Controller is an unofficial, fan-made tool, not made, endorsed or supported by the PokeMMO team.
 - New: `--follow` keeps the wheel sized while the game's resolution changes mid-play
   (4K, 1080p, 1440p and back, in any order; fullscreen, borderless or windowed;
   other monitor or display scaling). It rewrites only the wheel layout files once a
