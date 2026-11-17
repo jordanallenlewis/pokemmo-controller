@@ -23,6 +23,22 @@ right-stick wheel so you can see what each direction does.
   keeps to that: 1 input = 1 action, no turbo, no macros ([details](#is-this-allowed)).
 - **Change any button yourself:** a remap screen in your browser, no extra software.
 
+## Install (pick your system)
+
+Close PokeMMO first, leave Steam open, then paste one line. Nothing to install
+first, no administrator rights. Full steps and what the installer does are in
+[Quick start](#quick-start).
+
+| System | One step |
+|---|---|
+| **Windows** | Open PowerShell and paste: `irm https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.ps1 \| iex` |
+| **macOS** | Open Terminal and paste: `curl -fsSL https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.sh \| sh` |
+| **Linux** | Open a terminal and paste the same line as macOS. |
+| **Steam Deck** | Switch to Desktop Mode, open Konsole and paste the same line as macOS. Not yet played on a real Deck; [reports welcome](https://github.com/jordanallenlewis/pokemmo-controller/issues). |
+
+Then start **PokeMMO from your Steam library** (the installer adds it). To undo
+everything, see [Uninstall](#uninstall).
+
 ![Button map: every control on an Xbox controller](docs/button-map.png)
 
 Playing on another pad? The same spots, with that pad's own button names (a
@@ -154,10 +170,10 @@ change nothing; PokeMMO may stay open). From a clone, `python tools/setup.py` do
 | A | ✕ Cross | A | Confirm / talk |
 | B | ○ Circle | B | Cancel / back |
 | X / Y | □ Square / △ Triangle | X / Y | The game's Key X / Key Y |
-| **View** (⧉) | **Create / Share** | **−** | **Focus Ring:** select anything on screen |
+| **View** (⧉) | **Create / Share** | **−** | **Town Map** (Hotbar 5): opens the map, see [The map button](#the-map-button) |
 | Menu (≡) | Options | + | Game Menu (Party, Settings…) |
 | RB | R1 | R | Bag |
-| LB | L1 | L | Hotbar 5 |
+| LB | L1 | L | **Focus Ring:** select anything on screen |
 | D-pad ↑ → ↓ ← | D-pad | D-pad | Hotbar 1 / 2 / 3 / 4 |
 | RT / LT | R2 / L2 | ZR / ZL | Next / previous hotbar page |
 | Right stick | Right stick | Right stick | **Wheel** (see below) |
@@ -168,11 +184,22 @@ On a Switch Pro controller, the printed **A** confirms and **B** cancels, the
 same as on a Switch. Prefer the Xbox positions (bottom button confirms)? Run
 `apply_native.py --switch-positional`.
 
+### The map button
+
+PokeMMO has no controller action called "map", so **View** presses **Hotbar 5**,
+and the map opens from there. Do this once in game: open your Bag, find the
+**Town Map** and put it in hotbar slot 5. The hotbar has pages (RT / LT turn
+them), and each page has its own slot 5, so put the Town Map in slot 5 of every
+page you use and View opens the map on all of them.
+
+Not yet played on real hardware: if your Town Map will not go on the hotbar, tell
+us in an issue, with your PokeMMO version.
+
 ### The Focus Ring
 
-Tap **View** and a highlight jumps onto the hotbar, your party or an open
+Tap **LB** and a highlight jumps onto the hotbar, your party or an open
 window. Move it with the stick, press **A** to use what's highlighted, and press
-**B** or **View** to leave. Every hotbar slot on every page can be reached this way,
+**B** or **LB** to leave. Every hotbar slot on every page can be reached this way,
 not only the ones with their own button.
 
 ### The wheel
@@ -193,7 +220,7 @@ F12 = Hide GUI) and sends exactly one key press when you let go.
 
 | I want to… | Do this |
 |---|---|
-| Use any hotbar item (bike, rod, Sweet Scent…) | D-pad / LB for slots 1-5, wheel for 6-9, or **View** → pick → **A** |
+| Use any hotbar item (bike, rod, Sweet Scent…) | D-pad for slots 1-4, **View** for slot 5 (the Town Map), wheel for 6-9, or **LB** → pick → **A** |
 | Switch hotbar page | RT / LT |
 | Open my party / reorder it | Menu → Party, pick a Pokémon with the stick, **A** for its options |
 | Open the bag / give an item | RB, pick the item, **A** → Give |
