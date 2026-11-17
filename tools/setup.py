@@ -5,6 +5,7 @@
     python tools/setup.py --uninstall  undo everything
     python tools/setup.py --install-ui also keep the remap screen on this computer
     python tools/setup.py --dry-run    show what would change, change nothing
+    python tools/setup.py --follow     keep the wheel sized for the game while its resolution changes
     python tools/setup.py --version    print this version
 
 install.ps1 / install.sh run this for you without needing Python installed.
@@ -14,12 +15,12 @@ Steam is closed and started again only when its files need to change, and
 never while a Steam game is running. PokeMMO must be closed (it rewrites its
 settings when it exits).
 """
-import argparse, os, subprocess, sys, time
+import argparse, os, signal, subprocess, sys, time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import platforms as P  # noqa: E402
-import app, apply_native, install_wheel, layout as layout_mod, uninstall  # noqa: E402
+import app, apply_native, fit, install_wheel, layout as layout_mod, uninstall  # noqa: E402
 from common import VERSION, Plan  # noqa: E402
 
 for _s in (sys.stdout, sys.stderr):  # paths with any characters print on any console
@@ -104,6 +105,32 @@ def describe(p, pm):
         else:
             what = "change"
         print(f"  would {what}: {path}")
+
+
+def follow(a, limit=None):
+    """--follow: keep the wheel sized for the game picture while the resolution changes."""
+    pm = P.find_pokemmo(a.pokemmo)
+    steam = P.find_steam(a.steam)
+    start = Plan(pm)
+    if not start.state.get("version"):
+        sys.exit("The layout is not installed yet. Run the installer first, then this.")
+
+    def write(size):
+        p = Plan(pm)
+        layout_mod.set_screen(p.state, size)
+        install_wheel.resize_plan(p, steam)
+        p.commit()
+
+    print("Watching the game's resolution; the wheel follows it. Press Ctrl+C to stop.\n"
+          "Steam reads a layout when the game starts or its controller settings reload: if the wheel "
+          "keeps its old size after a change, restart the game from Steam.")
+    if hasattr(signal, "SIGTERM"):      # a stop request ends between writes, never half-way through one
+        signal.signal(signal.SIGTERM, lambda *_: (_ for _ in ()).throw(KeyboardInterrupt()))
+    try:
+        fit.follow(P.game_size, write, applied=layout_mod.recorded_screen(start.state),
+                   interval=a.follow_interval, limit=limit)
+    except KeyboardInterrupt:
+        print("\nStopped.")
 
 
 def run(a):
@@ -215,6 +242,9 @@ def main():
                          "(remembered; run again after you change the game's resolution)")
     ap.add_argument("--reset-resolution", dest="reset_screen", action="store_true",
                     help="go back to the 4K wheel size")
+    ap.add_argument("--follow", action="store_true",
+                    help="keep running and re-size the wheel whenever the game's resolution changes")
+    ap.add_argument("--follow-interval", type=float, default=1.0, metavar="SECONDS", help=argparse.SUPPRESS)
     ap.add_argument("--version", action="version", version=f"pokemmo-controller {VERSION}")
     a = ap.parse_args()
     if a.layout:
@@ -230,6 +260,11 @@ def main():
             a.screen = layout_mod.parse_resolution(a.resolution)
         except layout_mod.LayoutError as e:
             sys.exit(f"{e}\nNothing was changed.")
+    if a.follow:
+        if a.uninstall or a.layout or a.install_ui or a.resolution or a.reset_screen:
+            sys.exit("--follow runs on its own: use it without the other options.")
+        follow(a, limit=int(os.environ["POKEMMO_CONTROLLER_TEST_POLLS"]) if P.TEST and os.environ.get("POKEMMO_CONTROLLER_TEST_POLLS") else None)
+        return
     if a.ui:
         import ui
         ui.serve(a.pokemmo, a.steam, a.no_wheel, not a.no_browser)

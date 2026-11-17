@@ -169,3 +169,103 @@ def shortcut_target(pokemmo_dir: Path):
     if "snap/pokemmo" in str(pokemmo_dir):
         return '"/snap/bin/pokemmo"', '"/snap/bin/"', ""
     return f'"{pokemmo_dir / "PokeMMO.sh"}"', f'"{pokemmo_dir}/"', ""
+
+
+# ------------------------------------------------------- the size of the game picture
+def parse_xwininfo(text):
+    """(w, h) from `xwininfo` output, or None."""
+    w, h = re.search(r"^\s*Width:\s*(\d+)", text, re.M), re.search(r"^\s*Height:\s*(\d+)", text, re.M)
+    return (int(w.group(1)), int(h.group(1))) if w and h else None
+
+
+def parse_xrandr(text):
+    """(w, h) of the primary (else first) connected screen in `xrandr --current` output, or None."""
+    best = None
+    for line in text.splitlines():
+        m = re.match(r"^\S+ connected( primary)? (\d+)x(\d+)\+-?\d+\+-?\d+", line)
+        if m:
+            size = (int(m.group(2)), int(m.group(3)))
+            if m.group(1):
+                return size
+            best = best or size
+    return best
+
+
+def parse_system_profiler(text):
+    """(w, h) in real pixels of the main display from `system_profiler SPDisplaysDataType -json`."""
+    import json
+    try:
+        data = json.loads(text)
+    except ValueError:
+        return None
+    shots = []
+    gpus = data.get("SPDisplaysDataType", []) if isinstance(data, dict) else []
+    for gpu in gpus if isinstance(gpus, list) else []:
+        displays = gpu.get("spdisplays_ndrvs", []) if isinstance(gpu, dict) else []
+        for d in displays if isinstance(displays, list) else []:
+            if not isinstance(d, dict):
+                continue
+            m = re.search(r"(\d+)\s*x\s*(\d+)", str(d.get("_spdisplays_pixels", "")))
+            if m:
+                size = (int(m.group(1)), int(m.group(2)))
+                if d.get("spdisplays_main") == "spdisplays_yes":
+                    return size
+                shots.append(size)
+    return shots[0] if shots else None
+
+
+def _run_text(cmd):
+    try:
+        return subprocess.run(cmd, capture_output=True, text=True, errors="replace", timeout=5).stdout
+    except (OSError, subprocess.SubprocessError):
+        return ""
+
+
+def _windows_game_size():
+    import ctypes
+    from ctypes import wintypes
+    u = ctypes.windll.user32
+    try:  # real pixels, not the scaled ones a DPI setting would report
+        ctypes.windll.shcore.SetProcessDpiAwareness(2)
+    except (OSError, AttributeError):
+        try:
+            u.SetProcessDPIAware()
+        except AttributeError:
+            pass
+    found = []
+
+    def each(hwnd, _):
+        buf = ctypes.create_unicode_buffer(256)
+        u.GetWindowTextW(hwnd, buf, 256)
+        if buf.value.startswith("PokeMMO") and u.IsWindowVisible(hwnd) and not u.IsIconic(hwnd):
+            r = wintypes.RECT()
+            u.GetClientRect(hwnd, ctypes.byref(r))
+            found.append((r.right - r.left, r.bottom - r.top))
+        return True
+
+    u.EnumWindows(ctypes.WINFUNCTYPE(ctypes.c_bool, wintypes.HWND, wintypes.LPARAM)(each), 0)
+    if found:
+        return found[0]
+    return u.GetSystemMetrics(0), u.GetSystemMetrics(1)   # no game window: the main screen
+
+
+def game_size():
+    """(w, h) in pixels of the picture the game draws (its window, else the main screen), or
+    None when it cannot be told right now. Any value may be 0 or odd mid-switch: the caller
+    (fit.py) filters. Never raises."""
+    forced = os.environ.get("POKEMMO_CONTROLLER_TEST_SIZE_FILE")
+    if TEST and forced:     # sandbox tests: the "screen" is a file holding WxH
+        try:
+            m = re.search(r"(-?\d+)\s*x\s*(-?\d+)", Path(forced).read_text())
+            return (int(m.group(1)), int(m.group(2))) if m else None
+        except OSError:
+            return None
+    try:
+        if WINDOWS:
+            return _windows_game_size()
+        if MAC:
+            return parse_system_profiler(_run_text(["system_profiler", "SPDisplaysDataType", "-json"]))
+        return (parse_xwininfo(_run_text(["xwininfo", "-name", "PokeMMO"]))
+                or parse_xrandr(_run_text(["xrandr", "--current"])))
+    except Exception:  # noqa: BLE001  a display query must never stop the follower
+        return None
