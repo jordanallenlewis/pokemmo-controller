@@ -61,12 +61,41 @@ jobs:
           chown -R deck "$GITHUB_WORKSPACE"
           su deck -c "cd '$GITHUB_WORKSPACE' && git config --global --add safe.directory '$GITHUB_WORKSPACE' && POKEMMO_CONTROLLER_NETWORK_TESTS=1 python -m unittest discover -s tests -v"
 
+  # The helper app (Go, one static binary per system). Spike checks: it builds,
+  # its tests pass, it serves on loopback, and it stays small and idle.
+  helper:
+    name: "Helper: ${{ matrix.label }}"
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {label: "Windows x64",         os: windows-latest}
+          - {label: "Windows ARM",         os: windows-11-arm}
+          - {label: "macOS Apple silicon", os: macos-latest}
+          - {label: "macOS Intel",         os: macos-15-intel}
+          - {label: "Linux x64",           os: ubuntu-latest}
+          - {label: "Linux ARM",           os: ubuntu-24.04-arm}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: helper/go.mod
+          cache-dependency-path: helper/go.sum
+      - name: Vet and test
+        working-directory: helper
+        shell: bash
+        run: go vet ./... && go test ./...
+      - name: Build, serve, measure
+        shell: bash
+        run: helper/measure.sh
+
   all-platforms:
     name: all platforms
-    needs: [test, steamos-like]
+    needs: [test, steamos-like, helper]
     if: always()
     runs-on: ubuntu-latest
     steps:
       - name: Every leg passed
         run: |
-          [ "${{ needs.test.result }}" = success ] && [ "${{ needs.steamos-like.result }}" = success ]
+          [ "${{ needs.test.result }}" = success ] && [ "${{ needs.steamos-like.result }}" = success ] && [ "${{ needs.helper.result }}" = success ]
