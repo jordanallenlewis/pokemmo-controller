@@ -42,6 +42,15 @@ class Canon(unittest.TestCase):
             self.assertNotIn('"Cross"', text, rel)
             self.assertNotIn('"Circle"', text, rel)
 
+    def test_the_app_draws_the_photo_not_an_outline(self):
+        page = (ROOT / "tools" / "ui_page.html").read_text(encoding="utf-8")
+        self.assertIn("const PADPHOTOS = {", page)
+        self.assertIn('sv("image", {class: "photo"', page)
+        self.assertNotIn('class: "body"', page)       # the old drawn outline
+        self.assertNotIn('class: "deco"', page)
+        for kind in ("xbox", "playstation", "switch"):
+            self.assertIn(f'"{kind}":{{"img":"data:image/webp;base64,', page)
+
     def test_every_pad_names_every_input(self):
         for kind in L.PAD_ORDER:
             self.assertEqual(len(L.PADS[kind]["buttons"]), L.BUTTONS)
