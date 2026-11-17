@@ -8,6 +8,7 @@ from helpers import Sandbox, TOOLS
 class SteamLibraryPokeMMO(unittest.TestCase):
     def test_found_in_second_steam_library(self):
         sb = Sandbox()
+        self.addCleanup(sb.cleanup)
         lib = sb.home / "Lib2"
         game = lib / "steamapps" / "common" / "PokeMMO"
         (game / "config").mkdir(parents=True)
@@ -24,6 +25,7 @@ class SteamLibraryPokeMMO(unittest.TestCase):
 
     def test_not_found_message_lists_steam_libraries(self):
         sb = Sandbox()
+        self.addCleanup(sb.cleanup)
         (sb.pokemmo / "config" / "main.properties").unlink(missing_ok=True)
         code = ("import sys; sys.path.insert(0, r'%s'); import platforms as P; P.find_pokemmo()" % TOOLS)
         r = subprocess.run([sys.executable, "-I", "-c", code], capture_output=True, text=True,
@@ -36,6 +38,7 @@ class OtherDrives(unittest.TestCase):
         code = ("import sys; sys.path.insert(0, r'%s'); import platforms as P; "
                 "print(len(P._other_drive_folders()))" % TOOLS)
         sb = Sandbox()
+        self.addCleanup(sb.cleanup)
         r = subprocess.run([sys.executable, "-I", "-c", code], capture_output=True, text=True, env=sb.env())
         self.assertEqual(r.returncode, 0, r.stderr)
         self.assertEqual(r.stdout.strip(), "0")  # sandbox runs never look at the real machine's drives
