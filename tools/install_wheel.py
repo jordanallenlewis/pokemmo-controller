@@ -66,7 +66,7 @@ def _group(gid, mode, inputs, settings=None):
     return s + "\t}\n"
 
 
-def build_layout(controller_type, wheel=None):
+def build_layout(controller_type, wheel=None, scale=None):
     WHEEL_ = WHEEL if wheel is None else wheel
     x = lambda b: f"xinput_button {b}"
     g = ""
@@ -86,7 +86,7 @@ def build_layout(controller_type, wheel=None):
                  "touch_menu_show_labels": "1",
                  "touch_menu_position_x": "50",  # screen center
                  "touch_menu_position_y": "50",
-                 "touch_menu_scale": "400",
+                 "touch_menu_scale": str(layout_mod.WHEEL_SCALE_AT_4K if scale is None else scale),
                  "touch_menu_opacity": "90"})
     g += _group(4, "trigger", [("click", x("TRIGGER_LEFT"))], {"output_trigger": "1"})
     g += _group(5, "trigger", [("click", x("TRIGGER_RIGHT"))], {"output_trigger": "2"})
@@ -321,12 +321,16 @@ def plan(p, pm: Path, steam: Path):
     from apply_native import custom_layout  # the layout chosen in apply_native.plan (same install record)
     lay = custom_layout(p.state)
     wheel = layout_mod.wheel_slices(lay) if lay else None
-    layouts = {t: build_layout(t, wheel) for t in CONTROLLER_TYPES}
+    screen = layout_mod.recorded_screen(p.state)
+    scale = layout_mod.wheel_scale(*screen) if screen else None
+    layouts = {t: build_layout(t, wheel, scale) for t in CONTROLLER_TYPES}
     props_plan(p, pm)
     for u in userdirs(steam):
         shortcut_plan(p, u, pm)
         layout_plan(p, steam, u.name, layouts)
     p.notes.append(f"Right-stick wheel layouts in {steam}")
+    if screen:
+        p.notes.append(f"Wheel sized for a {screen[0]}x{screen[1]} game picture (Steam size {scale}).")
 
 
 def write_repo_layouts():

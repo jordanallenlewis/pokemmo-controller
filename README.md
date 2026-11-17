@@ -142,6 +142,8 @@ change nothing; PokeMMO may stay open). From a clone, `python tools/setup.py` do
 - `--name "Pad name"`: also bind a pad that PokeMMO shows under another name.
 - `--switch-labels`: Nintendo pads confirm on the printed **A** (the default; undoes `--switch-positional`).
 - `--no-browser`: with `--ui`, print the address instead of opening a browser.
+- `--resolution 1920x1080`: size the wheel for the picture the game draws (see
+  [The wheel is too big or too small](#troubleshooting)). Remembered; `--reset-resolution` goes back to the 4K size.
 
 ## Controls
 
@@ -251,6 +253,21 @@ uses. Don't want any Steam involvement? Skip `install_wheel.py`; you lose only t
 - *A layout file is refused*: the message names the line. Files with repeats,
   sequences, delays or extra fields are refused on purpose.
 - Nothing is sent anywhere. **Quit** stops it, and so does closing the terminal.
+
+**The wheel is too big or too small**
+- Steam draws the wheel in screen pixels, so a size made for 4K looks huge at a
+  lower resolution. Tell the installer the size of the game picture and it sizes the
+  wheel to fit: add `--resolution 1920x1080` after the install command (on Windows, the
+  `& ([scriptblock]::Create(...))` form, then a space and `--resolution 1920x1080`; on
+  macOS, Linux and Deck, `sh -s -- --resolution 1920x1080`), or run
+  `python tools/setup.py --resolution 1920x1080` from a clone. Close PokeMMO first.
+- It is a size set when you install, not something that follows the game live:
+  Steam reads the layout when PokeMMO starts, so after you change the game's
+  resolution, run the command again with the new size, then start PokeMMO from Steam.
+- The size follows the shorter side of the picture, so ultrawide (3440x1440), 4:3
+  (1600x1200), 720p windows and 4K all fit, and it never goes above the 4K size.
+  Windowed, fullscreen and borderless: use the size of the game's picture, not of your
+  monitor. `--reset-resolution` returns to the 4K size.
 
 **No wheel**
 - Launch PokeMMO **from the Steam library**, not the desktop shortcut.

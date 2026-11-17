@@ -128,6 +128,21 @@ class PowerShell(InstallerBase):
         self.assertIn("would change:", r.stdout)
         self.assertEqual(before, self.snapshot())
 
+    def test_extra_flags_reach_setup(self):
+        """`--resolution 1920x1080` after the command is handed to setup.py (a bad value is refused by it)."""
+        script = ROOT / "install.ps1"
+        base = f"& ([scriptblock]::Create((Get-Content -Raw -LiteralPath '{script}')))"
+        before = self.snapshot()
+        r = subprocess.run(["powershell", "-NoProfile", "-Command", base + " -DryRun --resolution 1920x1080"],
+                           env=self.env(), capture_output=True, text=True)
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        self.assertIn("Dry run", r.stdout)
+        r = subprocess.run(["powershell", "-NoProfile", "-Command", base + " --resolution huge"],
+                           env=self.env(), capture_output=True, text=True)
+        self.assertNotEqual(r.returncode, 0)
+        self.assertIn("Write it like 1920x1080", r.stdout + r.stderr)
+        self.assertEqual(before, self.snapshot())
+
     def test_no_network(self):
         r = subprocess.run(["powershell", "-NoProfile", "-Command",
                             f"Get-Content -Raw -LiteralPath '{ROOT / 'install.ps1'}' | iex"],
@@ -197,6 +212,19 @@ class PosixShell(InstallerBase):
         self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
         self.assertIn(b"Dry run", r.stdout)
         self.assertIn(b"would change:", r.stdout)
+        self.assertEqual(before, self.snapshot())
+
+    def test_extra_flags_reach_setup(self):
+        """`sh -s -- --resolution 1920x1080` is handed to setup.py (a bad value is refused by it)."""
+        before = self.snapshot()
+        r = subprocess.run(["sh", "-s", "--", "--dry-run", "--resolution", "1920x1080"],
+                           input=(ROOT / "install.sh").read_bytes(), env=self.env(), capture_output=True)
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        self.assertIn(b"Dry run", r.stdout)
+        r = subprocess.run(["sh", "-s", "--", "--resolution", "huge"],
+                           input=(ROOT / "install.sh").read_bytes(), env=self.env(), capture_output=True)
+        self.assertNotEqual(r.returncode, 0)
+        self.assertIn(b"Write it like 1920x1080", r.stdout + r.stderr)
         self.assertEqual(before, self.snapshot())
 
     def test_no_network(self):
