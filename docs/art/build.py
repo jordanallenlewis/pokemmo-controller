@@ -23,13 +23,16 @@ OUT = ROOT / "docs" / "img"
 FONT = "'Bricolage Grotesque','Geist','Segoe UI Variable Display','Segoe UI',Inter,'SF Pro Display',-apple-system,'Helvetica Neue',Arial,sans-serif"
 
 TOKENS = json.loads((ROOT / "brand" / "tokens.json").read_text(encoding="utf-8"))
-_k = TOKENS["css"]
+_d, _l = TOKENS["dark"], TOKENS["light"]
+# Base colours come from brand/tokens.json (the one source, shared with the site and the app);
+# the lines and body shades are the picture-only tints worked out from them.
 THEMES = {
-    "light": TOKENS["light"],
-    # dark = the website's own colours, read from the shared tokens
-    "dark": dict(bg=_k["--bg"], card=_k["--surface"], ink=_k["--ink"], mute=_k["--muted"], line="#2f333b",
-                 body=_k["--surface-2"], body2="#30353d", edge="#4a505c", accent=_k["--yellow"],
-                 fill=_k["--yellow"], on=_k["--yellow-ink"], soft="#34301f", amber=_k["--yellow"],
+    "light": dict(bg=_l["bg"], card=_l["surface"], ink=_l["ink"], mute=_l["muted"], line="#ddd8cb",
+                  body="#e7e3d9", body2="#d9d4c7", edge="#b4ae9e", accent=_l["accent-text"], fill=_l["accent"],
+                  on=_l["accent-ink"], soft="#fbefc9", amber=_l["accent"], dim="#b4ae9e", screen="#1b1e24", glow="#ece6d6"),
+    "dark": dict(bg=_d["bg"], card=_d["surface"], ink=_d["ink"], mute=_d["muted"], line="#2f333b",
+                 body=_d["surface2"], body2="#30353d", edge="#4a505c", accent=_d["accent-text"],
+                 fill=_d["accent"], on=_d["accent-ink"], soft="#34301f", amber=_d["accent"],
                  dim="#5d636f", screen="#0b0d10", glow="#1a1d23"),
 }
 

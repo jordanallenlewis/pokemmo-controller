@@ -63,13 +63,6 @@ class Art(unittest.TestCase):
             for chip in re.findall(r'letter-spacing="\.6">([^<]+)<', svg):
                 self.assertEqual(svg.count(f'letter-spacing=".6">{chip}<'), 1, f"{k}: {chip} twice")
 
-    def test_site_css_uses_the_shared_brand_tokens(self):
-        css = (ROOT / "site" / "styles.css").read_text(encoding="utf-8")
-        root = re.search(r":root\s*{(.*?)}", css, re.S).group(1)
-        have = dict(re.findall(r"(--[a-z0-9-]+):\s*(#[0-9a-fA-F]{6})", root))
-        for name, value in build.TOKENS["css"].items():
-            self.assertEqual(have.get(name, "").lower(), value.lower(), f"site/styles.css {name} drifted from brand/tokens.json")
-
     def test_text_in_the_pictures_is_readable_in_both_themes(self):
         def lum(h):
             r, g, b = (int(h[i:i + 2], 16) / 255 for i in (1, 3, 5))

@@ -239,7 +239,7 @@ or newer to be on the computer; without it, use the commands above.
 
 </details>
 
-![The remap screen: your controller, a pick-list for every action, the labeled wheel, and the button map of your layout](docs/remap-screen.png)
+![The remap screen: click a button on your controller to change what it does; tabs for the wheel, setup and settings; live status along the bottom](docs/remap-screen.png)
 
 PokeMMO allows remapping while one input does one thing, so that is built in: an
 input holds one action, a wheel slice presses one key when you let go, and a

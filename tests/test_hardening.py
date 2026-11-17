@@ -186,7 +186,7 @@ class Page(unittest.TestCase):
         self.assertIn("pad", self.scan.ids)
         self.assertRegex(self.text, r'<label[^>]+for="pad"')
         self.assertIn("map", self.scan.ids)
-        self.assertRegex(self.text, r'<img[^>]+id="map"[^>]+alt="[^"]+"')
+        self.assertRegex(self.text, r'<svg[^>]+id="map"[^>]+role="group"[^>]+aria-label="[^"]+"')
 
     def test_page_has_no_macro_controls(self):
         low = self.text.lower()
