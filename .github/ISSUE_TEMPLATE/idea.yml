@@ -1,0 +1,10 @@
+name: An idea or a controller to support
+description: Something you would like the layout or the app to do
+labels: [enhancement]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would you like?
+      description: Say what you are trying to do in the game. PokeMMO allows one input per action, so ideas that need macros or turbo cannot go in.
+    validations: {required: true}
