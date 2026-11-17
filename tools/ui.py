@@ -18,10 +18,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import apply_native  # noqa: E402
+import install_wheel  # noqa: E402
 import layout as L  # noqa: E402
 import pads  # noqa: E402
 import platforms as P  # noqa: E402
-from common import STATE_NAME, VERSION  # noqa: E402
+from common import STATE_NAME, VERSION, Plan  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 PAGE = HERE / "ui_page.html"
@@ -115,6 +116,31 @@ class App:
             "status": self.status(found),
         }
 
+    def drift(self, found):
+        """(binds_current, steam_current): would the installer, run now, change nothing? That is
+        the whole truth about the files, whatever the record says (the game rewrites its
+        settings, Steam drops a layout). False when nothing is installed or the check fails."""
+        pm = Path(found)
+        if not _record(found):
+            return False, False
+        try:
+            p = Plan(pm)
+            apply_native.plan(p, pm)
+            binds = not p.pending()
+            steam = False
+            if not self.no_wheel:
+                try:
+                    root = P.find_steam(self.steam)
+                except SystemExit:
+                    root = None
+                if root:
+                    p2 = Plan(pm)
+                    install_wheel.plan(p2, pm, root)
+                    steam = not p2.pending()
+            return binds, steam
+        except Exception:  # noqa: BLE001  a check that cannot run must not show a green tick
+            return False, False
+
     def status(self, found=None):
         """What the app keeps true, from the install record (not a probe of the game): the page
         shows it as ticks and in the status bar."""
@@ -126,11 +152,15 @@ class App:
         rec = _record(found) if found else {}
         files = [str(k) for k in (rec.get("files") or {})]
         screen = L.recorded_screen(rec) if rec else None
+        binds_ok, steam_ok = self.drift(found) if found else (False, False)
         return {
             "pokemmo": bool(found),
+            "pokemmo_open": P.pokemmo_running(),
             "installed": bool(rec),
             "binds": any(f.endswith("main.properties") for f in files),
             "steam": any(f.endswith(".vdf") for f in files),
+            "binds_current": binds_ok,
+            "steam_current": steam_ok,
             "wheel_screen": list(screen) if screen else None,
             "custom": bool(rec.get("layout")),
             "version": VERSION,

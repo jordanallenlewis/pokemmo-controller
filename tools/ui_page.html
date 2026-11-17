@@ -486,12 +486,16 @@ function steps() {
   return [
     {ok: st.pokemmo, title: "PokeMMO found", ok_text: S.pokemmo, no_text: S.problem || "Install PokeMMO and start it once, then reload this page."},
     {ok: !!seenPad, title: "Controller detected", ok_text: seenPad || "", no_text: "Press any button on your controller while this window is in front. Xbox, PlayStation and Switch Pro pads are all fine."},
-    {ok: st.binds, title: "Buttons applied", ok_text: "Your layout is in PokeMMO's settings.", no_text: "Close PokeMMO, then apply. Your own settings are backed up first.", fix: st.pokemmo ? "Apply to PokeMMO" : null},
-    {ok: st.steam, title: "Steam wheel installed", ok_text: st.wheel_screen ? "Sized for " + st.wheel_screen.join("x") + "." : "Right stick opens the wheel.", no_text: "Adds the right-stick wheel to your controller in Steam.", fix: st.pokemmo ? "Install the wheel" : null},
+    {ok: st.binds_current, title: "Buttons applied", ok_text: "Your layout is in PokeMMO's settings.",
+     no_text: st.binds ? "PokeMMO's settings no longer hold your layout (the game rewrites them when it closes). Re-apply puts it back." : "Close PokeMMO, then apply. Your own settings are backed up first.",
+     fix: st.pokemmo ? (st.binds ? "Re-apply" : "Apply to PokeMMO") : null},
+    {ok: st.steam_current, title: "Steam wheel installed", ok_text: st.wheel_screen ? "Sized for " + st.wheel_screen.join("x") + "." : "Right stick opens the wheel.",
+     no_text: st.steam ? "Steam is missing part of the wheel (a layout or the PokeMMO shortcut). Install it again." : "Adds the right-stick wheel to your controller in Steam.",
+     fix: st.pokemmo ? (st.steam ? "Fix the wheel" : "Install the wheel") : null},
   ];
 }
 function drawChecklist() {
-  const list = steps(), left = list.filter((s) => !s.ok).length;
+  const st = S.status, list = steps(), left = list.filter((s) => !s.ok).length;
   $("setup-h").textContent = left ? "Setup: " + (list.length - left) + " of " + list.length + " done" : "Setup: all done";
   $("setup-sub").textContent = left ? "Each step is a tick or a button that fixes it." : "Everything is in place. Start PokeMMO and play.";
   const t = $("todo");
@@ -503,7 +507,11 @@ function drawChecklist() {
     const num = el("div", {class: "num"});
     if (s.ok) num.appendChild(TICK()); else num.textContent = i + 1;
     li.append(num, el("div", {}, el("b", {}, s.title), el("span", {}, s.ok ? s.ok_text : s.no_text)));
-    if (!s.ok && s.fix) { const b = el("button", {class: "btn primary small", type: "button"}, s.fix); b.addEventListener("click", apply); li.appendChild(b); }
+    if (!s.ok && s.fix) {
+      const b = el("button", {class: "btn primary small", type: "button"}, s.fix);
+      if (st.pokemmo_open) { b.disabled = true; b.title = "Close PokeMMO first: it rewrites its settings when it closes."; }
+      b.addEventListener("click", apply); li.appendChild(b);
+    }
     ol.appendChild(li);
   });
 }
@@ -512,8 +520,9 @@ function renderBar() {
   bar.textContent = "";
   const seg = (kind, text) => bar.appendChild(el("span", {}, el("i", {class: "dot " + kind}), text));
   seg(st.pokemmo ? "ok" : "bad", st.pokemmo ? "PokeMMO found" : "PokeMMO not found");
-  seg(st.binds ? "ok" : "warn", st.binds ? "Buttons applied" : "Buttons not applied");
-  seg(st.steam ? "ok" : "warn", st.steam ? (st.wheel_screen ? "Wheel sized for " + st.wheel_screen.join("x") : "Steam wheel installed") : "Steam wheel not installed");
+  seg(st.binds_current ? "ok" : "warn", st.binds_current ? "Buttons applied" : st.binds ? "Buttons changed: re-apply" : "Buttons not applied");
+  seg(st.steam_current ? "ok" : "warn", st.steam_current ? (st.wheel_screen ? "Wheel sized for " + st.wheel_screen.join("x") : "Steam wheel installed") : st.steam ? "Steam wheel needs fixing" : "Steam wheel not installed");
+  if (st.pokemmo_open) seg("warn", "PokeMMO is open: close it to apply");
   seg(seenPad ? "ok" : "", seenPad ? "Controller: " + seenPad : "No controller seen yet");
   $("dirty").hidden = !dirty;
   drawChecklist();
