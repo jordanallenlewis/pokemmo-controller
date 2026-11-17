@@ -85,8 +85,7 @@ def body_hand(c, wide, legion=False):
     w, h = (430, 175) if wide else (410, 170)
     s = (f'<rect x="{-w}" y="{-h}" width="{2*w}" height="{2*h}" rx="92" fill="{c["body"]}" stroke="{c["edge"]}" stroke-width="3"/>'
          f'<rect x="-196" y="-118" width="392" height="236" rx="16" fill="{c["screen"]}" stroke="{c["edge"]}" stroke-width="2"/>')
-    s += (f'<text x="0" y="6" font-size="26" font-weight="700" fill="{c["accent"]}" text-anchor="middle" '
-          f'opacity=".85">PokeMMO</text>')
+    s += (f'<text x="0" y="6" font-size="26" font-weight="700" fill="#e4e7ff" text-anchor="middle">PokeMMO</text>')
     return s
 
 
@@ -252,8 +251,7 @@ def button_map_phone(t, key):
              ("rt", R_), ("rb", R_), ("menu", R_), ("face", R_), ("rs", R_)]
     anchor = {}
     sc, cx, cy = 0.9, W / 2, 400
-    body = text(40, 76, cfg["title"], 52, c["ink"], 800)
-    body += text(40, 118, "Default layout", 26, c["mute"])
+    body = text(40, 84, "Default layout", 52, c["ink"], 800)
     body += f'<g transform="translate({cx:g},{cy}) scale({sc})">{g}</g>'
     cards = marks = ""
     y0, ch, gap = 640, 0, 20
@@ -305,8 +303,8 @@ def button_map(t, key):
     lorder.sort(key=lambda n: A[anchor.get(n, n)][1])
     rorder.sort(key=lambda n: A[anchor.get(n, n)][1])
     height = lambda spec: 40 + 30 * len(spec[3]) + 28 if spec[3] else 124
-    body = text(60, 92, cfg["title"], 52, c["ink"], 800)
-    body += text(60, 136, "Default layout · " + cfg["sub"], 22, c["mute"])
+    body = text(60, 92, "Default layout", 52, c["ink"], 800)
+    body += text(60, 136, cfg["sub"], 22, c["mute"])
     body += text(W - 60, 92, "PokeMMO Controller Layout", 26, c["accent"], 700, "end")
     body += text(W - 60, 128, "One input does one action", 21, c["mute"], 400, "end")
     leaders = cards = ""
@@ -365,8 +363,9 @@ def wheel_group(c, hl=None, animate=False):
         fill = c["card"]
         if k == 0:
             fill = "none"
+        dash = 'stroke-dasharray="10 9"' if k == 0 else ""
         g += (f'<path id="s{k}" d="{wedge(170, 330, a0, a1)}" fill="{fill}" stroke="{c["line"] if k else c["dim"]}" '
-              f'stroke-width="3" {"stroke-dasharray=\"10 9\"" if k == 0 else ""}/>')
+              f'stroke-width="3" {dash}/>')
         if k:
             key, name = WHEEL[k - 1]
             x, y = polar(250, k * step)
@@ -423,55 +422,163 @@ def step_half():
     return 360 / 22
 
 
+# ------------------------------------------------------------------ small helpers
+def wrap(s, n):
+    out, line = [], ""
+    for w in s.split():
+        if line and len(line) + 1 + len(w) > n:
+            out.append(line)
+            line = w
+        else:
+            line = (line + " " + w).strip()
+    return out + [line]
+
+
 # ------------------------------------------------------------------ install steps
+STEPS = [("1", "Close PokeMMO", "Leave Steam open. The installer restarts it if it must, never under a running game."),
+         ("2", "Paste one line", "Your system's line from below. Nothing to install first, no admin rights."),
+         ("3", "Play from Steam", "Launch PokeMMO from your Steam library. Done in about a minute.")]
+
+
 def steps(t):
     c = THEMES[t]
-    W, H = 1600, 360
-    items = [("1", "Close PokeMMO", "Leave Steam open. The installer restarts it if it must, never under a running game."),
-             ("2", "Paste one line", "Your system's line from below. Nothing to install first, no admin rights."),
-             ("3", "Play from Steam", "Launch PokeMMO from your Steam library. Done in about a minute.")]
+    cw, gap, pad = 470, 42, 60
+    W, H = pad * 2 + 3 * cw + 2 * gap, 360
     body = ""
-    cw, gap = 470, 42
-    for i, (n, h, d) in enumerate(items):
-        x = 60 + i * (cw + gap)
+    for i, (n, h, d) in enumerate(STEPS):
+        x = pad + i * (cw + gap)
         body += f'<rect x="{x}" y="40" width="{cw}" height="280" rx="20" fill="{c["card"]}" stroke="{c["line"]}" stroke-width="2"/>'
         body += f'<circle cx="{x+62}" cy="108" r="30" fill="{c["accent"]}"/>' + text(x + 62, 119, n, 32, c["on"], 800, "middle")
         body += text(x + 112, 119, h, 34, c["ink"], 750)
-        words, line, ly = d.split(), "", 178
-        for w in words:
-            if len(line + w) > 36:
-                body += text(x + 36, ly, line.strip(), 22, c["mute"]); ly += 32; line = ""
-            line += w + " "
-        body += text(x + 36, ly, line.strip(), 22, c["mute"])
+        for j, ln in enumerate(wrap(d, 34)):
+            body += text(x + 36, 178 + j * 34, ln, 24, c["mute"])
         if i < 2:
             body += f'<path d="M {x+cw+8},180 l 28,0 m -10,-10 l 10,10 l -10,10" fill="none" stroke="{c["accent"]}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>'
     return svg(W, H, t, body, "Install in three steps", "Close PokeMMO, paste one line for your system, play from Steam.")
 
 
+def steps_phone(t):
+    c = THEMES[t]
+    W, ch, gap = 900, 250, 26
+    body = ""
+    for i, (n, h, d) in enumerate(STEPS):
+        y = 30 + i * (ch + gap)
+        body += f'<rect x="30" y="{y}" width="{W-60}" height="{ch}" rx="24" fill="{c["card"]}" stroke="{c["line"]}" stroke-width="2.5"/>'
+        body += f'<circle cx="104" cy="{y+68}" r="38" fill="{c["accent"]}"/>' + text(104, y + 82, n, 42, c["on"], 800, "middle")
+        body += text(166, y + 82, h, 48, c["ink"], 750)
+        for j, ln in enumerate(wrap(d, 42)):
+            body += text(66, y + 156 + j * 42, ln, 32, c["mute"])
+    H = 30 + 3 * (ch + gap)
+    return svg(W, H, t, body, "Install in three steps", "Close PokeMMO, paste one line for your system, play from Steam.")
+
+
+# ------------------------------------------------------------------ feature cards
+def icon(c, kind, x, y):
+    """A 64x64 line icon drawn as paths (no fonts, no emoji)."""
+    st = f'fill="none" stroke="{c["accent"]}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"'
+    if kind == "terminal":
+        d = f'<rect x="4" y="10" width="56" height="44" rx="9" {st}/><path d="M 17,26 L 27,33 L 17,40 M 33,43 H 47" {st}/>'
+    elif kind == "pad":
+        d = (f'<rect x="3" y="14" width="58" height="36" rx="18" {st}/><path d="M 19,25 V 39 M 12,32 H 26" {st}/>'
+             f'<circle cx="44" cy="27" r="2.5" {st}/><circle cx="51" cy="33" r="2.5" {st}/><circle cx="44" cy="39" r="2.5" {st}/>')
+    elif kind == "wheel":
+        sp = "".join(f'M {32+13*math.sin(math.radians(a)):.1f},{32-13*math.cos(math.radians(a)):.1f} '
+                     f'L {32+27*math.sin(math.radians(a)):.1f},{32-27*math.cos(math.radians(a)):.1f} ' for a in range(0, 360, 45))
+        d = f'<circle cx="32" cy="32" r="28" {st}/><circle cx="32" cy="32" r="13" {st}/><path d="{sp}" {st}/>'
+    elif kind == "sliders":
+        d = (f'<path d="M 6,16 H 58 M 6,32 H 58 M 6,48 H 58" {st}/>'
+             f'<circle cx="40" cy="16" r="6" fill="{c["bg"]}" stroke="{c["accent"]}" stroke-width="4"/>'
+             f'<circle cx="20" cy="32" r="6" fill="{c["bg"]}" stroke="{c["accent"]}" stroke-width="4"/>'
+             f'<circle cx="44" cy="48" r="6" fill="{c["bg"]}" stroke="{c["accent"]}" stroke-width="4"/>')
+    elif kind == "shield":
+        d = (f'<path d="M 32,5 L 55,13 V 32 C 55,46 45,56 32,61 C 19,56 9,46 9,32 V 13 Z" {st}/>'
+             f'<path d="M 21,32 L 29,40 L 44,23" {st}/>')
+    else:   # clipboard with a check
+        d = (f'<rect x="12" y="10" width="40" height="50" rx="7" {st}/><path d="M 24,10 V 6 H 40 V 10" {st}/>'
+             f'<path d="M 22,36 L 29,43 L 43,27" {st}/>')
+    return f'<g transform="translate({x},{y})">{d}</g>'
+
+
+FEATURES = [("terminal", "One command", "Nothing to install first, no administrator rights. Uninstall puts every file back byte for byte."),
+            ("pad", "Your pad, your names", "Xbox, PlayStation, Switch Pro, Steam Deck and Legion Go S, each with its own button labels."),
+            ("wheel", "A wheel you can read", "Tilt the right stick toward a slice and let go: one key press."),
+            ("sliders", "Change any button", "A remap screen in your browser. Nothing is sent anywhere."),
+            ("shield", "Allowed", "PokeMMO lets you remap while one input does one thing. This layout keeps to that: no turbo, no macros."),
+            ("clip", "Honest about testing", "Real-hardware results are listed, and what has not been tried on a real pad says so.")]
+
+
+def features(t):
+    c = THEMES[t]
+    W, cw, ch, gap = 1600, 755, 200, 30
+    body = ""
+    for i, (ic, h, d) in enumerate(FEATURES):
+        x, y = 30 + (i % 2) * (cw + gap), 30 + (i // 2) * (ch + gap)
+        body += f'<rect x="{x}" y="{y}" width="{cw}" height="{ch}" rx="22" fill="{c["card"]}" stroke="{c["line"]}" stroke-width="2.5"/>'
+        body += f'<rect x="{x+30}" y="{y+34}" width="92" height="92" rx="22" fill="{c["soft"]}"/>' + icon(c, ic, x + 44, y + 48)
+        body += text(x + 152, y + 62, h, 36, c["ink"], 800)
+        for j, ln in enumerate(wrap(d, 44)):
+            body += text(x + 152, y + 104 + j * 34, ln, 27, c["mute"])
+    H = 30 + 3 * (ch + gap)
+    return svg(W, H, t, body, "What you get", "; ".join(f"{h}: {d}" for _, h, d in FEATURES))
+
+
+def features_phone(t):
+    c = THEMES[t]
+    W, ch, gap = 900, 250, 22
+    body = ""
+    for i, (ic, h, d) in enumerate(FEATURES):
+        y = 24 + i * (ch + gap)
+        body += f'<rect x="24" y="{y}" width="{W-48}" height="{ch}" rx="24" fill="{c["card"]}" stroke="{c["line"]}" stroke-width="2.5"/>'
+        body += f'<rect x="54" y="{y+34}" width="104" height="104" rx="24" fill="{c["soft"]}"/>' + icon(c, ic, 54 + 8, y + 42)
+        body += text(190, y + 68, h, 44, c["ink"], 800)
+        for j, ln in enumerate(wrap(d, 38)):
+            body += text(190, y + 120 + j * 40, ln, 31, c["mute"])
+    H = 24 + 6 * (ch + gap)
+    return svg(W, H, t, body, "What you get", "; ".join(f"{h}: {d}" for _, h, d in FEATURES))
+
+
 # ------------------------------------------------------------------ hero and buttons
 def hero(t):
     c = THEMES[t]
-    W, H = 1600, 520
+    W, H = 1600, 620
     g, _ = pad_art(c, PADS["xbox"])
-    body = f'<circle cx="1240" cy="270" r="215" fill="{c["glow"]}"/>'
-    body += f'<g transform="translate(1240,300) scale(.64)">{g}</g>'
-    body += text(80, 168, "POKEMMO", 32, c["accent"], 800, extra='letter-spacing="6"')
-    body += text(80, 282, "Controller", 118, c["ink"], 850)
-    body += text(80, 394, "Layout", 118, c["ink"], 850)
-    body += text(80, 462, "Play PokeMMO on your pad.", 40, c["mute"], 500)
+    body = f'<circle cx="1250" cy="320" r="230" fill="{c["glow"]}"/>'
+    body += f'<g transform="translate(1250,350) scale(.66)">{g}</g>'
+    body += text(80, 120, "POKEMMO", 44, c["accent"], 800, extra='letter-spacing="8"')
+    body += text(80, 260, "Controller", 156, c["ink"], 850)
+    body += text(80, 396, "Layout", 156, c["ink"], 850)
+    body += text(80, 484, "Play PokeMMO on your pad.", 56, c["ink"], 600)
+    body += text(80, 548, "Windows · macOS · Linux · Steam Deck", 40, c["mute"], 500)
+    return svg(W, H, t, body, "PokeMMO Controller Layout",
+               "Play PokeMMO with an Xbox, PlayStation or Switch Pro controller on Windows, macOS, Linux and Steam Deck.")
+
+
+def hero_phone(t):
+    c = THEMES[t]
+    W, H = 900, 1020
+    g, _ = pad_art(c, PADS["xbox"])
+    body = f'<circle cx="450" cy="790" r="225" fill="{c["glow"]}"/>'
+    body += f'<g transform="translate(450,800) scale(.8)">{g}</g>'
+    body += text(60, 100, "POKEMMO", 48, c["accent"], 800, extra='letter-spacing="8"')
+    body += text(60, 230, "Controller", 130, c["ink"], 850)
+    body += text(60, 350, "Layout", 130, c["ink"], 850)
+    body += text(60, 440, "Play PokeMMO on your pad.", 50, c["ink"], 600)
+    body += text(60, 500, "Windows · macOS · Linux · Steam Deck", 36, c["mute"], 500)
     return svg(W, H, t, body, "PokeMMO Controller Layout",
                "Play PokeMMO with an Xbox, PlayStation or Switch Pro controller on Windows, macOS, Linux and Steam Deck.")
 
 
 def os_icon(c, kind, x, y):
+    """Drawn with paths only: no font glyphs (the Apple character and '>_' depend on the viewer's fonts)."""
     f = c["on"]
+    st = f'fill="none" stroke="{f}" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"'
     if kind == "win":
         return "".join(f'<rect x="{x+dx}" y="{y+dy}" width="14" height="14" rx="2" fill="{f}"/>' for dx in (0, 17) for dy in (0, 17))
-    if kind == "mac":
-        return (f'<rect x="{x+3}" y="{y+3}" width="25" height="17" rx="3" fill="none" stroke="{f}" stroke-width="3"/>'
-                f'<path d="M {x},{y+27} H {x+31}" stroke="{f}" stroke-width="3.5" stroke-linecap="round"/>')
-    return (f'<rect x="{x}" y="{y}" width="31" height="31" rx="8" fill="none" stroke="{f}" stroke-width="3"/>'
-            + text(x + 15.5, y + 22, ">_", 17, f, 800, "middle"))
+    if kind == "mac":      # a monitor on a stand (a drawn computer, no brand mark)
+        return (f'<rect x="{x}" y="{y+1}" width="31" height="21" rx="4" {st}/>'
+                f'<path d="M {x+15.5},{y+22} V {y+28} M {x+8},{y+29} H {x+23}" {st}/>')
+    return (f'<rect x="{x}" y="{y}" width="31" height="31" rx="8" {st}/>'
+            f'<path d="M {x+8},{y+10} L {x+15},{y+16} L {x+8},{y+22} M {x+17},{y+23} H {x+24}" {st}/>')
 
 
 def button(t, kind, title, sub):
@@ -495,7 +602,11 @@ def main(out=None):
             p.write_text(data, encoding="utf-8", newline="\n")
             made.append(p.name)
         put("hero", hero(t))
+        put("hero-phone", hero_phone(t))
         put("steps", steps(t))
+        put("steps-phone", steps_phone(t))
+        put("features", features(t))
+        put("features-phone", features_phone(t))
         put("wheel", wheel(t))
         put("wheel-demo", wheel_demo(t))
         for k in PADS:

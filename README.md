@@ -1,24 +1,19 @@
-<h1 align="center">PokeMMO Controller Layout</h1>
-
-<p align="center">
+<h1 align="center">
 <picture>
+  <source media="(max-width: 700px) and (prefers-color-scheme: dark)" srcset="docs/img/hero-phone-dark.svg">
+  <source media="(max-width: 700px)" srcset="docs/img/hero-phone-light.svg">
   <source media="(prefers-color-scheme: dark)" srcset="docs/img/hero-dark.svg">
-  <img src="docs/img/hero-light.svg" alt="PokeMMO Controller Layout: play PokeMMO with an Xbox, PlayStation or Switch Pro controller">
+  <img src="docs/img/hero-light.svg" alt="PokeMMO Controller Layout: play PokeMMO with an Xbox, PlayStation or Switch Pro controller" width="900">
 </picture>
-</p>
+</h1>
 
 <p align="center">
-<a href="#windows"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/img/get-windows-dark.svg"><img src="docs/img/get-windows-light.svg" alt="Install on Windows" width="280"></picture></a>
-<a href="#macos"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/img/get-mac-dark.svg"><img src="docs/img/get-mac-light.svg" alt="Install on macOS" width="280"></picture></a>
-<a href="#linux-and-steam-deck"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/img/get-linux-dark.svg"><img src="docs/img/get-linux-light.svg" alt="Install on Linux or Steam Deck" width="280"></picture></a>
+<a href="#windows"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/img/get-windows-dark.svg"><img src="docs/img/get-windows-light.svg" alt="Install on Windows" width="250"></picture></a>
+<a href="#macos"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/img/get-mac-dark.svg"><img src="docs/img/get-mac-light.svg" alt="Install on macOS" width="250"></picture></a>
+<a href="#linux-and-steam-deck"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/img/get-linux-dark.svg"><img src="docs/img/get-linux-light.svg" alt="Install on Linux or Steam Deck" width="250"></picture></a>
 </p>
 
-<p align="center">
-<img alt="Windows, macOS, Linux" src="https://img.shields.io/badge/platform-Windows%20%C2%B7%20macOS%20%C2%B7%20Linux-4338ca">
-<img alt="Xbox, PlayStation, Switch Pro" src="https://img.shields.io/badge/controllers-Xbox%20%C2%B7%20PlayStation%20%C2%B7%20Switch%20Pro-4338ca">
-<img alt="Macro policy: 1 input = 1 action" src="https://img.shields.io/badge/macro%20policy-1%20input%20%3D%201%20action-6b7280">
-<img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-2ea44f">
-</p>
+<p align="center">Free, MIT licensed · 1 input = 1 action (<a href="#is-this-allowed">is this allowed?</a>)</p>
 
 Play [PokeMMO](https://pokemmo.com) on Windows, macOS or Linux (Steam Deck too)
 with an **Xbox, PlayStation or Switch Pro** controller, using the game's **own
@@ -26,16 +21,18 @@ controller support**. All 9 hotbar slots, Bag, Party, Pokédex, GTL, Friends and
 Team are on the controller, plus a labeled right-stick wheel so you can see what
 each direction does.
 
-| What you get | In short |
-|---|---|
-| **One command** | Nothing to install first, no administrator rights. Uninstall puts every file back byte for byte. |
-| **Your pad, your names** | Xbox, PlayStation and Switch Pro, plus Steam Deck and Legion Go S. Each button map below uses your pad's own labels. |
-| **A wheel you can read** | Tilt the right stick, point at a slice, let go: one key press. |
-| **Change any button** | A remap screen in your browser. Nothing is sent anywhere. |
-| **Allowed** | PokeMMO lets you remap while one input does one thing. This layout keeps to that: 1 input = 1 action, no turbo, no macros ([details](#is-this-allowed)). |
-| **Honest about testing** | Real-hardware results are listed under [Tested with](#tested-with). |
+<picture>
+  <source media="(max-width: 700px) and (prefers-color-scheme: dark)" srcset="docs/img/features-phone-dark.svg">
+  <source media="(max-width: 700px)" srcset="docs/img/features-phone-light.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/features-dark.svg">
+  <img src="docs/img/features-light.svg" alt="What you get: one command with nothing to install first; your pad with its own button names; a wheel you can read; a remap screen for any button; one input does one action; honest notes on what was tested">
+</picture>
+
+More: [is this allowed?](#is-this-allowed) · [tested with](#tested-with)
 
 <picture>
+  <source media="(max-width: 700px) and (prefers-color-scheme: dark)" srcset="docs/img/steps-phone-dark.svg">
+  <source media="(max-width: 700px)" srcset="docs/img/steps-phone-light.svg">
   <source media="(prefers-color-scheme: dark)" srcset="docs/img/steps-dark.svg">
   <img src="docs/img/steps-light.svg" alt="Install in three steps: close PokeMMO, paste one line, play from Steam">
 </picture>
@@ -156,10 +153,15 @@ curl -fsSL https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller
 
 ### After the install
 
+<details>
+<summary>What the installer does</summary>
+
 The installer finds PokeMMO and Steam by itself (Windows install folder, macOS
 app, Linux zip, Flatpak, Snap). If you don't have Python 3.9+, it fetches a
 private copy for that one run and deletes it afterwards. It prints the version
 it installed. It needs no administrator rights; on macOS and Linux, don't use `sudo`.
+
+</details>
 
 ### Change what a button does
 
@@ -168,17 +170,26 @@ or Switch Pro, so the buttons carry their own names), pick the input for each
 action, move the wheel slices around, and watch the button map below update.
 Press **Apply**. Close PokeMMO first.
 
+**Windows** (PowerShell):
+
 ```powershell
 & ([scriptblock]::Create((irm https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.ps1))) -Ui
 ```
+
+**macOS and Linux** (Terminal):
+
 ```sh
 curl -fsSL https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.sh | sh -s -- --ui
 ```
 
 The screen runs on your computer only (nothing is sent anywhere) and needs
 nothing installed. It writes your layout with the same installer, so the backup
-and the uninstall above work the same, and a later update keeps your layout. You
-can export a layout to a file, share it and import it; `--layout FILE` installs a
+and the uninstall above work the same, and a later update keeps your layout.
+
+<details>
+<summary>Share a layout, or open the screen later with one short command</summary>
+
+You can export a layout to a file, share it and import it; `--layout FILE` installs a
 file and `--reset-layout` goes back to the default.
 
 To open the screen later with one short command, add `--install-ui` (`-InstallUi`
@@ -186,6 +197,8 @@ on Windows) to the install. It keeps a small copy next to PokeMMO's settings
 (`pokemmo-controller/remap.cmd` on Windows, `remap.sh` on macOS and Linux; the
 installer prints the exact command), and uninstall removes it. It needs Python 3.9
 or newer to be on the computer; without it, use the commands above.
+
+</details>
 
 ![The remap screen: your controller, a pick-list for every action, the labeled wheel, and the button map of your layout](docs/remap-screen.png)
 
