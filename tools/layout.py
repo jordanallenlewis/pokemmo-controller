@@ -51,6 +51,9 @@ WHEEL_SIZE = len(WHEEL_ACTIONS)
 BUTTONS = 15            # 0..14
 AXES = 6                # 0 left X, 1 left Y, 2 right X, 3 right Y, 4 left trigger, 5 right trigger
 RIGHT_STICK = (2, 3)    # belongs to the wheel
+# SDL3 reports a trigger from 0 (released) to its maximum (pulled), never below 0, so a
+# trigger has one direction: pulled ("positive": true). The other would be a dead bind.
+TRIGGERS = (4, 5)
 
 # Nintendo pads print A on the right, B at the bottom, X on top and Y on the left: the
 # letters of an Xbox pad on the other button of each pair. Following the printed letters
@@ -74,6 +77,15 @@ class LayoutError(ValueError):
     """The layout breaks a rule. The message says which and what to do."""
 
 
+def inputs():
+    """Every input a bind may use: each button, each stick direction, each trigger pulled."""
+    out = [{"button": n} for n in range(BUTTONS)]
+    for a in range(AXES):
+        if a not in RIGHT_STICK:
+            out += [{"axis": a, "positive": p} for p in ((True,) if a in TRIGGERS else (False, True))]
+    return out
+
+
 def default_layout():
     return {"format": FORMAT, "binds": {k: dict(v) for k, v in DEFAULT_BINDS.items()},
             "wheel": list(DEFAULT_WHEEL)}
@@ -84,8 +96,9 @@ def _is_int(v):
     return isinstance(v, int) and not isinstance(v, bool)
 
 
-def _input_of(action, spec):
-    """spec -> ("BUTTON", n) or ("AXIS", n, positive). Refuses anything but one plain input."""
+def _input_of(action, spec, pushed_triggers=False):
+    """spec -> ("BUTTON", n) or ("AXIS", n, positive). Refuses anything but one plain input.
+    pushed_triggers: also accept a trigger bound the way it never moves (see recorded())."""
     if not isinstance(spec, dict):
         raise LayoutError(f"{action}: each action takes exactly one input, like {{\"button\": 0}}.")
     fields = set(spec)
@@ -114,10 +127,13 @@ def _input_of(action, spec):
         raise LayoutError(f"{action}: the right stick (axes 2 and 3) belongs to the wheel.")
     if not isinstance(pos, bool):
         raise LayoutError(f"{action}: an axis needs \"positive\": true or false (which way it is pushed).")
+    if n in TRIGGERS and not pos and not pushed_triggers:
+        raise LayoutError(f"{action}: a trigger (axis {n}) only works pulled, so it needs \"positive\": true. "
+                          "Released is its resting position and never sends anything.")
     return ("AXIS", n, pos)
 
 
-def validate(lay):
+def validate(lay, _pushed_triggers=False):
     """Raise LayoutError unless lay is a layout this tool will write. Never changes lay."""
     if not isinstance(lay, dict):
         raise LayoutError("A layout is a JSON object with \"format\", \"binds\" and \"wheel\".")
@@ -137,7 +153,7 @@ def validate(lay):
     for action, spec in binds.items():
         if action not in ACTIONS:
             raise LayoutError(f"unknown action {action!r}.")
-        inp = _input_of(action, spec)
+        inp = _input_of(action, spec, _pushed_triggers)
         if inp in seen:
             raise LayoutError(f"{action} and {seen[inp]} use the same input. PokeMMO allows one input to do "
                               "one action: give one of them another input.")
@@ -154,6 +170,34 @@ def validate(lay):
         if a in used:
             raise LayoutError(f"wheel slice {i}: {a} is on the wheel more than once; each action goes on it once.")
         used.add(a)
+
+
+# ---------------------------------------------------------------- install records
+def _pushed(spec):
+    return isinstance(spec, dict) and spec.get("axis") in TRIGGERS and spec.get("positive") is False
+
+
+def recorded(lay):
+    """A layout read back from an install record -> (layout, [actions dropped]).
+
+    Records written before triggers were limited to "pulled" may hold a trigger bound the
+    other way, a bind that never fires. Those binds are dropped (the action is left unbound)
+    and named so the player can be told; the rest of the layout is kept. Anything else the
+    rules refuse raises LayoutError, as validate() does."""
+    validate(lay, _pushed_triggers=True)
+    dropped = [a for a, spec in lay["binds"].items() if _pushed(spec)]
+    if not dropped:
+        return lay, []
+    fixed = dict(lay, binds={a: spec for a, spec in lay["binds"].items() if a not in dropped})
+    validate(fixed)
+    return fixed, dropped
+
+
+def recorded_binds(lay):
+    """native_binds() of a recorded layout exactly as an earlier run wrote it (a pushed trigger
+    included), so update and uninstall still know those map entries as this project's."""
+    validate(lay, _pushed_triggers=True)
+    return {a: _input_of(a, lay["binds"][a], True) for a in ACTIONS if a in lay["binds"]}
 
 
 # ---------------------------------------------------------------- views the writers use

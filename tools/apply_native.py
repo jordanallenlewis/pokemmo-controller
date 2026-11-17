@@ -137,15 +137,20 @@ def custom_layout(state):
     if lay is None:
         return None
     try:
-        layout_mod.validate(lay)
+        return layout_mod.recorded(lay)[0]
     except layout_mod.LayoutError:
         return None  # a record edited by hand is not trusted: fall back to the default
-    return lay
 
 
 def custom_sets(state):
-    lay = custom_layout(state)
-    return layout_sets(layout_mod.native_binds(lay)) if lay else set()
+    """The map entries the recorded layout made, as an earlier run wrote them."""
+    lay = state.get("layout")
+    if lay is None:
+        return set()
+    try:
+        return layout_sets(layout_mod.recorded_binds(lay))
+    except layout_mod.LayoutError:
+        return set()
 
 
 def logged_names(pokemmo: Path):
@@ -202,6 +207,16 @@ def plan(p: Plan, pm: Path, extra_names=(), switch_positional=None, layout=None,
             st.pop("layout", None)
         else:
             st["layout"] = layout
+    elif st.get("layout") is not None:
+        try:
+            fixed, dropped = layout_mod.recorded(st["layout"])
+        except layout_mod.LayoutError:
+            dropped = []
+        if dropped:
+            st["layout"] = fixed
+            names = ", ".join(layout_mod.ACTIONS[a] for a in dropped)
+            p.notes.append(f"Your layout had {names} on a trigger pushed away, which never sends anything, "
+                           "so it is now not bound. Give it another button in the remap screen.")
     cust = custom_layout(st)
     binds = layout_mod.native_binds(cust) if cust else None
     ours = old_sets | custom_sets(st)

@@ -94,8 +94,7 @@ class Pads(unittest.TestCase):
         # the remap screen draws any layout, not only the default: nothing may be cut off
         import random
         rng = random.Random(77)
-        inputs = [{"button": n} for n in range(L.BUTTONS)]
-        inputs += [{"axis": a, "positive": p} for a in range(L.AXES) if a not in L.RIGHT_STICK for p in (False, True)]
+        inputs = L.inputs()
         layouts = [{"format": L.FORMAT, "binds": {}, "wheel": list(L.WHEEL_ACTIONS)}]
         guide = L.default_layout()
         guide["binds"]["KEY_TEAM"] = {"button": 5}
