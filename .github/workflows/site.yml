@@ -1,14 +1,27 @@
 name: site
 
-# Publishes site/ (pokemmocontroller.com) to GitHub Pages. site/data/layout.json is
-# generated from tools/layout.py, so a layout change that forgets to rebuild it fails here.
+# Publishes site/ (pokemmocontroller.com) to GitHub Pages.
+# site/data/layout.json is generated from tools/layout.py, so a layout change that
+# forgets to rebuild it fails here.
+#
+# Where things run (this repo is PUBLIC):
+#   pull_request  -> "check" on a GitHub-hosted runner. Fork and PR code never reaches the box.
+#   push to main  -> "deploy" on the ax1 box runner (labels self-hosted, linux, x64, box).
+#   manual run    -> "deploy" on the box, or on GitHub with the "github_runner" input if the
+#                    box is down.
+# The box job holds no secrets: Pages publishing uses the run's own short-lived OIDC token.
 on:
   push:
     branches: [main]
-    paths: ["site/**", "tools/layout.py", "tools/common.py", ".github/workflows/site.yml"]
+    paths: ["site/**", "tools/layout.py", "tools/common.py", "docs/xbox-controller.webp", "docs/remap-screen.png", ".github/workflows/site.yml"]
   pull_request:
-    paths: ["site/**", "tools/layout.py", "tools/common.py", ".github/workflows/site.yml"]
+    paths: ["site/**", "tools/layout.py", "tools/common.py", "docs/xbox-controller.webp", "docs/remap-screen.png", ".github/workflows/site.yml"]
   workflow_dispatch:
+    inputs:
+      github_runner:
+        description: "Use a GitHub-hosted runner instead of the box (only if the box runner is down)"
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -18,33 +31,41 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
+  check:
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - name: layout data is current
-        run: python site/build.py --check
-      - name: assemble the published files
-        run: |
-          bash site/assemble.sh _site
-      - uses: actions/upload-pages-artifact@v3
-        if: github.event_name != 'pull_request'
-        with:
-          path: _site
+      - uses: actions/checkout@v5
+      - run: python3 site/build.py --check
+      - name: the page assembles
+        run: bash site/assemble.sh _site
 
   deploy:
-    if: github.event_name != 'pull_request'
-    needs: build
-    runs-on: ubuntu-latest
+    # Only for pushes and manual runs on this repo's main branch, never a pull request.
+    if: >-
+      github.repository == 'jordanallenlewis/pokemmo-controller'
+      && github.ref == 'refs/heads/main'
+      && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    runs-on: ${{ (github.event_name == 'workflow_dispatch' && inputs.github_runner) && fromJSON('["ubuntu-latest"]') || fromJSON('["self-hosted","linux","x64","box"]') }}
+    timeout-minutes: 10
     permissions:
+      contents: read
       pages: write
       id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - name: layout data is current
+        run: python3 site/build.py --check
+      - name: assemble the published files
+        run: bash site/assemble.sh _site
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
       - id: deployment
         uses: actions/deploy-pages@v4
