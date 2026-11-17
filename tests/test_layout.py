@@ -34,7 +34,7 @@ class Model(unittest.TestCase):
     def test_move_a_button(self):
         lay = default()
         lay["binds"]["KEY_INVENTORY"] = {"button": 9}   # LB; was RB
-        lay["binds"]["KEY_HOTBAR_5"] = {"button": 10}   # swap
+        lay["binds"]["KEY_RING_FOCUS"] = {"button": 10}   # swap
         L.validate(lay)
         self.assertEqual(L.native_binds(lay)["KEY_INVENTORY"], ("BUTTON", 9))
 
