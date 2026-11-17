@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 )
 
@@ -89,7 +90,8 @@ func TestShippedVdfMatchGo(t *testing.T) {
 			t.Fatal(err)
 		}
 		got := BuildWheelLayout(ct, DefaultLayout().WheelSlices(), 0)
-		if got != string(want) {
+		// a Windows checkout may turn line ends into CRLF
+		if got != strings.ReplaceAll(string(want), "\r\n", "\n") {
 			t.Fatalf("%s differs from steam/%s.vdf", ct, ct)
 		}
 	}
