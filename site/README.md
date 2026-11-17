@@ -8,3 +8,5 @@ The one-page website for this project. Plain HTML, CSS and JavaScript: no framew
 - `dev.py`: local preview that reloads on save: `python site/dev.py` then open http://127.0.0.1:8790/.
 
 Published by `.github/workflows/site.yml` to GitHub Pages on every push to `main` that touches the site or the layout.
+
+Fonts (Bricolage Grotesque, Geist, Geist Mono; SIL Open Font License 1.1) are served from `assets/fonts/` as Latin-only woff2, so the page makes no request to another site. Check scores with Lighthouse on the assembled folder (`bash site/assemble.sh _site`).
