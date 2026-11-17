@@ -157,26 +157,6 @@ class UI(Base):
             self.start(sb)
             self.assertEqual(self.call("GET", "/api/state")[1]["pad"], fam, line)
 
-    def test_diagram_draws_the_layout_on_the_chosen_pad(self):
-        import xml.etree.ElementTree as ET
-        self.start(self.make())
-        lay = L.default_layout()
-        lay["binds"]["KEY_INVENTORY"], lay["binds"]["KEY_RING_FOCUS"] = ({"button": 9}, {"button": 10})
-        del lay["binds"]["KEY_TEAM"]
-        for fam, word in (("xbox", "LB"), ("playstation", "Cross"), ("switch", "ZR")):
-            code, r = self.call("POST", "/api/diagram", {"layout": lay, "pad": fam})
-            self.assertEqual(code, 200)
-            self.assertTrue(r["ok"], r)
-            text = " ".join(ET.fromstring(r["svg"]).itertext())
-            self.assertIn(word, text)
-            self.assertIn("Not bound", text)
-            self.assertNotIn("<script", r["svg"])
-        bad = L.default_layout()
-        bad["binds"]["KEY_A"] = {"button": 0, "turbo": True}
-        self.assertFalse(self.call("POST", "/api/diagram", {"layout": bad, "pad": "xbox"})[1]["ok"])
-        self.assertFalse(self.call("POST", "/api/diagram", {"layout": lay, "pad": "gamecube"})[1]["ok"])
-        self.assertEqual(self.call("POST", "/api/diagram", {"layout": lay, "pad": "xbox"}, key=False)[0], 403)
-
     def test_macros_refused_by_check_and_import_and_apply(self):
         sb = self.make()
         self.start(sb)

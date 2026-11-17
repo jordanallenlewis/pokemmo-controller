@@ -1,0 +1,45 @@
+{
+ "inputs": "77ba2d0cb06748d8b7d8d2bc5a03feccff69d439f90017483fbe21defc348d45",
+ "pictures": {
+  "map-xbox-light.png": [
+   3840,
+   1773
+  ],
+  "map-xbox-dark.png": [
+   3840,
+   1773
+  ],
+  "map-playstation-light.png": [
+   3840,
+   1738
+  ],
+  "map-playstation-dark.png": [
+   3840,
+   1738
+  ],
+  "map-switch-light.png": [
+   3840,
+   1923
+  ],
+  "map-switch-dark.png": [
+   3840,
+   1923
+  ],
+  "map-deck-light.png": [
+   3840,
+   1603
+  ],
+  "map-deck-dark.png": [
+   3840,
+   1603
+  ],
+  "wheel-light.png": [
+   3840,
+   1923
+  ],
+  "wheel-dark.png": [
+   3840,
+   1923
+  ]
+ }
+}
