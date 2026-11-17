@@ -10,7 +10,8 @@ site/data/layout.json. Each is at least 3840 pixels wide, in a light and a dark 
 
 Writing them needs Node and Playwright (a developer tool; the player's install needs neither).
 Checking needs only Python: docs/img/maps.json records a hash of everything the pictures are made from,
-so changing the layout, a name, a hotspot, a photo or the page without re-rendering fails the check.
+so changing the layout, a name, a hotspot, a photo or the tokens without re-rendering fails the check
+(a website change that does not touch the map is not a reason to re-render).
 
     NODE_PATH=<folder with playwright> PLAYWRIGHT_BROWSERS_PATH=<browsers> python docs/art/render.py
 """
@@ -37,8 +38,9 @@ NAMES = [f"map-{k}-{t}.png" for k in KINDS for t in THEMES] + [f"wheel-{t}.png" 
 def inputs():
     """Everything the pictures are made from."""
     hot = json.loads((ROOT / "site" / "data" / "hotspots.json").read_text(encoding="utf-8"))["pads"]
-    files = ["site/data/layout.json", "site/data/hotspots.json", "site/index.html", "site/styles.css", "site/app.js",
-             "brand/tokens.json", "docs/art/shot.js"] + sorted({hot[k]["photo"] for k in hot})
+    # Not the page itself (index.html, styles.css, app.js): other changes to the website must not fail this check.
+    files = ["site/data/layout.json", "site/data/hotspots.json", "brand/tokens.json", "docs/art/shot.js"] \
+        + sorted({hot[k]["photo"] for k in hot})
     return files
 
 
