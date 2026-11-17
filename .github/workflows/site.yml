@@ -36,9 +36,12 @@ jobs:
           path: _site
 
   deploy:
-    if: github.event_name != 'pull_request'
+    # Runs on the ax1 box runner. The repo is public, so this is the only job allowed on it,
+    # and only for a push to main: never a pull request, fork or manual run. The job runs no
+    # repository code: it only publishes the artifact the GitHub-hosted build job made.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64, box]
     permissions:
       pages: write
       id-token: write
