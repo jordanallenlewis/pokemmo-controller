@@ -212,20 +212,24 @@ class Handler(http.server.BaseHTTPRequestHandler):
         self._json(404, {"error": "not found"})
 
     def do_POST(self):
+        try:
+            n = int(self.headers.get("Content-Length", "0"))
+        except ValueError:
+            n = -1
+        # Read the body before any answer, refusals included: closing a connection with request
+        # bytes still unread makes Windows send a reset, and the client can lose the answer.
+        # A body over the limit is refused unread (the client may see that as a reset).
+        raw = self.rfile.read(n) if 0 <= n <= MAX_BODY else b""
         if not self._host_ok():
             return self._json(403, {"error": "wrong host"})
         if not self._authorized():
             return self._json(403, {"error": "missing key"})
         if self.headers.get("Content-Type", "").split(";")[0].strip() != "application/json":
             return self._json(415, {"error": "send JSON"})
-        try:
-            n = int(self.headers.get("Content-Length", "0"))
-        except ValueError:
-            n = -1
         if not 0 <= n <= MAX_BODY:
             return self._json(413, {"error": "too big"})
         try:
-            body = json.loads(self.rfile.read(n) or b"{}")
+            body = json.loads(raw or b"{}")
             if not isinstance(body, dict):
                 raise ValueError
         except ValueError:
