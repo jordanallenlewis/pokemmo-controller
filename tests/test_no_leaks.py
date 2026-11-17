@@ -5,7 +5,7 @@ ResourceWarning. On Windows an open handle can also keep a folder from being del
 later test fail for no reason of its own. This runs the tests that start processes or build
 sandboxes by hand, with those warnings shown, and fails if any appear.
 """
-import os, subprocess, sys, unittest
+import os, re, subprocess, sys, unittest
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -28,6 +28,8 @@ class NoLeaks(unittest.TestCase):
                            errors="replace", timeout=300, stdin=subprocess.DEVNULL)
         out = r.stdout + r.stderr
         self.assertEqual(r.returncode, 0, out[-3000:])
+        ran = re.search(r"^Ran (\d+) test", out, re.M)
+        self.assertTrue(ran and int(ran.group(1)) >= len(WATCHED), out[-3000:])   # the watched tests really ran
         leaks = [line for line in out.splitlines() if "ResourceWarning" in line]
         self.assertEqual(leaks, [], out[-3000:])
 
