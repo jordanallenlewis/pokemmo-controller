@@ -8,6 +8,16 @@
   time, and ends on its own when you uninstall. It needs Python 3.9 or newer on the computer:
   the installer says so when there is none and the wheel then keeps the size it was made for.
   `--no-follow` skips it (remembered), `--follow-at-login` turns it back on. It sends no input.
+- Changed: the remap screen is now an app-style screen in the project's own look (dark ink, one
+  yellow accent; light theme follows your system). Click a button on the picture of your
+  controller to change what it does, instead of choosing from a list of dropdowns; the wheel
+  is drawn in the same style. Tabs for Layout, Wheel, Status and Settings; a setup checklist
+  (PokeMMO found, controller detected, buttons applied, Steam wheel installed) with a
+  one-click fix on each open step; a live status bar along the bottom. Press a button on your
+  controller and it is picked on the screen (your browser reports the controller; nothing is
+  installed). Each button still does one thing: giving a button an action another button has
+  swaps the two, and Apply still backs up first and refuses anything else. New `brand/` folder
+  holds the colours, mark, voice and design rules as one source.
 - Fixed: the installer never looked at your screen, so unless you knew about `--resolution`
   the wheel came out at the 4K size and ran off a smaller screen. A plain install now
   measures the game picture (the PokeMMO window if it is open, otherwise your main screen)
