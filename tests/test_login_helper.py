@@ -108,7 +108,7 @@ class Contents(unittest.TestCase):
                 self.assertEqual(plistlib.loads(data)["ProgramArguments"], ["/bin/sh", str(tricky)])
                 self.assertTrue(plistlib.loads(data)["RunAtLoad"])
             else:
-                self.assertIn(f'Exec=sh "{tricky}"', data.decode("utf-8"))
+                self.assertIn('Exec=sh "' + str(tricky).replace("\\", "\\\\") + '"', data.decode("utf-8"))   # the format escapes a backslash (only a Windows path has one)
                 self.assertEqual(path.suffix, ".desktop")
 
     def test_the_login_entry_has_one_job_and_sends_no_input(self):
