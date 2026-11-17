@@ -232,12 +232,14 @@ def _windows_game_size():
             u.SetProcessDPIAware()
         except AttributeError:
             pass
-    found = []
+    found, minimized = [], []
 
     def each(hwnd, _):
         buf = ctypes.create_unicode_buffer(256)
         u.GetWindowTextW(hwnd, buf, 256)
-        if buf.value.startswith("PokeMMO") and u.IsWindowVisible(hwnd) and not u.IsIconic(hwnd):
+        if buf.value.startswith("PokeMMO") and u.IsWindowVisible(hwnd) and u.IsIconic(hwnd):
+            minimized.append(hwnd)    # its client area reads 0x0: the game is still there
+        elif buf.value.startswith("PokeMMO") and u.IsWindowVisible(hwnd):
             r = wintypes.RECT()
             u.GetClientRect(hwnd, ctypes.byref(r))
             found.append((r.right - r.left, r.bottom - r.top))
@@ -246,6 +248,8 @@ def _windows_game_size():
     u.EnumWindows(ctypes.WINFUNCTYPE(ctypes.c_bool, wintypes.HWND, wintypes.LPARAM)(each), 0)
     if found:
         return found[0]
+    if minimized:
+        return None     # minimized: no picture to read now, the caller keeps the last good size
     return u.GetSystemMetrics(0), u.GetSystemMetrics(1)   # no game window: the main screen
 
 

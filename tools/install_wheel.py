@@ -26,9 +26,10 @@ OUT_DIR = ROOT / "steam"
 SHORTCUT_NAME = "PokeMMO"
 CONFIG_DIR_NAME = "pokemmo"
 # Steam Input controller types that get the layout: Xbox One/Series, Xbox 360,
-# DualSense, DualShock 4, Switch Pro, Steam Deck.
+# DualSense, DualShock 4, Switch Pro, Steam Deck, Lenovo Legion Go S.
 CONTROLLER_TYPES = ("controller_xboxone", "controller_xbox360", "controller_ps5",
-                    "controller_ps4", "controller_switch_pro", "controller_neptune")
+                    "controller_ps4", "controller_switch_pro", "controller_neptune",
+                    "controller_legion_go_s")
 
 # Wheel slices, clockwise from the top: (Steam key, label). Keys must match
 # PokeMMO's keyboard binds (set below in KEYBOARD_BINDS).
