@@ -81,12 +81,15 @@ class Follower:
         return s
 
 
-def follow(read, apply, settle=SETTLE, interval=1.0, sleep=time.sleep, applied=None, limit=None, say=print):
+def follow(read, apply, settle=SETTLE, interval=1.0, sleep=time.sleep, applied=None, limit=None, say=print, stop=None):
     """Poll read() (see platforms.game_size) and call apply((w, h)) when the size settles.
     apply failing (Steam busy, folder read-only) is reported and retried at the next change.
-    limit: stop after that many polls (tests). Returns the list of sizes applied."""
+    limit: stop after that many polls (tests). stop(): called before each poll, True ends the loop.
+    Returns the list of sizes applied."""
     f, done, n = Follower(applied, settle), [], 0
     while limit is None or n < limit:
+        if stop and stop():
+            break
         n += 1
         try:
             sample = read()
