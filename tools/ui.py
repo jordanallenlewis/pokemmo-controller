@@ -13,7 +13,7 @@ backup, atomic writes and exact uninstall. PokeMMO must be closed to apply.
 PokeMMO's rule, one input = one action, is enforced in layout.py: the page
 cannot ask for anything else, and neither can a request sent by hand.
 """
-import http.server, json, os, secrets, subprocess, sys, tempfile, threading, webbrowser
+import http.server, json, os, secrets, subprocess, sys, tempfile, threading, time, webbrowser
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -292,7 +292,20 @@ def make_server(app):
     return srv
 
 
-def serve(pokemmo=None, steam=None, no_wheel=False, open_browser=True, env=None):
+def watch_window(proc, app, clock=time.monotonic, grace=3.0):
+    """Quit the app when its window is closed. A window that vanishes within `grace` seconds did
+    not really open (the browser handed the page to another process): then open a normal tab
+    instead and keep running. Returns True when the window stayed."""
+    t0 = clock()
+    proc.wait()
+    if clock() - t0 < grace:
+        return False
+    app.stop.set()
+    return True
+
+
+def serve(pokemmo=None, steam=None, no_wheel=False, open_browser=True, env=None, tab=False,
+          open_window=None):
     app = App(pokemmo, steam, no_wheel, env)
     srv = make_server(app)
     url = f"http://127.0.0.1:{srv.server_address[1]}/?k={app.token}"
@@ -301,10 +314,27 @@ def serve(pokemmo=None, steam=None, no_wheel=False, open_browser=True, env=None)
     print(f"If your browser did not open, open this address:\n  {url}")
     print("Close this window, or press Quit on the page, to stop.")
     if open_browser:
-        try:
-            webbrowser.open(url)
-        except Exception:
-            pass
+        proc = None
+        if not tab:
+            import platforms
+            try:
+                proc = (open_window or platforms.open_app_window)(url)
+            except Exception:  # noqa: BLE001  a window that will not open falls back to a tab
+                proc = None
+
+        def to_tab():
+            try:
+                webbrowser.open(url)
+            except Exception:
+                pass
+
+        if proc is None:
+            to_tab()
+        else:
+            def guard():
+                if not watch_window(proc, app):
+                    to_tab()
+            threading.Thread(target=guard, daemon=True).start()
     try:
         while not app.stop.wait(0.5):
             pass
@@ -322,5 +352,6 @@ if __name__ == "__main__":
     ap.add_argument("--steam")
     ap.add_argument("--no-wheel", action="store_true")
     ap.add_argument("--no-browser", action="store_true")
+    ap.add_argument("--tab", action="store_true", help="open a browser tab, not an app window")
     a = ap.parse_args()
-    serve(a.pokemmo, a.steam, a.no_wheel, not a.no_browser)
+    serve(a.pokemmo, a.steam, a.no_wheel, not a.no_browser, tab=a.tab)

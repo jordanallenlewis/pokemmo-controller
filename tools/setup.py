@@ -301,6 +301,7 @@ def main():
     ap.add_argument("--install-ui", action="store_true",
                     help="also keep the remap screen on this computer, with a launcher (undone by --uninstall)")
     ap.add_argument("--no-browser", action="store_true", help="with --ui: print the address instead of opening it")
+    ap.add_argument("--tab", action="store_true", help="with --ui: open a browser tab instead of an app window")
     ap.add_argument("--layout", metavar="FILE", help="install your own layout (a file made by remap.py or the remap screen)")
     ap.add_argument("--reset-layout", action="store_true", help="go back to the default layout")
     ap.add_argument("--resolution", metavar="WxH",
@@ -341,7 +342,7 @@ def main():
         return
     if a.ui:
         import ui
-        ui.serve(a.pokemmo, a.steam, a.no_wheel, not a.no_browser)
+        ui.serve(a.pokemmo, a.steam, a.no_wheel, not a.no_browser, tab=a.tab)
         return
     try:
         run(a)
