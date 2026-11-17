@@ -1,0 +1,91 @@
+{
+ "events": [
+  {
+   "t": 1.21,
+   "id": "ls",
+   "label": "Walk"
+  },
+  {
+   "t": 1.73,
+   "id": "ls",
+   "label": "Walk"
+  },
+  {
+   "t": 2.63,
+   "id": "view",
+   "label": "Focus Ring: reach any button on screen"
+  },
+  {
+   "t": 4.42,
+   "id": "dright",
+   "label": "Move the ring"
+  },
+  {
+   "t": 5.33,
+   "id": "dright",
+   "label": "Move the ring"
+  },
+  {
+   "t": 6.24,
+   "id": "dright",
+   "label": "Move the ring"
+  },
+  {
+   "t": 7.23,
+   "id": "dright",
+   "label": "Move the ring"
+  },
+  {
+   "t": 8.53,
+   "id": "rt",
+   "label": "Ring to the next panel"
+  },
+  {
+   "t": 10.22,
+   "id": "dright",
+   "label": "Move the ring"
+  },
+  {
+   "t": 11.24,
+   "id": "dright",
+   "label": "Move the ring"
+  },
+  {
+   "t": 12.32,
+   "id": "dright",
+   "label": "Move the ring"
+  },
+  {
+   "t": 13.71,
+   "id": "a",
+   "label": "Open what the ring is on"
+  },
+  {
+   "t": 16.24,
+   "id": "b",
+   "label": "Back"
+  },
+  {
+   "t": 17.43,
+   "id": "b",
+   "label": "Back"
+  },
+  {
+   "t": 18.82,
+   "id": "rb"
+  },
+  {
+   "t": 21.0,
+   "id": "b"
+  },
+  {
+   "t": 22.22,
+   "id": "menu"
+  },
+  {
+   "t": 24.34,
+   "id": "b"
+  }
+ ],
+ "end": 26.12
+}
