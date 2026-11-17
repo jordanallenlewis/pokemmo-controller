@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "status": "draft: not yet run against a real client",
+  "rule": "Every step presses ONE input once and checks ONE result. No holds, repeats, sequences or timers: the same 1 input = 1 action rule the layout itself keeps.",
+  "phases": [
+    {
+      "id": "A", "name": "Install from the branch",
+      "steps": [
+        {"id": "A1", "do": "Run install.sh from the branch checkout as a normal user (no admin).", "expect": "Prints Installed (or Updated) and exits 0.", "evidence": "text"},
+        {"id": "A2", "do": "Run install.sh a second time.", "expect": "Prints Already up to date; config/main.properties unchanged.", "evidence": "text"},
+        {"id": "A3", "do": "Read client.controls.controller_input_maps_gdx_2 from config/main.properties.", "expect": "Holds an entry for the virtual pad's name and for every managed name.", "evidence": "text"}
+      ]
+    },
+    {
+      "id": "B", "name": "Client starts and reaches the game world",
+      "steps": [
+        {"id": "B1", "do": "Start the client.", "expect": "The launcher window appears and the client process is running.", "evidence": "screenshot"},
+        {"id": "B2", "do": "Log in with the test account (credentials come from the rig's broker, never from this repo).", "expect": "Character select appears.", "evidence": "screenshot"},
+        {"id": "B3", "do": "Choose the character.", "expect": "The game world is drawn: map, character sprite and hotbar are visible.", "evidence": "screenshot"},
+        {"id": "B4", "do": "Check the log for the virtual pad.", "expect": "Log line 'Controller <name> ... attached' for the virtual pad.", "evidence": "text"}
+      ]
+    },
+    {
+      "id": "C", "name": "Each bound button does its one action",
+      "pad_position": "Xbox names; positions are SDL3 button numbers from tools/apply_native.LAYOUT",
+      "steps": [
+        {"id": "C01", "action": "KEY_UP", "input": "left stick up (axis 1, negative)", "expect": "The character takes one step up.", "evidence": "screenshot"},
+        {"id": "C02", "action": "KEY_DOWN", "input": "left stick down (axis 1, positive)", "expect": "The character takes one step down.", "evidence": "screenshot"},
+        {"id": "C03", "action": "KEY_LEFT", "input": "left stick left (axis 0, negative)", "expect": "The character takes one step left.", "evidence": "screenshot"},
+        {"id": "C04", "action": "KEY_RIGHT", "input": "left stick right (axis 0, positive)", "expect": "The character takes one step right.", "evidence": "screenshot"},
+        {"id": "C05", "action": "KEY_A", "input": "A (button 0)", "expect": "Confirm: talks to an adjacent NPC or confirms the open prompt.", "evidence": "screenshot"},
+        {"id": "C06", "action": "KEY_B", "input": "B (button 1)", "expect": "Cancel: closes the dialog opened in C05.", "evidence": "screenshot"},
+        {"id": "C07", "action": "KEY_X", "input": "X (button 2)", "expect": "The game's X action fires once (no menu left open afterwards).", "evidence": "screenshot"},
+        {"id": "C08", "action": "KEY_Y", "input": "Y (button 3)", "expect": "The game's Y action fires once (no menu left open afterwards).", "evidence": "screenshot"},
+        {"id": "C09", "action": "KEY_INVENTORY", "input": "RB (button 10)", "expect": "The Bag opens.", "evidence": "screenshot"},
+        {"id": "C10", "action": "KEY_GAMEMENU", "input": "Menu (button 6)", "expect": "The Game Menu opens.", "evidence": "screenshot"},
+        {"id": "C11", "action": "KEY_TEAM", "input": "L3 (button 7)", "expect": "The Team window opens.", "evidence": "screenshot"},
+        {"id": "C12", "action": "KEY_SCREENSHOT", "input": "R3 (button 8)", "expect": "The client takes one screenshot; a new file appears in its screenshot folder.", "evidence": "screenshot"},
+        {"id": "C13", "action": "KEY_HOTBAR_1", "input": "button 11 (D-pad up)", "expect": "Hotbar slot 1 highlights or its item is used once.", "evidence": "screenshot"},
+        {"id": "C14", "action": "KEY_HOTBAR_2", "input": "button 14 (D-pad right)", "expect": "Hotbar slot 2 highlights or its item is used once.", "evidence": "screenshot"},
+        {"id": "C15", "action": "KEY_HOTBAR_3", "input": "button 12 (D-pad down)", "expect": "Hotbar slot 3 highlights or its item is used once.", "evidence": "screenshot"},
+        {"id": "C16", "action": "KEY_HOTBAR_4", "input": "button 13 (D-pad left)", "expect": "Hotbar slot 4 highlights or its item is used once.", "evidence": "screenshot"},
+        {"id": "C17", "action": "KEY_HOTBAR_5", "input": "LB (button 9)", "expect": "Hotbar slot 5 highlights or its item is used once.", "evidence": "screenshot"},
+        {"id": "C18", "action": "KEY_NEXT", "input": "RT (axis 5, positive)", "expect": "The hotbar shows the next page, once.", "evidence": "screenshot"},
+        {"id": "C19", "action": "KEY_PREVIOUS", "input": "LT (axis 4, positive)", "expect": "The hotbar returns to the previous page, once.", "evidence": "screenshot"},
+        {"id": "C20", "action": "KEY_RING_FOCUS", "input": "View (button 4)", "expect": "The Focus Ring highlight appears on screen.", "evidence": "screenshot"}
+      ]
+    },
+    {
+      "id": "D", "name": "Focus Ring reaches every hotbar item",
+      "steps": [
+        {"id": "D1", "do": "Press View once, then move the ring with one press per move.", "expect": "The ring lands on hotbar slot 1.", "evidence": "screenshot"},
+        {"id": "D2", "do": "Move to each of the 9 slots, one press per move.", "expect": "The ring has stood on every one of the 9 slots; the tally lists all 9.", "evidence": "screenshot per slot"},
+        {"id": "D3", "do": "Press B once.", "expect": "The ring closes and the world is in control again.", "evidence": "screenshot"}
+      ]
+    },
+    {
+      "id": "E", "name": "Menus, bag and battle navigation",
+      "steps": [
+        {"id": "E1", "do": "Open the Bag (RB), move through the pockets one press at a time, close with B.", "expect": "Each press moves one pocket; B closes the Bag.", "evidence": "screenshot"},
+        {"id": "E2", "do": "Open the Game Menu (Menu), move to Party with one press per move, confirm with A, close with B.", "expect": "The Party window opens and closes.", "evidence": "screenshot"},
+        {"id": "E3", "do": "Battle navigation, only if a wild battle starts by itself in the safe spot: move over the four battle options one press at a time, then run.", "expect": "The cursor moves one option per press; Run leaves the battle. No battle is sought out.", "evidence": "screenshot", "optional": true}
+      ]
+    },
+    {
+      "id": "F", "name": "Remap screen round trip",
+      "steps": [
+        {"id": "F1", "do": "Open the remap screen from the branch (setup.py --ui). In it, swap two actions the screen allows (for example Bag and Team).", "expect": "The screen shows no shared input and offers Apply.", "evidence": "screenshot"},
+        {"id": "F2", "do": "Apply, restart the client, log in again.", "expect": "The game world is reached again.", "evidence": "screenshot"},
+        {"id": "F3", "do": "Press the input that now opens the Team window (it used to open the Bag).", "expect": "The Team window opens; the other input opens the Bag.", "evidence": "screenshot"},
+        {"id": "F4", "do": "Restore the default layout in the screen and apply.", "expect": "main.properties is byte for byte the A3 state; the old input opens the Bag again.", "evidence": "text + screenshot"}
+      ]
+    },
+    {
+      "id": "G", "name": "Finish clean",
+      "steps": [
+        {"id": "G1", "do": "Check the client process and take one more screenshot.", "expect": "The client is still running and the picture changes when the character moves (not frozen).", "evidence": "screenshot"},
+        {"id": "G2", "do": "Log out through the Game Menu.", "expect": "Back at the login or character select screen.", "evidence": "screenshot"},
+        {"id": "G3", "do": "Stop the client.", "expect": "The process ends; no crash report is written.", "evidence": "text"},
+        {"id": "G4", "do": "Uninstall with install.sh --uninstall.", "expect": "Original main.properties restored byte for byte.", "evidence": "text"}
+      ]
+    }
+  ],
+  "not_covered_here": [
+    "The Steam wheel (needs Steam; hotbar slots 6-9, Pokedex, Friends, Screenshot-F12 via the wheel). The Linux CI proves the layout files only.",
+    "Windows and macOS: covered by the CI matrix, not by this run.",
+    "PlayStation and Switch Pro pads, ARM, Steam Deck Game Mode: unverified until a person tests them."
+  ]
+}
