@@ -148,6 +148,28 @@
       }));
     }
 
+    // demo: light the pad in step with the recording
+    const vid = $("[data-demo]"), dpad = $('[data-pad="demo"]');
+    if (vid && dpad) {
+      dpad.appendChild(padSvg("xbox", false));
+      let track = [];
+      try { track = (await (await fetch("data/demo.json")).json()).events; } catch {}
+      const keyEl = $("[data-demo-key]"), actEl = $("[data-demo-act]"), now = $(".demo-now");
+      let cur = null;
+      const sync = () => {
+        const t = vid.currentTime;
+        const e = track.filter((x) => x.t <= t + 0.05 && t - x.t < 1.1).at(-1);
+        const id = e ? e.id : null;
+        if (id === cur) return;
+        if (cur) setOn(dpad, cur, false);
+        cur = id; now.classList.toggle("on", !!id);
+        if (id) { setOn(dpad, id, true); keyEl.textContent = label("xbox", id); actEl.textContent = e.label || data.controls[id]; }
+      };
+      vid.addEventListener("timeupdate", sync);
+      (function loop() { if (!vid.paused) sync(); requestAnimationFrame(loop); })();
+      if (reduced) { vid.removeAttribute("autoplay"); vid.pause(); vid.controls = true; }
+    }
+
     // wheel
     const wheel = $("[data-wheel]");
     if (wheel) {
