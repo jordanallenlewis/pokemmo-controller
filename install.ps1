@@ -12,6 +12,7 @@ param([switch]$Uninstall, [switch]$NoWheel, [switch]$SwitchPositional, [switch]$
 
 # Everything runs in its own scope so your PowerShell session is left as it was.
 & {
+    Write-Host "PokeMMO Controller is an unofficial, fan-made tool, made by and for PokeMMO players. It is not made, endorsed or supported by the PokeMMO team."
     $ErrorActionPreference = 'Stop'
     $ProgressPreference = 'SilentlyContinue'
     [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12

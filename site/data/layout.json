@@ -6,7 +6,7 @@
   "b": "Cancel / run",
   "x": "Action X",
   "y": "Action Y",
-  "view": "Focus Ring",
+  "lb": "Focus Ring",
   "menu": "Game Menu",
   "rb": "Bag",
   "rt": "Next hotbar page",
@@ -15,7 +15,7 @@
   "dright": "Hotbar 2",
   "ddown": "Hotbar 3",
   "dleft": "Hotbar 4",
-  "lb": "Hotbar 5",
+  "view": "Hotbar 5 (Town Map)",
   "ls_click": "Team",
   "rs_click": "Screenshot",
   "rs": "Action wheel"
