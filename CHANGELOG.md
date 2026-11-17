@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- Fixed: the wheel was always drawn at the 4K size, so at a lower game
+  resolution it grew until it ran off the screen. Add `--resolution 1920x1080`
+  (the size of the game picture) and the wheel is sized to fit: the shorter side
+  sets it, so ultrawide, 4:3, 720p and 4K all fit, and it never goes above the 4K
+  size. It is remembered; `--reset-resolution` goes back. Steam reads the layout
+  when the game starts, so run it again after you change the game's resolution.
+  Without the flag, nothing changes from before.
 - Remap screen: pick your controller (Xbox, PlayStation or Switch Pro) and
   every input shows that pad's own button names (on Switch Pro, following the
   installed A-confirms setting). It starts from a pad PokeMMO has logged on

@@ -15,6 +15,7 @@ one input. A hand-edited layout file is checked by the same code, so it is
 refused too. Standard library only.
 """
 import json
+import re
 
 FORMAT = 1
 MAX_BYTES = 64 * 1024
@@ -246,3 +247,55 @@ def loads(text):
 def dumps(lay):
     validate(lay)
     return json.dumps(lay, indent=2) + "\n"
+
+
+# ---------------------------------------------------------------- wheel size
+# Steam draws the wheel in screen pixels, so one fixed size that suits a 4K screen
+# runs off a smaller one. The size follows the height of the picture the game draws.
+WHEEL_SCALE_AT_4K = 400   # what the wheel always used: right for 2160 pixels of height
+REFERENCE_HEIGHT = 2160
+MIN_WHEEL_SCALE = 60      # a smaller wheel is too small to read its labels
+MIN_SIDE, MAX_SIDE = 320, 16384
+
+
+def parse_resolution(text):
+    """'1920x1080' (also 1920*1080, 1920 x 1080, 1920,1080) -> (1920, 1080). Raises LayoutError."""
+    m = re.fullmatch(r"\s*(\d{3,5})\s*[x*X,\u00d7]\s*(\d{3,5})\s*", str(text))
+    if not m:
+        raise LayoutError(f"{text!r} is not a resolution. Write it like 1920x1080.")
+    return check_resolution(int(m.group(1)), int(m.group(2)))
+
+
+def check_resolution(w, h):
+    if isinstance(w, bool) or isinstance(h, bool) or not isinstance(w, int) or not isinstance(h, int):
+        raise LayoutError("a resolution is two whole numbers, width and height.")
+    if not (MIN_SIDE <= w <= MAX_SIDE and MIN_SIDE <= h <= MAX_SIDE):
+        raise LayoutError(f"{w}x{h} is outside {MIN_SIDE} to {MAX_SIDE} pixels a side.")
+    return w, h
+
+
+def wheel_scale(w, h):
+    """The wheel's Steam size for a game picture of w x h pixels. The shorter side sets it, so
+    ultrawide, 4:3 and tall windows all fit; it never goes above the 4K size."""
+    short = min(check_resolution(w, h))
+    return max(MIN_WHEEL_SCALE, min(WHEEL_SCALE_AT_4K, round(WHEEL_SCALE_AT_4K * short / REFERENCE_HEIGHT)))
+
+
+def recorded_screen(state):
+    """(w, h) saved in the install record, or None (a record edited by hand is not trusted)."""
+    v = state.get("screen")
+    try:
+        return check_resolution(*v) if isinstance(v, list) and len(v) == 2 else None
+    except LayoutError:
+        return None
+
+
+def set_screen(state, screen=None, reset=False):
+    """Save (or with reset, forget) the game resolution in the install record."""
+    if reset:
+        state.pop("screen", None)
+    elif screen is not None:
+        if wheel_scale(*screen) == WHEEL_SCALE_AT_4K:
+            state.pop("screen", None)       # the default size: leave no trace
+        else:
+            state["screen"] = list(screen)
