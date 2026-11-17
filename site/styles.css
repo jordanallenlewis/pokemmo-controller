@@ -6,13 +6,13 @@
   --bg-2: #171a1f;
   --surface: #1e2127;
   --surface-2: #262a31;
-  --line: rgba(244, 241, 234, .09);
+  --line: rgba(244, 241, 234, .12);
   --ink: #f4f1ea;
   --muted: #a3a8b3;
-  --dim: #8b919d;
+  --dim: #8a909b;
   --yellow: #ffc833;      /* calls to action only */
   --yellow-ink: #1a1408;
-  --accent-soft: rgba(255, 200, 51, .12);
+  --accent-soft: rgba(255, 200, 51, .14);
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --radius: 18px;
   --wrap: 1160px;
