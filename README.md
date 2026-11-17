@@ -3,7 +3,7 @@
   <source media="(max-width: 700px) and (prefers-color-scheme: dark)" srcset="docs/img/hero-phone-dark.svg">
   <source media="(max-width: 700px)" srcset="docs/img/hero-phone-light.svg">
   <source media="(prefers-color-scheme: dark)" srcset="docs/img/hero-dark.svg">
-  <img src="docs/img/hero-light.svg" alt="PokeMMO Controller Layout: play PokeMMO with an Xbox, PlayStation or Switch Pro controller" width="900">
+  <img src="docs/img/hero-light.svg" alt="PokeMMO Controller: play PokeMMO from the couch with an Xbox, PlayStation or Switch Pro controller" width="900">
 </picture>
 </h1>
 
@@ -24,13 +24,18 @@ Team are on the controller, plus a labeled right-stick wheel so you can see what
 each direction does.
 
 <picture>
-  <source media="(max-width: 700px) and (prefers-color-scheme: dark)" srcset="docs/img/features-phone-dark.svg">
-  <source media="(max-width: 700px)" srcset="docs/img/features-phone-light.svg">
-  <source media="(prefers-color-scheme: dark)" srcset="docs/img/features-dark.svg">
-  <img src="docs/img/features-light.svg" alt="What you get: one command with nothing to install first; your pad with its own button names; a wheel you can read; a remap screen for any button; one input does one action; honest notes on what was tested">
+  <source media="(max-width: 700px) and (prefers-color-scheme: dark)" srcset="docs/img/strip-phone-dark.svg">
+  <source media="(max-width: 700px)" srcset="docs/img/strip-phone-light.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/strip-dark.svg">
+  <img src="docs/img/strip-light.svg" alt="At a glance: 20 plus actions on the pad, one command to install, no apps to keep open, one press is one action">
 </picture>
 
+
 More: [is this allowed?](#is-this-allowed) · [tested with](#tested-with)
+
+## Quick start
+
+One command. Nothing to install first (no Python, no git).
 
 <picture>
   <source media="(max-width: 700px) and (prefers-color-scheme: dark)" srcset="docs/img/steps-phone-dark.svg">
@@ -39,7 +44,37 @@ More: [is this allowed?](#is-this-allowed) · [tested with](#tested-with)
   <img src="docs/img/steps-light.svg" alt="Install in three steps: close PokeMMO, paste one line, play from Steam">
 </picture>
 
-### Your button map
+1. Close PokeMMO. Leave Steam open: the installer closes it and opens it again
+   when it has to (never while a Steam game is running).
+2. Paste the line for your system (next section).
+3. Launch **PokeMMO from your Steam library** (the installer adds it). No Steam?
+   You still get every bind; only the wheel needs Steam.
+
+### Windows
+
+Open **PowerShell** (Start menu, type `powershell`) and paste:
+
+```powershell
+irm https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.ps1 | iex
+```
+
+### macOS
+
+Open **Terminal** and paste:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.sh | sh
+```
+
+### Linux and Steam Deck
+
+Open a terminal (on a Deck, switch to **Desktop Mode** first) and paste the same line as on macOS:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.sh | sh
+```
+
+## Your button map
 
 Pick your controller. Every map shows the default layout. These are drawn
 outlines, not photos, so shapes are approximate.
@@ -107,9 +142,43 @@ outlines, not photos, so shapes are approximate.
 Or print any of them in your terminal: `python tools/pads.py playstation` (also
 `switch`, `xbox`; add `--switch-positional` to see that setting).
 
+## The wheel
+
+Tilt the right stick to open the wheel in the middle of the screen. Point at a
+slice (its name shows above the wheel) and let go to use it. The **top slice
+does nothing**, so a stray flick up presses nothing. Let go in the center to
+cancel.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/wheel-demo-dark.svg">
+  <img src="docs/img/wheel-demo-light.svg" alt="The wheel, animated: the highlight moves from slice to slice">
+</picture>
+
+| In game | Slices, clockwise from the empty top |
+|---|---|
+| <img src="docs/wheel-in-game.png" alt="The wheel in game, pointing at Egg Incubators" width="360"> | <picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/wheel-dark.svg">
+  <img src="docs/img/wheel-light.svg" alt="Wheel slice map" width="360">
+</picture> |
+
+Each slice shows the key it presses (N = Pokédex, I = Egg Incubators,
+C = Trainer Card, V = Friends, P = Global Trade Link, 6-9 = Hotbar 6-9,
+F12 = Hide GUI) and sends exactly one key press when you let go.
+
+## Install it once and forget it
+
+<picture>
+  <source media="(max-width: 700px) and (prefers-color-scheme: dark)" srcset="docs/img/features-phone-dark.svg">
+  <source media="(max-width: 700px)" srcset="docs/img/features-phone-light.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/features-dark.svg">
+  <img src="docs/img/features-light.svg" alt="What you get: one command with nothing to install first; your pad with its own button names; a wheel you can read; a remap screen for any button; one input does one action; honest notes on what was tested">
+</picture>
+
 ## Contents
 
 - [Quick start](#quick-start): [Windows](#windows), [macOS](#macos), [Linux and Steam Deck](#linux-and-steam-deck)
+- [Your button map](#your-button-map) and [the wheel](#the-wheel)
+- [Remap, update and uninstall](#remap-update-and-uninstall)
 - [Controls](#controls)
 - [How do I… with a controller](#how-do-i-with-a-controller)
 - [Is this allowed?](#is-this-allowed)
@@ -119,39 +188,7 @@ Or print any of them in your terminal: `python tools/pads.py playstation` (also
 - [Roadmap](#roadmap)
 - [Tested with](#tested-with)
 
-## Quick start
-
-One command. Nothing to install first (no Python, no git).
-
-1. Close PokeMMO. Leave Steam open: the installer closes it and opens it again
-   when it has to (never while a Steam game is running).
-2. Paste the line for your system (next section).
-3. Launch **PokeMMO from your Steam library** (the installer adds it). No Steam?
-   You still get every bind; only the wheel needs Steam.
-
-### Windows
-
-Open **PowerShell** (Start menu, type `powershell`) and paste:
-
-```powershell
-irm https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.ps1 | iex
-```
-
-### macOS
-
-Open **Terminal** and paste:
-
-```sh
-curl -fsSL https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.sh | sh
-```
-
-### Linux and Steam Deck
-
-Open a terminal (on a Deck, switch to **Desktop Mode** first) and paste the same line as on macOS:
-
-```sh
-curl -fsSL https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.sh | sh
-```
+## Remap, update and uninstall
 
 ### After the install
 
@@ -268,7 +305,7 @@ change nothing; PokeMMO may stay open). From a clone, `python tools/setup.py` do
 | LB | L1 | L | **Focus Ring:** select anything on screen |
 | D-pad ↑ → ↓ ← | D-pad | D-pad | Hotbar 1 / 2 / 3 / 4 |
 | RT / LT | R2 / L2 | ZR / ZL | Next / previous hotbar page |
-| Right stick | Right stick | Right stick | **Wheel** (see below) |
+| Right stick | Right stick | Right stick | **[Wheel](#the-wheel)** |
 | L3 (press left stick) | L3 | Press left stick | Team |
 | R3 (press right stick) | R3 | Press right stick | Screenshot |
 
@@ -293,29 +330,6 @@ Tap **LB** and a highlight jumps onto the hotbar, your party or an open
 window. Move it with the stick, press **A** to use what's highlighted, and press
 **B** or **LB** to leave. Every hotbar slot on every page can be reached this way,
 not only the ones with their own button.
-
-### The wheel
-
-Tilt the right stick to open the wheel in the middle of the screen. Point at a
-slice (its name shows above the wheel) and let go to use it. The **top slice
-does nothing**, so a stray flick up presses nothing. Let go in the center to
-cancel.
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/img/wheel-demo-dark.svg">
-  <img src="docs/img/wheel-demo-light.svg" alt="The wheel, animated: the highlight moves from slice to slice">
-</picture>
-
-| In game | Slices, clockwise from the empty top |
-|---|---|
-| <img src="docs/wheel-in-game.png" alt="The wheel in game, pointing at Egg Incubators" width="360"> | <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/img/wheel-dark.svg">
-  <img src="docs/img/wheel-light.svg" alt="Wheel slice map" width="360">
-</picture> |
-
-Each slice shows the key it presses (N = Pokédex, I = Egg Incubators,
-C = Trainer Card, V = Friends, P = Global Trade Link, 6-9 = Hotbar 6-9,
-F12 = Hide GUI) and sends exactly one key press when you let go.
 
 ## How do I… with a controller
 
