@@ -15,7 +15,7 @@
 
 <p align="center"><em>PokeMMO Controller is an unofficial, fan-made tool, made by and for PokeMMO players. It is not made, endorsed or supported by the PokeMMO team.</em></p>
 
-<p align="center">Free, MIT licensed · 1 input = 1 action (<a href="#is-this-allowed">is this allowed?</a>)</p>
+<p align="center">Free, MIT licensed · 1 input = 1 action (<a href="#is-this-allowed">is this allowed?</a>) · <a href="https://pokemmocontroller.com">Website</a></p>
 
 Play [PokeMMO](https://pokemmo.com) on Windows, macOS or Linux (Steam Deck too)
 with an **Xbox, PlayStation or Switch Pro** controller, using the game's **own
@@ -30,7 +30,7 @@ each direction does.
   <img src="docs/img/features-light.svg" alt="What you get: one command with nothing to install first; your pad with its own button names; a wheel you can read; a remap screen for any button; one input does one action; honest notes on what was tested">
 </picture>
 
-More: [is this allowed?](#is-this-allowed) · [tested with](#tested-with)
+More: [website](https://pokemmocontroller.com) · [is this allowed?](#is-this-allowed) · [tested with](#tested-with)
 
 <picture>
   <source media="(max-width: 700px) and (prefers-color-scheme: dark)" srcset="docs/img/steps-phone-dark.svg">
