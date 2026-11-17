@@ -1,0 +1,1434 @@
+{
+ "escape": [
+  {
+   "back": "",
+   "escaped": "",
+   "value": ""
+  },
+  {
+   "back": "plain",
+   "escaped": "plain",
+   "value": "plain"
+  },
+  {
+   "back": " lead",
+   "escaped": "\\ lead",
+   "value": " lead"
+  },
+  {
+   "back": "a=b",
+   "escaped": "a\\=b",
+   "value": "a=b"
+  },
+  {
+   "back": "a:b",
+   "escaped": "a\\:b",
+   "value": "a:b"
+  },
+  {
+   "back": "#h",
+   "escaped": "\\#h",
+   "value": "#h"
+  },
+  {
+   "back": "!x",
+   "escaped": "\\!x",
+   "value": "!x"
+  },
+  {
+   "back": "back\\slash",
+   "escaped": "back\\\\slash",
+   "value": "back\\slash"
+  },
+  {
+   "back": "tab\there",
+   "escaped": "tab\\there",
+   "value": "tab\there"
+  },
+  {
+   "back": "nl\nx",
+   "escaped": "nl\\nx",
+   "value": "nl\nx"
+  },
+  {
+   "back": "caf\u00e9",
+   "escaped": "caf\\u00E9",
+   "value": "caf\u00e9"
+  },
+  {
+   "back": "\u2603",
+   "escaped": "\\u2603",
+   "value": "\u2603"
+  },
+  {
+   "back": "\ud83d\ude00",
+   "escaped": "\\uD83D\\uDE00",
+   "value": "\ud83d\ude00"
+  },
+  {
+   "back": "\u0001",
+   "escaped": "\\u0001",
+   "value": "\u0001"
+  },
+  {
+   "back": "trail ",
+   "escaped": "trail ",
+   "value": "trail "
+  }
+ ],
+ "get": [
+  {
+   "key": "a",
+   "text": "",
+   "value": null
+  },
+  {
+   "key": "b",
+   "text": "",
+   "value": null
+  },
+  {
+   "key": "k",
+   "text": "",
+   "value": null
+  },
+  {
+   "key": "new",
+   "text": "",
+   "value": null
+  },
+  {
+   "key": "Ab",
+   "text": "",
+   "value": null
+  },
+  {
+   "key": "a",
+   "text": "a=1\n",
+   "value": "1"
+  },
+  {
+   "key": "b",
+   "text": "a=1\n",
+   "value": null
+  },
+  {
+   "key": "k",
+   "text": "a=1\n",
+   "value": null
+  },
+  {
+   "key": "new",
+   "text": "a=1\n",
+   "value": null
+  },
+  {
+   "key": "Ab",
+   "text": "a=1\n",
+   "value": null
+  },
+  {
+   "key": "a",
+   "text": "a=1",
+   "value": "1"
+  },
+  {
+   "key": "b",
+   "text": "a=1",
+   "value": null
+  },
+  {
+   "key": "k",
+   "text": "a=1",
+   "value": null
+  },
+  {
+   "key": "new",
+   "text": "a=1",
+   "value": null
+  },
+  {
+   "key": "Ab",
+   "text": "a=1",
+   "value": null
+  },
+  {
+   "key": "a",
+   "text": "a=1\nb=2\n",
+   "value": "1"
+  },
+  {
+   "key": "b",
+   "text": "a=1\nb=2\n",
+   "value": "2"
+  },
+  {
+   "key": "k",
+   "text": "a=1\nb=2\n",
+   "value": null
+  },
+  {
+   "key": "new",
+   "text": "a=1\nb=2\n",
+   "value": null
+  },
+  {
+   "key": "Ab",
+   "text": "a=1\nb=2\n",
+   "value": null
+  },
+  {
+   "key": "a",
+   "text": "# c\na = 1\n!x\nb:2\n",
+   "value": "1"
+  },
+  {
+   "key": "b",
+   "text": "# c\na = 1\n!x\nb:2\n",
+   "value": "2"
+  },
+  {
+   "key": "k",
+   "text": "# c\na = 1\n!x\nb:2\n",
+   "value": null
+  },
+  {
+   "key": "new",
+   "text": "# c\na = 1\n!x\nb:2\n",
+   "value": null
+  },
+  {
+   "key": "Ab",
+   "text": "# c\na = 1\n!x\nb:2\n",
+   "value": null
+  },
+  {
+   "key": "a",
+   "text": "a=1\na=2\n",
+   "value": "2"
+  },
+  {
+   "key": "b",
+   "text": "a=1\na=2\n",
+   "value": null
+  },
+  {
+   "key": "k",
+   "text": "a=1\na=2\n",
+   "value": null
+  },
+  {
+   "key": "new",
+   "text": "a=1\na=2\n",
+   "value": null
+  },
+  {
+   "key": "Ab",
+   "text": "a=1\na=2\n",
+   "value": null
+  },
+  {
+   "key": "a",
+   "text": "  a  =  1  \n",
+   "value": "1  "
+  },
+  {
+   "key": "b",
+   "text": "  a  =  1  \n",
+   "value": null
+  },
+  {
+   "key": "k",
+   "text": "  a  =  1  \n",
+   "value": null
+  },
+  {
+   "key": "new",
+   "text": "  a  =  1  \n",
+   "value": null
+  },
+  {
+   "key": "Ab",
+   "text": "  a  =  1  \n",
+   "value": null
+  },
+  {
+   "key": "a",
+   "text": "key with\\ space=v\n",
+   "value": null
+  },
+  {
+   "key": "b",
+   "text": "key with\\ space=v\n",
+   "value": null
+  },
+  {
+   "key": "k",
+   "text": "key with\\ space=v\n",
+   "value": null
+  },
+  {
+   "key": "new",
+   "text": "key with\\ space=v\n",
+   "value": null
+  },
+  {
+   "key": "Ab",
+   "text": "key with\\ space=v\n",
+   "value": null
+  },
+  {
+   "key": "a",
+   "text": "k\n",
+   "value": null
+  },
+  {
+   "key": "b",
+   "text": "k\n",
+   "value": null
+  },
+  {
+   "key": "k",
+   "text": "k\n",
+   "value": ""
+  },
+  {
+   "key": "new",
+   "text": "k\n",
+   "value": null
+  },
+  {
+   "key": "Ab",
+   "text": "k\n",
+   "value": null
+  },
+  {
+   "key": "a",
+   "text": "k=\n",
+   "value": null
+  },
+  {
+   "key": "b",
+   "text": "k=\n",
+   "value": null
+  },
+  {
+   "key": "k",
+   "text": "k=\n",
+   "value": ""
+  },
+  {
+   "key": "new",
+   "text": "k=\n",
+   "value": null
+  },
+  {
+   "key": "Ab",
+   "text": "k=\n",
+   "value": null
+  },
+  {
+   "key": "a",
+   "text": "\\u0041b=c\n",
+   "value": null
+  },
+  {
+   "key": "b",
+   "text": "\\u0041b=c\n",
+   "value": null
+  },
+  {
+   "key": "k",
+   "text": "\\u0041b=c\n",
+   "value": null
+  },
+  {
+   "key": "new",
+   "text": "\\u0041b=c\n",
+   "value": null
+  },
+  {
+   "key": "Ab",
+   "text": "\\u0041b=c\n",
+   "value": null
+  },
+  {
+   "key": "a",
+   "text": "a=1\n\n\nb=2\n",
+   "value": "1"
+  },
+  {
+   "key": "b",
+   "text": "a=1\n\n\nb=2\n",
+   "value": "2"
+  },
+  {
+   "key": "k",
+   "text": "a=1\n\n\nb=2\n",
+   "value": null
+  },
+  {
+   "key": "new",
+   "text": "a=1\n\n\nb=2\n",
+   "value": null
+  },
+  {
+   "key": "Ab",
+   "text": "a=1\n\n\nb=2\n",
+   "value": null
+  },
+  {
+   "key": "a",
+   "text": "a=x=y:z\n",
+   "value": "x=y:z"
+  },
+  {
+   "key": "b",
+   "text": "a=x=y:z\n",
+   "value": null
+  },
+  {
+   "key": "k",
+   "text": "a=x=y:z\n",
+   "value": null
+  },
+  {
+   "key": "new",
+   "text": "a=x=y:z\n",
+   "value": null
+  },
+  {
+   "key": "Ab",
+   "text": "a=x=y:z\n",
+   "value": null
+  },
+  {
+   "key": "a",
+   "text": "\tt=1\n",
+   "value": null
+  },
+  {
+   "key": "b",
+   "text": "\tt=1\n",
+   "value": null
+  },
+  {
+   "key": "k",
+   "text": "\tt=1\n",
+   "value": null
+  },
+  {
+   "key": "new",
+   "text": "\tt=1\n",
+   "value": null
+  },
+  {
+   "key": "Ab",
+   "text": "\tt=1\n",
+   "value": null
+  },
+  {
+   "key": "a",
+   "text": "client.controls.controller_input_maps_gdx_2=KEY_A\\=0\n",
+   "value": null
+  },
+  {
+   "key": "b",
+   "text": "client.controls.controller_input_maps_gdx_2=KEY_A\\=0\n",
+   "value": null
+  },
+  {
+   "key": "k",
+   "text": "client.controls.controller_input_maps_gdx_2=KEY_A\\=0\n",
+   "value": null
+  },
+  {
+   "key": "new",
+   "text": "client.controls.controller_input_maps_gdx_2=KEY_A\\=0\n",
+   "value": null
+  },
+  {
+   "key": "Ab",
+   "text": "client.controls.controller_input_maps_gdx_2=KEY_A\\=0\n",
+   "value": null
+  },
+  {
+   "key": "a",
+   "text": "a=1\n",
+   "value": "1"
+  },
+  {
+   "key": "b",
+   "text": "a=1\n",
+   "value": null
+  },
+  {
+   "key": "k",
+   "text": "a=1\n",
+   "value": null
+  },
+  {
+   "key": "new",
+   "text": "a=1\n",
+   "value": null
+  },
+  {
+   "key": "Ab",
+   "text": "a=1\n",
+   "value": null
+  }
+ ],
+ "keys": [
+  {
+   "key": "a",
+   "line": "a=1",
+   "value": "1"
+  },
+  {
+   "key": "a",
+   "line": "a=1",
+   "value": "1"
+  },
+  {
+   "key": "a",
+   "line": "a=1",
+   "value": "1"
+  },
+  {
+   "key": "b",
+   "line": "b=2",
+   "value": "2"
+  },
+  {
+   "key": null,
+   "line": "# c",
+   "value": null
+  },
+  {
+   "key": "a",
+   "line": "a = 1",
+   "value": "1"
+  },
+  {
+   "key": null,
+   "line": "!x",
+   "value": null
+  },
+  {
+   "key": "b",
+   "line": "b:2",
+   "value": "2"
+  },
+  {
+   "key": "a",
+   "line": "a=1",
+   "value": "1"
+  },
+  {
+   "key": "a",
+   "line": "a=2",
+   "value": "2"
+  },
+  {
+   "key": "a",
+   "line": "  a  =  1  ",
+   "value": "1  "
+  },
+  {
+   "key": "key",
+   "line": "key with\\ space=v",
+   "value": "with\\ space=v"
+  },
+  {
+   "key": "k",
+   "line": "k",
+   "value": ""
+  },
+  {
+   "key": "k",
+   "line": "k=",
+   "value": ""
+  },
+  {
+   "key": "\\u0041b",
+   "line": "\\u0041b=c",
+   "value": "c"
+  },
+  {
+   "key": "a",
+   "line": "a=1",
+   "value": "1"
+  },
+  {
+   "key": null,
+   "line": "",
+   "value": null
+  },
+  {
+   "key": null,
+   "line": "",
+   "value": null
+  },
+  {
+   "key": "b",
+   "line": "b=2",
+   "value": "2"
+  },
+  {
+   "key": "a",
+   "line": "a=x=y:z",
+   "value": "x=y:z"
+  },
+  {
+   "key": "t",
+   "line": "\tt=1",
+   "value": "1"
+  },
+  {
+   "key": "client.controls.controller_input_maps_gdx_2",
+   "line": "client.controls.controller_input_maps_gdx_2=KEY_A\\=0",
+   "value": "KEY_A\\=0"
+  },
+  {
+   "key": "a",
+   "line": "a=1",
+   "value": "1"
+  }
+ ],
+ "set": [
+  {
+   "out": "a=9\n",
+   "text": "",
+   "want": {
+    "a": "9"
+   }
+  },
+  {
+   "out": "",
+   "text": "",
+   "want": {
+    "a": null
+   }
+  },
+  {
+   "out": "new=1\n",
+   "text": "",
+   "want": {
+    "new": "1"
+   }
+  },
+  {
+   "out": "a=9\nc=3\n",
+   "text": "",
+   "want": {
+    "a": "9",
+    "b": null,
+    "c": "3"
+   }
+  },
+  {
+   "out": "",
+   "text": "",
+   "want": {}
+  },
+  {
+   "out": "k=v\n",
+   "text": "",
+   "want": {
+    "k": "v"
+   }
+  },
+  {
+   "out": "a=9\n",
+   "text": "a=1\n",
+   "want": {
+    "a": "9"
+   }
+  },
+  {
+   "out": "",
+   "text": "a=1\n",
+   "want": {
+    "a": null
+   }
+  },
+  {
+   "out": "a=1\nnew=1\n",
+   "text": "a=1\n",
+   "want": {
+    "new": "1"
+   }
+  },
+  {
+   "out": "a=9\nc=3\n",
+   "text": "a=1\n",
+   "want": {
+    "a": "9",
+    "b": null,
+    "c": "3"
+   }
+  },
+  {
+   "out": "a=1\n",
+   "text": "a=1\n",
+   "want": {}
+  },
+  {
+   "out": "a=1\nk=v\n",
+   "text": "a=1\n",
+   "want": {
+    "k": "v"
+   }
+  },
+  {
+   "out": "a=9",
+   "text": "a=1",
+   "want": {
+    "a": "9"
+   }
+  },
+  {
+   "out": "",
+   "text": "a=1",
+   "want": {
+    "a": null
+   }
+  },
+  {
+   "out": "a=1\nnew=1",
+   "text": "a=1",
+   "want": {
+    "new": "1"
+   }
+  },
+  {
+   "out": "a=9\nc=3",
+   "text": "a=1",
+   "want": {
+    "a": "9",
+    "b": null,
+    "c": "3"
+   }
+  },
+  {
+   "out": "a=1",
+   "text": "a=1",
+   "want": {}
+  },
+  {
+   "out": "a=1\nk=v",
+   "text": "a=1",
+   "want": {
+    "k": "v"
+   }
+  },
+  {
+   "out": "a=9\nb=2\n",
+   "text": "a=1\nb=2\n",
+   "want": {
+    "a": "9"
+   }
+  },
+  {
+   "out": "b=2\n",
+   "text": "a=1\nb=2\n",
+   "want": {
+    "a": null
+   }
+  },
+  {
+   "out": "a=1\nb=2\nnew=1\n",
+   "text": "a=1\nb=2\n",
+   "want": {
+    "new": "1"
+   }
+  },
+  {
+   "out": "a=9\nc=3\n",
+   "text": "a=1\nb=2\n",
+   "want": {
+    "a": "9",
+    "b": null,
+    "c": "3"
+   }
+  },
+  {
+   "out": "a=1\nb=2\n",
+   "text": "a=1\nb=2\n",
+   "want": {}
+  },
+  {
+   "out": "a=1\nb=2\nk=v\n",
+   "text": "a=1\nb=2\n",
+   "want": {
+    "k": "v"
+   }
+  },
+  {
+   "out": "# c\na=9\n!x\nb:2\n",
+   "text": "# c\na = 1\n!x\nb:2\n",
+   "want": {
+    "a": "9"
+   }
+  },
+  {
+   "out": "# c\n!x\nb:2\n",
+   "text": "# c\na = 1\n!x\nb:2\n",
+   "want": {
+    "a": null
+   }
+  },
+  {
+   "out": "# c\na = 1\n!x\nb:2\nnew=1\n",
+   "text": "# c\na = 1\n!x\nb:2\n",
+   "want": {
+    "new": "1"
+   }
+  },
+  {
+   "out": "# c\na=9\n!x\nc=3\n",
+   "text": "# c\na = 1\n!x\nb:2\n",
+   "want": {
+    "a": "9",
+    "b": null,
+    "c": "3"
+   }
+  },
+  {
+   "out": "# c\na = 1\n!x\nb:2\n",
+   "text": "# c\na = 1\n!x\nb:2\n",
+   "want": {}
+  },
+  {
+   "out": "# c\na = 1\n!x\nb:2\nk=v\n",
+   "text": "# c\na = 1\n!x\nb:2\n",
+   "want": {
+    "k": "v"
+   }
+  },
+  {
+   "out": "a=9\na=9\n",
+   "text": "a=1\na=2\n",
+   "want": {
+    "a": "9"
+   }
+  },
+  {
+   "out": "",
+   "text": "a=1\na=2\n",
+   "want": {
+    "a": null
+   }
+  },
+  {
+   "out": "a=1\na=2\nnew=1\n",
+   "text": "a=1\na=2\n",
+   "want": {
+    "new": "1"
+   }
+  },
+  {
+   "out": "a=9\na=9\nc=3\n",
+   "text": "a=1\na=2\n",
+   "want": {
+    "a": "9",
+    "b": null,
+    "c": "3"
+   }
+  },
+  {
+   "out": "a=1\na=2\n",
+   "text": "a=1\na=2\n",
+   "want": {}
+  },
+  {
+   "out": "a=1\na=2\nk=v\n",
+   "text": "a=1\na=2\n",
+   "want": {
+    "k": "v"
+   }
+  },
+  {
+   "out": "a=9\n",
+   "text": "  a  =  1  \n",
+   "want": {
+    "a": "9"
+   }
+  },
+  {
+   "out": "",
+   "text": "  a  =  1  \n",
+   "want": {
+    "a": null
+   }
+  },
+  {
+   "out": "  a  =  1  \nnew=1\n",
+   "text": "  a  =  1  \n",
+   "want": {
+    "new": "1"
+   }
+  },
+  {
+   "out": "a=9\nc=3\n",
+   "text": "  a  =  1  \n",
+   "want": {
+    "a": "9",
+    "b": null,
+    "c": "3"
+   }
+  },
+  {
+   "out": "  a  =  1  \n",
+   "text": "  a  =  1  \n",
+   "want": {}
+  },
+  {
+   "out": "  a  =  1  \nk=v\n",
+   "text": "  a  =  1  \n",
+   "want": {
+    "k": "v"
+   }
+  },
+  {
+   "out": "key with\\ space=v\na=9\n",
+   "text": "key with\\ space=v\n",
+   "want": {
+    "a": "9"
+   }
+  },
+  {
+   "out": "key with\\ space=v\n",
+   "text": "key with\\ space=v\n",
+   "want": {
+    "a": null
+   }
+  },
+  {
+   "out": "key with\\ space=v\nnew=1\n",
+   "text": "key with\\ space=v\n",
+   "want": {
+    "new": "1"
+   }
+  },
+  {
+   "out": "key with\\ space=v\na=9\nc=3\n",
+   "text": "key with\\ space=v\n",
+   "want": {
+    "a": "9",
+    "b": null,
+    "c": "3"
+   }
+  },
+  {
+   "out": "key with\\ space=v\n",
+   "text": "key with\\ space=v\n",
+   "want": {}
+  },
+  {
+   "out": "key with\\ space=v\nk=v\n",
+   "text": "key with\\ space=v\n",
+   "want": {
+    "k": "v"
+   }
+  },
+  {
+   "out": "k\na=9\n",
+   "text": "k\n",
+   "want": {
+    "a": "9"
+   }
+  },
+  {
+   "out": "k\n",
+   "text": "k\n",
+   "want": {
+    "a": null
+   }
+  },
+  {
+   "out": "k\nnew=1\n",
+   "text": "k\n",
+   "want": {
+    "new": "1"
+   }
+  },
+  {
+   "out": "k\na=9\nc=3\n",
+   "text": "k\n",
+   "want": {
+    "a": "9",
+    "b": null,
+    "c": "3"
+   }
+  },
+  {
+   "out": "k\n",
+   "text": "k\n",
+   "want": {}
+  },
+  {
+   "out": "k=v\n",
+   "text": "k\n",
+   "want": {
+    "k": "v"
+   }
+  },
+  {
+   "out": "k=\na=9\n",
+   "text": "k=\n",
+   "want": {
+    "a": "9"
+   }
+  },
+  {
+   "out": "k=\n",
+   "text": "k=\n",
+   "want": {
+    "a": null
+   }
+  },
+  {
+   "out": "k=\nnew=1\n",
+   "text": "k=\n",
+   "want": {
+    "new": "1"
+   }
+  },
+  {
+   "out": "k=\na=9\nc=3\n",
+   "text": "k=\n",
+   "want": {
+    "a": "9",
+    "b": null,
+    "c": "3"
+   }
+  },
+  {
+   "out": "k=\n",
+   "text": "k=\n",
+   "want": {}
+  },
+  {
+   "out": "k=v\n",
+   "text": "k=\n",
+   "want": {
+    "k": "v"
+   }
+  },
+  {
+   "out": "\\u0041b=c\na=9\n",
+   "text": "\\u0041b=c\n",
+   "want": {
+    "a": "9"
+   }
+  },
+  {
+   "out": "\\u0041b=c\n",
+   "text": "\\u0041b=c\n",
+   "want": {
+    "a": null
+   }
+  },
+  {
+   "out": "\\u0041b=c\nnew=1\n",
+   "text": "\\u0041b=c\n",
+   "want": {
+    "new": "1"
+   }
+  },
+  {
+   "out": "\\u0041b=c\na=9\nc=3\n",
+   "text": "\\u0041b=c\n",
+   "want": {
+    "a": "9",
+    "b": null,
+    "c": "3"
+   }
+  },
+  {
+   "out": "\\u0041b=c\n",
+   "text": "\\u0041b=c\n",
+   "want": {}
+  },
+  {
+   "out": "\\u0041b=c\nk=v\n",
+   "text": "\\u0041b=c\n",
+   "want": {
+    "k": "v"
+   }
+  },
+  {
+   "out": "a=9\n\n\nb=2\n",
+   "text": "a=1\n\n\nb=2\n",
+   "want": {
+    "a": "9"
+   }
+  },
+  {
+   "out": "\n\nb=2\n",
+   "text": "a=1\n\n\nb=2\n",
+   "want": {
+    "a": null
+   }
+  },
+  {
+   "out": "a=1\n\n\nb=2\nnew=1\n",
+   "text": "a=1\n\n\nb=2\n",
+   "want": {
+    "new": "1"
+   }
+  },
+  {
+   "out": "a=9\n\n\nc=3\n",
+   "text": "a=1\n\n\nb=2\n",
+   "want": {
+    "a": "9",
+    "b": null,
+    "c": "3"
+   }
+  },
+  {
+   "out": "a=1\n\n\nb=2\n",
+   "text": "a=1\n\n\nb=2\n",
+   "want": {}
+  },
+  {
+   "out": "a=1\n\n\nb=2\nk=v\n",
+   "text": "a=1\n\n\nb=2\n",
+   "want": {
+    "k": "v"
+   }
+  },
+  {
+   "out": "a=9\n",
+   "text": "a=x=y:z\n",
+   "want": {
+    "a": "9"
+   }
+  },
+  {
+   "out": "",
+   "text": "a=x=y:z\n",
+   "want": {
+    "a": null
+   }
+  },
+  {
+   "out": "a=x=y:z\nnew=1\n",
+   "text": "a=x=y:z\n",
+   "want": {
+    "new": "1"
+   }
+  },
+  {
+   "out": "a=9\nc=3\n",
+   "text": "a=x=y:z\n",
+   "want": {
+    "a": "9",
+    "b": null,
+    "c": "3"
+   }
+  },
+  {
+   "out": "a=x=y:z\n",
+   "text": "a=x=y:z\n",
+   "want": {}
+  },
+  {
+   "out": "a=x=y:z\nk=v\n",
+   "text": "a=x=y:z\n",
+   "want": {
+    "k": "v"
+   }
+  },
+  {
+   "out": "\tt=1\na=9\n",
+   "text": "\tt=1\n",
+   "want": {
+    "a": "9"
+   }
+  },
+  {
+   "out": "\tt=1\n",
+   "text": "\tt=1\n",
+   "want": {
+    "a": null
+   }
+  },
+  {
+   "out": "\tt=1\nnew=1\n",
+   "text": "\tt=1\n",
+   "want": {
+    "new": "1"
+   }
+  },
+  {
+   "out": "\tt=1\na=9\nc=3\n",
+   "text": "\tt=1\n",
+   "want": {
+    "a": "9",
+    "b": null,
+    "c": "3"
+   }
+  },
+  {
+   "out": "\tt=1\n",
+   "text": "\tt=1\n",
+   "want": {}
+  },
+  {
+   "out": "\tt=1\nk=v\n",
+   "text": "\tt=1\n",
+   "want": {
+    "k": "v"
+   }
+  },
+  {
+   "out": "client.controls.controller_input_maps_gdx_2=KEY_A\\=0\na=9\n",
+   "text": "client.controls.controller_input_maps_gdx_2=KEY_A\\=0\n",
+   "want": {
+    "a": "9"
+   }
+  },
+  {
+   "out": "client.controls.controller_input_maps_gdx_2=KEY_A\\=0\n",
+   "text": "client.controls.controller_input_maps_gdx_2=KEY_A\\=0\n",
+   "want": {
+    "a": null
+   }
+  },
+  {
+   "out": "client.controls.controller_input_maps_gdx_2=KEY_A\\=0\nnew=1\n",
+   "text": "client.controls.controller_input_maps_gdx_2=KEY_A\\=0\n",
+   "want": {
+    "new": "1"
+   }
+  },
+  {
+   "out": "client.controls.controller_input_maps_gdx_2=KEY_A\\=0\na=9\nc=3\n",
+   "text": "client.controls.controller_input_maps_gdx_2=KEY_A\\=0\n",
+   "want": {
+    "a": "9",
+    "b": null,
+    "c": "3"
+   }
+  },
+  {
+   "out": "client.controls.controller_input_maps_gdx_2=KEY_A\\=0\n",
+   "text": "client.controls.controller_input_maps_gdx_2=KEY_A\\=0\n",
+   "want": {}
+  },
+  {
+   "out": "client.controls.controller_input_maps_gdx_2=KEY_A\\=0\nk=v\n",
+   "text": "client.controls.controller_input_maps_gdx_2=KEY_A\\=0\n",
+   "want": {
+    "k": "v"
+   }
+  },
+  {
+   "out": "a=9\n",
+   "text": "a=1\n",
+   "want": {
+    "a": "9"
+   }
+  },
+  {
+   "out": "",
+   "text": "a=1\n",
+   "want": {
+    "a": null
+   }
+  },
+  {
+   "out": "a=1\nnew=1\n",
+   "text": "a=1\n",
+   "want": {
+    "new": "1"
+   }
+  },
+  {
+   "out": "a=9\nc=3\n",
+   "text": "a=1\n",
+   "want": {
+    "a": "9",
+    "b": null,
+    "c": "3"
+   }
+  },
+  {
+   "out": "a=1\n",
+   "text": "a=1\n",
+   "want": {}
+  },
+  {
+   "out": "a=1\nk=v\n",
+   "text": "a=1\n",
+   "want": {
+    "k": "v"
+   }
+  }
+ ],
+ "split": [
+  {
+   "final": true,
+   "joined": "",
+   "lines": [],
+   "text": ""
+  },
+  {
+   "final": true,
+   "joined": "a=1\n",
+   "lines": [
+    "a=1"
+   ],
+   "text": "a=1\n"
+  },
+  {
+   "final": false,
+   "joined": "a=1",
+   "lines": [
+    "a=1"
+   ],
+   "text": "a=1"
+  },
+  {
+   "final": true,
+   "joined": "a=1\nb=2\n",
+   "lines": [
+    "a=1",
+    "b=2"
+   ],
+   "text": "a=1\nb=2\n"
+  },
+  {
+   "final": true,
+   "joined": "# c\na = 1\n!x\nb:2\n",
+   "lines": [
+    "# c",
+    "a = 1",
+    "!x",
+    "b:2"
+   ],
+   "text": "# c\na = 1\n!x\nb:2\n"
+  },
+  {
+   "final": true,
+   "joined": "a=1\na=2\n",
+   "lines": [
+    "a=1",
+    "a=2"
+   ],
+   "text": "a=1\na=2\n"
+  },
+  {
+   "final": true,
+   "joined": "  a  =  1  \n",
+   "lines": [
+    "  a  =  1  "
+   ],
+   "text": "  a  =  1  \n"
+  },
+  {
+   "final": true,
+   "joined": "key with\\ space=v\n",
+   "lines": [
+    "key with\\ space=v"
+   ],
+   "text": "key with\\ space=v\n"
+  },
+  {
+   "final": true,
+   "joined": "k\n",
+   "lines": [
+    "k"
+   ],
+   "text": "k\n"
+  },
+  {
+   "final": true,
+   "joined": "k=\n",
+   "lines": [
+    "k="
+   ],
+   "text": "k=\n"
+  },
+  {
+   "final": true,
+   "joined": "\\u0041b=c\n",
+   "lines": [
+    "\\u0041b=c"
+   ],
+   "text": "\\u0041b=c\n"
+  },
+  {
+   "final": true,
+   "joined": "a=1\n\n\nb=2\n",
+   "lines": [
+    "a=1",
+    "",
+    "",
+    "b=2"
+   ],
+   "text": "a=1\n\n\nb=2\n"
+  },
+  {
+   "final": true,
+   "joined": "a=x=y:z\n",
+   "lines": [
+    "a=x=y:z"
+   ],
+   "text": "a=x=y:z\n"
+  },
+  {
+   "final": true,
+   "joined": "\tt=1\n",
+   "lines": [
+    "\tt=1"
+   ],
+   "text": "\tt=1\n"
+  },
+  {
+   "final": true,
+   "joined": "client.controls.controller_input_maps_gdx_2=KEY_A\\=0\n",
+   "lines": [
+    "client.controls.controller_input_maps_gdx_2=KEY_A\\=0"
+   ],
+   "text": "client.controls.controller_input_maps_gdx_2=KEY_A\\=0\n"
+  },
+  {
+   "final": true,
+   "joined": "a=1\n",
+   "lines": [
+    "a=1"
+   ],
+   "text": "a=1\n"
+  }
+ ],
+ "unescape": [
+  {
+   "raw": "a\\tb",
+   "value": "a\tb"
+  },
+  {
+   "raw": "\\u00e9",
+   "value": "\u00e9"
+  },
+  {
+   "raw": "\\\\",
+   "value": "\\"
+  },
+  {
+   "raw": "\\=",
+   "value": "="
+  },
+  {
+   "raw": "x\\qy",
+   "value": "xqy"
+  },
+  {
+   "raw": "plain",
+   "value": "plain"
+  }
+ ]
+}
