@@ -23,6 +23,22 @@ right-stick wheel so you can see what each direction does.
   keeps to that: 1 input = 1 action, no turbo, no macros ([details](#is-this-allowed)).
 - **Change any button yourself:** a remap screen in your browser, no extra software.
 
+## Install (pick your system)
+
+Close PokeMMO first, leave Steam open, then paste one line. Nothing to install
+first, no administrator rights. Full steps and what the installer does are in
+[Quick start](#quick-start).
+
+| System | One step |
+|---|---|
+| **Windows** | Open PowerShell and paste: `irm https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.ps1 \| iex` |
+| **macOS** | Open Terminal and paste: `curl -fsSL https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.sh \| sh` |
+| **Linux** | Open a terminal and paste the same line as macOS. |
+| **Steam Deck** | Switch to Desktop Mode, open Konsole and paste the same line as macOS. Not yet played on a real Deck; [reports welcome](https://github.com/jordanallenlewis/pokemmo-controller/issues). |
+
+Then start **PokeMMO from your Steam library** (the installer adds it). To undo
+everything, see [Uninstall](#uninstall).
+
 ![Button map: every control on an Xbox controller](docs/button-map.png)
 
 Playing on another pad? The same spots, with that pad's own button names (a
