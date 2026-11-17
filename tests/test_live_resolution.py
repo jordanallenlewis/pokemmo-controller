@@ -55,6 +55,32 @@ class Debounce(unittest.TestCase):
         f = fit.Follower(applied=(2560, 1440))
         self.assertEqual([x for x in fed(f, [(2560, 1440)] * 6 + [(2560, 1444)] * 6) if x], [])
 
+    def test_the_login_window_is_not_a_game_picture(self):
+        # real hardware: every launch passes a 640x480 login window, before and after the real size
+        f = fit.Follower(applied=(2560, 1440))
+        self.assertEqual([x for x in fed(f, [(640, 480)] * 20) if x], [])
+        self.assertEqual(f.scale, L.wheel_scale(2560, 1440))
+        self.assertIsNone(fit.sanitize((640, 480)))
+        self.assertEqual([x for x in fed(f, [(1920, 1080)] * fit.SETTLE) if x], [(1920, 1080)])
+
+    def test_a_minimized_game_reading_nothing_keeps_the_last_size(self):
+        f = fit.Follower(applied=(2560, 1440))
+        self.assertEqual([x for x in fed(f, [None] * 20) if x], [])
+        self.assertEqual(f.scale, L.wheel_scale(2560, 1440))
+
+    def test_a_tiny_scale_difference_between_monitors_writes_nothing(self):
+        # real hardware: 2536x1376 -> 2544x1401 (another display scale) gave 255 -> 259
+        f = fit.Follower(applied=(2536, 1376))
+        self.assertEqual(f.scale, 255)
+        self.assertEqual([x for x in fed(f, [(2544, 1401)] * 6) if x], [])
+        self.assertEqual(f.scale, 255)
+        # a bigger change still writes, and a wheel that would no longer fit is rewritten
+        self.assertEqual([x for x in fed(f, [(1920, 1080)] * 4) if x], [(1920, 1080)])
+        g = fit.Follower(applied=(2544, 1401))
+        self.assertEqual(g.scale, 259)
+        self.assertFalse(fit.fits(259, 2536, 1376))       # too big for the smaller picture: rewritten
+        self.assertEqual([x for x in fed(g, [(2536, 1376)] * 4) if x], [(2536, 1376)])
+
     def test_windowed_resize_drag_ends_on_the_final_size(self):
         f = fit.Follower(applied=(1920, 1080))
         drag = [(1920 - i * 40, 1080 - i * 22) for i in range(1, 25)]

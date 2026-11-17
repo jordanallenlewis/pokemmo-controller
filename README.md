@@ -268,7 +268,9 @@ uses. Don't want any Steam involvement? Skip `install_wheel.py`; you lose only t
   `sh`/PowerShell installers pass it the same way). It watches the size of the game picture and, once a new size
   has held for a moment, rewrites only the wheel layout files. A window that briefly reports
   0x0 or half a size mid-switch is ignored; a rapid string of changes ends on the last size
-  that held. It sends no input and never touches the game. Honest limit: Steam draws the wheel
+  that held. PokeMMO's 640x480 login window is skipped, a minimized game keeps the last
+  size, and a change of under 4% in the wheel size (as a move between monitors of different
+  display scale causes) writes nothing. It sends no input and never touches the game. Honest limit: Steam draws the wheel
   in screen pixels and reads the layout file; whether your Steam picks the new file up while
   PokeMMO is already running is not verified on real hardware. If the wheel keeps its old
   size after a change, restart PokeMMO from Steam once (the file is already right).
@@ -332,7 +334,7 @@ uses. Don't want any Steam involvement? Skip `install_wheel.py`; you lose only t
   `tools/setup.py` (binds, then wheel, closing and restarting Steam around it)
   and delete the temp folder.
 - `tools/install_wheel.py` builds a Steam Input layout for each controller type
-  (Xbox One/Series, Xbox 360, DualSense, DualShock 4, Switch Pro and Steam Deck,
+  (Xbox One/Series, Xbox 360, DualSense, DualShock 4, Switch Pro, Steam Deck and Lenovo Legion Go S,
   in `steam/`), adds a
   "PokeMMO" non-Steam shortcut and sets the keyboard keys the wheel presses.
   Edit `WHEEL` in the script to change the slices (slot 0 is the center and stays empty; position, size and opacity are in `build_layout`).
