@@ -94,8 +94,13 @@ class Sandbox:
         e.update(extra)
         return e
 
-    def setup(self, *args, steam=True, check=True):
+    def setup(self, *args, steam=True, check=True, login=False):
+        """login=True: leave the login helper at its default (on). Otherwise installs here pass
+        --no-follow, so the older tests keep checking the same files; test_login_helper.py
+        covers the default."""
         cmd = [sys.executable, str(TOOLS / "setup.py"), "--pokemmo", str(self.pokemmo)]
+        if not login and "--follow" not in args and "--follow-at-login" not in args:
+            cmd.append("--no-follow")
         if steam:
             cmd += ["--steam", str(self.steam)]
         r = subprocess.run(cmd + list(args), env=self.env(), capture_output=True, text=True,

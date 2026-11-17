@@ -146,7 +146,7 @@ class Failures(Base):
                     raise KeyboardInterrupt
                 return real(path, data)
 
-            argv = ["setup.py", "--pokemmo", str(sb.pokemmo), "--steam", str(sb.steam)]
+            argv = ["setup.py", "--pokemmo", str(sb.pokemmo), "--steam", str(sb.steam), "--no-follow"]
             with mock.patch.dict(os.environ, sb.env()), mock.patch.object(common, "write_atomic", flaky), \
                     mock.patch.object(sys, "argv", argv), mock.patch("builtins.print"):
                 with self.assertRaises(SystemExit):
@@ -168,7 +168,7 @@ class Failures(Base):
     def test_refuses_while_pokemmo_runs(self):
         sb = self.make()
         before = sb.snapshot()
-        argv = ["setup.py", "--pokemmo", str(sb.pokemmo), "--steam", str(sb.steam)]
+        argv = ["setup.py", "--pokemmo", str(sb.pokemmo), "--steam", str(sb.steam), "--no-follow"]
         with mock.patch.dict(os.environ, sb.env()), mock.patch.object(sys, "argv", argv), \
                 mock.patch.object(platforms, "pokemmo_running", return_value=True), mock.patch("builtins.print"):
             with self.assertRaises(SystemExit) as cm:
@@ -179,7 +179,7 @@ class Failures(Base):
     def test_never_closes_steam_while_a_game_runs(self):
         sb = self.make()
         before = sb.snapshot()
-        argv = ["setup.py", "--pokemmo", str(sb.pokemmo), "--steam", str(sb.steam)]
+        argv = ["setup.py", "--pokemmo", str(sb.pokemmo), "--steam", str(sb.steam), "--no-follow"]
         with mock.patch.dict(os.environ, sb.env()), mock.patch.object(sys, "argv", argv), \
                 mock.patch.object(platforms, "steam_running", return_value=True), \
                 mock.patch.object(platforms, "steam_game_running", return_value=440), \
@@ -192,7 +192,7 @@ class Failures(Base):
 
     def test_steam_restarted_even_when_install_fails(self):
         sb = self.make()
-        argv = ["setup.py", "--pokemmo", str(sb.pokemmo), "--steam", str(sb.steam)]
+        argv = ["setup.py", "--pokemmo", str(sb.pokemmo), "--steam", str(sb.steam), "--no-follow"]
         running = iter([True] + [False] * 10)
         with mock.patch.dict(os.environ, sb.env()), mock.patch.object(sys, "argv", argv), \
                 mock.patch.object(platforms, "steam_running", side_effect=lambda: next(running)), \
@@ -209,7 +209,7 @@ class Failures(Base):
     def test_up_to_date_does_not_touch_steam(self):
         sb = self.make()
         sb.setup()
-        argv = ["setup.py", "--pokemmo", str(sb.pokemmo), "--steam", str(sb.steam)]
+        argv = ["setup.py", "--pokemmo", str(sb.pokemmo), "--steam", str(sb.steam), "--no-follow"]
         with mock.patch.dict(os.environ, sb.env()), mock.patch.object(sys, "argv", argv), \
                 mock.patch.object(platforms, "steam_running", return_value=True), \
                 mock.patch.object(subprocess, "Popen") as popen, mock.patch("builtins.print"):
