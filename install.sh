@@ -23,6 +23,7 @@ fetch() { # fetch <url or local file> <output file>
     esac
 }
 
+echo "PokeMMO Controller is an unofficial, fan-made tool, made by and for PokeMMO players. It is not made, endorsed or supported by the PokeMMO team."
 echo "Downloading pokemmo-controller..."
 SRC=${POKEMMO_CONTROLLER_SRC:-https://github.com/$REPO/archive/refs/heads/main.tar.gz}
 if ! fetch "$SRC" "$TMP/src.tar.gz" || ! tar -xzf "$TMP/src.tar.gz" -C "$TMP"; then
