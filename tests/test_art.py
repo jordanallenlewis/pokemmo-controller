@@ -63,6 +63,19 @@ class Art(unittest.TestCase):
             for chip in re.findall(r'letter-spacing="\.6">([^<]+)<', svg):
                 self.assertEqual(svg.count(f'letter-spacing=".6">{chip}<'), 1, f"{k}: {chip} twice")
 
+    def test_text_in_the_pictures_is_readable_in_both_themes(self):
+        def lum(h):
+            r, g, b = (int(h[i:i + 2], 16) / 255 for i in (1, 3, 5))
+            f = lambda v: v / 12.92 if v <= 0.03928 else ((v + 0.055) / 1.055) ** 2.4
+            return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b)
+        def ratio(a, b):
+            x, y = sorted((lum(a), lum(b)), reverse=True)
+            return (x + 0.05) / (y + 0.05)
+        for t, c in build.THEMES.items():
+            for fg, bgk in (("ink", "bg"), ("ink", "card"), ("mute", "card"), ("mute", "bg"), ("accent", "card"),
+                            ("accent", "soft"), ("on", "fill")):
+                self.assertGreaterEqual(ratio(c[fg], c[bgk]), 4.5, f"{t}: {fg} on {bgk}")
+
     def test_pictures_carry_no_brand_art_or_credit_lines(self):
         for p in (ROOT / "docs" / "img").iterdir():
             text = p.read_text(encoding="utf-8")
