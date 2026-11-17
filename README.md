@@ -142,6 +142,7 @@ change nothing; PokeMMO may stay open). From a clone, `python tools/setup.py` do
 - `--name "Pad name"`: also bind a pad that PokeMMO shows under another name.
 - `--switch-labels`: Nintendo pads confirm on the printed **A** (the default; undoes `--switch-positional`).
 - `--no-browser`: with `--ui`, print the address instead of opening a browser.
+- `--follow`: keep the wheel sized while the game's resolution changes (see [Troubleshooting](#troubleshooting)).
 - `--resolution 1920x1080`: size the wheel for the picture the game draws (see
   [The wheel is too big or too small](#troubleshooting)). Remembered; `--reset-resolution` goes back to the 4K size.
 
@@ -261,9 +262,17 @@ uses. Don't want any Steam involvement? Skip `install_wheel.py`; you lose only t
   `& ([scriptblock]::Create(...))` form, then a space and `--resolution 1920x1080`; on
   macOS, Linux and Deck, `sh -s -- --resolution 1920x1080`), or run
   `python tools/setup.py --resolution 1920x1080` from a clone. Close PokeMMO first.
-- It is a size set when you install, not something that follows the game live:
-  Steam reads the layout when PokeMMO starts, so after you change the game's
-  resolution, run the command again with the new size, then start PokeMMO from Steam.
+- **Changing the game's resolution while you play** (4K, then 1080p, then 1440p, back up,
+  fullscreen, borderless or windowed, another monitor or display scaling): leave
+  `python tools/setup.py --follow` running (it needs the layout installed; Ctrl+C stops it;
+  `sh`/PowerShell installers pass it the same way). It watches the size of the game picture and, once a new size
+  has held for a moment, rewrites only the wheel layout files. A window that briefly reports
+  0x0 or half a size mid-switch is ignored; a rapid string of changes ends on the last size
+  that held. It sends no input and never touches the game. Honest limit: Steam draws the wheel
+  in screen pixels and reads the layout file; whether your Steam picks the new file up while
+  PokeMMO is already running is not verified on real hardware. If the wheel keeps its old
+  size after a change, restart PokeMMO from Steam once (the file is already right).
+  Without `--follow`, the size is set when you install, so run the command again with the new size.
 - The size follows the shorter side of the picture, so ultrawide (3440x1440), 4:3
   (1600x1200), 720p windows and 4K all fit, and it never goes above the 4K size.
   Windowed, fullscreen and borderless: use the size of the game's picture, not of your
