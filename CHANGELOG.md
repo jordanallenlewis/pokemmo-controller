@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 1.2.0 - 2026-11-17
+
 - New: the wheel now follows the game's resolution by itself. The installer sets up a small
   background helper that starts when you log in (a Startup entry on Windows, a LaunchAgent on
   macOS, an autostart entry on Linux and Steam Deck), runs `--follow` quietly, runs once at a
