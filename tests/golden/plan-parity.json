@@ -1,0 +1,664 @@
+{
+ "cases": [
+  {
+   "name": "fresh install, update, uninstall",
+   "steps": [
+    {
+     "after": {
+      "config/main.properties": {
+       "b64": "YT0xDQpiPTINCg=="
+      }
+     },
+     "file": "config/main.properties",
+     "op": "write",
+     "text": "a=1\r\nb=2\r\n"
+    },
+    {
+     "after": {
+      "config/main.properties": {
+       "b64": "YT0xDQpiPTINCmM9Mw0K"
+      },
+      "config/main.properties.bak-pokemmo-controller": {
+       "b64": "YT0xDQpiPTINCg=="
+      },
+      "config/pokemmo-controller.json": {
+       "state": {
+        "created_dirs": [
+         "$ROOT/deep/new/dir",
+         "$ROOT/deep/new",
+         "$ROOT/deep"
+        ],
+        "files": {
+         "$ROOT/config/main.properties": {
+          "created": false,
+          "pristine": true,
+          "sha": "aca35ee3318ec908e9826cd887f5c2da53604a8835887e116b31872b7a6f4e5e"
+         },
+         "$ROOT/deep/new/dir/file.txt": {
+          "created": true,
+          "pristine": true,
+          "sha": "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
+         }
+        },
+        "version": "1.3.0-beta.1"
+       }
+      },
+      "deep/new/dir/file.txt": {
+       "b64": "aGVsbG8="
+      }
+     },
+     "op": "plan",
+     "pending": [
+      "$ROOT/config/main.properties",
+      "$ROOT/deep/new/dir/file.txt"
+     ],
+     "puts": [
+      {
+       "file": "config/main.properties",
+       "text": "a=1\r\nb=2\r\nc=3\r\n"
+      },
+      {
+       "file": "deep/new/dir/file.txt",
+       "text": "hello"
+      }
+     ]
+    },
+    {
+     "after": {
+      "config/main.properties": {
+       "b64": "YT0xDQpiPTINCmM9Mw0K"
+      },
+      "config/main.properties.bak-pokemmo-controller": {
+       "b64": "YT0xDQpiPTINCg=="
+      },
+      "config/pokemmo-controller.json": {
+       "state": {
+        "created_dirs": [
+         "$ROOT/deep/new/dir",
+         "$ROOT/deep/new",
+         "$ROOT/deep"
+        ],
+        "files": {
+         "$ROOT/config/main.properties": {
+          "created": false,
+          "pristine": true,
+          "sha": "aca35ee3318ec908e9826cd887f5c2da53604a8835887e116b31872b7a6f4e5e"
+         },
+         "$ROOT/deep/new/dir/file.txt": {
+          "created": true,
+          "pristine": true,
+          "sha": "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
+         }
+        },
+        "version": "1.3.0-beta.1"
+       }
+      },
+      "deep/new/dir/file.txt": {
+       "b64": "aGVsbG8="
+      }
+     },
+     "file": "config/main.properties",
+     "op": "exact",
+     "result": "YT0xDQpiPTINCg=="
+    },
+    {
+     "after": {
+      "config/main.properties": {
+       "b64": "YT0xDQpiPTINCmM9Mw0K"
+      },
+      "config/main.properties.bak-pokemmo-controller": {
+       "b64": "YT0xDQpiPTINCg=="
+      },
+      "config/pokemmo-controller.json": {
+       "state": {
+        "created_dirs": [
+         "$ROOT/deep/new/dir",
+         "$ROOT/deep/new",
+         "$ROOT/deep"
+        ],
+        "files": {
+         "$ROOT/config/main.properties": {
+          "created": false,
+          "pristine": true,
+          "sha": "aca35ee3318ec908e9826cd887f5c2da53604a8835887e116b31872b7a6f4e5e"
+         },
+         "$ROOT/deep/new/dir/file.txt": {
+          "created": true,
+          "pristine": true,
+          "sha": "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
+         }
+        },
+        "version": "1.3.0-beta.1"
+       }
+      },
+      "deep/new/dir/file.txt": {
+       "b64": "aGVsbG8="
+      }
+     },
+     "file": "deep/new/dir/file.txt",
+     "op": "exact",
+     "result": null
+    },
+    {
+     "after": {
+      "config/main.properties": {
+       "b64": "YT0xDQpiPTINCmM9NA0K"
+      },
+      "config/main.properties.bak-pokemmo-controller": {
+       "b64": "YT0xDQpiPTINCg=="
+      },
+      "config/pokemmo-controller.json": {
+       "state": {
+        "created_dirs": [
+         "$ROOT/deep/new/dir",
+         "$ROOT/deep/new",
+         "$ROOT/deep"
+        ],
+        "files": {
+         "$ROOT/config/main.properties": {
+          "created": false,
+          "pristine": true,
+          "sha": "3671eb335bb1dfabc36a1ad6789fe206cad98efac04a506d276b0f05f1c152f4"
+         },
+         "$ROOT/deep/new/dir/file.txt": {
+          "created": true,
+          "pristine": true,
+          "sha": "87298cc2f31fba73181ea2a9e6ef10dce21ed95e98bdac9c4e1504ea16f486e4"
+         }
+        },
+        "version": "1.3.0-beta.1"
+       }
+      },
+      "deep/new/dir/file.txt": {
+       "b64": "aGVsbG8y"
+      },
+      "deep/new/dir/file.txt.bak-pokemmo-controller": {
+       "b64": "aGVsbG8="
+      }
+     },
+     "op": "plan",
+     "pending": [
+      "$ROOT/config/main.properties",
+      "$ROOT/deep/new/dir/file.txt"
+     ],
+     "puts": [
+      {
+       "file": "config/main.properties",
+       "text": "a=1\r\nb=2\r\nc=4\r\n"
+      },
+      {
+       "file": "deep/new/dir/file.txt",
+       "text": "hello2"
+      }
+     ]
+    },
+    {
+     "after": {
+      "config/main.properties": {
+       "b64": "YT0xDQpiPTINCmM9NA0K"
+      },
+      "config/main.properties.bak-pokemmo-controller": {
+       "b64": "YT0xDQpiPTINCg=="
+      },
+      "config/pokemmo-controller.json": {
+       "state": {
+        "created_dirs": [
+         "$ROOT/deep/new/dir",
+         "$ROOT/deep/new",
+         "$ROOT/deep"
+        ],
+        "files": {
+         "$ROOT/config/main.properties": {
+          "created": false,
+          "pristine": true,
+          "sha": "3671eb335bb1dfabc36a1ad6789fe206cad98efac04a506d276b0f05f1c152f4"
+         },
+         "$ROOT/deep/new/dir/file.txt": {
+          "created": true,
+          "pristine": true,
+          "sha": "87298cc2f31fba73181ea2a9e6ef10dce21ed95e98bdac9c4e1504ea16f486e4"
+         }
+        },
+        "version": "1.3.0-beta.1"
+       }
+      },
+      "deep/new/dir/file.txt": {
+       "b64": "aGVsbG8y"
+      },
+      "deep/new/dir/file.txt.bak-pokemmo-controller": {
+       "b64": "aGVsbG8="
+      }
+     },
+     "file": "config/main.properties",
+     "op": "exact",
+     "result": "YT0xDQpiPTINCg=="
+    },
+    {
+     "after": {
+      "config/main.properties": {
+       "b64": "YT0xDQpiPTINCg=="
+      },
+      "deep/new/dir/file.txt.bak-pokemmo-controller": {
+       "b64": "aGVsbG8="
+      }
+     },
+     "deletes": [
+      "deep/new/dir/file.txt"
+     ],
+     "drop_backups": [
+      "config/main.properties"
+     ],
+     "op": "plan",
+     "pending": [
+      "$ROOT/config/main.properties",
+      "$ROOT/deep/new/dir/file.txt"
+     ],
+     "restore_exact": [
+      "config/main.properties"
+     ],
+     "uninstall": true
+    }
+   ]
+  },
+  {
+   "name": "someone else edits the file after install",
+   "steps": [
+    {
+     "after": {
+      "config/main.properties": {
+       "b64": "YT0xCg=="
+      }
+     },
+     "file": "config/main.properties",
+     "op": "write",
+     "text": "a=1\n"
+    },
+    {
+     "after": {
+      "config/main.properties": {
+       "b64": "YT0xCmM9Mwo="
+      },
+      "config/main.properties.bak-pokemmo-controller": {
+       "b64": "YT0xCg=="
+      },
+      "config/pokemmo-controller.json": {
+       "state": {
+        "created_dirs": [],
+        "files": {
+         "$ROOT/config/main.properties": {
+          "created": false,
+          "pristine": true,
+          "sha": "f3162f0e22d8bf769d80fa8630e581159d789169136da24d9459cce298c75add"
+         }
+        },
+        "version": "1.3.0-beta.1"
+       }
+      }
+     },
+     "op": "plan",
+     "pending": [
+      "$ROOT/config/main.properties"
+     ],
+     "puts": [
+      {
+       "file": "config/main.properties",
+       "text": "a=1\nc=3\n"
+      }
+     ]
+    },
+    {
+     "after": {
+      "config/main.properties": {
+       "b64": "YT0xCmM9Mwp6PTkK"
+      },
+      "config/main.properties.bak-pokemmo-controller": {
+       "b64": "YT0xCg=="
+      },
+      "config/pokemmo-controller.json": {
+       "state": {
+        "created_dirs": [],
+        "files": {
+         "$ROOT/config/main.properties": {
+          "created": false,
+          "pristine": true,
+          "sha": "f3162f0e22d8bf769d80fa8630e581159d789169136da24d9459cce298c75add"
+         }
+        },
+        "version": "1.3.0-beta.1"
+       }
+      }
+     },
+     "file": "config/main.properties",
+     "op": "write",
+     "text": "a=1\nc=3\nz=9\n"
+    },
+    {
+     "after": {
+      "config/main.properties": {
+       "b64": "YT0xCmM9Mwp6PTkK"
+      },
+      "config/main.properties.bak-pokemmo-controller": {
+       "b64": "YT0xCg=="
+      },
+      "config/pokemmo-controller.json": {
+       "state": {
+        "created_dirs": [],
+        "files": {
+         "$ROOT/config/main.properties": {
+          "created": false,
+          "pristine": true,
+          "sha": "f3162f0e22d8bf769d80fa8630e581159d789169136da24d9459cce298c75add"
+         }
+        },
+        "version": "1.3.0-beta.1"
+       }
+      }
+     },
+     "file": "config/main.properties",
+     "op": "exact",
+     "result": "differs"
+    },
+    {
+     "after": {
+      "config/main.properties": {
+       "b64": "YT0xCmM9NAp6PTkK"
+      },
+      "config/main.properties.bak-pokemmo-controller": {
+       "b64": "YT0xCg=="
+      },
+      "config/pokemmo-controller.json": {
+       "state": {
+        "created_dirs": [],
+        "files": {
+         "$ROOT/config/main.properties": {
+          "created": false,
+          "pristine": false,
+          "sha": "52a60a400e51bb03723fb37dc25d5ea27826609decb91eaa102b8c3f490c8898"
+         }
+        },
+        "version": "1.3.0-beta.1"
+       }
+      }
+     },
+     "op": "plan",
+     "pending": [
+      "$ROOT/config/main.properties"
+     ],
+     "puts": [
+      {
+       "file": "config/main.properties",
+       "text": "a=1\nc=4\nz=9\n"
+      }
+     ]
+    },
+    {
+     "after": {
+      "config/main.properties": {
+       "b64": "YT0xCmM9NAp6PTkK"
+      },
+      "config/main.properties.bak-pokemmo-controller": {
+       "b64": "YT0xCg=="
+      },
+      "config/pokemmo-controller.json": {
+       "state": {
+        "created_dirs": [],
+        "files": {
+         "$ROOT/config/main.properties": {
+          "created": false,
+          "pristine": false,
+          "sha": "52a60a400e51bb03723fb37dc25d5ea27826609decb91eaa102b8c3f490c8898"
+         }
+        },
+        "version": "1.3.0-beta.1"
+       }
+      }
+     },
+     "file": "config/main.properties",
+     "op": "exact",
+     "result": "differs"
+    }
+   ]
+  },
+  {
+   "name": "backup_ok false keeps no backup",
+   "steps": [
+    {
+     "after": {
+      "config/main.properties": {
+       "b64": "YWxyZWFkeSBvdXJzCg=="
+      }
+     },
+     "file": "config/main.properties",
+     "op": "write",
+     "text": "already ours\n"
+    },
+    {
+     "after": {
+      "config/main.properties": {
+       "b64": "YWxyZWFkeSBvdXJzIHYyCg=="
+      },
+      "config/pokemmo-controller.json": {
+       "state": {
+        "created_dirs": [],
+        "files": {
+         "$ROOT/config/main.properties": {
+          "created": false,
+          "pristine": false,
+          "sha": "ffdd073852b341491a17ca3af2206fa3ac9fa0b00036625ae84d49d517a473c7"
+         }
+        },
+        "version": "1.3.0-beta.1"
+       }
+      }
+     },
+     "op": "plan",
+     "pending": [
+      "$ROOT/config/main.properties"
+     ],
+     "puts": [
+      {
+       "backup_ok": false,
+       "file": "config/main.properties",
+       "text": "already ours v2\n"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "fresh run replaces a stale backup",
+   "steps": [
+    {
+     "after": {
+      "config/main.properties": {
+       "b64": "b3JpZwo="
+      }
+     },
+     "file": "config/main.properties",
+     "op": "write",
+     "text": "orig\n"
+    },
+    {
+     "after": {
+      "config/main.properties": {
+       "b64": "b3JpZwo="
+      },
+      "config/main.properties.bak-pokemmo-controller": {
+       "b64": "c3RhbGUgb2xkIGJhY2t1cAo="
+      }
+     },
+     "file": "config/main.properties.bak-pokemmo-controller",
+     "op": "write",
+     "text": "stale old backup\n"
+    },
+    {
+     "after": {
+      "config/main.properties": {
+       "b64": "bmV3Cg=="
+      },
+      "config/main.properties.bak-pokemmo-controller": {
+       "b64": "b3JpZwo="
+      },
+      "config/pokemmo-controller.json": {
+       "state": {
+        "created_dirs": [],
+        "files": {
+         "$ROOT/config/main.properties": {
+          "created": false,
+          "pristine": true,
+          "sha": "7aa7a5359173d05b63cfd682e3c38487f3cb4f7f1d60659fe59fab1505977d4c"
+         }
+        },
+        "version": "1.3.0-beta.1"
+       }
+      }
+     },
+     "fresh": true,
+     "op": "plan",
+     "pending": [
+      "$ROOT/config/main.properties"
+     ],
+     "puts": [
+      {
+       "file": "config/main.properties",
+       "text": "new\n"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "created file is removed, not restored",
+   "steps": [
+    {
+     "after": {
+      "config/pokemmo-controller.json": {
+       "state": {
+        "created_dirs": [
+         "$ROOT/steam"
+        ],
+        "files": {
+         "$ROOT/steam/layout.vdf": {
+          "created": true,
+          "pristine": true,
+          "sha": "1dc5ae5b68174891b6aa9850aa05ee0d9ae8a20468d9517259951a2dd9e9c0f0"
+         }
+        },
+        "version": "1.3.0-beta.1"
+       }
+      },
+      "steam/layout.vdf": {
+       "b64": "bGF5b3V0"
+      }
+     },
+     "op": "plan",
+     "pending": [
+      "$ROOT/steam/layout.vdf"
+     ],
+     "puts": [
+      {
+       "file": "steam/layout.vdf",
+       "text": "layout"
+      }
+     ]
+    },
+    {
+     "after": {
+      "config/pokemmo-controller.json": {
+       "state": {
+        "created_dirs": [
+         "$ROOT/steam"
+        ],
+        "files": {
+         "$ROOT/steam/layout.vdf": {
+          "created": true,
+          "pristine": true,
+          "sha": "1dc5ae5b68174891b6aa9850aa05ee0d9ae8a20468d9517259951a2dd9e9c0f0"
+         }
+        },
+        "version": "1.3.0-beta.1"
+       }
+      },
+      "steam/layout.vdf": {
+       "b64": "bGF5b3V0"
+      }
+     },
+     "file": "steam/layout.vdf",
+     "op": "exact",
+     "result": null
+    },
+    {
+     "after": {},
+     "deletes": [
+      "steam/layout.vdf"
+     ],
+     "op": "plan",
+     "pending": [
+      "$ROOT/steam/layout.vdf"
+     ],
+     "uninstall": true
+    }
+   ]
+  },
+  {
+   "name": "unchanged put writes nothing",
+   "steps": [
+    {
+     "after": {
+      "config/main.properties": {
+       "b64": "c2FtZQo="
+      }
+     },
+     "file": "config/main.properties",
+     "op": "write",
+     "text": "same\n"
+    },
+    {
+     "after": {
+      "config/main.properties": {
+       "b64": "c2FtZQo="
+      },
+      "config/pokemmo-controller.json": {
+       "state": {
+        "created_dirs": [],
+        "files": {},
+        "version": "1.3.0-beta.1"
+       }
+      }
+     },
+     "op": "plan",
+     "pending": [],
+     "puts": [
+      {
+       "file": "config/main.properties",
+       "text": "same\n"
+      }
+     ]
+    },
+    {
+     "after": {
+      "config/main.properties": {
+       "b64": "c2FtZQo="
+      },
+      "config/pokemmo-controller.json": {
+       "state": {
+        "created_dirs": [],
+        "files": {},
+        "version": "1.3.0-beta.1"
+       }
+      }
+     },
+     "op": "plan",
+     "pending": [],
+     "puts": [
+      {
+       "file": "config/main.properties",
+       "text": "same\n"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "version": "1.3.0-beta.1"
+}
