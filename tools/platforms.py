@@ -35,12 +35,29 @@ def _sandboxed(paths):
     return [p for p in paths if any(r == p or r in p.parents for r in roots)]
 
 
+def _other_drive_folders():
+    """PokeMMO unpacked straight on another Windows drive (D:\\PokeMMO, D:\\Games\\PokeMMO)."""
+    if TEST:
+        return []
+    out = []
+    for letter in "DEFGH":
+        root = Path(letter + ":\\")
+        try:
+            if not root.exists():
+                continue
+        except OSError:
+            continue
+        out += [root / "PokeMMO", root / "Games" / "PokeMMO"]
+    return out
+
+
 def pokemmo_candidates():
     if WINDOWS:
         c = [Path(r"C:\Program Files\PokeMMO"), Path(r"C:\Program Files (x86)\PokeMMO"),
              _env_path("LOCALAPPDATA", "PokeMMO"), _env_path("LOCALAPPDATA", "Programs", "PokeMMO"),
              _env_path("APPDATA", "PokeMMO"), HOME / "PokeMMO", HOME / "Desktop" / "PokeMMO",
              HOME / "Games" / "PokeMMO"]
+        c += _other_drive_folders()
     elif MAC:
         c = [HOME / "Library/Application Support/com.pokeemu.macos/pokemmo-client-live",
              Path("/Applications/PokeMMO.app/Contents/Resources/pokemmo-client-live")]
@@ -53,6 +70,32 @@ def pokemmo_candidates():
     return _sandboxed([p for p in c if p])
 
 
+def steam_library_folders(steam_root):
+    """Library folders Steam lists in steamapps/libraryfolders.vdf (the Steam folder itself first)."""
+    libs = [Path(steam_root)]
+    try:
+        text = (Path(steam_root) / "steamapps" / "libraryfolders.vdf").read_text(
+            encoding="utf-8", errors="replace")
+    except OSError:
+        return libs
+    for m in re.finditer(r'"path"\s+"([^"]+)"', text):
+        p = Path(m.group(1).replace("\\\\", "\\"))
+        if p not in libs:
+            libs.append(p)
+    return libs
+
+
+def steam_pokemmo_candidates():
+    """PokeMMO installed through Steam: <library>/steamapps/common/PokeMMO."""
+    out = []
+    for root in steam_candidates():
+        if not root.is_dir():
+            continue
+        for lib in steam_library_folders(root):
+            out.append(lib / "steamapps" / "common" / "PokeMMO")
+    return _sandboxed(out) if TEST else out
+
+
 def find_pokemmo(override=None):
     """Return the PokeMMO data folder (the one holding config/main.properties)."""
     override = override or os.environ.get("POKEMMO_CONTROLLER_POKEMMO_DIR")
@@ -61,10 +104,11 @@ def find_pokemmo(override=None):
         if (p / "config" / "main.properties").is_file():
             return p
         sys.exit(f"No config/main.properties in {p}. Start PokeMMO once, close it, try again.")
-    for p in pokemmo_candidates():
+    every = pokemmo_candidates() + [p for p in steam_pokemmo_candidates() if p not in pokemmo_candidates()]
+    for p in every:
         if (p / "config" / "main.properties").is_file():
             return p
-    tried = "\n  ".join(str(p) for p in pokemmo_candidates())
+    tried = "\n  ".join(str(p) for p in every)
     sys.exit("Could not find PokeMMO's config/main.properties. Is PokeMMO installed? Start it once,\n"
              f"close it, and run this again, or pass --pokemmo <folder>. Looked in:\n  {tried}")
 
