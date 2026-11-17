@@ -6,17 +6,34 @@
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // Hotspots on the controller photo (assets/controller.webp, 1800 x 1303).
-  // Shoulder buttons sit on the top edge, so they get pills above the photo.
-  const SPOTS = {
-    ls: { x: 435, y: 345, r: 120 }, rs: { x: 1257, y: 630, r: 112 },
-    view: { x: 810, y: 348, r: 46 }, menu: { x: 1100, y: 348, r: 46 },
-    y: { x: 1437, y: 228, r: 58 }, x: { x: 1323, y: 353, r: 58 },
-    b: { x: 1565, y: 365, r: 58 }, a: { x: 1463, y: 480, r: 58 },
-    dup: { x: 698, y: 598, r: 46 }, ddown: { x: 698, y: 770, r: 46 },
-    dleft: { x: 606, y: 683, r: 46 }, dright: { x: 792, y: 683, r: 46 },
-    lb: { pill: true, x: 430, y: -40, w: 210 }, rb: { pill: true, x: 1370, y: -40, w: 210 },
-    lt: { pill: true, x: 430, y: -150, w: 210 }, rt: { pill: true, x: 1370, y: -150, w: 210 },
+  // One photo per controller, with hotspots in that photo's pixels. Positions follow the
+  // button's place on the pad (a = bottom face button), like the layout itself.
+  const PILLS = (W, xl, xr) => {
+    const w = W * 0.12, gap = W * 0.06;
+    return { lb: { pill: true, x: xl, y: -gap, w }, rb: { pill: true, x: xr, y: -gap, w },
+             lt: { pill: true, x: xl, y: -gap * 2.4, w }, rt: { pill: true, x: xr, y: -gap * 2.4, w } };
+  };
+  const MODELS = {
+    xbox: { img: "assets/controller.webp", w: 1800, h: 1303, alt: "Xbox controller", spots: {
+      ls: { x: 435, y: 345, r: 120 }, rs: { x: 1257, y: 630, r: 112 }, view: { x: 810, y: 348, r: 46 }, menu: { x: 1100, y: 348, r: 46 },
+      y: { x: 1437, y: 228, r: 58 }, x: { x: 1323, y: 353, r: 58 }, b: { x: 1565, y: 365, r: 58 }, a: { x: 1463, y: 480, r: 58 },
+      dup: { x: 698, y: 598, r: 46 }, ddown: { x: 698, y: 770, r: 46 }, dleft: { x: 606, y: 683, r: 46 }, dright: { x: 792, y: 683, r: 46 },
+      ...PILLS(1800, 430, 1370) } },
+    playstation: { img: "assets/ps5.webp", w: 1799, h: 1266, alt: "PlayStation DualSense controller", spots: {
+      ls: { x: 652, y: 488, r: 112 }, rs: { x: 1213, y: 488, r: 112 }, view: { x: 495, y: 95, r: 40 }, menu: { x: 1322, y: 95, r: 40 },
+      y: { x: 1467, y: 155, r: 62 }, x: { x: 1340, y: 272, r: 62 }, b: { x: 1597, y: 272, r: 62 }, a: { x: 1477, y: 397, r: 62 },
+      dup: { x: 363, y: 180, r: 48 }, ddown: { x: 375, y: 358, r: 48 }, dleft: { x: 270, y: 268, r: 48 }, dright: { x: 455, y: 262, r: 48 },
+      ...PILLS(1799, 330, 1470) } },
+    switch: { img: "assets/switch.webp", w: 1526, h: 1233, alt: "Nintendo Switch Pro Controller", spots: {
+      ls: { x: 465, y: 185, r: 98 }, rs: { x: 998, y: 440, r: 98 }, view: { x: 713, y: 135, r: 38 }, menu: { x: 1070, y: 205, r: 38 },
+      y: { x: 1278, y: 248, r: 58 }, x: { x: 1138, y: 308, r: 58 }, b: { x: 1370, y: 357, r: 58 }, a: { x: 1228, y: 415, r: 58 },
+      dup: { x: 590, y: 330, r: 40 }, ddown: { x: 555, y: 455, r: 40 }, dleft: { x: 500, y: 375, r: 40 }, dright: { x: 648, y: 395, r: 40 },
+      ...PILLS(1526, 400, 1250) } },
+    deck: { img: "assets/deck.webp", w: 1244, h: 462, alt: "Steam Deck", spots: {
+      ls: { x: 198, y: 83, r: 46 }, rs: { x: 1040, y: 72, r: 46 }, view: { x: 158, y: 28, r: 15 }, menu: { x: 1092, y: 12, r: 15 },
+      y: { x: 1163, y: 22, r: 21 }, x: { x: 1128, y: 55, r: 21 }, b: { x: 1205, y: 55, r: 21 }, a: { x: 1168, y: 88, r: 21 },
+      dup: { x: 90, y: 45, r: 18 }, ddown: { x: 90, y: 100, r: 18 }, dleft: { x: 62, y: 72, r: 18 }, dright: { x: 118, y: 72, r: 18 },
+      ...PILLS(1244, 160, 1080) } },
   };
   const ORDER_LEFT = ["lt", "lb", "ls", "ls_click", "view", "dup", "dright", "ddown", "dleft"];
   const ORDER_RIGHT = ["rt", "rb", "y", "x", "b", "a", "menu", "rs", "rs_click"];
@@ -29,25 +46,28 @@
     return n;
   };
 
-  function padSvg(interactive) {
-    const svg = el("svg", { viewBox: "0 -230 1800 1533", role: "img", "aria-label": "Xbox controller" });
-    const defs = el("defs", {}, svg);
-    const f = el("filter", { id: interactive ? "gl-m" : "gl-h", x: "-50%", y: "-50%", width: "200%", height: "200%" }, defs);
-    el("feGaussianBlur", { stdDeviation: "10" }, f);
-    el("image", { href: "assets/controller.webp", x: 0, y: 0, width: 1800, height: 1303 }, svg);
-    for (const [id, s] of Object.entries(SPOTS)) {
+  function padSvg(kind, interactive) {
+    const m = MODELS[kind], top = m.w * 0.06 * 2.4 + m.w * 0.04, sw = m.w / 300;
+    const svg = el("svg", { viewBox: `0 ${-top} ${m.w} ${m.h + top}`, role: "img", "aria-label": m.alt });
+    const fid = `gl-${kind}-${interactive ? "m" : "h"}`;
+    const f = el("filter", { id: fid, x: "-50%", y: "-50%", width: "200%", height: "200%" }, el("defs", {}, svg));
+    el("feGaussianBlur", { stdDeviation: String(sw * 1.7) }, f);
+    el("image", { href: m.img, x: 0, y: 0, width: m.w, height: m.h }, svg);
+    for (const [id, s] of Object.entries(m.spots)) {
       const g = el("g", { class: "ctl" + (s.pill ? " pill" : ""), "data-id": id }, svg);
       if (s.pill) {
-        el("rect", { class: "part", x: s.x - s.w / 2, y: s.y - 40, width: s.w, height: 80, rx: 40 }, g);
-        const t = el("text", { x: s.x, y: s.y + 14, "text-anchor": "middle", class: "pill-t" }, g);
-        t.textContent = id.toUpperCase();
+        const h = m.w * 0.045;
+        el("rect", { class: "part", x: s.x - s.w / 2, y: s.y - h / 2, width: s.w, height: h, rx: h / 2, "stroke-width": sw / 2 }, g);
+        const t = el("text", { x: s.x, y: s.y + h * 0.18, "text-anchor": "middle", class: "pill-t", "font-size": h * 0.55 }, g);
+        t.textContent = (MODEL_NAMES[kind] || {})[id] || id.toUpperCase();
       } else {
-        el("circle", { class: "halo", cx: s.x, cy: s.y, r: s.r + 10, filter: `url(#${interactive ? "gl-m" : "gl-h"})` }, g);
-        el("circle", { class: "part ring", cx: s.x, cy: s.y, r: s.r }, g);
+        el("circle", { class: "halo", cx: s.x, cy: s.y, r: s.r + sw * 1.7, filter: `url(#${fid})`, "stroke-width": sw * 3.7 }, g);
+        el("circle", { class: "part ring", cx: s.x, cy: s.y, r: s.r, "stroke-width": sw }, g);
       }
     }
     return svg;
   }
+  let MODEL_NAMES = {};
 
   function setOn(root, id, on) {
     const base = id.replace("_click", "");
@@ -58,11 +78,12 @@
     let data;
     try { data = await (await fetch("data/layout.json")).json(); } catch { return; }
     $$("[data-version]").forEach((n) => (n.textContent = data.version));
+    MODEL_NAMES = data.names;
 
     // hero: cycle through buttons
     const hero = $('[data-pad="hero"]');
     if (hero) {
-      hero.appendChild(padSvg(false));
+      hero.appendChild(padSvg("xbox", false));
       const keyEl = $("[data-ticker-key]"), actEl = $("[data-ticker-act]");
       let i = 0, prev = null;
       const tick = () => {
@@ -104,9 +125,8 @@
         }
       }
     }
-    if (map) {
-      map.appendChild(padSvg(true));
-      renderBinds();
+    function mountMap() {
+      map.replaceChildren(padSvg(kind, true));
       $$(".ctl", map).forEach((g) => {
         const id = g.dataset.id;
         const on = (v) => {
@@ -116,10 +136,15 @@
         g.addEventListener("mouseenter", () => on(true));
         g.addEventListener("mouseleave", () => on(false));
       });
+    }
+    if (map) {
+      mountMap();
+      renderBinds();
       $$("[data-pad-kind]").forEach((b) => b.addEventListener("click", () => {
         kind = b.dataset.padKind;
         $$("[data-pad-kind]").forEach((x) => x.setAttribute("aria-selected", String(x === b)));
         renderBinds();
+        mountMap();
       }));
     }
 

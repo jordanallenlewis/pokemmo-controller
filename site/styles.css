@@ -88,13 +88,13 @@ h3 { font-size: 20px; line-height: 1.2; font-weight: 700; letter-spacing: -.01em
 /* controller photo + hotspots */
 .pad svg { width: 100%; height: auto; display: block; overflow: visible; }
 .pad image { filter: drop-shadow(0 30px 40px rgba(0,0,0,.6)); }
-.pad .ring { fill: transparent; stroke: rgba(255,255,255,0); stroke-width: 6; transition: stroke .2s, fill .2s; }
-.pad .halo { fill: none; stroke: transparent; stroke-width: 22; transition: stroke .25s; }
-.pad-lg .ring { stroke: rgba(255,255,255,.14); stroke-dasharray: 10 12; }
+.pad .ring { fill: transparent; stroke: rgba(255,255,255,0); transition: stroke .2s, fill .2s; }
+.pad .halo { fill: none; stroke: transparent; transition: stroke .25s; }
+.pad-lg .ring { stroke: rgba(255,255,255,.16); }
 .pad .ctl.on .ring { stroke: #b49bff; stroke-dasharray: none; fill: rgba(139,92,255,.22); }
 .pad .ctl.on .halo { stroke: rgba(139,92,255,.75); }
-.pad .pill rect { fill: #1e2127; stroke: #3a3f49; stroke-width: 3; transition: fill .2s, stroke .2s; }
-.pad .pill-t { fill: #a3a8b3; font: 600 44px var(--mono); transition: fill .2s; }
+.pad .pill rect { fill: #1e2127; stroke: #3a3f49; transition: fill .2s, stroke .2s; }
+.pad .pill-t { fill: #a3a8b3; font-family: var(--mono); font-weight: 600; transition: fill .2s; }
 .pad .pill.on rect { fill: var(--violet); stroke: #b49bff; }
 .pad .pill.on .pill-t { fill: #fff; }
 .pad-lg .ctl { cursor: pointer; }
@@ -206,3 +206,4 @@ kbd { font: 500 12px/1 var(--mono); background: var(--surface-2); border: 1px so
 .step1 { display: flex; gap: 14px; align-items: center; color: var(--ink); font-weight: 600; margin: 0 0 16px; }
 .step1 span, .steps li::before { flex: none; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--yellow); color: var(--yellow-ink); font: 600 13px/1 var(--mono); }
 .shot-tall { max-height: 460px; }
+.brand img { height: 30px; width: auto; } .brand span { white-space: nowrap; }
