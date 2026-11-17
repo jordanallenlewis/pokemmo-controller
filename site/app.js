@@ -163,7 +163,7 @@
         if (id === cur) return;
         if (cur) setOn(dpad, cur, false);
         cur = id; now.classList.toggle("on", !!id);
-        if (id) { setOn(dpad, id, true); keyEl.textContent = label("xbox", id); actEl.textContent = id === "ls" ? "Walk" : data.controls[id]; }
+        if (id) { setOn(dpad, id, true); keyEl.textContent = label("xbox", id); actEl.textContent = e.label || data.controls[id]; }
       };
       vid.addEventListener("timeupdate", sync);
       (function loop() { if (!vid.paused) sync(); requestAnimationFrame(loop); })();
