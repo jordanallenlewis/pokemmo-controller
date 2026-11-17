@@ -59,5 +59,19 @@ class InstallMeasures(Base):
         self.assertSame(before, sb.snapshot())
 
 
+
+
+class RealDisplay(unittest.TestCase):
+    """The one test that asks this machine's real display (every CI leg runs it): the question
+    must never raise, and what it answers must be a picture size or nothing."""
+
+    def test_reading_the_real_screen_is_safe(self):
+        import platforms as P
+        from unittest import mock
+        with mock.patch.object(P, "TEST", False):
+            got = P.game_size()
+        self.assertTrue(got is None or (len(got) == 2 and all(isinstance(v, int) for v in got)), got)
+
+
 if __name__ == "__main__":
     unittest.main()
