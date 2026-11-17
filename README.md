@@ -179,11 +179,12 @@ not only the ones with their own button.
 
 Tilt the right stick to open the wheel in the middle of the screen. Point at a
 slice (its name shows above the wheel) and let go to use it. Let go in the
-center to cancel.
+center to cancel. The top slice does nothing on purpose, so letting go of the
+stick straight up (a stray flick) fires no action.
 
 | In game | Slices, clockwise from the top |
 |---|---|
-| <img src="docs/wheel-in-game.png" alt="The wheel in game, pointing at Egg Incubators" width="300"> | <img src="docs/wheel.svg" alt="Wheel slice map" width="300"> |
+| <img src="docs/wheel-in-game.png" alt="The wheel in game, pointing at Egg Incubators (screenshot from before the top slice became empty)" width="300"> | <img src="docs/wheel.svg" alt="Wheel slice map" width="300"> |
 
 Each slice shows the key it presses (N = Pokédex, I = Egg Incubators,
 C = Trainer Card, V = Friends, P = Global Trade Link, 6-9 = Hotbar 6-9,
@@ -337,7 +338,7 @@ uses. Don't want any Steam involvement? Skip `install_wheel.py`; you lose only t
   (Xbox One/Series, Xbox 360, DualSense, DualShock 4, Switch Pro, Steam Deck and Lenovo Legion Go S,
   in `steam/`), adds a
   "PokeMMO" non-Steam shortcut and sets the keyboard keys the wheel presses.
-  Edit `WHEEL` in the script to change the slices (slot 0 is the center and stays empty; position, size and opacity are in `build_layout`).
+  Edit `WHEEL` in the script to change the slices (slot 0 is the center and slot 1, the top, stay empty; position, size and opacity are in `build_layout`).
 - Every file touched is backed up once as `*.bak-pokemmo-controller`, and every
   write is atomic (a temp file renamed into place), so an interrupted run never
   leaves half a file. `config/pokemmo-controller.json` next to `main.properties`
