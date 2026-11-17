@@ -3,6 +3,7 @@ through the same installer (setup.py) as everything else. No browser needed."""
 import http.client, http.server, json, threading, unittest
 
 import helpers  # noqa: F401  (tools/ on the path, test mode on)
+import common
 import layout as L
 import ui
 from test_setup import Base, diff
@@ -72,6 +73,47 @@ class UI(Base):
         phys = self.call("GET", "/api/state")[1]["phys"]
         self.assertEqual(sorted(phys["xbox"]), list(range(L.BUTTONS)))
         self.assertEqual(sorted(phys["switch"]), list(range(L.BUTTONS)), "every button sits on exactly one spot")
+
+    def test_status_tells_whether_what_is_installed_is_still_right(self):
+        sb = self.make()
+        sb.setup()
+        self.start(sb)
+        st = self.call("GET", "/api/status")[1]
+        self.assertTrue(st["installed"] and st["binds_current"] and st["steam_current"], st)
+        self.assertFalse(st["pokemmo_open"])
+        # the game rewrote its settings without our binds: the record says installed, the truth is not
+        props = sb.pokemmo / "config" / "main.properties"
+        text = props.read_text(encoding="utf-8")
+        props.write_text("\n".join(l for l in text.splitlines() if not l.startswith(common.MAP_KEY)) + "\n",
+                         encoding="utf-8")
+        st = self.call("GET", "/api/status")[1]
+        self.assertTrue(st["installed"])
+        self.assertFalse(st["binds_current"], "binds gone: must not tick")
+        self.assertTrue(st["steam_current"])
+        # and the one-click fix puts them back
+        self.assertTrue(self.call("POST", "/api/apply", {"layout": L.default_layout()})[1]["ok"])
+        self.assertTrue(self.call("GET", "/api/status")[1]["binds_current"])
+
+    def test_status_notices_a_missing_steam_layout(self):
+        sb = self.make()
+        sb.setup()
+        self.start(sb)
+        for f in sb.layout_dir.glob("*") if hasattr(sb, "layout_dir") else []:
+            f.unlink()
+        cfg = sb.steam / "steamapps" / "common" / "Steam Controller Configs"
+        files = [f for f in cfg.rglob("*") if f.is_file()]
+        self.assertTrue(files, "the wheel layouts exist after install")
+        for f in files:
+            f.unlink()
+        st = self.call("GET", "/api/status")[1]
+        self.assertFalse(st["steam_current"])
+        self.assertTrue(st["binds_current"])
+
+    def test_status_is_unknown_not_green_when_nothing_is_installed(self):
+        self.start(self.make())
+        st = self.call("GET", "/api/status")[1]
+        self.assertFalse(st["binds_current"])
+        self.assertFalse(st["steam_current"])
 
     def test_state(self):
         self.start(self.make())
