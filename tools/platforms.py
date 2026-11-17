@@ -35,12 +35,29 @@ def _sandboxed(paths):
     return [p for p in paths if any(r == p or r in p.parents for r in roots)]
 
 
+def _other_drive_folders():
+    """PokeMMO unpacked straight on another Windows drive (D:\\PokeMMO, D:\\Games\\PokeMMO)."""
+    if TEST:
+        return []
+    out = []
+    for letter in "DEFGH":
+        root = Path(letter + ":\\")
+        try:
+            if not root.exists():
+                continue
+        except OSError:
+            continue
+        out += [root / "PokeMMO", root / "Games" / "PokeMMO"]
+    return out
+
+
 def pokemmo_candidates():
     if WINDOWS:
         c = [Path(r"C:\Program Files\PokeMMO"), Path(r"C:\Program Files (x86)\PokeMMO"),
              _env_path("LOCALAPPDATA", "PokeMMO"), _env_path("LOCALAPPDATA", "Programs", "PokeMMO"),
              _env_path("APPDATA", "PokeMMO"), HOME / "PokeMMO", HOME / "Desktop" / "PokeMMO",
              HOME / "Games" / "PokeMMO"]
+        c += _other_drive_folders()
     elif MAC:
         c = [HOME / "Library/Application Support/com.pokeemu.macos/pokemmo-client-live",
              Path("/Applications/PokeMMO.app/Contents/Resources/pokemmo-client-live")]
