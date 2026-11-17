@@ -265,6 +265,61 @@ def _run_text(cmd):
         return ""
 
 
+PAD_WORDS = re.compile(r"controller|gamepad|joystick|dualshock|dualsense|x-?box|pro pad|8bitdo|joy-?con|steam deck", re.I)
+NOT_PADS = re.compile(r"mouse|keyboard|trackpad|receiver|touch|headset|audio|webcam|camera|bluetooth radio|consumer control", re.I)
+
+
+def _pad_name(name):
+    name = name.strip().strip('"').strip()
+    return name if name and len(name) <= 80 and PAD_WORDS.search(name) and not NOT_PADS.search(name) else None
+
+
+def _unique(names):
+    return list(dict.fromkeys(n for n in map(_pad_name, names) if n))
+
+
+def parse_proc_input(text):
+    """Pad names from /proc/bus/input/devices: the entries that have a js handler."""
+    out = []
+    for block in text.split("\n\n"):
+        name = re.search(r'^N: Name="(.*)"$', block, re.M)
+        handlers = re.search(r"^H: Handlers=(.*)$", block, re.M)
+        if name and handlers and re.search(r"\bjs\d+\b", handlers.group(1)):
+            out.append(name.group(1))
+    return _unique(out)
+
+
+def parse_pad_lines(text):
+    """One device name per line (what the Windows query prints)."""
+    return _unique(text.splitlines())
+
+
+def parse_ioreg(text):
+    """Pad names from `ioreg -r -c IOHIDDevice -l` ("Product" = "...") on macOS."""
+    return _unique(re.findall(r'"Product"\s*=\s*"([^"]*)"', text))
+
+
+def connected_pad_names():
+    """Names of the pads plugged in or paired right now, best effort; [] when unknown.
+    Sandbox tests get only what POKEMMO_CONTROLLER_TEST_PADS (names split by ;) says."""
+    try:
+        if TEST:
+            return _unique(os.environ.get("POKEMMO_CONTROLLER_TEST_PADS", "").split(";"))
+        if WINDOWS:
+            return parse_pad_lines(_run_text([
+                "powershell", "-NoProfile", "-NonInteractive", "-Command",
+                "Get-PnpDevice -PresentOnly -Class HIDClass,XboxComposite,Bluetooth,USB "
+                "-ErrorAction SilentlyContinue | ForEach-Object { $_.FriendlyName }"]))
+        if MAC:
+            return parse_ioreg(_run_text(["ioreg", "-r", "-c", "IOHIDDevice", "-l"]))
+        try:
+            return parse_proc_input(Path("/proc/bus/input/devices").read_text(encoding="utf-8", errors="replace"))
+        except OSError:
+            return []
+    except Exception:  # detection is a convenience: never stop an install
+        return []
+
+
 GAME_EXE = re.compile(r"^pokemmo[\w .-]*\.exe$", re.I)
 GAME_TITLE = re.compile(r"^pokemmo( -.*)?$", re.I)
 
