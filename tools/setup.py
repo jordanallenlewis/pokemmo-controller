@@ -79,6 +79,7 @@ def build_plan(a, pm, steam, steams):
     else:
         apply_native.plan(p, pm, a.name, a.switch_positional, getattr(a, "layout_data", None),
                           getattr(a, "reset_layout", False))
+        layout_mod.set_screen(p.state, getattr(a, "screen", None), getattr(a, "reset_screen", False))
         if steam:
             install_wheel.plan(p, pm, steam)
         app.plan(p, pm, getattr(a, "install_ui", False))
@@ -209,6 +210,11 @@ def main():
     ap.add_argument("--no-browser", action="store_true", help="with --ui: print the address instead of opening it")
     ap.add_argument("--layout", metavar="FILE", help="install your own layout (a file made by remap.py or the remap screen)")
     ap.add_argument("--reset-layout", action="store_true", help="go back to the default layout")
+    ap.add_argument("--resolution", metavar="WxH",
+                    help="the size of the game picture, like 1920x1080: the wheel is sized to fit it "
+                         "(remembered; run again after you change the game's resolution)")
+    ap.add_argument("--reset-resolution", dest="reset_screen", action="store_true",
+                    help="go back to the 4K wheel size")
     ap.add_argument("--version", action="version", version=f"pokemmo-controller {VERSION}")
     a = ap.parse_args()
     if a.layout:
@@ -218,6 +224,12 @@ def main():
             sys.exit(f"Could not read {a.layout}: {e.strerror or e}. Nothing was changed.")
         except layout_mod.LayoutError as e:
             sys.exit(f"{a.layout} was not used: {e}\nNothing was changed.")
+    a.screen = None
+    if a.resolution:
+        try:
+            a.screen = layout_mod.parse_resolution(a.resolution)
+        except layout_mod.LayoutError as e:
+            sys.exit(f"{e}\nNothing was changed.")
     if a.ui:
         import ui
         ui.serve(a.pokemmo, a.steam, a.no_wheel, not a.no_browser)
