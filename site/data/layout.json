@@ -116,6 +116,24 @@
    "ddown": "D-pad down",
    "dleft": "D-pad left",
    "dright": "D-pad right"
+  },
+  "deck": {
+   "a": "A",
+   "b": "B",
+   "x": "X",
+   "y": "Y",
+   "view": "View",
+   "menu": "Menu",
+   "ls": "Left stick",
+   "rs": "Right stick",
+   "lb": "L1",
+   "rb": "R1",
+   "lt": "L2",
+   "rt": "R2",
+   "dup": "D-pad up",
+   "ddown": "D-pad down",
+   "dleft": "D-pad left",
+   "dright": "D-pad right"
   }
  }
 }

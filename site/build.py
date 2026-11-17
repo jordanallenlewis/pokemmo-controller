@@ -28,6 +28,9 @@ NAMES = {
     "switch": {"a": "B", "b": "A", "x": "Y", "y": "X", "view": "Minus", "menu": "Plus", "ls": "Left stick",
                "rs": "Right stick", "lb": "L", "rb": "R", "lt": "ZL", "rt": "ZR", "dup": "D-pad up",
                "ddown": "D-pad down", "dleft": "D-pad left", "dright": "D-pad right"},
+    "deck": {"a": "A", "b": "B", "x": "X", "y": "Y", "view": "View", "menu": "Menu", "ls": "Left stick",
+             "rs": "Right stick", "lb": "L1", "rb": "R1", "lt": "L2", "rt": "R2", "dup": "D-pad up",
+             "ddown": "D-pad down", "dleft": "D-pad left", "dright": "D-pad right"},
 }
 # Movement is four binds on one stick; the site shows it as one "Move" control.
 MOVES = {"KEY_UP", "KEY_DOWN", "KEY_LEFT", "KEY_RIGHT"}
