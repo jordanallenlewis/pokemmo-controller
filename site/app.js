@@ -148,9 +148,42 @@
       }));
     }
 
+    // demo: light the pad in step with the recording
+    const vid = $("[data-demo]"), dpad = $('[data-pad="demo"]');
+    if (vid && dpad) {
+      dpad.appendChild(padSvg("xbox", false));
+      let track = [];
+      try { track = (await (await fetch("data/demo.json")).json()).events; } catch {}
+      const keyEl = $("[data-demo-key]"), actEl = $("[data-demo-act]"), now = $(".demo-now");
+      let cur = null;
+      const sync = () => {
+        const t = vid.currentTime;
+        const e = track.filter((x) => x.t <= t + 0.05 && t - x.t < 1.1).at(-1);
+        const id = e ? e.id : null;
+        if (id === cur) return;
+        if (cur) setOn(dpad, cur, false);
+        cur = id; now.classList.toggle("on", !!id);
+        if (id) { setOn(dpad, id, true); keyEl.textContent = label("xbox", id); actEl.textContent = id === "ls" ? "Walk" : data.controls[id]; }
+      };
+      vid.addEventListener("timeupdate", sync);
+      (function loop() { if (!vid.paused) sync(); requestAnimationFrame(loop); })();
+      if (reduced) { vid.removeAttribute("autoplay"); vid.pause(); vid.controls = true; }
+    }
+
     // wheel
     const wheel = $("[data-wheel]");
-    if (wheel) drawWheel(wheel, data.wheel);
+    if (wheel) {
+      drawWheel(wheel, data.wheel);
+      const slices = $$(".slice", wheel), k = $("[data-wheel-key]"), a = $("[data-wheel-act]");
+      let i = 0;
+      const step = () => {
+        slices.forEach((g, j) => g.classList.toggle("on", j === i));
+        k.textContent = data.wheel[i].key; a.textContent = data.wheel[i].label.replace("Pokedex", "Pokédex");
+        i = (i + 1) % slices.length;
+      };
+      step();
+      if (!reduced) setInterval(step, 1600);
+    }
   }
 
   function drawWheel(svg, slices) {
@@ -204,10 +237,6 @@
   // nav border on scroll, reveal on scroll
   const nav = $(".nav");
   addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 8), { passive: true });
-  if ("IntersectionObserver" in window && !reduced) {
-    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -10% 0px" });
-    $$(".sec-head, .card, .map, .wheel-fig, .term, .shot, .faq").forEach((n) => { n.classList.add("reveal"); io.observe(n); });
-  }
 
   // live star count (cached for an hour; the page works without it)
   (async () => {
