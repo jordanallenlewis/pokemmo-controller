@@ -25,7 +25,7 @@ Yes, this is a switch away from Go. The Go helper is a spike at about 25 to 30 p
 
 1. **Controller input is the deciding factor, and only Rust has a mature native option.**
    - Rust can use SDL3 through `sdl3-sys`, which tracks SDL 3.4.x (https://crates.io/crates/sdl3-sys). It also has `gilrs` 0.11 (https://docs.rs/gilrs/latest/gilrs/).
-   - Go has no mature cross-platform gamepad library. `go-xinput` is archived and covers XInput only (https://pkg.go.dev/github.com/harry1453/go-xinput). The only way for Go to match is SDL3 through young purego bindings, which are not yet stable (https://pkg.go.dev/github.com/zyko0/go-sdl3).
+   - Go has no mature cross-platform controller library. `go-xinput` is archived and covers XInput only (https://pkg.go.dev/github.com/harry1453/go-xinput). The only way for Go to match is SDL3 through young purego bindings, which are not yet stable (https://pkg.go.dev/github.com/zyko0/go-sdl3).
 
 2. **SDL3 reads controllers the way PokeMMO does.**
    - Our binds already use SDL3 positional numbers: 15 buttons and 6 axes.
@@ -119,7 +119,7 @@ A change under `spec/` needs the `spec-change` label and Jordan's approval as CO
    - the keyboard binds the wheel needs (`client.controls.gdx.*`);
    - a Steam Input layout, its configset block and the PokeMMO non-Steam shortcut.
 2. **One input, one action.** One press of one input does one game action. There are no macros, turbo, sequences or chords.
-3. **Nothing in the game process.** No injection into the game, no virtual-gamepad driver, no overlay drawn over the game. The wheel is Steam Input's own radial menu.
+3. **Nothing in the game process.** No injection into the game, no virtual-gamepad driver, no overlay drawn over the game. The wheel is drawn by Steam Input itself.
 4. **Fixed inputs.** The right stick is reserved for the wheel. Triggers count only when pulled.
 5. **Never forces a close or acts as admin.**
    - It never kills PokeMMO. It asks the player to close it, then offers to relaunch it.
@@ -388,7 +388,7 @@ There are two parts, handled differently.
 
 ### 6.2 The wheel (Steam's)
 
-Steam draws the radial menu. We control only `touch_menu_scale`, the position and the opacity in the layout files.
+Steam draws the wheel. We control only `touch_menu_scale`, the position and the opacity in the layout files.
 
 **The formula is locked:** `wheel_scale = clamp(60, 400, round(400 * min(w, h) / 2160))`.
 
