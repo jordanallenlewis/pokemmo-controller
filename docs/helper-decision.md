@@ -1,5 +1,7 @@
 # Helper app: language and tray choice (H0)
 
+> **Superseded (2026-11-18).** [FOUNDATION.md](FOUNDATION.md) replaces the Go helper with one Rust engine shared by the desktop app and the `pmc` command line tool. This file is kept as history; the Go and `fyne.io/systray` choices below no longer apply to 2.0.
+
 The helper is a small resident program so players install nothing first and
 the layout keeps working while they play (follows resolution and display mode,
 re-applies the binds if the game rewrites its settings, keeps the Steam
