@@ -49,7 +49,7 @@ def words():
             for w in g["wrong_to_right"]:
                 flags = 0 if w.get("case_sensitive") else re.I
                 if re.search(rf"(?<![\w-]){re.escape(w['wrong'])}(?![\w-])", scrub, flags):
-                    out.append(f"{p.relative_to(ROOT)}:{n}: '{w['wrong']}' should be '{w['right']}'")
+                    out.append(f"{p.relative_to(ROOT).as_posix()}:{n}: '{w['wrong']}' should be '{w['right']}'")
     return out
 
 
@@ -72,11 +72,11 @@ def fonts_and_sizes():
                 for fam in re.split(r"\s*,\s*", val):
                     fam = fam.strip().strip("\"'")
                     if fam and fam.lower() not in allowed:
-                        out.append(f"{p.relative_to(ROOT)}:{n}: font '{fam}' is not in brand/tokens.json fonts.allowed")
+                        out.append(f"{p.relative_to(ROOT).as_posix()}:{n}: font '{fam}' is not in brand/tokens.json fonts.allowed")
             for m in re.finditer(r"(?<![\w-])font\s*:\s*(?:(?:italic|normal|bold|\d{3})\s+)*([\d.]+(?:px|rem))(?:/[^\s;}]+)?\s+(?:var\(|[\"'a-zA-Z])", line):
                 v = m.group(1).replace("0.", ".", 1) if m.group(1).startswith("0.") else m.group(1)
                 if v not in px and v not in rem:
-                    out.append(f"{p.relative_to(ROOT)}:{n}: size '{m.group(1)}' (font shorthand) is not on the scale in brand/tokens.json")
+                    out.append(f"{p.relative_to(ROOT).as_posix()}:{n}: size '{m.group(1)}' (font shorthand) is not on the scale in brand/tokens.json")
             for m in re.finditer(r"font-size\s*[:=]\s*(?:\"|')?\s*([^;}\"']+)", line):
                 val = re.sub(r"\s*!important", "", m.group(1).strip())
                 v = re.sub(r"\s+", "", val)
@@ -84,7 +84,7 @@ def fonts_and_sizes():
                     continue
                 if re.fullmatch(r"[\d.]+(px)?", v) and p.suffix == ".svg":
                     continue                          # SVG art is scaled as a picture
-                out.append(f"{p.relative_to(ROOT)}:{n}: size '{val}' is not on the scale in brand/tokens.json")
+                out.append(f"{p.relative_to(ROOT).as_posix()}:{n}: size '{val}' is not on the scale in brand/tokens.json")
     return out
 
 
@@ -103,7 +103,7 @@ def images():
             refs = re.findall(r"<img[^>]*?\ssrc=\"([^\"]+)\"", line) + re.findall(r"!\[[^\]]*\]\(([^)\s]+)", line)
             for r in refs:
                 if not allowed(r):
-                    out.append(f"{p.relative_to(ROOT)}:{n}: image '{r}' is not in the canonical set (brand/images.json)")
+                    out.append(f"{p.relative_to(ROOT).as_posix()}:{n}: image '{r}' is not in the canonical set (brand/images.json)")
     return out
 
 
