@@ -1,0 +1,105 @@
+{
+  "note": "The exact words for the product, systems, pad families and features. Action and button names are not copied here: they come from tools/layout.py (ACTIONS, PADS) and are checked against it.",
+  "product": "PokeMMO Controller",
+  "game": "PokeMMO",
+  "systems": [
+    "Windows",
+    "macOS",
+    "Linux",
+    "Steam Deck",
+    "SteamOS",
+    "Steam"
+  ],
+  "pad_families": {
+    "xbox": "Xbox",
+    "playstation": "PlayStation",
+    "switch": "Switch Pro",
+    "deck": "Steam Deck"
+  },
+  "features": {
+    "wheel": "wheel",
+    "app": "remap app",
+    "layout": "layout",
+    "binds": "binds"
+  },
+  "wrong_to_right": [
+    {
+      "wrong": "PokeMMO Controller Layout",
+      "right": "PokeMMO Controller"
+    },
+    {
+      "wrong": "Pokemmo",
+      "right": "PokeMMO",
+      "case_sensitive": true
+    },
+    {
+      "wrong": "PokéMMO",
+      "right": "PokeMMO"
+    },
+    {
+      "wrong": "MacOS",
+      "right": "macOS",
+      "case_sensitive": true
+    },
+    {
+      "wrong": "Mac OS",
+      "right": "macOS"
+    },
+    {
+      "wrong": "Playstation",
+      "right": "PlayStation",
+      "case_sensitive": true
+    },
+    {
+      "wrong": "Switch pro",
+      "right": "Switch Pro",
+      "case_sensitive": true
+    },
+    {
+      "wrong": "Steam deck",
+      "right": "Steam Deck",
+      "case_sensitive": true
+    },
+    {
+      "wrong": "Dpad",
+      "right": "D-pad",
+      "case_sensitive": true
+    },
+    {
+      "wrong": "D-Pad",
+      "right": "D-pad",
+      "case_sensitive": true
+    },
+    {
+      "wrong": "joystick",
+      "right": "stick"
+    },
+    {
+      "wrong": "gamepad",
+      "right": "controller"
+    },
+    {
+      "wrong": "radial menu",
+      "right": "wheel"
+    }
+  ],
+  "allowed_context": [
+    "Controller Layout",
+    "Gamepad API",
+    "Steam Virtual Gamepad",
+    "virtual gamepad",
+    "browser's own gamepad support",
+    "getGamepads",
+    "joystick_move",
+    "right_joystick",
+    "JOYSTICK_LEFT",
+    "radial_menu",
+    "Steam radial",
+    "Contents/MacOS",
+    "PAD_WORDS = re.compile",
+    "\"joystick active\"",
+    "\"right_joystick active\"",
+    "PAD_WORDS",
+    "controller|gamepad|joystick|dualshock"
+  ]
+}

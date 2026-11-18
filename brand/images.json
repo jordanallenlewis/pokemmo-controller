@@ -1,0 +1,6 @@
+{
+  "note": "The canonical image set. README, docs and pages may only show these. Controller pictures are the real photos with the hotspots in site/data/hotspots.json; maps and wheel art are rendered from them by docs/art/render.py.",
+  "globs": ["docs/img/*.svg", "docs/img/*.png", "docs/img/*.webp", "site/assets/*.webp", "site/assets/*.png", "site/assets/*.svg"],
+  "files": ["docs/xbox-controller.webp", "docs/remap-screen.png", "docs/wheel-in-game.png", "brand/mark.svg"],
+  "external_ok": []
+}

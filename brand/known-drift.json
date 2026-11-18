@@ -1,0 +1,23 @@
+{
+ "entries": [
+  "site/styles.css: size '11px' (font shorthand) is not on the scale in brand/tokens.json",
+  "site/styles.css: size '12.5px' (font shorthand) is not on the scale in brand/tokens.json",
+  "site/styles.css: size '12px' (font shorthand) is not on the scale in brand/tokens.json",
+  "site/styles.css: size '14.5px' (font shorthand) is not on the scale in brand/tokens.json",
+  "site/styles.css: size '17px' (font shorthand) is not on the scale in brand/tokens.json",
+  "site/styles.css: size '17px' is not on the scale in brand/tokens.json",
+  "site/styles.css: size '19px' (font shorthand) is not on the scale in brand/tokens.json",
+  "site/styles.css: size '19px' is not on the scale in brand/tokens.json",
+  "site/styles.css: size '26px' (font shorthand) is not on the scale in brand/tokens.json",
+  "site/styles.css: size '32px' (font shorthand) is not on the scale in brand/tokens.json",
+  "tools/ui_page.html: size '.75rem' (font shorthand) is not on the scale in brand/tokens.json",
+  "tools/ui_page.html: size '.7rem' (font shorthand) is not on the scale in brand/tokens.json",
+  "tools/ui_page.html: size '.85rem' (font shorthand) is not on the scale in brand/tokens.json",
+  "tools/ui_page.html: size '.95rem' (font shorthand) is not on the scale in brand/tokens.json",
+  "tools/ui_page.html: size '.9rem' (font shorthand) is not on the scale in brand/tokens.json",
+  "tools/ui_page.html: size '1.05rem' (font shorthand) is not on the scale in brand/tokens.json",
+  "tools/ui_page.html: size '1.25rem' (font shorthand) is not on the scale in brand/tokens.json",
+  "tools/ui_page.html: size '1.5rem' (font shorthand) is not on the scale in brand/tokens.json",
+  "tools/ui_page.html: size '11px' (font shorthand) is not on the scale in brand/tokens.json"
+ ]
+}
