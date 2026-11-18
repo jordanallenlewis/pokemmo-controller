@@ -21,7 +21,9 @@ ROOT = Path(__file__).resolve().parent.parent.parent
 OUT = ROOT / "docs" / "img"
 FONT = "'Bricolage Grotesque','Geist','Segoe UI Variable Display','Segoe UI',Inter,'SF Pro Display',-apple-system,'Helvetica Neue',Arial,sans-serif"
 
-TOKENS = json.loads((ROOT / "brand" / "tokens.json").read_text(encoding="utf-8"))
+sys.path.insert(0, str(ROOT / "brand"))
+import tokens as _brand_tokens
+TOKENS = _brand_tokens.flat()
 _d, _l = TOKENS["dark"], TOKENS["light"]
 # Base colours come from brand/tokens.json (the one source, shared with the site and the app);
 # the lines and body shades are the picture-only tints worked out from them.

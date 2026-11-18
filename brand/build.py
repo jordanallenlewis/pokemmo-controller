@@ -1,4 +1,4 @@
-"""One source for the look: brand/tokens.json.
+"""One source for the look: brand/tokens.json (W3C Design Tokens format; brand/tokens.py reads it).
 
     python brand/build.py          write brand/tokens.css and put the same text into tools/ui_page.html
     python brand/build.py --check  fail if either is out of date (the tests run this)
@@ -7,8 +7,11 @@ The remap page carries its own copy (it must work with nothing else installed);
 site/styles.css uses the same dark values (tests/test_brand.py compares them).
 Standard library only.
 """
-import base64, json, re, sys
+import base64, re, sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import tokens as _tokens
 
 ROOT = Path(__file__).resolve().parent.parent
 TOKENS = ROOT / "brand" / "tokens.json"
@@ -16,7 +19,7 @@ PAGE = ROOT / "tools" / "ui_page.html"
 
 
 def css(t=None):
-    t = t or json.loads(TOKENS.read_text(encoding="utf-8"))
+    t = t or _tokens.flat(TOKENS)
     def block(name):
         return "".join(f"  --{k}: {v};\n" for k, v in t[name].items())
     fonts = "".join(f"  --{k}: {v};\n" for k, v in t["type"].items())
