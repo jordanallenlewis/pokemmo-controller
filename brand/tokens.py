@@ -53,5 +53,6 @@ def flat(path=PATH):
         "scale": {"px": {k: _dim(v["$value"]) for k, v in t["size"]["px"].items() if not k.startswith("$")},
                   "rem": {k: _dim(v["$value"]) for k, v in t["size"]["rem"].items() if not k.startswith("$")},
                   "fluid": ext["fluid"], "note": ext["scaleNote"]},
+        "art": ext["art"],
         "fonts": {"allowed": ext["fontsAllowed"], "note": ext["fontsNote"]},
     }
