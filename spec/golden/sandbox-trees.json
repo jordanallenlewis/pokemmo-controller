@@ -3225,6 +3225,1303 @@
      "home/": null
     }
    }
+  ],
+  "update-from-v1.1.0": [
+   {
+    "record": null,
+    "step": "before",
+    "tree": {
+     "Poke MMO/config/main.properties": "61690930e8c5f67c54c106a86205510154ca872afef233c4eac1e6d9dff8450a",
+     "Poke MMO/log/client.log": "b5bced7ae2aa1398ae062f3bcd52a3072ffd7b97834a8f7c083bdf22ff367b5d",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps4.vdf": "f8ab56ea09956972ed5c6fb0422b782d4e262ebf939579607176065c1327db11",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xboxone.vdf": "f8ab56ea09956972ed5c6fb0422b782d4e262ebf939579607176065c1327db11",
+     "Steam/userdata/0/": null,
+     "Steam/userdata/12345/config/shortcuts.vdf": "237831b75080528c4d39ad83b20a256d0c11b4035dc2c9ee819887efe3a53961",
+     "Steam/userdata/67890/": null,
+     "home/": null
+    }
+   },
+   {
+    "argv": [
+     "(tools at v1.1.0)"
+    ],
+    "exit": 0,
+    "output": [],
+    "record": {
+     "created_dirs": [
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo",
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890",
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config",
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo",
+      "<ROOT>/Steam/userdata/67890/config"
+     ],
+     "extra_names": [],
+     "files": {
+      "<ROOT>/Poke MMO/config/main.properties": {
+       "created": false,
+       "pristine": true,
+       "sha": "ff5a06d033884765036cb1fc544103e3e63b2ab530ceef222327a647dedab197"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_neptune.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps4.vdf": {
+       "created": false,
+       "pristine": true,
+       "sha": "a10c1b43881e5bb818726c20f8a9d691157b0ee3008b2cc0a609d4458217a18d"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps5.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_switch_pro.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xbox360.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xboxone.vdf": {
+       "created": false,
+       "pristine": true,
+       "sha": "4c9e8a39285c3bc6fe9420aab58d2511efeb9465600747acf76d876464eb40b0"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_neptune.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "fa6d7cdc4da7696738aa0fccc8a7aaa0484d9b41a88cc44f59791e76e94b4f0d"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_ps4.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "2f1ff099c879dff42eeb9995fe760aff219629114e80a4c4588bf9248ce62ec0"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_ps5.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "df4406271c7271784b9a4e4e1fcb22c9ece950fe7692c71885d66f11495b4305"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_switch_pro.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "c653a88064084917c57ecd81bd83eb6e366c9c47059d777f8fdb1de298866684"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_xbox360.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "f44df31523fe147b1a91b6c8a5e0fd202ebfeef3176244d8e21fe84df2267d39"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_xboxone.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "b918256af70bfc93131c85bcf9fa5c9d32b9029507b827acec450029c8778b47"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_neptune.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_ps4.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_ps5.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_switch_pro.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_xbox360.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_xboxone.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_neptune.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "fa6d7cdc4da7696738aa0fccc8a7aaa0484d9b41a88cc44f59791e76e94b4f0d"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_ps4.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "2f1ff099c879dff42eeb9995fe760aff219629114e80a4c4588bf9248ce62ec0"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_ps5.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "df4406271c7271784b9a4e4e1fcb22c9ece950fe7692c71885d66f11495b4305"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_switch_pro.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "c653a88064084917c57ecd81bd83eb6e366c9c47059d777f8fdb1de298866684"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_xbox360.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "f44df31523fe147b1a91b6c8a5e0fd202ebfeef3176244d8e21fe84df2267d39"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_xboxone.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "b918256af70bfc93131c85bcf9fa5c9d32b9029507b827acec450029c8778b47"
+      },
+      "<ROOT>/Steam/userdata/12345/config/shortcuts.vdf": {
+       "created": false,
+       "pristine": true
+      },
+      "<ROOT>/Steam/userdata/67890/config/shortcuts.vdf": {
+       "created": true,
+       "pristine": true
+      }
+     },
+     "names": [
+      "Xbox Series X Controller",
+      "Xbox One S Controller",
+      "Xbox One Controller",
+      "Xbox One Elite Controller",
+      "Xbox One Elite 2 Controller",
+      "Xbox 360 Controller",
+      "Xbox 360 Wireless Controller",
+      "Xbox Wireless Controller",
+      "Xbox Adaptive Controller",
+      "XInput Controller",
+      "Microsoft X-Box 360 pad",
+      "Microsoft X-Box One pad",
+      "PS5 Controller",
+      "DualSense Wireless Controller",
+      "DualSense Edge Wireless Controller",
+      "PS4 Controller",
+      "DUALSHOCK 4 Wireless Controller",
+      "Sony Interactive Entertainment Wireless Controller",
+      "Wireless Controller",
+      "Nintendo Switch Pro Controller",
+      "Pro Controller",
+      "Nintendo Switch 2 Pro Controller",
+      "#SettingsController_SteamController",
+      "Steam Virtual Gamepad",
+      "Steam Controller",
+      "Steam Deck",
+      "Steam Deck Controller",
+      "8BitDo Pro 2"
+     ],
+     "shortcuts_added": [
+      "<ROOT>/Steam/userdata/12345/config/shortcuts.vdf",
+      "<ROOT>/Steam/userdata/67890/config/shortcuts.vdf"
+     ],
+     "switch_positional": false,
+     "version": "1.1.0"
+    },
+    "step": "install with v1.1.0",
+    "tree": {
+     "Poke MMO/config/main.properties": "5c7b007a07474de87944997d0dac31f4f616c8ed1ca5d832f7372ced8f30328f",
+     "Poke MMO/config/main.properties.bak-pokemmo-controller": "61690930e8c5f67c54c106a86205510154ca872afef233c4eac1e6d9dff8450a",
+     "Poke MMO/config/pokemmo-controller.json": {
+      "path": true
+     },
+     "Poke MMO/log/client.log": "b5bced7ae2aa1398ae062f3bcd52a3072ffd7b97834a8f7c083bdf22ff367b5d",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_neptune.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps4.vdf": "4c9e8a39285c3bc6fe9420aab58d2511efeb9465600747acf76d876464eb40b0",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps4.vdf.bak-pokemmo-controller": "f8ab56ea09956972ed5c6fb0422b782d4e262ebf939579607176065c1327db11",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps5.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_switch_pro.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xbox360.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xboxone.vdf": "4c9e8a39285c3bc6fe9420aab58d2511efeb9465600747acf76d876464eb40b0",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xboxone.vdf.bak-pokemmo-controller": "f8ab56ea09956972ed5c6fb0422b782d4e262ebf939579607176065c1327db11",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_neptune.vdf": "fa6d7cdc4da7696738aa0fccc8a7aaa0484d9b41a88cc44f59791e76e94b4f0d",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_ps4.vdf": "2f1ff099c879dff42eeb9995fe760aff219629114e80a4c4588bf9248ce62ec0",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_ps5.vdf": "df4406271c7271784b9a4e4e1fcb22c9ece950fe7692c71885d66f11495b4305",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_switch_pro.vdf": "c653a88064084917c57ecd81bd83eb6e366c9c47059d777f8fdb1de298866684",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_xbox360.vdf": "f44df31523fe147b1a91b6c8a5e0fd202ebfeef3176244d8e21fe84df2267d39",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_xboxone.vdf": "b918256af70bfc93131c85bcf9fa5c9d32b9029507b827acec450029c8778b47",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_neptune.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_ps4.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_ps5.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_switch_pro.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_xbox360.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_xboxone.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_neptune.vdf": "fa6d7cdc4da7696738aa0fccc8a7aaa0484d9b41a88cc44f59791e76e94b4f0d",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_ps4.vdf": "2f1ff099c879dff42eeb9995fe760aff219629114e80a4c4588bf9248ce62ec0",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_ps5.vdf": "df4406271c7271784b9a4e4e1fcb22c9ece950fe7692c71885d66f11495b4305",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_switch_pro.vdf": "c653a88064084917c57ecd81bd83eb6e366c9c47059d777f8fdb1de298866684",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_xbox360.vdf": "f44df31523fe147b1a91b6c8a5e0fd202ebfeef3176244d8e21fe84df2267d39",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_xboxone.vdf": "b918256af70bfc93131c85bcf9fa5c9d32b9029507b827acec450029c8778b47",
+     "Steam/userdata/0/": null,
+     "Steam/userdata/12345/config/shortcuts.vdf": {
+      "path": true
+     },
+     "Steam/userdata/12345/config/shortcuts.vdf.bak-pokemmo-controller": "237831b75080528c4d39ad83b20a256d0c11b4035dc2c9ee819887efe3a53961",
+     "Steam/userdata/67890/config/shortcuts.vdf": {
+      "path": true
+     },
+     "home/": null
+    }
+   },
+   {
+    "argv": [],
+    "exit": 0,
+    "output": [
+     "PokeMMO controller layout v<VERSION>",
+     "  Controller binds for 28 pad names in <ROOT>/Poke MMO/config/main.properties (including pads found here: 8BitDo Pro 2)",
+     "  Right-stick wheel layouts in <ROOT>/Steam",
+     "Updated from v1.1.0 to v<VERSION>. Launch PokeMMO from your Steam library to get the wheel.",
+     "Wheel follower off: after you change the game's resolution, run the installer again (or use --resolution WxH) to resize the wheel."
+    ],
+    "record": {
+     "created_dirs": [
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo",
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890",
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config",
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo",
+      "<ROOT>/Steam/userdata/67890/config"
+     ],
+     "extra_names": [],
+     "files": {
+      "<ROOT>/Poke MMO/config/main.properties": {
+       "created": false,
+       "pristine": true,
+       "sha": "c2f818d24b3d6d7ed4ce5e3d97060ee2b1320fec559e0407573bcb551767d274"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_legion_go_s.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_neptune.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps4.vdf": {
+       "created": false,
+       "pristine": true,
+       "sha": "a10c1b43881e5bb818726c20f8a9d691157b0ee3008b2cc0a609d4458217a18d"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps5.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_switch_pro.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xbox360.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xboxone.vdf": {
+       "created": false,
+       "pristine": true,
+       "sha": "4c9e8a39285c3bc6fe9420aab58d2511efeb9465600747acf76d876464eb40b0"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_legion_go_s.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "1bdd92e6b45dc3783ae2fc24e8e4fc5fcab2f7b51dba38fe6119b29f679abe51"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_neptune.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "e6a853157aff8c5ac49044a8150de2f55b7df0a021d2849dc15b8df47af504d0"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_ps4.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "ca0081b22998cdaf92de25d2a541c5acf9cbad97d82754709069aeeab38a7cf8"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_ps5.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "259cd13b308a7aee24208184472da6f62f08dc1373eaac2d4130728d94d73d03"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_switch_pro.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "944938b52029425cfc15d121df1fc62f4cc7b0974a0994c4264c6e4ad39ed1fb"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_xbox360.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "bcb77081928ce47fa9a51c1667c3b7ac5fec27132844e81ee409ca6fa265de3d"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_xboxone.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "bba2c944284f09b0fe81cb6768e72dad37b7b46a14fae63917a41fbf6991bafa"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_legion_go_s.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_neptune.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_ps4.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_ps5.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_switch_pro.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_xbox360.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_xboxone.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_legion_go_s.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "1bdd92e6b45dc3783ae2fc24e8e4fc5fcab2f7b51dba38fe6119b29f679abe51"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_neptune.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "e6a853157aff8c5ac49044a8150de2f55b7df0a021d2849dc15b8df47af504d0"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_ps4.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "ca0081b22998cdaf92de25d2a541c5acf9cbad97d82754709069aeeab38a7cf8"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_ps5.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "259cd13b308a7aee24208184472da6f62f08dc1373eaac2d4130728d94d73d03"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_switch_pro.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "944938b52029425cfc15d121df1fc62f4cc7b0974a0994c4264c6e4ad39ed1fb"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_xbox360.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "bcb77081928ce47fa9a51c1667c3b7ac5fec27132844e81ee409ca6fa265de3d"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_xboxone.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "bba2c944284f09b0fe81cb6768e72dad37b7b46a14fae63917a41fbf6991bafa"
+      },
+      "<ROOT>/Steam/userdata/12345/config/shortcuts.vdf": {
+       "created": false,
+       "pristine": true
+      },
+      "<ROOT>/Steam/userdata/67890/config/shortcuts.vdf": {
+       "created": true,
+       "pristine": true
+      }
+     },
+     "follow": false,
+     "names": [
+      "Xbox Series X Controller",
+      "Xbox One S Controller",
+      "Xbox One Controller",
+      "Xbox One Elite Controller",
+      "Xbox One Elite 2 Controller",
+      "Xbox 360 Controller",
+      "Xbox 360 Wireless Controller",
+      "Xbox Wireless Controller",
+      "Xbox Adaptive Controller",
+      "XInput Controller",
+      "Microsoft X-Box 360 pad",
+      "Microsoft X-Box One pad",
+      "PS5 Controller",
+      "DualSense Wireless Controller",
+      "DualSense Edge Wireless Controller",
+      "PS4 Controller",
+      "DUALSHOCK 4 Wireless Controller",
+      "Sony Interactive Entertainment Wireless Controller",
+      "Wireless Controller",
+      "Nintendo Switch Pro Controller",
+      "Pro Controller",
+      "Nintendo Switch 2 Pro Controller",
+      "#SettingsController_SteamController",
+      "Steam Virtual Gamepad",
+      "Steam Controller",
+      "Steam Deck",
+      "Steam Deck Controller",
+      "8BitDo Pro 2"
+     ],
+     "shortcuts_added": [
+      "<ROOT>/Steam/userdata/12345/config/shortcuts.vdf",
+      "<ROOT>/Steam/userdata/67890/config/shortcuts.vdf"
+     ],
+     "switch_positional": false,
+     "version": "<VERSION>"
+    },
+    "step": "update to this version",
+    "tree": {
+     "Poke MMO/config/main.properties": "057c63a843e3eb4b29e7d2c47a66d66fe758d1e80b5d0617c71daabc9f6b071c",
+     "Poke MMO/config/main.properties.bak-pokemmo-controller": "61690930e8c5f67c54c106a86205510154ca872afef233c4eac1e6d9dff8450a",
+     "Poke MMO/config/pokemmo-controller.json": {
+      "path": true
+     },
+     "Poke MMO/log/client.log": "b5bced7ae2aa1398ae062f3bcd52a3072ffd7b97834a8f7c083bdf22ff367b5d",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_legion_go_s.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_neptune.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps4.vdf": "4c9e8a39285c3bc6fe9420aab58d2511efeb9465600747acf76d876464eb40b0",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps4.vdf.bak-pokemmo-controller": "f8ab56ea09956972ed5c6fb0422b782d4e262ebf939579607176065c1327db11",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps5.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_switch_pro.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xbox360.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xboxone.vdf": "4c9e8a39285c3bc6fe9420aab58d2511efeb9465600747acf76d876464eb40b0",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xboxone.vdf.bak-pokemmo-controller": "f8ab56ea09956972ed5c6fb0422b782d4e262ebf939579607176065c1327db11",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_legion_go_s.vdf": "1bdd92e6b45dc3783ae2fc24e8e4fc5fcab2f7b51dba38fe6119b29f679abe51",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_neptune.vdf": "e6a853157aff8c5ac49044a8150de2f55b7df0a021d2849dc15b8df47af504d0",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_ps4.vdf": "ca0081b22998cdaf92de25d2a541c5acf9cbad97d82754709069aeeab38a7cf8",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_ps5.vdf": "259cd13b308a7aee24208184472da6f62f08dc1373eaac2d4130728d94d73d03",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_switch_pro.vdf": "944938b52029425cfc15d121df1fc62f4cc7b0974a0994c4264c6e4ad39ed1fb",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_xbox360.vdf": "bcb77081928ce47fa9a51c1667c3b7ac5fec27132844e81ee409ca6fa265de3d",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_xboxone.vdf": "bba2c944284f09b0fe81cb6768e72dad37b7b46a14fae63917a41fbf6991bafa",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_legion_go_s.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_neptune.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_ps4.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_ps5.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_switch_pro.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_xbox360.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_xboxone.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_legion_go_s.vdf": "1bdd92e6b45dc3783ae2fc24e8e4fc5fcab2f7b51dba38fe6119b29f679abe51",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_neptune.vdf": "e6a853157aff8c5ac49044a8150de2f55b7df0a021d2849dc15b8df47af504d0",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_ps4.vdf": "ca0081b22998cdaf92de25d2a541c5acf9cbad97d82754709069aeeab38a7cf8",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_ps5.vdf": "259cd13b308a7aee24208184472da6f62f08dc1373eaac2d4130728d94d73d03",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_switch_pro.vdf": "944938b52029425cfc15d121df1fc62f4cc7b0974a0994c4264c6e4ad39ed1fb",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_xbox360.vdf": "bcb77081928ce47fa9a51c1667c3b7ac5fec27132844e81ee409ca6fa265de3d",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_xboxone.vdf": "bba2c944284f09b0fe81cb6768e72dad37b7b46a14fae63917a41fbf6991bafa",
+     "Steam/userdata/0/": null,
+     "Steam/userdata/12345/config/shortcuts.vdf": {
+      "path": true
+     },
+     "Steam/userdata/12345/config/shortcuts.vdf.bak-pokemmo-controller": "237831b75080528c4d39ad83b20a256d0c11b4035dc2c9ee819887efe3a53961",
+     "Steam/userdata/67890/config/shortcuts.vdf": {
+      "path": true
+     },
+     "home/": null
+    }
+   },
+   {
+    "argv": [
+     "--uninstall"
+    ],
+    "exit": 0,
+    "output": [
+     "PokeMMO controller layout v<VERSION>",
+     "Removed. PokeMMO and Steam are back to how they were before the install."
+    ],
+    "record": null,
+    "step": "uninstall",
+    "tree": {
+     "Poke MMO/config/main.properties": "61690930e8c5f67c54c106a86205510154ca872afef233c4eac1e6d9dff8450a",
+     "Poke MMO/log/client.log": "b5bced7ae2aa1398ae062f3bcd52a3072ffd7b97834a8f7c083bdf22ff367b5d",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps4.vdf": "f8ab56ea09956972ed5c6fb0422b782d4e262ebf939579607176065c1327db11",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xboxone.vdf": "f8ab56ea09956972ed5c6fb0422b782d4e262ebf939579607176065c1327db11",
+     "Steam/userdata/0/": null,
+     "Steam/userdata/12345/config/shortcuts.vdf": "237831b75080528c4d39ad83b20a256d0c11b4035dc2c9ee819887efe3a53961",
+     "Steam/userdata/67890/": null,
+     "home/": null
+    }
+   }
+  ],
+  "update-from-v1.2.0": [
+   {
+    "record": null,
+    "step": "before",
+    "tree": {
+     "Poke MMO/config/main.properties": "61690930e8c5f67c54c106a86205510154ca872afef233c4eac1e6d9dff8450a",
+     "Poke MMO/log/client.log": "b5bced7ae2aa1398ae062f3bcd52a3072ffd7b97834a8f7c083bdf22ff367b5d",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps4.vdf": "f8ab56ea09956972ed5c6fb0422b782d4e262ebf939579607176065c1327db11",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xboxone.vdf": "f8ab56ea09956972ed5c6fb0422b782d4e262ebf939579607176065c1327db11",
+     "Steam/userdata/0/": null,
+     "Steam/userdata/12345/config/shortcuts.vdf": "237831b75080528c4d39ad83b20a256d0c11b4035dc2c9ee819887efe3a53961",
+     "Steam/userdata/67890/": null,
+     "home/": null
+    }
+   },
+   {
+    "argv": [
+     "(tools at v1.2.0)"
+    ],
+    "exit": 0,
+    "output": [],
+    "record": {
+     "autostart": [
+      "<ROOT>/home/.config/autostart/pokemmo-controller-follow.desktop"
+     ],
+     "created_dirs": [
+      "<ROOT>/Poke MMO/pokemmo-controller",
+      "<ROOT>/Poke MMO/pokemmo-controller/tools",
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo",
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890",
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config",
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo",
+      "<ROOT>/Steam/userdata/67890/config",
+      "<ROOT>/home/.config",
+      "<ROOT>/home/.config/autostart"
+     ],
+     "extra_names": [],
+     "files": {
+      "<ROOT>/Poke MMO/config/main.properties": {
+       "created": false,
+       "pristine": true,
+       "sha": "c2f818d24b3d6d7ed4ce5e3d97060ee2b1320fec559e0407573bcb551767d274"
+      },
+      "<ROOT>/Poke MMO/pokemmo-controller/follow.cmd": {
+       "created": true,
+       "pristine": true,
+       "sha": "15bef7e244e81ff98d6257f65982e1602d1219034dd7515d50e3d67204b27e91"
+      },
+      "<ROOT>/Poke MMO/pokemmo-controller/follow.sh": {
+       "created": true,
+       "pristine": true,
+       "sha": "2445a81eccec8ee54f0865d88d267132d7a5008c747ca23b7f68f77ad5a46fb0"
+      },
+      "<ROOT>/Poke MMO/pokemmo-controller/remap.cmd": {
+       "created": true,
+       "pristine": true,
+       "sha": "3874d97415f03ab8110f6763deb9f641e7e85dc3ad8b41faa48bd25fb5dc53d8"
+      },
+      "<ROOT>/Poke MMO/pokemmo-controller/remap.sh": {
+       "created": true,
+       "pristine": true,
+       "sha": "cedd334c0741e79b57b170ac41edfe97ba7b604a8c9fb51ebb3082ca19bb9297"
+      },
+      "<ROOT>/Poke MMO/pokemmo-controller/tools/app.py": {
+       "created": true,
+       "pristine": true,
+       "sha": "ce4907b97667cb04230c7a512597d4f1cf305b28794ee851a98f951335cf443c"
+      },
+      "<ROOT>/Poke MMO/pokemmo-controller/tools/apply_native.py": {
+       "created": true,
+       "pristine": true,
+       "sha": "a5c02e1b1b28aaa1e965789db26c4ae71db1ded9bff8dbbce2019ae4fab78c21"
+      },
+      "<ROOT>/Poke MMO/pokemmo-controller/tools/common.py": {
+       "created": true,
+       "pristine": true,
+       "sha": "8b1dac9cd80abc27f4d0def07973013e46abf2f2cc6ceada75bf7b97a375aa09"
+      },
+      "<ROOT>/Poke MMO/pokemmo-controller/tools/fit.py": {
+       "created": true,
+       "pristine": true,
+       "sha": "c503dc0434771b07e366b572b8717cb57b46d4e7c213b7655c4581a1ab24e4c4"
+      },
+      "<ROOT>/Poke MMO/pokemmo-controller/tools/install_wheel.py": {
+       "created": true,
+       "pristine": true,
+       "sha": "c9bad17766ff651ee40092bad067cc6619a16bb5e77eeb238c0a80d58ae8d145"
+      },
+      "<ROOT>/Poke MMO/pokemmo-controller/tools/layout.py": {
+       "created": true,
+       "pristine": true,
+       "sha": "baa698ff324256b9e3cfec01ab88f126b2a4ba49ecc86a5fdbd292ffcf07eff3"
+      },
+      "<ROOT>/Poke MMO/pokemmo-controller/tools/pads.py": {
+       "created": true,
+       "pristine": true,
+       "sha": "1e62ec10d13aff6d2ad722588f208d9fb179cfcc83dfa52117ea2c543c024404"
+      },
+      "<ROOT>/Poke MMO/pokemmo-controller/tools/platforms.py": {
+       "created": true,
+       "pristine": true,
+       "sha": "1bc98fdca812bee9462ac58c8b735d930679f4a2b8fbbbf64de6ab1146e23782"
+      },
+      "<ROOT>/Poke MMO/pokemmo-controller/tools/setup.py": {
+       "created": true,
+       "pristine": true,
+       "sha": "ad992617ccfd09b977e3285d1877d810acd4a6a6fa26ecf033550265ed137312"
+      },
+      "<ROOT>/Poke MMO/pokemmo-controller/tools/ui.py": {
+       "created": true,
+       "pristine": true,
+       "sha": "86d9ef53dc9cf967767c359a80ad3ec5bb22913b338b570d7211372f00d3aee3"
+      },
+      "<ROOT>/Poke MMO/pokemmo-controller/tools/ui_page.html": {
+       "created": true,
+       "pristine": true,
+       "sha": "5e0185f6dffedaef39ac5f13e182f0f50040c1aa056e22f7a9126a0a82f6647d"
+      },
+      "<ROOT>/Poke MMO/pokemmo-controller/tools/uninstall.py": {
+       "created": true,
+       "pristine": true,
+       "sha": "4a04a8f24fe9fa3a273e8c34aad29c24fa0e1bd02b922bb5bc204b4c0fea6760"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_legion_go_s.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_neptune.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps4.vdf": {
+       "created": false,
+       "pristine": true,
+       "sha": "a10c1b43881e5bb818726c20f8a9d691157b0ee3008b2cc0a609d4458217a18d"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps5.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_switch_pro.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xbox360.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xboxone.vdf": {
+       "created": false,
+       "pristine": true,
+       "sha": "4c9e8a39285c3bc6fe9420aab58d2511efeb9465600747acf76d876464eb40b0"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_legion_go_s.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "1bdd92e6b45dc3783ae2fc24e8e4fc5fcab2f7b51dba38fe6119b29f679abe51"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_neptune.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "e6a853157aff8c5ac49044a8150de2f55b7df0a021d2849dc15b8df47af504d0"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_ps4.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "ca0081b22998cdaf92de25d2a541c5acf9cbad97d82754709069aeeab38a7cf8"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_ps5.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "259cd13b308a7aee24208184472da6f62f08dc1373eaac2d4130728d94d73d03"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_switch_pro.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "944938b52029425cfc15d121df1fc62f4cc7b0974a0994c4264c6e4ad39ed1fb"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_xbox360.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "bcb77081928ce47fa9a51c1667c3b7ac5fec27132844e81ee409ca6fa265de3d"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_xboxone.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "bba2c944284f09b0fe81cb6768e72dad37b7b46a14fae63917a41fbf6991bafa"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_legion_go_s.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_neptune.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_ps4.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_ps5.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_switch_pro.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_xbox360.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_xboxone.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_legion_go_s.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "1bdd92e6b45dc3783ae2fc24e8e4fc5fcab2f7b51dba38fe6119b29f679abe51"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_neptune.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "e6a853157aff8c5ac49044a8150de2f55b7df0a021d2849dc15b8df47af504d0"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_ps4.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "ca0081b22998cdaf92de25d2a541c5acf9cbad97d82754709069aeeab38a7cf8"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_ps5.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "259cd13b308a7aee24208184472da6f62f08dc1373eaac2d4130728d94d73d03"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_switch_pro.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "944938b52029425cfc15d121df1fc62f4cc7b0974a0994c4264c6e4ad39ed1fb"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_xbox360.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "bcb77081928ce47fa9a51c1667c3b7ac5fec27132844e81ee409ca6fa265de3d"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_xboxone.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "bba2c944284f09b0fe81cb6768e72dad37b7b46a14fae63917a41fbf6991bafa"
+      },
+      "<ROOT>/Steam/userdata/12345/config/shortcuts.vdf": {
+       "created": false,
+       "pristine": true
+      },
+      "<ROOT>/Steam/userdata/67890/config/shortcuts.vdf": {
+       "created": true,
+       "pristine": true
+      },
+      "<ROOT>/home/.config/autostart/pokemmo-controller-follow.desktop": {
+       "created": true,
+       "pristine": true,
+       "sha": "5eb47023915919e9ca65af78006de5b8a4f8d5f43fc402041087e067f50e3e42"
+      }
+     },
+     "follow": true,
+     "names": [
+      "Xbox Series X Controller",
+      "Xbox One S Controller",
+      "Xbox One Controller",
+      "Xbox One Elite Controller",
+      "Xbox One Elite 2 Controller",
+      "Xbox 360 Controller",
+      "Xbox 360 Wireless Controller",
+      "Xbox Wireless Controller",
+      "Xbox Adaptive Controller",
+      "XInput Controller",
+      "Microsoft X-Box 360 pad",
+      "Microsoft X-Box One pad",
+      "PS5 Controller",
+      "DualSense Wireless Controller",
+      "DualSense Edge Wireless Controller",
+      "PS4 Controller",
+      "DUALSHOCK 4 Wireless Controller",
+      "Sony Interactive Entertainment Wireless Controller",
+      "Wireless Controller",
+      "Nintendo Switch Pro Controller",
+      "Pro Controller",
+      "Nintendo Switch 2 Pro Controller",
+      "#SettingsController_SteamController",
+      "Steam Virtual Gamepad",
+      "Steam Controller",
+      "Steam Deck",
+      "Steam Deck Controller",
+      "8BitDo Pro 2"
+     ],
+     "shortcuts_added": [
+      "<ROOT>/Steam/userdata/12345/config/shortcuts.vdf",
+      "<ROOT>/Steam/userdata/67890/config/shortcuts.vdf"
+     ],
+     "switch_positional": false,
+     "version": "1.2.0"
+    },
+    "step": "install with v1.2.0",
+    "tree": {
+     "Poke MMO/config/main.properties": "057c63a843e3eb4b29e7d2c47a66d66fe758d1e80b5d0617c71daabc9f6b071c",
+     "Poke MMO/config/main.properties.bak-pokemmo-controller": "61690930e8c5f67c54c106a86205510154ca872afef233c4eac1e6d9dff8450a",
+     "Poke MMO/config/pokemmo-controller.json": {
+      "path": true
+     },
+     "Poke MMO/log/client.log": "b5bced7ae2aa1398ae062f3bcd52a3072ffd7b97834a8f7c083bdf22ff367b5d",
+     "Poke MMO/pokemmo-controller/follow.cmd": "f55c2fa1bacb9575d423d85cdd7e37f204a40fe848a81ccfe706ce23b8d2e5ff",
+     "Poke MMO/pokemmo-controller/follow.sh": "2445a81eccec8ee54f0865d88d267132d7a5008c747ca23b7f68f77ad5a46fb0",
+     "Poke MMO/pokemmo-controller/remap.cmd": "8b5c77c72b7b6602fa1448c741276b84db8ee43c8863a0b1369ce238ad54b977",
+     "Poke MMO/pokemmo-controller/remap.sh": "cedd334c0741e79b57b170ac41edfe97ba7b604a8c9fb51ebb3082ca19bb9297",
+     "Poke MMO/pokemmo-controller/tools/app.py": "ce4907b97667cb04230c7a512597d4f1cf305b28794ee851a98f951335cf443c",
+     "Poke MMO/pokemmo-controller/tools/apply_native.py": "a5c02e1b1b28aaa1e965789db26c4ae71db1ded9bff8dbbce2019ae4fab78c21",
+     "Poke MMO/pokemmo-controller/tools/common.py": "8b1dac9cd80abc27f4d0def07973013e46abf2f2cc6ceada75bf7b97a375aa09",
+     "Poke MMO/pokemmo-controller/tools/fit.py": "c503dc0434771b07e366b572b8717cb57b46d4e7c213b7655c4581a1ab24e4c4",
+     "Poke MMO/pokemmo-controller/tools/install_wheel.py": "c9bad17766ff651ee40092bad067cc6619a16bb5e77eeb238c0a80d58ae8d145",
+     "Poke MMO/pokemmo-controller/tools/layout.py": "baa698ff324256b9e3cfec01ab88f126b2a4ba49ecc86a5fdbd292ffcf07eff3",
+     "Poke MMO/pokemmo-controller/tools/pads.py": "1e62ec10d13aff6d2ad722588f208d9fb179cfcc83dfa52117ea2c543c024404",
+     "Poke MMO/pokemmo-controller/tools/platforms.py": "1bc98fdca812bee9462ac58c8b735d930679f4a2b8fbbbf64de6ab1146e23782",
+     "Poke MMO/pokemmo-controller/tools/setup.py": "ad992617ccfd09b977e3285d1877d810acd4a6a6fa26ecf033550265ed137312",
+     "Poke MMO/pokemmo-controller/tools/ui.py": "86d9ef53dc9cf967767c359a80ad3ec5bb22913b338b570d7211372f00d3aee3",
+     "Poke MMO/pokemmo-controller/tools/ui_page.html": "5e0185f6dffedaef39ac5f13e182f0f50040c1aa056e22f7a9126a0a82f6647d",
+     "Poke MMO/pokemmo-controller/tools/uninstall.py": "4a04a8f24fe9fa3a273e8c34aad29c24fa0e1bd02b922bb5bc204b4c0fea6760",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_legion_go_s.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_neptune.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps4.vdf": "4c9e8a39285c3bc6fe9420aab58d2511efeb9465600747acf76d876464eb40b0",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps4.vdf.bak-pokemmo-controller": "f8ab56ea09956972ed5c6fb0422b782d4e262ebf939579607176065c1327db11",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps5.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_switch_pro.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xbox360.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xboxone.vdf": "4c9e8a39285c3bc6fe9420aab58d2511efeb9465600747acf76d876464eb40b0",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xboxone.vdf.bak-pokemmo-controller": "f8ab56ea09956972ed5c6fb0422b782d4e262ebf939579607176065c1327db11",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_legion_go_s.vdf": "1bdd92e6b45dc3783ae2fc24e8e4fc5fcab2f7b51dba38fe6119b29f679abe51",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_neptune.vdf": "e6a853157aff8c5ac49044a8150de2f55b7df0a021d2849dc15b8df47af504d0",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_ps4.vdf": "ca0081b22998cdaf92de25d2a541c5acf9cbad97d82754709069aeeab38a7cf8",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_ps5.vdf": "259cd13b308a7aee24208184472da6f62f08dc1373eaac2d4130728d94d73d03",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_switch_pro.vdf": "944938b52029425cfc15d121df1fc62f4cc7b0974a0994c4264c6e4ad39ed1fb",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_xbox360.vdf": "bcb77081928ce47fa9a51c1667c3b7ac5fec27132844e81ee409ca6fa265de3d",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_xboxone.vdf": "bba2c944284f09b0fe81cb6768e72dad37b7b46a14fae63917a41fbf6991bafa",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_legion_go_s.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_neptune.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_ps4.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_ps5.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_switch_pro.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_xbox360.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_xboxone.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_legion_go_s.vdf": "1bdd92e6b45dc3783ae2fc24e8e4fc5fcab2f7b51dba38fe6119b29f679abe51",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_neptune.vdf": "e6a853157aff8c5ac49044a8150de2f55b7df0a021d2849dc15b8df47af504d0",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_ps4.vdf": "ca0081b22998cdaf92de25d2a541c5acf9cbad97d82754709069aeeab38a7cf8",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_ps5.vdf": "259cd13b308a7aee24208184472da6f62f08dc1373eaac2d4130728d94d73d03",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_switch_pro.vdf": "944938b52029425cfc15d121df1fc62f4cc7b0974a0994c4264c6e4ad39ed1fb",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_xbox360.vdf": "bcb77081928ce47fa9a51c1667c3b7ac5fec27132844e81ee409ca6fa265de3d",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_xboxone.vdf": "bba2c944284f09b0fe81cb6768e72dad37b7b46a14fae63917a41fbf6991bafa",
+     "Steam/userdata/0/": null,
+     "Steam/userdata/12345/config/shortcuts.vdf": {
+      "path": true
+     },
+     "Steam/userdata/12345/config/shortcuts.vdf.bak-pokemmo-controller": "237831b75080528c4d39ad83b20a256d0c11b4035dc2c9ee819887efe3a53961",
+     "Steam/userdata/67890/config/shortcuts.vdf": {
+      "path": true
+     },
+     "home/.config/autostart/pokemmo-controller-follow.desktop": {
+      "path": true
+     }
+    }
+   },
+   {
+    "argv": [],
+    "exit": 0,
+    "output": [
+     "PokeMMO controller layout v<VERSION>",
+     "  Controller binds for 28 pad names in <ROOT>/Poke MMO/config/main.properties (including pads found here: 8BitDo Pro 2)",
+     "  Right-stick wheel layouts in <ROOT>/Steam",
+     "Updated from v1.2.0 to v<VERSION>. Launch PokeMMO from your Steam library to get the wheel.",
+     "Wheel follower off: after you change the game's resolution, run the installer again (or use --resolution WxH) to resize the wheel."
+    ],
+    "record": {
+     "created_dirs": [
+      "<ROOT>/Poke MMO/pokemmo-controller",
+      "<ROOT>/Poke MMO/pokemmo-controller/tools",
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo",
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890",
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config",
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo",
+      "<ROOT>/Steam/userdata/67890/config",
+      "<ROOT>/home/.config",
+      "<ROOT>/home/.config/autostart"
+     ],
+     "extra_names": [],
+     "files": {
+      "<ROOT>/Poke MMO/config/main.properties": {
+       "created": false,
+       "pristine": true,
+       "sha": "c2f818d24b3d6d7ed4ce5e3d97060ee2b1320fec559e0407573bcb551767d274"
+      },
+      "<ROOT>/Poke MMO/pokemmo-controller/follow.cmd": {
+       "created": true,
+       "pristine": true,
+       "sha": "15bef7e244e81ff98d6257f65982e1602d1219034dd7515d50e3d67204b27e91"
+      },
+      "<ROOT>/Poke MMO/pokemmo-controller/follow.sh": {
+       "created": true,
+       "pristine": true,
+       "sha": "2445a81eccec8ee54f0865d88d267132d7a5008c747ca23b7f68f77ad5a46fb0"
+      },
+      "<ROOT>/Poke MMO/pokemmo-controller/remap.cmd": {
+       "created": true,
+       "pristine": true,
+       "sha": "3874d97415f03ab8110f6763deb9f641e7e85dc3ad8b41faa48bd25fb5dc53d8"
+      },
+      "<ROOT>/Poke MMO/pokemmo-controller/remap.sh": {
+       "created": true,
+       "pristine": true,
+       "sha": "cedd334c0741e79b57b170ac41edfe97ba7b604a8c9fb51ebb3082ca19bb9297"
+      },
+      "<ROOT>/Poke MMO/pokemmo-controller/tools/app.py": {
+       "created": true,
+       "pristine": true,
+       "sha": "ce4907b97667cb04230c7a512597d4f1cf305b28794ee851a98f951335cf443c"
+      },
+      "<ROOT>/Poke MMO/pokemmo-controller/tools/apply_native.py": {
+       "created": true,
+       "pristine": true,
+       "sha": "a5c02e1b1b28aaa1e965789db26c4ae71db1ded9bff8dbbce2019ae4fab78c21"
+      },
+      "<ROOT>/Poke MMO/pokemmo-controller/tools/common.py": {
+       "created": true,
+       "pristine": true,
+       "sha": "8b1dac9cd80abc27f4d0def07973013e46abf2f2cc6ceada75bf7b97a375aa09"
+      },
+      "<ROOT>/Poke MMO/pokemmo-controller/tools/fit.py": {
+       "created": true,
+       "pristine": true,
+       "sha": "c503dc0434771b07e366b572b8717cb57b46d4e7c213b7655c4581a1ab24e4c4"
+      },
+      "<ROOT>/Poke MMO/pokemmo-controller/tools/install_wheel.py": {
+       "created": true,
+       "pristine": true,
+       "sha": "c9bad17766ff651ee40092bad067cc6619a16bb5e77eeb238c0a80d58ae8d145"
+      },
+      "<ROOT>/Poke MMO/pokemmo-controller/tools/layout.py": {
+       "created": true,
+       "pristine": true,
+       "sha": "baa698ff324256b9e3cfec01ab88f126b2a4ba49ecc86a5fdbd292ffcf07eff3"
+      },
+      "<ROOT>/Poke MMO/pokemmo-controller/tools/pads.py": {
+       "created": true,
+       "pristine": true,
+       "sha": "1e62ec10d13aff6d2ad722588f208d9fb179cfcc83dfa52117ea2c543c024404"
+      },
+      "<ROOT>/Poke MMO/pokemmo-controller/tools/platforms.py": {
+       "created": true,
+       "pristine": true,
+       "sha": "1bc98fdca812bee9462ac58c8b735d930679f4a2b8fbbbf64de6ab1146e23782"
+      },
+      "<ROOT>/Poke MMO/pokemmo-controller/tools/setup.py": {
+       "created": true,
+       "pristine": true,
+       "sha": "ad992617ccfd09b977e3285d1877d810acd4a6a6fa26ecf033550265ed137312"
+      },
+      "<ROOT>/Poke MMO/pokemmo-controller/tools/ui.py": {
+       "created": true,
+       "pristine": true,
+       "sha": "86d9ef53dc9cf967767c359a80ad3ec5bb22913b338b570d7211372f00d3aee3"
+      },
+      "<ROOT>/Poke MMO/pokemmo-controller/tools/ui_page.html": {
+       "created": true,
+       "pristine": true,
+       "sha": "5e0185f6dffedaef39ac5f13e182f0f50040c1aa056e22f7a9126a0a82f6647d"
+      },
+      "<ROOT>/Poke MMO/pokemmo-controller/tools/uninstall.py": {
+       "created": true,
+       "pristine": true,
+       "sha": "4a04a8f24fe9fa3a273e8c34aad29c24fa0e1bd02b922bb5bc204b4c0fea6760"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_legion_go_s.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_neptune.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps4.vdf": {
+       "created": false,
+       "pristine": true,
+       "sha": "a10c1b43881e5bb818726c20f8a9d691157b0ee3008b2cc0a609d4458217a18d"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps5.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_switch_pro.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xbox360.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xboxone.vdf": {
+       "created": false,
+       "pristine": true,
+       "sha": "4c9e8a39285c3bc6fe9420aab58d2511efeb9465600747acf76d876464eb40b0"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_legion_go_s.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "1bdd92e6b45dc3783ae2fc24e8e4fc5fcab2f7b51dba38fe6119b29f679abe51"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_neptune.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "e6a853157aff8c5ac49044a8150de2f55b7df0a021d2849dc15b8df47af504d0"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_ps4.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "ca0081b22998cdaf92de25d2a541c5acf9cbad97d82754709069aeeab38a7cf8"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_ps5.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "259cd13b308a7aee24208184472da6f62f08dc1373eaac2d4130728d94d73d03"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_switch_pro.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "944938b52029425cfc15d121df1fc62f4cc7b0974a0994c4264c6e4ad39ed1fb"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_xbox360.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "bcb77081928ce47fa9a51c1667c3b7ac5fec27132844e81ee409ca6fa265de3d"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_xboxone.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "bba2c944284f09b0fe81cb6768e72dad37b7b46a14fae63917a41fbf6991bafa"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_legion_go_s.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_neptune.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_ps4.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_ps5.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_switch_pro.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_xbox360.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_xboxone.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_legion_go_s.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "1bdd92e6b45dc3783ae2fc24e8e4fc5fcab2f7b51dba38fe6119b29f679abe51"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_neptune.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "e6a853157aff8c5ac49044a8150de2f55b7df0a021d2849dc15b8df47af504d0"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_ps4.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "ca0081b22998cdaf92de25d2a541c5acf9cbad97d82754709069aeeab38a7cf8"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_ps5.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "259cd13b308a7aee24208184472da6f62f08dc1373eaac2d4130728d94d73d03"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_switch_pro.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "944938b52029425cfc15d121df1fc62f4cc7b0974a0994c4264c6e4ad39ed1fb"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_xbox360.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "bcb77081928ce47fa9a51c1667c3b7ac5fec27132844e81ee409ca6fa265de3d"
+      },
+      "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_xboxone.vdf": {
+       "created": true,
+       "pristine": true,
+       "sha": "bba2c944284f09b0fe81cb6768e72dad37b7b46a14fae63917a41fbf6991bafa"
+      },
+      "<ROOT>/Steam/userdata/12345/config/shortcuts.vdf": {
+       "created": false,
+       "pristine": true
+      },
+      "<ROOT>/Steam/userdata/67890/config/shortcuts.vdf": {
+       "created": true,
+       "pristine": true
+      }
+     },
+     "follow": false,
+     "names": [
+      "Xbox Series X Controller",
+      "Xbox One S Controller",
+      "Xbox One Controller",
+      "Xbox One Elite Controller",
+      "Xbox One Elite 2 Controller",
+      "Xbox 360 Controller",
+      "Xbox 360 Wireless Controller",
+      "Xbox Wireless Controller",
+      "Xbox Adaptive Controller",
+      "XInput Controller",
+      "Microsoft X-Box 360 pad",
+      "Microsoft X-Box One pad",
+      "PS5 Controller",
+      "DualSense Wireless Controller",
+      "DualSense Edge Wireless Controller",
+      "PS4 Controller",
+      "DUALSHOCK 4 Wireless Controller",
+      "Sony Interactive Entertainment Wireless Controller",
+      "Wireless Controller",
+      "Nintendo Switch Pro Controller",
+      "Pro Controller",
+      "Nintendo Switch 2 Pro Controller",
+      "#SettingsController_SteamController",
+      "Steam Virtual Gamepad",
+      "Steam Controller",
+      "Steam Deck",
+      "Steam Deck Controller",
+      "8BitDo Pro 2"
+     ],
+     "shortcuts_added": [
+      "<ROOT>/Steam/userdata/12345/config/shortcuts.vdf",
+      "<ROOT>/Steam/userdata/67890/config/shortcuts.vdf"
+     ],
+     "switch_positional": false,
+     "version": "<VERSION>"
+    },
+    "step": "update to this version",
+    "tree": {
+     "Poke MMO/config/main.properties": "057c63a843e3eb4b29e7d2c47a66d66fe758d1e80b5d0617c71daabc9f6b071c",
+     "Poke MMO/config/main.properties.bak-pokemmo-controller": "61690930e8c5f67c54c106a86205510154ca872afef233c4eac1e6d9dff8450a",
+     "Poke MMO/config/pokemmo-controller.json": {
+      "path": true
+     },
+     "Poke MMO/log/client.log": "b5bced7ae2aa1398ae062f3bcd52a3072ffd7b97834a8f7c083bdf22ff367b5d",
+     "Poke MMO/pokemmo-controller/follow.cmd": "f55c2fa1bacb9575d423d85cdd7e37f204a40fe848a81ccfe706ce23b8d2e5ff",
+     "Poke MMO/pokemmo-controller/follow.sh": "2445a81eccec8ee54f0865d88d267132d7a5008c747ca23b7f68f77ad5a46fb0",
+     "Poke MMO/pokemmo-controller/remap.cmd": "8b5c77c72b7b6602fa1448c741276b84db8ee43c8863a0b1369ce238ad54b977",
+     "Poke MMO/pokemmo-controller/remap.sh": "cedd334c0741e79b57b170ac41edfe97ba7b604a8c9fb51ebb3082ca19bb9297",
+     "Poke MMO/pokemmo-controller/tools/app.py": "ce4907b97667cb04230c7a512597d4f1cf305b28794ee851a98f951335cf443c",
+     "Poke MMO/pokemmo-controller/tools/apply_native.py": "a5c02e1b1b28aaa1e965789db26c4ae71db1ded9bff8dbbce2019ae4fab78c21",
+     "Poke MMO/pokemmo-controller/tools/common.py": "8b1dac9cd80abc27f4d0def07973013e46abf2f2cc6ceada75bf7b97a375aa09",
+     "Poke MMO/pokemmo-controller/tools/fit.py": "c503dc0434771b07e366b572b8717cb57b46d4e7c213b7655c4581a1ab24e4c4",
+     "Poke MMO/pokemmo-controller/tools/install_wheel.py": "c9bad17766ff651ee40092bad067cc6619a16bb5e77eeb238c0a80d58ae8d145",
+     "Poke MMO/pokemmo-controller/tools/layout.py": "baa698ff324256b9e3cfec01ab88f126b2a4ba49ecc86a5fdbd292ffcf07eff3",
+     "Poke MMO/pokemmo-controller/tools/pads.py": "1e62ec10d13aff6d2ad722588f208d9fb179cfcc83dfa52117ea2c543c024404",
+     "Poke MMO/pokemmo-controller/tools/platforms.py": "1bc98fdca812bee9462ac58c8b735d930679f4a2b8fbbbf64de6ab1146e23782",
+     "Poke MMO/pokemmo-controller/tools/setup.py": "ad992617ccfd09b977e3285d1877d810acd4a6a6fa26ecf033550265ed137312",
+     "Poke MMO/pokemmo-controller/tools/ui.py": "86d9ef53dc9cf967767c359a80ad3ec5bb22913b338b570d7211372f00d3aee3",
+     "Poke MMO/pokemmo-controller/tools/ui_page.html": "5e0185f6dffedaef39ac5f13e182f0f50040c1aa056e22f7a9126a0a82f6647d",
+     "Poke MMO/pokemmo-controller/tools/uninstall.py": "4a04a8f24fe9fa3a273e8c34aad29c24fa0e1bd02b922bb5bc204b4c0fea6760",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_legion_go_s.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_neptune.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps4.vdf": "4c9e8a39285c3bc6fe9420aab58d2511efeb9465600747acf76d876464eb40b0",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps4.vdf.bak-pokemmo-controller": "f8ab56ea09956972ed5c6fb0422b782d4e262ebf939579607176065c1327db11",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps5.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_switch_pro.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xbox360.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xboxone.vdf": "4c9e8a39285c3bc6fe9420aab58d2511efeb9465600747acf76d876464eb40b0",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xboxone.vdf.bak-pokemmo-controller": "f8ab56ea09956972ed5c6fb0422b782d4e262ebf939579607176065c1327db11",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_legion_go_s.vdf": "1bdd92e6b45dc3783ae2fc24e8e4fc5fcab2f7b51dba38fe6119b29f679abe51",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_neptune.vdf": "e6a853157aff8c5ac49044a8150de2f55b7df0a021d2849dc15b8df47af504d0",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_ps4.vdf": "ca0081b22998cdaf92de25d2a541c5acf9cbad97d82754709069aeeab38a7cf8",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_ps5.vdf": "259cd13b308a7aee24208184472da6f62f08dc1373eaac2d4130728d94d73d03",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_switch_pro.vdf": "944938b52029425cfc15d121df1fc62f4cc7b0974a0994c4264c6e4ad39ed1fb",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_xbox360.vdf": "bcb77081928ce47fa9a51c1667c3b7ac5fec27132844e81ee409ca6fa265de3d",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_xboxone.vdf": "bba2c944284f09b0fe81cb6768e72dad37b7b46a14fae63917a41fbf6991bafa",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_legion_go_s.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_neptune.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_ps4.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_ps5.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_switch_pro.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_xbox360.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_xboxone.vdf": "59d127c8853f35f03b7795364c38d4ce65127ef3619fde1d8341e653217b93ee",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_legion_go_s.vdf": "1bdd92e6b45dc3783ae2fc24e8e4fc5fcab2f7b51dba38fe6119b29f679abe51",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_neptune.vdf": "e6a853157aff8c5ac49044a8150de2f55b7df0a021d2849dc15b8df47af504d0",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_ps4.vdf": "ca0081b22998cdaf92de25d2a541c5acf9cbad97d82754709069aeeab38a7cf8",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_ps5.vdf": "259cd13b308a7aee24208184472da6f62f08dc1373eaac2d4130728d94d73d03",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_switch_pro.vdf": "944938b52029425cfc15d121df1fc62f4cc7b0974a0994c4264c6e4ad39ed1fb",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_xbox360.vdf": "bcb77081928ce47fa9a51c1667c3b7ac5fec27132844e81ee409ca6fa265de3d",
+     "Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_xboxone.vdf": "bba2c944284f09b0fe81cb6768e72dad37b7b46a14fae63917a41fbf6991bafa",
+     "Steam/userdata/0/": null,
+     "Steam/userdata/12345/config/shortcuts.vdf": {
+      "path": true
+     },
+     "Steam/userdata/12345/config/shortcuts.vdf.bak-pokemmo-controller": "237831b75080528c4d39ad83b20a256d0c11b4035dc2c9ee819887efe3a53961",
+     "Steam/userdata/67890/config/shortcuts.vdf": {
+      "path": true
+     },
+     "home/.config/autostart/": null
+    }
+   },
+   {
+    "argv": [
+     "--uninstall"
+    ],
+    "exit": 0,
+    "output": [
+     "PokeMMO controller layout v<VERSION>",
+     "Removed. PokeMMO and Steam are back to how they were before the install."
+    ],
+    "record": null,
+    "step": "uninstall",
+    "tree": {
+     "Poke MMO/config/main.properties": "61690930e8c5f67c54c106a86205510154ca872afef233c4eac1e6d9dff8450a",
+     "Poke MMO/log/client.log": "b5bced7ae2aa1398ae062f3bcd52a3072ffd7b97834a8f7c083bdf22ff367b5d",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps4.vdf": "f8ab56ea09956972ed5c6fb0422b782d4e262ebf939579607176065c1327db11",
+     "Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xboxone.vdf": "f8ab56ea09956972ed5c6fb0422b782d4e262ebf939579607176065c1327db11",
+     "Steam/userdata/0/": null,
+     "Steam/userdata/12345/config/shortcuts.vdf": "237831b75080528c4d39ad83b20a256d0c11b4035dc2c9ee819887efe3a53961",
+     "Steam/userdata/67890/": null,
+     "home/": null
+    }
+   }
   ]
  },
  "schema": "pmc.golden.trees/1"

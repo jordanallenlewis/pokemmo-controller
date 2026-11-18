@@ -87,6 +87,23 @@ def step(sb, label, *args, **kw):
             "tree": tree(sb), "record": record(sb)}
 
 
+def old_step(sb, label, tag):
+    """Install with the tools as they were at a release tag (needs the tags: CI checks out full history)."""
+    import subprocess, tempfile, sys, io, tarfile
+    tar = subprocess.run(["git", "archive", tag, "tools"], cwd=helpers.ROOT, capture_output=True)
+    if tar.returncode:
+        raise AssertionError(f"git archive {tag} failed (is the tag fetched?): {tar.stderr.decode()}")
+    with tempfile.TemporaryDirectory(prefix="pmc-old-") as d:
+        tf = tarfile.open(fileobj=io.BytesIO(tar.stdout))
+        tf.extractall(d, **({"filter": "data"} if hasattr(tarfile, "data_filter") else {}))
+        cmd = [sys.executable, str(Path(d) / "tools" / "setup.py"), "--pokemmo", str(sb.pokemmo), "--steam", str(sb.steam)]
+        r = subprocess.run(cmd, env=sb.env(), capture_output=True, text=True, encoding="utf-8", errors="replace")
+    if r.returncode:
+        raise AssertionError(f"{tag} install failed:\n{r.stdout}\n{r.stderr}")
+    return {"step": label, "argv": [f"(tools at {tag})"], "exit": r.returncode, "output": [],
+            "tree": tree(sb), "record": record(sb)}
+
+
 def edit_props(sb, fn):
     data = sb.props.read_bytes()
     nl = "\r\n" if b"\r\n" in data else "\n"
@@ -111,6 +128,10 @@ def scenarios():
     run("install-rerun-uninstall", {}, [
         lambda sb: step(sb, "install"), lambda sb: step(sb, "rerun"),
         lambda sb: step(sb, "uninstall", "--uninstall")])
+    for tag in ("v1.1.0", "v1.2.0"):
+        run(f"update-from-{tag}", {}, [
+            lambda sb, tag=tag: old_step(sb, f"install with {tag}", tag),
+            lambda sb: step(sb, "update to this version"), lambda sb: step(sb, "uninstall", "--uninstall")])
     run("lf-line-endings", {"crlf": False}, [
         lambda sb: step(sb, "install"), lambda sb: step(sb, "uninstall", "--uninstall")])
     run("no-wheel", {}, [
@@ -184,8 +205,37 @@ def records():
     }
 
 
+FOLLOW_SEQUENCES = [
+    ("settles after three equal samples", None, [[3840, 2160]] * 3 + [[1920, 1080]] * 3),
+    ("fast flap 4K 1080p 1440p 4K leaves no stale size", [3840, 2160],
+     [[3840, 2160], [1920, 1080], [1920, 1080], [2560, 1440], [3840, 2160], [3840, 2160], [3840, 2160]]),
+    ("junk samples are ignored", [1920, 1080],
+     [None, [0, 0], [-5, 100], [100, 100], [1e12, 1e12], [1920.5, 1080], [True, False], "x", [2560, 1440], [2560, 1440],
+      [2560, 1440]]),
+    ("the 640x480 login window is skipped", [1920, 1080], [[640, 480]] * 5 + [[1920, 1080]] * 3),
+    ("a half-finished resize (wider than 8 to 1) is skipped", [1920, 1080], [[8000, 600]] * 4),
+    ("a move to a monitor at the same resolution writes nothing", [2560, 1440], [[2560, 1440]] * 6),
+    ("2560x1440 to 2560x1400 and back, as it behaves today", [2560, 1440], [[2560, 1400]] * 3 + [[2560, 1440]] * 3),
+    ("whole-number floats count as integers", None, [[1920.0, 1080.0]] * 3),
+]
+
+
+def follower_sequences():
+    import fit
+    out = []
+    for label, applied, samples in FOLLOW_SEQUENCES:
+        f = fit.Follower(tuple(applied) if applied else None)
+        writes = []
+        for smp in samples:
+            r = f.feed(tuple(smp) if isinstance(smp, list) else smp)
+            writes.append(list(r) if r else None)
+        out.append({"label": label, "applied": applied, "settle": fit.SETTLE, "samples": samples, "writes": writes})
+    return {"schema": "pmc.golden.follower/1", "constants": {"settle": fit.SETTLE, "login_size": list(fit.LOGIN_SIZE),
+            "tolerance": fit.TOLERANCE, "max_aspect": fit.MAX_ASPECT}, "sequences": out}
+
+
 def build():
-    return {"sandbox-trees.json": {"schema": "pmc.golden.trees/1", "scenarios": scenarios()},
+    return {"follower-sequences.json": follower_sequences(), "sandbox-trees.json": {"schema": "pmc.golden.trees/1", "scenarios": scenarios()},
             "records.json": records()}
 
 

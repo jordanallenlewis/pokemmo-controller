@@ -7,6 +7,7 @@ These files are the contracts from `docs/FOUNDATION.md` section 3. Within a majo
 | `schema/` | JSON Schemas: profile format 1 and 2, install record, `pmc.cli/1` envelope, `pmc.update/1` manifest | by hand, checked by `tests/test_spec.py` |
 | `golden/sandbox-trees.json` | The file tree after each step (install, rerun, update, uninstall...) of ten sandbox scenarios | `python tests/gen_spec_golden.py --write` |
 | `golden/records.json` | The install record written today and the rules for reading older and newer ones | the same script |
+| `golden/follower-sequences.json` | What the wheel follower writes for each run of game-picture samples (junk, login window, flaps, same-scale moves) | the same script |
 | `golden/share-code.json` | `PMC1-` share codes made by the Go helper, with the layout each reads back to | `PMC_WRITE_SPEC=1 go test -run ShareCodeVectors` in `helper/` |
 | `cli/` | Example `--json` envelopes (transcripts come with the Rust `pmc` binary) | by hand |
 | `fixtures/` | An example update manifest | by hand |

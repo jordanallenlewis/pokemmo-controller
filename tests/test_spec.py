@@ -102,10 +102,19 @@ class GoldensAreCurrent(unittest.TestCase):
 
     def test_uninstall_restores_exact_bytes(self):
         trees = json.loads((G.OUT_DIR / "sandbox-trees.json").read_text(encoding="utf-8"))["scenarios"]
-        for name in ("install-rerun-uninstall", "lf-line-endings", "no-wheel", "switch-positional", "no-steam"):
+        for name in ("install-rerun-uninstall", "lf-line-endings", "no-wheel", "switch-positional", "no-steam",
+                     "update-from-v1.1.0", "update-from-v1.2.0"):
             steps = trees[name]
             self.assertEqual(steps[-1]["tree"], steps[0]["tree"], name)
             self.assertIsNone(steps[-1]["record"], name)
+
+    def test_follower_never_writes_for_junk_or_the_login_window(self):
+        seqs = json.loads((G.OUT_DIR / "follower-sequences.json").read_text(encoding="utf-8"))["sequences"]
+        by = {s["label"]: s for s in seqs}
+        for label in ("the 640x480 login window is skipped", "a half-finished resize (wider than 8 to 1) is skipped",
+                      "fast flap 4K 1080p 1440p 4K leaves no stale size"):
+            self.assertEqual([w for w in by[label]["writes"] if w], [], label)
+        self.assertEqual([w for w in by["settles after three equal samples"]["writes"] if w], [[1920, 1080]])
 
     def test_rerun_changes_nothing(self):
         steps = G.json.loads((G.OUT_DIR / "sandbox-trees.json").read_text(encoding="utf-8"))["scenarios"]["install-rerun-uninstall"]
