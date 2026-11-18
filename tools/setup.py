@@ -184,12 +184,8 @@ def follow(a, limit=None):
             print("\nStopped.")
 
 
-def run(a):
-    print(f"PokeMMO controller layout v{VERSION}")
-    if not P.WINDOWS and not P.TEST and hasattr(os, "geteuid") and os.geteuid() == 0:
-        sys.exit("Run this without sudo: as root it would write the settings of the wrong user.")
-    if P.pokemmo_running() and not a.dry_run:
-        sys.exit("PokeMMO is open. Close it (it rewrites its settings on exit), then run this again.")
+def locate(a):
+    """(PokeMMO folder or None, Steam folder or None, Steam folders to clean) for this run."""
     try:
         pm = P.find_pokemmo(a.pokemmo)
     except SystemExit:
@@ -206,6 +202,28 @@ def run(a):
             steams = [steam]
         except SystemExit:
             print("Steam not found: installing the controller binds without the wheel.")
+    return pm, steam, steams
+
+
+def changes(a):
+    """What a run would do, as data (pmc --dry-run, --check and --json): writes nothing.
+    {"pokemmo", "steam", "changes": [{"path", "action"}], "steam_restart"}."""
+    pm, steam, steams = locate(a)
+    p = build_plan(a, pm, steam, steams)
+    out = []
+    for path, data in sorted(p.pending().items(), key=lambda kv: str(kv[0])):
+        out.append({"path": str(path), "action": "remove" if data is None else "create" if not path.exists() else "change"})
+    return {"pokemmo": str(pm) if pm else None, "steam": str(steams[0]) if steams else None, "changes": out,
+            "steam_restart": bool(out) and any(p.touches(s) for s in steams) and P.steam_running()}
+
+
+def run(a):
+    print(f"PokeMMO controller layout v{VERSION}")
+    if not P.WINDOWS and not P.TEST and hasattr(os, "geteuid") and os.geteuid() == 0:
+        sys.exit("Run this without sudo: as root it would write the settings of the wrong user.")
+    if P.pokemmo_running() and not a.dry_run:
+        sys.exit("PokeMMO is open. Close it (it rewrites its settings on exit), then run this again.")
+    pm, steam, steams = locate(a)
 
     p = build_plan(a, pm, steam, steams)
     prev = previous_version(p, pm)
@@ -335,7 +353,10 @@ def update_cmd(a):
         sys.exit(str(e))
 
 
-def main():
+
+
+def parse(argv=None):
+    """The options as a namespace, with --layout and --resolution already read and checked."""
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--uninstall", action="store_true", help="undo everything")
     ap.add_argument("--no-wheel", action="store_true", help="skip the Steam right-stick wheel")
@@ -374,7 +395,7 @@ def main():
     ap.add_argument("--background", action="store_true", help=argparse.SUPPRESS)
     ap.add_argument("--follow-interval", type=float, default=None, metavar="SECONDS", help=argparse.SUPPRESS)
     ap.add_argument("--version", action="version", version=f"pokemmo-controller {VERSION}")
-    a = ap.parse_args()
+    a = ap.parse_args(argv)
     if a.layout:
         try:
             a.layout_data = layout_mod.loads(Path(a.layout).expanduser().read_bytes())
@@ -392,6 +413,11 @@ def main():
         sys.exit("--background goes with --follow.")
     if a.no_follow and a.follow_at_login:
         sys.exit("Use either --no-follow or --follow-at-login, not both.")
+    return a
+
+
+def main(argv=None):
+    a = parse(argv)
     if a.follow:
         if a.no_follow or a.follow_at_login or a.uninstall or a.layout or a.install_ui or a.resolution or a.reset_screen:
             sys.exit("--follow runs on its own: use it without the other options.")

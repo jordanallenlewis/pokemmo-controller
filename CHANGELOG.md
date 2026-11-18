@@ -10,6 +10,9 @@
 - New: the update is checked against a signature before anything is installed, keeps your own
   remaps and layout, and puts the old version back by itself if anything goes wrong.
 - New: from a terminal, `setup.py --update --check` says whether there is one and `--update --yes` installs it.
+- New: `pmc`, the command line for people who prefer a terminal: `pmc status`, `pmc doctor`,
+  `pmc install` and `pmc uninstall` (with `--dry-run`, `--yes` and `--json`; `--json` prints the one fixed envelope, and the exit codes are fixed too), and
+  `pmc app` to open the remap screen. It runs the same code as the remap screen and the installers.
 
 ## 1.3.0-beta.1 - 2026-11-17 (pre-release)
 
