@@ -232,3 +232,6 @@ kbd { font: 500 12px/1 var(--mono); background: var(--surface-2); border: 1px so
 /* narrow phones: the GitHub button shows only its icon and count so the name never collides with it */
 @media (max-width: 480px) { .gh > span:not(.stars) { display: none; } .brand { font-size: 17px; gap: 10px; } .nav-in { gap: 12px; } }
 @media (max-width: 900px) { .demo { grid-template-columns: 1fr; } .demo-side .pad { max-width: 360px; } }
+.other-os { margin: 14px 0 0; font-size: 14px; color: var(--muted); }
+.other-os a { color: var(--muted); text-underline-offset: 3px; }
+.other-os a:hover { color: var(--ink); }
