@@ -309,6 +309,7 @@ class Plan:
                 remove(b)
             if self.state_path:
                 remove(self.state_path)
+                sweep_tmp(self.state_path)
         elif self.pokemmo:
             self.save_state()
 

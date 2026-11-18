@@ -75,7 +75,7 @@ const css = (t) => {
           svg.append(ln, dot);
         }
         map.append(svg);
-      }, { c: { accentLine: theme === "dark" ? "#ffc833" : "#b07a00", bg: T[theme].surface }, dark: theme === "dark" });
+      }, { c: { accentLine: theme === "dark" ? "#f0ea6b" : "#635f03", bg: T[theme].surface }, dark: theme === "dark" });
       await page.locator(".map").screenshot({ path: path.join(out, `map-${kind}-${theme}.png`) });
     }
     // the wheel

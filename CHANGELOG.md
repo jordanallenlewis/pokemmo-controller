@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- README: Troubleshooting says to put a pad back on its default profile if buttons were swapped
+  in the maker's app, and "Is this allowed?" says to keep a pad's turbo button off.
+
 ## 1.3.0-beta.1 - 2026-11-17 (pre-release)
 
 A beta of the zero-touch install work. The one-line installers fetch from `main`, so they already
