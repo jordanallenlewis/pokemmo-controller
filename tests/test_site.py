@@ -63,5 +63,40 @@ class InstallFacts(unittest.TestCase):
             self.assertIn(line.replace("&", "&amp;"), self.html())
 
 
+class Sections(unittest.TestCase):
+    """How it works, what's new, roadmap and the help-test call are on the page."""
+
+    def html(self):
+        return (SITE / "index.html").read_text(encoding="utf-8")
+
+    def test_every_section_has_an_anchor_and_a_nav_link_for_how(self):
+        html = self.html()
+        for sid in ("how", "install", "faq", "new", "roadmap", "help-test", "uninstall", "troubleshooting"):
+            self.assertIn('id="%s"' % sid, html)
+        self.assertIn('href="#how"', html)
+
+    def test_roadmap_matches_the_readme(self):
+        readme = (SITE.parent / "README.md").read_text(encoding="utf-8")
+        road = readme.split("## Roadmap", 1)[1].split("## Tested with", 1)[0]
+        for item in ("Cursor mode", "Steam Deck back-button variant", "Steam community layout"):
+            self.assertIn(item.lower(), road.lower())
+            self.assertIn(item.lower(), self.html().lower())
+
+    def test_untested_systems_are_not_claimed(self):
+        html = self.html()
+        self.assertIn("have not been played in game yet", html)
+        self.assertNotRegex(html, r"(?i)tested on (a )?(mac|deck|playstation|switch)")
+
+    def test_whats_new_names_the_latest_unreleased_headline(self):
+        log = (SITE.parent / "CHANGELOG.md").read_text(encoding="utf-8")
+        self.assertIn("## Unreleased", log)
+        self.assertIn("Update with one click", self.html())
+
+    def test_faq_covers_the_friction_list(self):
+        html = self.html()
+        for q in ("paste a line", "PokeMMO be closed", "Steam close", "isn't detected"):
+            self.assertIn(q.lower(), html.lower())
+
+
 if __name__ == "__main__":
     unittest.main()
