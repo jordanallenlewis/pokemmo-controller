@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- New: `pmc`, the command line for people who prefer a terminal: `pmc status`, `pmc doctor`,
+  `pmc install` and `pmc uninstall` (with `--dry-run`, `--check`, `--yes` and `--json`), and
+  `pmc app` to open the remap screen. It runs the same code as the remap screen and the installers.
+
 ## 1.3.0-beta.1 - 2026-11-17 (pre-release)
 
 A beta of the zero-touch install work. The one-line installers fetch from `main`, so they already
