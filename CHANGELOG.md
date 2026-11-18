@@ -4,6 +4,12 @@
 
 - README: Troubleshooting says to put a pad back on its default profile if buttons were swapped
   in the maker's app, and "Is this allowed?" says to keep a pad's turbo button off.
+- New: the app tells you when a new version is out, with a short "what's new" and one button,
+  Update now. It checks when it opens and about once a day; nothing about you is sent, and you
+  can turn it off in Settings. A beta channel is there if you want new versions early.
+- New: the update is checked against a signature before anything is installed, keeps your own
+  remaps and layout, and puts the old version back by itself if anything goes wrong.
+- New: from a terminal, `setup.py --update --check` says whether there is one and `--update --yes` installs it.
 
 ## 1.3.0-beta.1 - 2026-11-17 (pre-release)
 

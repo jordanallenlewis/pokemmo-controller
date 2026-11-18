@@ -21,6 +21,7 @@ import apply_native  # noqa: E402
 import install_wheel  # noqa: E402
 import layout as L  # noqa: E402
 import pads  # noqa: E402
+import updater  # noqa: E402
 import platforms as P  # noqa: E402
 from common import STATE_NAME, VERSION, Plan  # noqa: E402
 
@@ -166,6 +167,54 @@ class App:
             "version": VERSION,
         }
 
+    # ------------------------------------------------------------ updates
+    def _pm(self):
+        try:
+            return P.find_pokemmo(self.pokemmo)
+        except SystemExit:
+            return None
+
+    def update_status(self, force=False):
+        pm = self._pm()
+        return updater.status(pm, force=force) if pm else {"enabled": False, "available": False, "current": VERSION}
+
+    def update_settings(self, body):
+        pm = self._pm()
+        changes = {}
+        if isinstance(body.get("check"), bool):
+            changes["check"] = body["check"]
+        if body.get("channel") in updater.CHANNELS:
+            changes["channel"] = body["channel"]
+        if isinstance(body.get("later"), str):
+            changes["later"] = body["later"][:40]
+        if body.get("ack") is True:
+            changes["just_updated"] = None
+        if changes and pm:
+            updater.save_settings(pm, **changes)
+        return self.update_status(force="channel" in changes)
+
+    def update_apply(self):
+        """One click: check again, download, verify, update, and (outside tests) open the new version."""
+        pm = self._pm()
+        if not pm:
+            return {"ok": False, "error": "PokeMMO was not found, so there is nothing to update."}
+        if updater.managed_by():
+            return {"ok": False, "error": updater.manager_hint(updater.managed_by())}
+        with self.lock:
+            try:
+                c = updater.check(updater.settings(Plan(pm).state)["channel"])
+                if not c["available"]:
+                    return {"ok": True, "version": VERSION, "output": "You already have the newest version."}
+                v = updater.apply(pm, c["manifest"], steam=self.steam, say=lambda *_: None, env=self.env)
+            except updater.UpdateError as e:
+                return {"ok": False, "error": str(e)}
+        if not P.TEST:  # the new version opens itself; this one steps aside
+            launcher = updater.app_root(pm) / "tools" / "setup.py"
+            if launcher.exists():
+                P.start_detached([sys.executable, str(launcher), "--pokemmo", str(pm), "--ui"])
+                self.stop.set()
+        return {"ok": True, "version": v}
+
     def check(self, lay):
         L.validate(lay)
         return {"ok": True}
@@ -251,6 +300,10 @@ class Handler(http.server.BaseHTTPRequestHandler):
             if not self._authorized():
                 return self._json(403, {"error": "missing key"})
             return self._json(200, self.app.state())
+        if path == "/api/update":
+            if not self._authorized():
+                return self._json(403, {"error": "missing key"})
+            return self._json(200, self.app.update_status(force=query == "force=1"))
         if path == "/api/status":
             if not self._authorized():
                 return self._json(403, {"error": "missing key"})
@@ -290,6 +343,10 @@ class Handler(http.server.BaseHTTPRequestHandler):
                 return self._json(200, {"ok": True, "layout": L.loads(text)})
             if self.path == "/api/apply":
                 return self._json(200, self.app.apply(body.get("layout")))
+            if self.path == "/api/update/settings":
+                return self._json(200, self.app.update_settings(body))
+            if self.path == "/api/update/apply":
+                return self._json(200, self.app.update_apply())
             if self.path == "/api/reset":
                 return self._json(200, self.app.apply(None, reset=True))
             if self.path == "/api/quit":

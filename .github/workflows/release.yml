@@ -1,38 +1,95 @@
-name: release assets
+name: release
 
-# When a release is published, attach the files the installers download:
-# pokemmo-controller.tar.gz (macOS, Linux), pokemmo-controller.zip (Windows) and
-# SHA256SUMS. Downloads of these files are the install count (GitHub counts them;
-# nothing is collected from players). A pre-release gets the same files, but the
-# installers only follow the newest full release.
+# On every version tag: build the release archive, SHA256SUMS and update.json, sign update.json
+# with the updater key (repository secret UPDATE_SIGNING_KEY, a base64 32-byte seed; the public
+# key is pinned in tools/update_key.py), check the result the way a player's computer will, test
+# the update path on every system, and only then publish. A release without valid update
+# metadata fails here and publishes nothing.
 on:
-  release:
-    types: [published]
-  workflow_dispatch:
-    inputs:
-      tag:
-        description: "Existing release tag to (re)build assets for, e.g. v1.2.0"
-        required: true
+  push:
+    tags: ["v*"]
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  assets:
+  build:
+    name: Build and sign
     runs-on: ubuntu-latest
-    env:
-      TAG: ${{ github.event.release.tag_name || inputs.tag }}
-      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - name: Build, sign, verify
+        env:
+          UPDATE_SIGNING_KEY: ${{ secrets.UPDATE_SIGNING_KEY }}
+        run: |
+          python .github/release_meta.py build --tag "$GITHUB_REF_NAME" --out dist
+          python .github/release_meta.py sign --out dist
+          python .github/release_meta.py verify --out dist --tag "$GITHUB_REF_NAME"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-files
+          path: dist/
+
+  # The update path itself, on every system: signature, download, apply, rollback, custom remaps,
+  # and an update from the previous release (needs the full history for the v1.2.0 files).
+  update-path:
+    name: "Update path: ${{ matrix.label }}"
+    needs: build
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {label: "Windows x64",         os: windows-latest}
+          - {label: "Windows ARM",         os: windows-11-arm}
+          - {label: "macOS Apple silicon", os: macos-latest}
+          - {label: "macOS Intel",         os: macos-15-intel}
+          - {label: "Linux x64",           os: ubuntu-latest}
+          - {label: "Linux ARM",           os: ubuntu-24.04-arm}
     steps:
       - uses: actions/checkout@v5
         with:
-          ref: ${{ github.event.release.tag_name || inputs.tag }}
-      - name: Build
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - uses: actions/download-artifact@v4
+        with:
+          name: release-files
+          path: dist
+      - name: Verify the signed files on this system
+        run: python .github/release_meta.py verify --out dist --tag "$GITHUB_REF_NAME"
+        shell: bash
+      - name: Update path tests
+        env:
+          CI: "1"
+        run: python -m unittest discover -s tests -p "test_updater.py" -v
+
+  publish:
+    name: Publish
+    needs: update-path
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/download-artifact@v4
+        with:
+          name: release-files
+          path: dist
+      - name: Attach the files (creates the release if there is none yet)
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          set -eu
-          mkdir -p dist
-          git archive --format=tar.gz --prefix="pokemmo-controller-${TAG}/" -o dist/pokemmo-controller.tar.gz HEAD
-          git archive --format=zip --prefix="pokemmo-controller-${TAG}/" -o dist/pokemmo-controller.zip HEAD
-          (cd dist && sha256sum pokemmo-controller.tar.gz pokemmo-controller.zip > SHA256SUMS && cat SHA256SUMS)
-      - name: Attach to the release
-        run: gh release upload "$TAG" dist/pokemmo-controller.tar.gz dist/pokemmo-controller.zip dist/SHA256SUMS --clobber
+          ls dist
+          test -s dist/update.json && test -s dist/update.json.sig && test -s dist/SHA256SUMS
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" dist/* --clobber
+          else
+            case "$GITHUB_REF_NAME" in *-*) pre="--prerelease" ;; *) pre="" ;; esac
+            gh release create "$GITHUB_REF_NAME" dist/* $pre --title "$GITHUB_REF_NAME" \
+              --notes "See CHANGELOG.md. PokeMMO Controller is an unofficial, fan-made tool; it is not made, endorsed or supported by the PokeMMO team."
+          fi
