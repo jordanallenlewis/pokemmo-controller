@@ -188,6 +188,7 @@ footer.legal { max-width: 76rem; margin: 0 auto; padding: 0 1.25rem 1rem; color:
 </header>
 
 <main>
+  <div id="update" role="status" aria-live="polite" hidden></div>
   <div id="status" role="status" aria-live="polite"></div>
 
   <section id="p-layout" role="tabpanel" aria-labelledby="t-layout">
@@ -243,10 +244,22 @@ footer.legal { max-width: 76rem; margin: 0 auto; padding: 0 1.25rem 1rem; color:
           <input type="file" id="file" accept=".json,application/json" class="sr" tabindex="-1" aria-hidden="true">
         </div>
       </div>
+      <div class="card" id="upd-card">
+        <h2>Updates</h2>
+        <p class="muted lead">When a new version is out, a short note appears at the top with one button to install it. Your layout is kept, and the old version comes back by itself if anything goes wrong.</p>
+        <label><input type="checkbox" id="upd-check"> Look for updates when this app opens</label>
+        <label for="upd-channel">Which versions</label>
+        <select id="upd-channel">
+          <option value="stable">Stable (recommended)</option>
+          <option value="beta">Beta: try new versions early</option>
+        </select>
+        <label><input type="checkbox" id="upd-notify"> Notify me when this window is hidden</label>
+        <div class="row"><button class="btn" id="upd-now">Check now</button><span class="muted" id="upd-msg" role="status"></span></div>
+      </div>
       <div class="card">
         <h2>About</h2>
         <p class="muted lead" id="unofficial">PokeMMO Controller is an unofficial, fan-made tool, made by and for PokeMMO players. It is not made, endorsed or supported by the PokeMMO team.</p>
-        <p class="muted">PokeMMO allows remapping while one input does one thing. Each button holds one action and each wheel slice presses one key when you let go, so this screen cannot set up anything else. It runs on your computer only and talks to nothing else.</p>
+        <p class="muted">PokeMMO allows remapping while one input does one thing. Each button holds one action and each wheel slice presses one key when you let go, so this screen cannot set up anything else. It runs on your computer only. The one thing it asks the internet is whether a newer release exists, and that sends nothing about you; you can turn it off under Updates.</p>
         <div class="row"><button class="btn" id="quit">Quit</button></div>
       </div>
     </div>
@@ -653,6 +666,70 @@ $("file").addEventListener("change", async (e) => {
 });
 $("quit").addEventListener("click", async () => { await api("/api/quit", {}); document.body.textContent = "Stopped. You can close this window."; });
 
+// ------------------------------------------------------------------ updates
+let U = null;
+function updateBanner() {
+  const box = $("update");
+  box.textContent = "";
+  box.hidden = true;
+  if (!U) return;
+  const add = (cls, ...kids) => { box.className = "note " + cls; box.append(...kids); box.hidden = false; };
+  if (U.just_updated) {
+    const ack = el("button", {class: "btn", id: "upd-ack"}, "Got it");
+    add("ok", el("strong", {}, "Updated to v" + U.just_updated.to + ". "),
+      "Press a button on your controller: it lights up on the map when it works. ", ack);
+    ack.addEventListener("click", async () => { U = await api("/api/update/settings", {ack: true}); updateBanner(); });
+  } else if (U.available && !U.dismissed && !U.managed) {
+    const notes = el("ul", {}, ...(U.notes || []).slice(0, 3).map((n) => el("li", {}, n.length > 200 ? n.slice(0, 197) + "…" : n)));
+    const go = el("button", {class: "btn primary", id: "upd-go"}, "Update now");
+    const later = el("button", {class: "btn", id: "upd-later"}, "Later");
+    add("warn", el("strong", {}, "Version " + U.version + " is out. "), "What's new:", notes, el("div", {class: "row"}, go, later));
+    later.addEventListener("click", async () => { U = await api("/api/update/settings", {later: U.version}); updateBanner(); });
+    go.addEventListener("click", installUpdate);
+  } else if (U.available && U.managed && !U.dismissed) {
+    add("warn", U.managed_hint || "Update with your package manager.");
+  }
+}
+async function installUpdate(ev) {
+  const go = ev.currentTarget, later = go.nextElementSibling;
+  go.disabled = true; later.disabled = true;
+  go.textContent = "Updating…";
+  let r;
+  try { r = await api("/api/update/apply", {}); }
+  catch (e) { r = null; }
+  if (r && r.ok) {
+    document.body.textContent = "Updated to v" + r.version + ". The new version is opening; you can close this window.";
+  } else {
+    say("result", r ? r.error : "The app stopped answering while updating. Open it again: if the update did not finish, the previous version is still in place.", "bad");
+    U = await api("/api/update");
+    updateBanner();
+  }
+}
+function renderUpdateSettings() {
+  if (!U) return;
+  $("upd-check").checked = U.enabled !== false;
+  $("upd-channel").value = U.channel || "stable";
+  $("upd-notify").checked = localStorage.getItem("notify-update") === "1";
+}
+async function checkUpdates(force) {
+  try { U = await api("/api/update" + (force ? "?force=1" : "")); } catch (e) { return null; }
+  updateBanner(); renderUpdateSettings();
+  if (U.available && !U.dismissed && document.hidden && localStorage.getItem("notify-update") === "1"
+      && window.Notification && Notification.permission === "granted") new Notification("PokeMMO Controller", {body: "Version " + U.version + " is out."});
+  return U;
+}
+$("upd-check").addEventListener("change", async () => { U = await api("/api/update/settings", {check: $("upd-check").checked}); updateBanner(); });
+$("upd-channel").addEventListener("change", async () => { U = await api("/api/update/settings", {channel: $("upd-channel").value}); updateBanner(); renderUpdateSettings(); });
+$("upd-notify").addEventListener("change", async () => {
+  if ($("upd-notify").checked && window.Notification && Notification.permission === "default") await Notification.requestPermission();
+  localStorage.setItem("notify-update", $("upd-notify").checked ? "1" : "0");
+});
+$("upd-now").addEventListener("click", async () => {
+  $("upd-msg").textContent = "Checking…";
+  const u = await checkUpdates(true);
+  $("upd-msg").textContent = !u ? "Could not check." : u.error ? u.error : u.enabled === false ? "Update checks are off." : u.available ? "Version " + u.version + " is out." : "You have the newest version.";
+});
+
 (async function init() {
   S = await api("/api/state");
   lay = JSON.parse(JSON.stringify(S.layout));
@@ -666,6 +743,8 @@ $("quit").addEventListener("click", async () => { await api("/api/quit", {}); do
   const first = location.hash.slice(1);
   showTab(["layout", "wheel", "status", "settings"].includes(first) ? first : (S.status.installed ? "layout" : "status"));
   setInterval(pollPads, 120);
+  checkUpdates(false);
+  setInterval(() => checkUpdates(false), 6 * 3600 * 1000);   // the app itself only asks again about daily
   setInterval(() => { if (!document.hidden) refreshStatus(); }, 5000);
 })();
 </script>
