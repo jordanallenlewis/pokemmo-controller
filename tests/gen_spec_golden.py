@@ -11,7 +11,8 @@ tool version <VERSION>. A file whose bytes hold the root (the Steam shortcut lis
 install record: the shortcut's appid is derived from its path) is listed with "path": true
 and no hash; the install record is stored parsed, keys normalised, with those hashes left out.
 """
-import hashlib, json, re, sys
+import hashlib
+import os, json, re, sys
 from pathlib import Path
 
 import helpers
@@ -29,8 +30,21 @@ def _version():
     return VERSION
 
 
+def _root_forms(root):
+    """Every spelling of the sandbox root a program may print: long, posix and, on Windows, the 8.3 short form."""
+    forms = {str(root), root.as_posix()}
+    if os.name == "nt":
+        import ctypes
+        buf = ctypes.create_unicode_buffer(32768)
+        for fn in ("GetShortPathNameW", "GetLongPathNameW"):
+            if getattr(ctypes.windll.kernel32, fn)(str(root), buf, len(buf)):
+                forms |= {buf.value, buf.value.replace("\\", "/")}
+    return sorted(forms, key=len, reverse=True)
+
+
 def _norm_text(text, root):
-    text = text.replace(str(root), "<ROOT>").replace(root.as_posix(), "<ROOT>")
+    for form in _root_forms(root):
+        text = text.replace(form, "<ROOT>")
     text = text.replace(_version(), "<VERSION>")
     text = re.sub(r"appid -?\d+", "appid <APPID>", text)
     return text.replace("\\", "/")
@@ -54,7 +68,7 @@ def _norm_record(raw, root):
             data = Path(k).read_bytes()
         except OSError:
             continue
-        if str(root).encode() in data or root.as_posix().encode() in data:
+        if any(f.encode() in data for f in _root_forms(root)):
             holds_root.add(_norm_text(k, root))
     rec = _walk(raw_rec, root)
     for k, v in rec.get("files", {}).items():
@@ -74,7 +88,7 @@ def tree(sb):
             out[rel] = None
         elif rel.endswith("config/pokemmo-controller.json"):
             out[rel] = {"path": True}
-        elif str(root).encode() in data or root.as_posix().encode() in data:
+        elif any(f.encode() in data for f in _root_forms(root)):
             out[rel] = {"path": True}
         else:
             out[rel] = hashlib.sha256(data.replace(b"\r\n", b"\n")).hexdigest()
