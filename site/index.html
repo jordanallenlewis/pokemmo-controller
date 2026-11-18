@@ -3,14 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PokeMMO Controller: play PokeMMO with any gamepad</title>
-<meta name="description" content="Unofficial, fan-made controller layout for PokeMMO, by and for players. Every action on your Xbox, PlayStation or Switch Pro controller, on Windows, Mac, Linux and Steam Deck. One command to install.">
+<title>PokeMMO Controller: Xbox, PS5, Switch Pro and Steam Deck controls</title>
+<meta name="description" content="Free, unofficial controller layout for PokeMMO. Play with an Xbox, PS5 or Switch Pro pad on Windows, Mac, Linux or Steam Deck. One command installs it.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#121418">
 <meta property="og:title" content="PokeMMO Controller (unofficial, fan-made)">
 <meta property="og:description" content="An unofficial, fan-made controller layout for PokeMMO, made by and for players. Every action on your controller, one command to install. Not made, endorsed or supported by the PokeMMO team.">
 <link rel="canonical" href="https://pokemmocontroller.com/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="PokeMMO Controller">
+<meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://pokemmocontroller.com/">
 <meta property="og:image" content="https://pokemmocontroller.com/assets/og.png">
 <meta property="og:image:width" content="1200">
@@ -20,13 +23,14 @@
 <meta name="twitter:title" content="PokeMMO Controller (unofficial, fan-made)">
 <meta name="twitter:description" content="An unofficial, fan-made controller layout for PokeMMO, made by and for players. Not made, endorsed or supported by the PokeMMO team.">
 <meta name="twitter:image" content="https://pokemmocontroller.com/assets/og.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"PokeMMO Controller","applicationCategory":"GameApplication","operatingSystem":"Windows, macOS, Linux, SteamOS","url":"https://pokemmocontroller.com/","downloadUrl":"https://github.com/jordanallenlewis/pokemmo-controller/releases/latest","license":"https://github.com/jordanallenlewis/pokemmo-controller/blob/main/LICENSE","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+<meta name="twitter:image:alt" content="PokeMMO Controller: the PMC logo over an Xbox controller button map">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://pokemmocontroller.com/#site","name":"PokeMMO Controller","url":"https://pokemmocontroller.com/","inLanguage":"en"},{"@type":"SoftwareApplication","@id":"https://pokemmocontroller.com/#app","name":"PokeMMO Controller","alternateName":"PokeMMO Controller Layout","description":"An unofficial, fan-made controller layout for PokeMMO. Xbox, PlayStation and Switch Pro pads, installed with one command.","applicationCategory":"GameApplication","applicationSubCategory":"Controller layout","operatingSystem":"Windows, macOS, Linux, SteamOS","url":"https://pokemmocontroller.com/","image":"https://pokemmocontroller.com/assets/og.png","screenshot":"https://pokemmocontroller.com/assets/remap-screen.png","downloadUrl":"https://github.com/jordanallenlewis/pokemmo-controller/releases/latest","license":"https://github.com/jordanallenlewis/pokemmo-controller/blob/main/LICENSE","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"isPartOf":{"@id":"https://pokemmocontroller.com/#site"}},{"@type":"FAQPage","@id":"https://pokemmocontroller.com/#faq","mainEntity":[{"@type":"Question","name":"Is this allowed in PokeMMO?","acceptedAnswer":{"@type":"Answer","text":"PokeMMO lets you remap your controls as long as one input from you produces no more than one input to the game. This layout is built around that rule: every button and every wheel slice does exactly one thing, and the tool refuses any layout with a repeat, a sequence or a delay. It is also an unofficial, fan-made tool, made by and for PokeMMO players. It is not made, endorsed or supported by the PokeMMO team."}},{"@type":"Question","name":"Which controllers work?","acceptedAnswer":{"@type":"Answer","text":"Xbox (One, Series, 360, Elite, Adaptive), PlayStation (DualShock 4, DualSense, Edge), Switch Pro, Steam Deck and Legion Go. Most other gamepads that show up as one of these work too."}},{"@type":"Question","name":"Does it work on Steam Deck?","acceptedAnswer":{"@type":"Answer","text":"The layout includes a Steam Deck version of the right-stick wheel and the install line runs in Desktop Mode. It has been checked by automated tests, not yet played in game on a Deck, so tell us how it goes."}},{"@type":"Question","name":"Can I use a PS5 or Switch Pro controller?","acceptedAnswer":{"@type":"Answer","text":"Yes. The map uses your pad's own button names (Cross and Circle, or the Switch letters). The layout was played in game on an Xbox controller; PlayStation and Switch Pro are built from the same button numbers and not yet played on real hardware, so please report what you find."}},{"@type":"Question","name":"Do I need Steam?","acceptedAnswer":{"@type":"Answer","text":"Only for the right-stick wheel. Without Steam you still get every other button through the game's own controller support."}},{"@type":"Question","name":"Can I change the buttons?","acceptedAnswer":{"@type":"Answer","text":"Yes. The remap screen opens in your browser, lets you pick the input for every action and move the wheel slices, and checks that each input still does just one thing."}},{"@type":"Question","name":"Something isn't working.","acceptedAnswer":{"@type":"Answer","text":"Close other controller tools (DS4Windows, reWASD and similar), then run the install line again. Still stuck? Open an issue and say which system and controller you use."}},{"@type":"Question","name":"How do I uninstall?","acceptedAnswer":{"@type":"Answer","text":"One line, listed in the README. It restores PokeMMO's and Steam's settings exactly as they were."}}]}]}</script>
 <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/brand/icon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="assets/brand/icon-192.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Geist:wght@400..600&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="manifest" href="site.webmanifest">
+<link rel="preload" href="assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/bricolage-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -35,18 +39,19 @@
 <header class="nav">
   <div class="wrap nav-in">
     <a class="brand" href="#top" aria-label="PokeMMO Controller home">
-      <img src="assets/logo.svg" alt="" height="30" style="width:auto">
+      <img src="assets/logo.svg" alt="" width="57" height="30">
       <span>PokeMMO <b>Controller</b></span>
     </a>
     <nav aria-label="Sections">
+      <a href="#demo">Demo</a>
       <a href="#map">Button map</a>
       <a href="#wheel">Wheel</a>
       <a href="#install">Install</a>
       <a href="#faq">FAQ</a>
     </nav>
-    <a class="btn btn-ghost btn-sm gh" href="https://github.com/jordanallenlewis/pokemmo-controller" data-gh>
+    <a class="btn btn-ghost btn-sm gh" href="https://github.com/jordanallenlewis/pokemmo-controller" data-gh aria-label="PokeMMO Controller on GitHub">
       <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38v-1.33c-2.23.48-2.7-1.07-2.7-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.06-.49.06-.49.8.06 1.23.83 1.23.83.72 1.23 1.88.87 2.34.67.07-.52.28-.87.5-1.07-1.78-.2-3.65-.89-3.65-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
-      <span>Star</span><span class="stars" data-stars hidden></span>
+      <span>GitHub</span><span class="stars" data-stars hidden></span>
     </a>
   </div>
 </header>
@@ -55,7 +60,7 @@
 <section class="hero" id="top">
   <div class="wrap hero-in">
     <div class="hero-copy">
-      <p class="eyebrow">Free · open source · v<span data-version>1.1.0</span></p>
+      <p class="eyebrow">Free · open source · v<span data-version>1.2.0</span></p>
       <h1><span class="nowrap">Play <img class="pmmo-word" src="assets/pokemmo-wordmark.svg" alt="PokeMMO" width="294" height="39"></span><br>from the couch</h1>
       <p class="unofficial" role="note">PokeMMO Controller is an unofficial, fan-made tool, made by and for PokeMMO players. It is not made, endorsed or supported by the PokeMMO team.</p>
       <p class="lede">Every action in the game on your controller: battles, hotbar, Bag, GTL, Pokédex. Uses PokeMMO's own controller support, installs with one command, and stays out of your way.</p>
@@ -81,6 +86,28 @@
     <div><b>1</b><span>command to install</span></div>
     <div><b>0</b><span>apps to keep open</span></div>
     <div><b>1 = 1</b><span>one press, one action</span></div>
+  </div>
+</section>
+
+<section class="sec" id="demo">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">In game</p>
+      <h2>Press a button, the game answers</h2>
+      <p>Recorded in PokeMMO with only a controller: walking, running with B, and the right-stick wheel for the Pokédex, the trainer card and the GTL. The pad on the right lights up with each press.</p>
+    </div>
+    <div class="demo">
+      <figure class="demo-video">
+        <video data-demo autoplay muted loop playsinline preload="metadata" poster="assets/demo-poster.jpg" aria-label="PokeMMO played with a controller: walking, running and the right-stick wheel">
+          <source src="assets/demo.webm" type="video/webm">
+          <source src="assets/demo.mp4" type="video/mp4">
+        </video>
+      </figure>
+      <div class="demo-side">
+        <div class="pad" data-pad="demo"></div>
+        <p class="demo-now" aria-live="polite"><span class="key" data-demo-key>—</span><span data-demo-act>Watching</span></p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -158,7 +185,7 @@
       <article class="card">
         <svg class="card-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="10" rx="2"/><path d="M7 7v10M11 7v10M15 7v10"/></svg>
         <h3>Your whole hotbar</h3>
-        <p>Slots 1–5 on the D-pad and LB, 6–9 on the wheel, plus the Focus Ring to reach any item.</p>
+        <p>Slots 1–4 on the D-pad, slot 5 on View (which also opens the town map), 6–9 on the wheel, and the Focus Ring on LB to reach any item.</p>
       </article>
     </div>
     <div class="shots">
@@ -228,6 +255,14 @@
         <p>Xbox (One, Series, 360, Elite, Adaptive), PlayStation (DualShock 4, DualSense, Edge), Switch Pro, Steam Deck and Legion Go. Most other gamepads that show up as one of these work too.</p>
       </details>
       <details>
+        <summary>Does it work on Steam Deck?</summary>
+        <p>The layout includes a Steam Deck version of the right-stick wheel and the install line runs in Desktop Mode. It has been checked by automated tests, not yet played in game on a Deck, so tell us how it goes.</p>
+      </details>
+      <details>
+        <summary>Can I use a PS5 or Switch Pro controller?</summary>
+        <p>Yes. The map uses your pad's own button names (Cross and Circle, or the Switch letters). The layout was played in game on an Xbox controller; PlayStation and Switch Pro are built from the same button numbers and not yet played on real hardware, so please report what you find.</p>
+      </details>
+      <details>
         <summary>Do I need Steam?</summary>
         <p>Only for the right-stick wheel. Without Steam you still get every other button through the game's own controller support.</p>
       </details>
@@ -250,10 +285,10 @@
 <section class="sec cta-end">
   <div class="wrap end-in">
     <h2>Grab your controller</h2>
-    <p>Free forever. If it makes the game better for you, a star on GitHub helps other players find it.</p>
+    <p>Free and open source. Questions, bugs and ideas go in the GitHub issues.</p>
     <div class="cta">
       <a class="btn btn-primary" href="#install">Install now</a>
-      <a class="btn btn-ghost" href="https://github.com/jordanallenlewis/pokemmo-controller" data-gh>★ Star on GitHub</a>
+      <a class="btn btn-ghost" href="https://github.com/jordanallenlewis/pokemmo-controller" data-gh>See it on GitHub</a>
     </div>
   </div>
 </section>

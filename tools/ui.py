@@ -13,15 +13,16 @@ backup, atomic writes and exact uninstall. PokeMMO must be closed to apply.
 PokeMMO's rule, one input = one action, is enforced in layout.py: the page
 cannot ask for anything else, and neither can a request sent by hand.
 """
-import http.server, json, os, secrets, subprocess, sys, tempfile, threading, webbrowser
+import http.server, json, os, secrets, subprocess, sys, tempfile, threading, time, webbrowser
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import apply_native  # noqa: E402
+import install_wheel  # noqa: E402
 import layout as L  # noqa: E402
 import pads  # noqa: E402
 import platforms as P  # noqa: E402
-from common import STATE_NAME, VERSION  # noqa: E402
+from common import STATE_NAME, VERSION, Plan  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 PAGE = HERE / "ui_page.html"
@@ -110,23 +111,64 @@ class App:
             "wheel_actions": [{"id": k, "label": v[1], "key": v[0]} for k, v in L.WHEEL_ACTIONS.items()],
             "pads": names, "pad": pad, "switch_positional": positional,
             "buttons": names[pad]["buttons"], "axes": names[pad]["axes"],
+            # where each layout button sits on the picture: the SDL position it ends up on, per pad
+            "phys": {fam: [pads.physical_button(fam, n, positional) for n in range(L.BUTTONS)] for fam in pads.FAMILIES},
+            "status": self.status(found),
+        }
+
+    def drift(self, found):
+        """(binds_current, steam_current): would the installer, run now, change nothing? That is
+        the whole truth about the files, whatever the record says (the game rewrites its
+        settings, Steam drops a layout). False when nothing is installed or the check fails."""
+        pm = Path(found)
+        if not _record(found):
+            return False, False
+        try:
+            p = Plan(pm)
+            apply_native.plan(p, pm)
+            binds = not p.pending()
+            steam = False
+            if not self.no_wheel:
+                try:
+                    root = P.find_steam(self.steam)
+                except SystemExit:
+                    root = None
+                if root:
+                    p2 = Plan(pm)
+                    install_wheel.plan(p2, pm, root)
+                    steam = not p2.pending()
+            return binds, steam
+        except Exception:  # noqa: BLE001  a check that cannot run must not show a green tick
+            return False, False
+
+    def status(self, found=None):
+        """What the app keeps true, from the install record (not a probe of the game): the page
+        shows it as ticks and in the status bar."""
+        if found is None:
+            try:
+                found = str(P.find_pokemmo(self.pokemmo))
+            except SystemExit:
+                found = None
+        rec = _record(found) if found else {}
+        files = [str(k) for k in (rec.get("files") or {})]
+        screen = L.recorded_screen(rec) if rec else None
+        binds_ok, steam_ok = self.drift(found) if found else (False, False)
+        return {
+            "pokemmo": bool(found),
+            "pokemmo_open": P.pokemmo_running(),
+            "installed": bool(rec),
+            "binds": any(f.endswith("main.properties") for f in files),
+            "steam": any(f.endswith(".vdf") for f in files),
+            "binds_current": binds_ok,
+            "steam_current": steam_ok,
+            "wheel_screen": list(screen) if screen else None,
+            "custom": bool(rec.get("layout")),
+            "version": VERSION,
         }
 
     def check(self, lay):
         L.validate(lay)
         return {"ok": True}
-
-    def diagram(self, lay, pad):
-        """The button map (pads.py's picture) of this layout on this pad, as SVG text."""
-        if pad not in pads.FAMILIES:
-            raise L.LayoutError(f"Unknown controller {pad!r}: pick Xbox, PlayStation or Switch Pro.")
-        found = None
-        try:
-            found = P.find_pokemmo(self.pokemmo)
-        except SystemExit:
-            pass
-        positional = bool(_record(found).get("switch_positional")) if found else False
-        return {"ok": True, "svg": pads.render_svg(lay, pad, positional)}
 
     def apply(self, lay, reset=False):
         """Run setup.py with the layout: one writer for everything."""
@@ -209,6 +251,10 @@ class Handler(http.server.BaseHTTPRequestHandler):
             if not self._authorized():
                 return self._json(403, {"error": "missing key"})
             return self._json(200, self.app.state())
+        if path == "/api/status":
+            if not self._authorized():
+                return self._json(403, {"error": "missing key"})
+            return self._json(200, self.app.status())
         self._json(404, {"error": "not found"})
 
     def do_POST(self):
@@ -242,8 +288,6 @@ class Handler(http.server.BaseHTTPRequestHandler):
                 if not isinstance(text, str):
                     raise L.LayoutError("No file text was sent.")
                 return self._json(200, {"ok": True, "layout": L.loads(text)})
-            if self.path == "/api/diagram":
-                return self._json(200, self.app.diagram(body.get("layout"), body.get("pad")))
             if self.path == "/api/apply":
                 return self._json(200, self.app.apply(body.get("layout")))
             if self.path == "/api/reset":
@@ -264,7 +308,20 @@ def make_server(app):
     return srv
 
 
-def serve(pokemmo=None, steam=None, no_wheel=False, open_browser=True, env=None):
+def watch_window(proc, app, clock=time.monotonic, grace=3.0):
+    """Quit the app when its window is closed. A window that vanishes within `grace` seconds did
+    not really open (the browser handed the page to another process): then open a normal tab
+    instead and keep running. Returns True when the window stayed."""
+    t0 = clock()
+    proc.wait()
+    if clock() - t0 < grace:
+        return False
+    app.stop.set()
+    return True
+
+
+def serve(pokemmo=None, steam=None, no_wheel=False, open_browser=True, env=None, tab=False,
+          open_window=None):
     app = App(pokemmo, steam, no_wheel, env)
     srv = make_server(app)
     url = f"http://127.0.0.1:{srv.server_address[1]}/?k={app.token}"
@@ -273,10 +330,27 @@ def serve(pokemmo=None, steam=None, no_wheel=False, open_browser=True, env=None)
     print(f"If your browser did not open, open this address:\n  {url}")
     print("Close this window, or press Quit on the page, to stop.")
     if open_browser:
-        try:
-            webbrowser.open(url)
-        except Exception:
-            pass
+        proc = None
+        if not tab:
+            import platforms
+            try:
+                proc = (open_window or platforms.open_app_window)(url)
+            except Exception:  # noqa: BLE001  a window that will not open falls back to a tab
+                proc = None
+
+        def to_tab():
+            try:
+                webbrowser.open(url)
+            except Exception:
+                pass
+
+        if proc is None:
+            to_tab()
+        else:
+            def guard():
+                if not watch_window(proc, app):
+                    to_tab()
+            threading.Thread(target=guard, daemon=True).start()
     try:
         while not app.stop.wait(0.5):
             pass
@@ -294,5 +368,6 @@ if __name__ == "__main__":
     ap.add_argument("--steam")
     ap.add_argument("--no-wheel", action="store_true")
     ap.add_argument("--no-browser", action="store_true")
+    ap.add_argument("--tab", action="store_true", help="open a browser tab, not an app window")
     a = ap.parse_args()
-    serve(a.pokemmo, a.steam, a.no_wheel, not a.no_browser)
+    serve(a.pokemmo, a.steam, a.no_wheel, not a.no_browser, tab=a.tab)

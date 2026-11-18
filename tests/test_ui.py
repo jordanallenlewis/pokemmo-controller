@@ -3,6 +3,7 @@ through the same installer (setup.py) as everything else. No browser needed."""
 import http.client, http.server, json, threading, unittest
 
 import helpers  # noqa: F401  (tools/ on the path, test mode on)
+import common
 import layout as L
 import ui
 from test_setup import Base, diff
@@ -61,6 +62,59 @@ class UI(Base):
         self.assertNotIn("http://", html.replace("http://www.w3.org/2000/svg", ""))
         self.assertNotIn("https://", html)
 
+    def test_status_reports_what_the_install_record_says(self):
+        self.start(self.make())
+        self.assertEqual(self.call("GET", "/api/status", key=False)[0], 403)
+        code, st = self.call("GET", "/api/status")
+        self.assertEqual(code, 200)
+        self.assertTrue(st["pokemmo"])
+        self.assertFalse(st["installed"] or st["binds"] or st["steam"], "nothing installed yet in this sandbox")
+        self.assertEqual(self.call("GET", "/api/state")[1]["status"], st)
+        phys = self.call("GET", "/api/state")[1]["phys"]
+        self.assertEqual(sorted(phys["xbox"]), list(range(L.BUTTONS)))
+        self.assertEqual(sorted(phys["switch"]), list(range(L.BUTTONS)), "every button sits on exactly one spot")
+
+    def test_status_tells_whether_what_is_installed_is_still_right(self):
+        sb = self.make()
+        sb.setup()
+        self.start(sb)
+        st = self.call("GET", "/api/status")[1]
+        self.assertTrue(st["installed"] and st["binds_current"] and st["steam_current"], st)
+        self.assertFalse(st["pokemmo_open"])
+        # the game rewrote its settings without our binds: the record says installed, the truth is not
+        props = sb.pokemmo / "config" / "main.properties"
+        text = props.read_text(encoding="utf-8")
+        props.write_text("\n".join(l for l in text.splitlines() if not l.startswith(common.MAP_KEY)) + "\n",
+                         encoding="utf-8")
+        st = self.call("GET", "/api/status")[1]
+        self.assertTrue(st["installed"])
+        self.assertFalse(st["binds_current"], "binds gone: must not tick")
+        self.assertTrue(st["steam_current"])
+        # and the one-click fix puts them back
+        self.assertTrue(self.call("POST", "/api/apply", {"layout": L.default_layout()})[1]["ok"])
+        self.assertTrue(self.call("GET", "/api/status")[1]["binds_current"])
+
+    def test_status_notices_a_missing_steam_layout(self):
+        sb = self.make()
+        sb.setup()
+        self.start(sb)
+        for f in sb.layout_dir.glob("*") if hasattr(sb, "layout_dir") else []:
+            f.unlink()
+        cfg = sb.steam / "steamapps" / "common" / "Steam Controller Configs"
+        files = [f for f in cfg.rglob("*") if f.is_file()]
+        self.assertTrue(files, "the wheel layouts exist after install")
+        for f in files:
+            f.unlink()
+        st = self.call("GET", "/api/status")[1]
+        self.assertFalse(st["steam_current"])
+        self.assertTrue(st["binds_current"])
+
+    def test_status_is_unknown_not_green_when_nothing_is_installed(self):
+        self.start(self.make())
+        st = self.call("GET", "/api/status")[1]
+        self.assertFalse(st["binds_current"])
+        self.assertFalse(st["steam_current"])
+
     def test_state(self):
         self.start(self.make())
         code, st = self.call("GET", "/api/state")
@@ -102,26 +156,6 @@ class UI(Base):
                 f"[INFO] Controller {line} ( ax 6 btn 15) id 0 attached\n", encoding="utf-8")
             self.start(sb)
             self.assertEqual(self.call("GET", "/api/state")[1]["pad"], fam, line)
-
-    def test_diagram_draws_the_layout_on_the_chosen_pad(self):
-        import xml.etree.ElementTree as ET
-        self.start(self.make())
-        lay = L.default_layout()
-        lay["binds"]["KEY_INVENTORY"], lay["binds"]["KEY_RING_FOCUS"] = ({"button": 9}, {"button": 10})
-        del lay["binds"]["KEY_TEAM"]
-        for fam, word in (("xbox", "LB"), ("playstation", "Cross"), ("switch", "ZR")):
-            code, r = self.call("POST", "/api/diagram", {"layout": lay, "pad": fam})
-            self.assertEqual(code, 200)
-            self.assertTrue(r["ok"], r)
-            text = " ".join(ET.fromstring(r["svg"]).itertext())
-            self.assertIn(word, text)
-            self.assertIn("Not bound", text)
-            self.assertNotIn("<script", r["svg"])
-        bad = L.default_layout()
-        bad["binds"]["KEY_A"] = {"button": 0, "turbo": True}
-        self.assertFalse(self.call("POST", "/api/diagram", {"layout": bad, "pad": "xbox"})[1]["ok"])
-        self.assertFalse(self.call("POST", "/api/diagram", {"layout": lay, "pad": "gamecube"})[1]["ok"])
-        self.assertEqual(self.call("POST", "/api/diagram", {"layout": lay, "pad": "xbox"}, key=False)[0], 403)
 
     def test_macros_refused_by_check_and_import_and_apply(self):
         sb = self.make()
@@ -254,7 +288,11 @@ class Launch(Base):
         p = subprocess.Popen([sys.executable, "-u", str(TOOLS / "setup.py"), "--ui", "--no-browser",
                               "--pokemmo", str(sb.pokemmo), "--no-wheel"], env=sb.env(),
                              stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding="utf-8")
-        self.addCleanup(lambda: p.poll() is None and p.kill())
+        def stop():
+            if p.poll() is None:
+                p.kill()
+            p.communicate(timeout=30)      # waits, and closes the output pipe
+        self.addCleanup(stop)
         url = None
         for line in p.stdout:
             m = re.search(r"http://127\.0\.0\.1:(\d+)/\?k=(\S+)", line)

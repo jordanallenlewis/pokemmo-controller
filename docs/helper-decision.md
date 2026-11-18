@@ -8,9 +8,18 @@ layout right).
 ## Decision
 
 - **Go, one static binary per system.** No runtime for the player, no admin.
-- **`fyne.io/systray`** for the tray / menu bar icon. No webview: the remap
-  screen stays the existing page, served on `127.0.0.1` and opened in the
-  player's browser.
+- **`fyne.io/systray`** for the tray / menu bar icon. No embedded webview: the
+  remap screen stays the existing page, served on `127.0.0.1`.
+- **The app window is the system browser in app mode** (update 2026-11-17).
+  The page opens in its own window, with no address bar or tabs, using the
+  Chromium-based browser the system already has: Edge (shipped with Windows),
+  else Chrome, Chromium or Brave on any system. Closing the window ends the
+  app. With none of them, or if the window will not start, it opens a normal
+  browser tab, as before (`--tab` forces that). The choice lives in
+  `tools/platforms.py`; the page and everything behind it are one code path.
+  This keeps the rule "nothing to install, no cgo, same code everywhere". A true
+  embedded WebView2 on Windows stays a later option; it would need a loader
+  that works without cgo and has no benefit the app window lacks today.
 - A headless mode (`helper serve`) for Steam Deck Game Mode, where there is no
   tray, and for CI.
 - The Python tools stay until one stable helper release has matched them.
@@ -40,7 +49,9 @@ change; a leg over budget fails the build.
 
 ## Not yet verified
 
-Tray icon on a real desktop (Windows, macOS, KDE on Steam Deck Desktop Mode)
+The app window on a real desktop (Edge on Windows, Chrome or Chromium on
+macOS and Linux, and Steam Deck Desktop Mode): CI has no display, so tests cover
+the command line and the fallback only. Tray icon on a real desktop (Windows, macOS, KDE on Steam Deck Desktop Mode)
 and the Deck Game Mode headless path: CI has no display, so these wait for a
 person with the hardware. Unsigned Windows and macOS binaries will show a
 first-run prompt; signing is a separate decision.

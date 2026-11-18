@@ -3,7 +3,7 @@
   <source media="(max-width: 700px) and (prefers-color-scheme: dark)" srcset="docs/img/hero-phone-dark.svg">
   <source media="(max-width: 700px)" srcset="docs/img/hero-phone-light.svg">
   <source media="(prefers-color-scheme: dark)" srcset="docs/img/hero-dark.svg">
-  <img src="docs/img/hero-light.svg" alt="PokeMMO Controller Layout: play PokeMMO with an Xbox, PlayStation or Switch Pro controller" width="900">
+  <img src="docs/img/hero-light.svg" alt="PokeMMO Controller: play PokeMMO from the couch with an Xbox, PlayStation or Switch Pro controller" width="900">
 </picture>
 </h1>
 
@@ -24,13 +24,18 @@ Team are on the controller, plus a labeled right-stick wheel so you can see what
 each direction does.
 
 <picture>
-  <source media="(max-width: 700px) and (prefers-color-scheme: dark)" srcset="docs/img/features-phone-dark.svg">
-  <source media="(max-width: 700px)" srcset="docs/img/features-phone-light.svg">
-  <source media="(prefers-color-scheme: dark)" srcset="docs/img/features-dark.svg">
-  <img src="docs/img/features-light.svg" alt="What you get: one command with nothing to install first; your pad with its own button names; a wheel you can read; a remap screen for any button; one input does one action; honest notes on what was tested">
+  <source media="(max-width: 700px) and (prefers-color-scheme: dark)" srcset="docs/img/strip-phone-dark.svg">
+  <source media="(max-width: 700px)" srcset="docs/img/strip-phone-light.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/strip-dark.svg">
+  <img src="docs/img/strip-light.svg" alt="At a glance: 20 plus actions on the pad, one command to install, no apps to keep open, one press is one action">
 </picture>
 
+
 More: [website](https://pokemmocontroller.com) · [is this allowed?](#is-this-allowed) · [tested with](#tested-with)
+
+## Quick start
+
+One command. Nothing to install first (no Python, no git).
 
 <picture>
   <source media="(max-width: 700px) and (prefers-color-scheme: dark)" srcset="docs/img/steps-phone-dark.svg">
@@ -38,90 +43,6 @@ More: [website](https://pokemmocontroller.com) · [is this allowed?](#is-this-al
   <source media="(prefers-color-scheme: dark)" srcset="docs/img/steps-dark.svg">
   <img src="docs/img/steps-light.svg" alt="Install in three steps: close PokeMMO, paste one line, play from Steam">
 </picture>
-
-### Your button map
-
-Pick your controller. Every map shows the default layout. These are drawn
-outlines, not photos, so shapes are approximate.
-
-<details open>
-<summary><b>Xbox</b> (One, Series, 360)</summary>
-
-<picture>
-  <source media="(max-width: 700px) and (prefers-color-scheme: dark)" srcset="docs/img/map-xbox-phone-dark.svg">
-  <source media="(max-width: 700px)" srcset="docs/img/map-xbox-phone-light.svg">
-  <source media="(prefers-color-scheme: dark)" srcset="docs/img/map-xbox-dark.svg">
-  <img src="docs/img/map-xbox-light.svg" alt="Xbox button map">
-</picture>
-
-</details>
-
-<details>
-<summary><b>PlayStation</b> (DualSense, DualShock 4)</summary>
-
-<picture>
-  <source media="(max-width: 700px) and (prefers-color-scheme: dark)" srcset="docs/img/map-playstation-phone-dark.svg">
-  <source media="(max-width: 700px)" srcset="docs/img/map-playstation-phone-light.svg">
-  <source media="(prefers-color-scheme: dark)" srcset="docs/img/map-playstation-dark.svg">
-  <img src="docs/img/map-playstation-light.svg" alt="PlayStation button map">
-</picture>
-
-</details>
-
-<details>
-<summary><b>Switch Pro</b> (the printed A confirms, as on a Switch)</summary>
-
-<picture>
-  <source media="(max-width: 700px) and (prefers-color-scheme: dark)" srcset="docs/img/map-switch-phone-dark.svg">
-  <source media="(max-width: 700px)" srcset="docs/img/map-switch-phone-light.svg">
-  <source media="(prefers-color-scheme: dark)" srcset="docs/img/map-switch-dark.svg">
-  <img src="docs/img/map-switch-light.svg" alt="Switch Pro button map">
-</picture>
-
-</details>
-
-<details>
-<summary><b>Steam Deck</b> (Desktop Mode; Game Mode not yet tested on a Deck)</summary>
-
-<picture>
-  <source media="(max-width: 700px) and (prefers-color-scheme: dark)" srcset="docs/img/map-deck-phone-dark.svg">
-  <source media="(max-width: 700px)" srcset="docs/img/map-deck-phone-light.svg">
-  <source media="(prefers-color-scheme: dark)" srcset="docs/img/map-deck-dark.svg">
-  <img src="docs/img/map-deck-light.svg" alt="Steam Deck button map">
-</picture>
-
-</details>
-
-<details>
-<summary><b>Lenovo Legion Go S</b></summary>
-
-<picture>
-  <source media="(max-width: 700px) and (prefers-color-scheme: dark)" srcset="docs/img/map-legion-phone-dark.svg">
-  <source media="(max-width: 700px)" srcset="docs/img/map-legion-phone-light.svg">
-  <source media="(prefers-color-scheme: dark)" srcset="docs/img/map-legion-dark.svg">
-  <img src="docs/img/map-legion-light.svg" alt="Lenovo Legion Go S button map">
-</picture>
-
-</details>
-
-Or print any of them in your terminal: `python tools/pads.py playstation` (also
-`switch`, `xbox`; add `--switch-positional` to see that setting).
-
-## Contents
-
-- [Quick start](#quick-start): [Windows](#windows), [macOS](#macos), [Linux and Steam Deck](#linux-and-steam-deck)
-- [Controls](#controls)
-- [How do I… with a controller](#how-do-i-with-a-controller)
-- [Is this allowed?](#is-this-allowed)
-- [Troubleshooting](#troubleshooting)
-- [How it works](#how-it-works)
-- [Compared with other setups](#compared-with-other-setups)
-- [Roadmap](#roadmap)
-- [Tested with](#tested-with)
-
-## Quick start
-
-One command. Nothing to install first (no Python, no git).
 
 1. Close PokeMMO. Leave Steam open: the installer closes it and opens it again
    when it has to (never while a Steam game is running).
@@ -152,6 +73,194 @@ Open a terminal (on a Deck, switch to **Desktop Mode** first) and paste the same
 ```sh
 curl -fsSL https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.sh | sh
 ```
+
+## Your button map
+
+Pick your controller. Every map shows the default layout on a photo of the real
+controller, and the table under it says the same in words.
+
+<details open>
+<summary><b>Xbox</b> (One, Series, 360)</summary>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/map-xbox-dark.png">
+  <img src="docs/img/map-xbox-light.png" alt="Xbox controller with each button labelled by what it does in PokeMMO">
+</picture>
+
+<!-- generated:map-xbox -->
+| On the pad | Does |
+|---|---|
+| LT | Previous hotbar page |
+| LB | Focus Ring |
+| Left stick | Move |
+| L3 | Team |
+| View | Hotbar 5 (Town Map) |
+| D-pad up | Hotbar 1 |
+| D-pad right | Hotbar 2 |
+| D-pad down | Hotbar 3 |
+| D-pad left | Hotbar 4 |
+| RT | Next hotbar page |
+| RB | Bag |
+| Y | Action Y |
+| X | Action X |
+| B | Cancel / run |
+| A | Confirm / interact |
+| Menu | Game Menu |
+| Right stick | Action wheel |
+| R3 | Screenshot |
+<!-- /generated -->
+
+</details>
+
+<details>
+<summary><b>PlayStation</b> (DualSense, DualShock 4)</summary>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/map-playstation-dark.png">
+  <img src="docs/img/map-playstation-light.png" alt="PlayStation DualSense controller with each button labelled by what it does in PokeMMO">
+</picture>
+
+<!-- generated:map-playstation -->
+| On the pad | Does |
+|---|---|
+| L2 | Previous hotbar page |
+| L1 | Focus Ring |
+| Left stick | Move |
+| L3 | Team |
+| Create | Hotbar 5 (Town Map) |
+| D-pad up | Hotbar 1 |
+| D-pad right | Hotbar 2 |
+| D-pad down | Hotbar 3 |
+| D-pad left | Hotbar 4 |
+| R2 | Next hotbar page |
+| R1 | Bag |
+| Triangle | Action Y |
+| Square | Action X |
+| Circle | Cancel / run |
+| Cross | Confirm / interact |
+| Options | Game Menu |
+| Right stick | Action wheel |
+| R3 | Screenshot |
+<!-- /generated -->
+
+</details>
+
+<details>
+<summary><b>Switch Pro</b> (the printed A confirms, as on a Switch)</summary>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/map-switch-dark.png">
+  <img src="docs/img/map-switch-light.png" alt="Switch Pro controller with each button labelled by what it does in PokeMMO">
+</picture>
+
+<!-- generated:map-switch -->
+| On the pad | Does |
+|---|---|
+| ZL | Previous hotbar page |
+| L | Focus Ring |
+| Left stick | Move |
+| L3 | Team |
+| Minus | Hotbar 5 (Town Map) |
+| D-pad up | Hotbar 1 |
+| D-pad right | Hotbar 2 |
+| D-pad down | Hotbar 3 |
+| D-pad left | Hotbar 4 |
+| ZR | Next hotbar page |
+| R | Bag |
+| X | Action X |
+| Y | Action Y |
+| A | Confirm / interact |
+| B | Cancel / run |
+| Plus | Game Menu |
+| Right stick | Action wheel |
+| R3 | Screenshot |
+<!-- /generated -->
+
+</details>
+
+<details>
+<summary><b>Steam Deck</b> (Desktop Mode; Game Mode not yet tested on a Deck)</summary>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/map-deck-dark.png">
+  <img src="docs/img/map-deck-light.png" alt="Steam Deck with each button labelled by what it does in PokeMMO">
+</picture>
+
+<!-- generated:map-deck -->
+| On the pad | Does |
+|---|---|
+| L2 | Previous hotbar page |
+| L1 | Focus Ring |
+| Left stick | Move |
+| L3 | Team |
+| View | Hotbar 5 (Town Map) |
+| D-pad up | Hotbar 1 |
+| D-pad right | Hotbar 2 |
+| D-pad down | Hotbar 3 |
+| D-pad left | Hotbar 4 |
+| R2 | Next hotbar page |
+| R1 | Bag |
+| Y | Action Y |
+| X | Action X |
+| B | Cancel / run |
+| A | Confirm / interact |
+| Menu | Game Menu |
+| Right stick | Action wheel |
+| R3 | Screenshot |
+<!-- /generated -->
+
+</details>
+
+Or print any of them in your terminal: `python tools/pads.py playstation` (also
+`switch`, `xbox`; add `--switch-positional` to see that setting).
+
+The Lenovo Legion Go S has its own wheel layout (in `steam/`) but no map picture
+yet: there is no photo of it that we may use. Its buttons are the same ones.
+
+## The wheel
+
+Tilt the right stick to open the wheel in the middle of the screen. Point at a
+slice (its name shows above the wheel) and let go to use it. The **top slice
+does nothing**, so a stray flick up presses nothing. Let go in the center to
+cancel.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/wheel-dark.png">
+  <img src="docs/img/wheel-light.png" alt="The wheel: ten slices, clockwise from the empty top, each labelled with the key it presses">
+</picture>
+
+<img src="docs/wheel-in-game.png" alt="The wheel in game, pointing at Egg Incubators" width="360">
+
+Each slice sends exactly one key press when you let go.
+
+<!-- generated:wheel -->
+Slices, clockwise from the empty top: N = Pokedex, I = Egg Incubators, C = Trainer Card, V = Friends, P = Global Trade Link, 6 = Hotbar 6, 7 = Hotbar 7, 8 = Hotbar 8, 9 = Hotbar 9, F12 = Hide GUI.
+<!-- /generated -->
+
+## Install it once and forget it
+
+<picture>
+  <source media="(max-width: 700px) and (prefers-color-scheme: dark)" srcset="docs/img/features-phone-dark.svg">
+  <source media="(max-width: 700px)" srcset="docs/img/features-phone-light.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/features-dark.svg">
+  <img src="docs/img/features-light.svg" alt="What you get: one command with nothing to install first; your pad with its own button names; a wheel you can read; a remap screen for any button; one input does one action; honest notes on what was tested">
+</picture>
+
+## Contents
+
+- [Quick start](#quick-start): [Windows](#windows), [macOS](#macos), [Linux and Steam Deck](#linux-and-steam-deck)
+- [Your button map](#your-button-map) and [the wheel](#the-wheel)
+- [Remap, update and uninstall](#remap-update-and-uninstall)
+- [Controls](#controls)
+- [How do I… with a controller](#how-do-i-with-a-controller)
+- [Is this allowed?](#is-this-allowed)
+- [Troubleshooting](#troubleshooting)
+- [How it works](#how-it-works)
+- [Compared with other setups](#compared-with-other-setups)
+- [Roadmap](#roadmap)
+- [Tested with](#tested-with)
+
+## Remap, update and uninstall
 
 ### After the install
 
@@ -202,7 +311,7 @@ or newer to be on the computer; without it, use the commands above.
 
 </details>
 
-![The remap screen: your controller, a pick-list for every action, the labeled wheel, and the button map of your layout](docs/remap-screen.png)
+![The remap screen: click a button on your controller to change what it does; tabs for the wheel, setup and settings; live status along the bottom](docs/remap-screen.png)
 
 PokeMMO allows remapping while one input does one thing, so that is built in: an
 input holds one action, a wheel slice presses one key when you let go, and a
@@ -214,9 +323,9 @@ refused, also in a file edited by hand.
 Run the same command again. It updates whatever an earlier version wrote and
 tells you what happened:
 
-- `Installed v1.1.0`: first install.
-- `Updated from v1.0.0 to v1.1.0`: an older version was there.
-- `Already up to date (v1.1.0). Nothing changed.`: Steam isn't even restarted.
+- `Installed v1.2.0`: first install.
+- `Updated from v1.1.0 to v1.2.0`: an older version was there.
+- `Already up to date (v1.2.0). Nothing changed.`: Steam isn't even restarted.
 
 Your choices (`--switch-positional`, extra `--name` pads) are remembered.
 
@@ -249,7 +358,9 @@ change nothing; PokeMMO may stay open). From a clone, `python tools/setup.py` do
 - `--name "Pad name"`: also bind a pad that PokeMMO shows under another name.
 - `--switch-labels`: Nintendo pads confirm on the printed **A** (the default; undoes `--switch-positional`).
 - `--no-browser`: with `--ui`, print the address instead of opening a browser.
+- `--tab`: with `--ui`, open a normal browser tab instead of the app window (the remap screen opens in its own window using Edge, Chrome, Chromium or Brave when one is installed, which Windows always has; closing that window ends it).
 - `--follow`: keep the wheel sized while the game's resolution changes (see [Troubleshooting](#troubleshooting)).
+  The installer already sets this up to run at login; `--no-follow` skips it (remembered) and `--follow-at-login` turns it back on.
 - `--resolution 1920x1080`: size the wheel for the picture the game draws (see
   [The wheel is too big or too small](#troubleshooting)). Remembered; `--reset-resolution` goes back to the 4K size.
 
@@ -267,7 +378,7 @@ change nothing; PokeMMO may stay open). From a clone, `python tools/setup.py` do
 | LB | L1 | L | **Focus Ring:** select anything on screen |
 | D-pad ↑ → ↓ ← | D-pad | D-pad | Hotbar 1 / 2 / 3 / 4 |
 | RT / LT | R2 / L2 | ZR / ZL | Next / previous hotbar page |
-| Right stick | Right stick | Right stick | **Wheel** (see below) |
+| Right stick | Right stick | Right stick | **[Wheel](#the-wheel)** |
 | L3 (press left stick) | L3 | Press left stick | Team |
 | R3 (press right stick) | R3 | Press right stick | Screenshot |
 
@@ -292,29 +403,6 @@ Tap **LB** and a highlight jumps onto the hotbar, your party or an open
 window. Move it with the stick, press **A** to use what's highlighted, and press
 **B** or **LB** to leave. Every hotbar slot on every page can be reached this way,
 not only the ones with their own button.
-
-### The wheel
-
-Tilt the right stick to open the wheel in the middle of the screen. Point at a
-slice (its name shows above the wheel) and let go to use it. The **top slice
-does nothing**, so a stray flick up presses nothing. Let go in the center to
-cancel.
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/img/wheel-demo-dark.svg">
-  <img src="docs/img/wheel-demo-light.svg" alt="The wheel, animated: the highlight moves from slice to slice">
-</picture>
-
-| In game | Slices, clockwise from the empty top |
-|---|---|
-| <img src="docs/wheel-in-game.png" alt="The wheel in game, pointing at Egg Incubators" width="360"> | <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/img/wheel-dark.svg">
-  <img src="docs/img/wheel-light.svg" alt="Wheel slice map" width="360">
-</picture> |
-
-Each slice shows the key it presses (N = Pokédex, I = Egg Incubators,
-C = Trainer Card, V = Friends, P = Global Trade Link, 6-9 = Hotbar 6-9,
-F12 = Hide GUI) and sends exactly one key press when you let go.
 
 ## How do I… with a controller
 
@@ -398,15 +486,20 @@ Tap a heading to open it.
 <summary><b>The wheel is too big or too small</b></summary>
 
 - Steam draws the wheel in screen pixels, so a size made for 4K looks huge at a
-  lower resolution. Tell the installer the size of the game picture and it sizes the
-  wheel to fit: add `--resolution 1920x1080` after the install command (on Windows, the
+  lower resolution. The installer now measures your screen when it installs (the game
+  window if PokeMMO is open, otherwise your main screen) and sizes the wheel to fit, so
+  you do not need to do anything. If the game picture is not the size of your screen
+  (windowed, or a lower resolution than the desktop), tell the installer the size: add `--resolution 1920x1080` after the install command (on Windows, the
   `& ([scriptblock]::Create(...))` form, then a space and `--resolution 1920x1080`; on
   macOS, Linux and Deck, `sh -s -- --resolution 1920x1080`), or run
   `python tools/setup.py --resolution 1920x1080` from a clone. Close PokeMMO first.
 - **Changing the game's resolution while you play** (4K, then 1080p, then 1440p, back up,
   fullscreen, borderless or windowed, another monitor or display scaling): leave
-  `python tools/setup.py --follow` running (it needs the layout installed; Ctrl+C stops it;
-  `sh`/PowerShell installers pass it the same way). It watches the size of the game picture and, once a new size
+  nothing: the installer sets up a small background helper that starts when you log in
+  (a Startup entry on Windows, a LaunchAgent on macOS, an autostart entry on Linux and Steam Deck;
+  it needs Python 3.9 or newer on the computer, and the installer says if that is missing;
+  `--no-follow` skips it, uninstall removes it). You can also run
+  `python tools/setup.py --follow` yourself (Ctrl+C stops it). It watches the size of the game picture and, once a new size
   has held for a moment, rewrites only the wheel layout files. A window that briefly reports
   0x0 or half a size mid-switch is ignored; a rapid string of changes ends on the last size
   that held. PokeMMO's 640x480 login window is skipped, a minimized game keeps the last
@@ -415,7 +508,8 @@ Tap a heading to open it.
   in screen pixels and reads the layout file; whether your Steam picks the new file up while
   PokeMMO is already running is not verified on real hardware. If the wheel keeps its old
   size after a change, restart PokeMMO from Steam once (the file is already right).
-  Without `--follow`, the size is set when you install, so run the command again with the new size.
+  With the helper off, the size is set when you install (and again each time you run the installer,
+  unless you gave `--resolution`, which is kept), so run the command again after a change.
 - The size follows the shorter side of the picture, so ultrawide (3440x1440), 4:3
   (1600x1200), 720p windows and 4K all fit, and it never goes above the 4K size.
   Windowed, fullscreen and borderless: use the size of the game's picture, not of your
@@ -548,5 +642,5 @@ Ideas and controller reports welcome: [open an issue](https://github.com/jordana
 ---
 
 No game files or ROMs are included.
-Code released under the [MIT License](LICENSE). The pictures in `docs/img/` are original drawings made for this project (built by `docs/art/build.py`), also MIT.
+Code released under the [MIT License](LICENSE). The controller pictures in `docs/img/` are rendered from real photos (credits in `site/README.md`) by `docs/art/render.py`.
 Xbox, PlayStation, Nintendo Switch, Steam and Lenovo are trademarks of their owners; they are named only to say which pads work.

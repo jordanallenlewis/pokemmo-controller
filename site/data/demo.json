@@ -1,0 +1,75 @@
+{
+ "events": [
+  {
+   "t": 0.5,
+   "id": "ls",
+   "label": "Walk"
+  },
+  {
+   "t": 1.58,
+   "id": "ls",
+   "label": "Walk"
+  },
+  {
+   "t": 2.8,
+   "id": "b",
+   "label": "Run"
+  },
+  {
+   "t": 3.5,
+   "id": "b",
+   "label": "Run"
+  },
+  {
+   "t": 4.86,
+   "id": "rs",
+   "label": "Wheel: Pokédex"
+  },
+  {
+   "t": 7.46,
+   "id": "b",
+   "label": "Close"
+  },
+  {
+   "t": 8.28,
+   "id": "rs",
+   "label": "Wheel: Trainer Card"
+  },
+  {
+   "t": 10.88,
+   "id": "b",
+   "label": "Close"
+  },
+  {
+   "t": 11.7,
+   "id": "rs",
+   "label": "Wheel: Global Trade Link"
+  },
+  {
+   "t": 15.0,
+   "id": "b",
+   "label": "Close"
+  },
+  {
+   "t": 16.02,
+   "id": "rb",
+   "label": "Bag"
+  },
+  {
+   "t": 18.26,
+   "id": "b",
+   "label": "Close"
+  },
+  {
+   "t": 19.18,
+   "id": "menu",
+   "label": "Game Menu"
+  },
+  {
+   "t": 20.81,
+   "id": "b",
+   "label": "Close"
+  }
+ ],
+ "end": 21.25
+}

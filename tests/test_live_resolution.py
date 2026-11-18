@@ -214,7 +214,7 @@ class Following(Base):
         finally:
             time.sleep(0.5)          # nothing is being written: the size is stable
             proc.terminate()
-            proc.wait(timeout=20)
+            proc.communicate(timeout=20)      # waits, and closes the output pipe
         # the following only ever touched the wheel files; uninstall still puts back every byte
         sb.setup("--uninstall")
         self.assertSame(before, sb.snapshot())

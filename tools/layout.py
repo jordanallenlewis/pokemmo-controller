@@ -61,6 +61,85 @@ TRIGGERS = (4, 5)
 # swaps whole buttons (never single actions), so each input still does exactly one action.
 NINTENDO_LABEL_SWAP = {0: 1, 1: 0, 2: 3, 3: 2}
 
+# ---------------------------------------------------------------- controllers
+# What each input is printed as, per controller. This is the only copy: the website, the
+# README tables and pictures, the remap screen and the command line all read it from here
+# (site/build.py writes the generated copies; CI fails when one is stale).
+# Buttons are listed by SDL3 position (0 = bottom face button ... 14 = D-pad right).
+PAD_ORDER = ("xbox", "playstation", "switch", "deck")
+PADS = {
+    "xbox": {"title": "Xbox", "who": "One, Series, 360",
+             "buttons": ["A", "B", "X", "Y", "View", "Xbox", "Menu", "L3", "R3", "LB", "RB",
+                         "D-pad up", "D-pad down", "D-pad left", "D-pad right"],
+             "axes": ["Left stick", "Left stick", "Right stick", "Right stick", "LT", "RT"]},
+    "playstation": {"title": "PlayStation", "who": "DualSense, DualShock 4",
+                    "buttons": ["Cross", "Circle", "Square", "Triangle", "Create", "PS", "Options", "L3", "R3",
+                                "L1", "R1", "D-pad up", "D-pad down", "D-pad left", "D-pad right"],
+                    "axes": ["Left stick", "Left stick", "Right stick", "Right stick", "L2", "R2"]},
+    # a Switch pad prints its bottom button B and its right button A
+    "switch": {"title": "Switch Pro", "who": "the printed A confirms, as on a Switch",
+               "buttons": ["B", "A", "Y", "X", "Minus", "Home", "Plus", "L3", "R3", "L", "R",
+                           "D-pad up", "D-pad down", "D-pad left", "D-pad right"],
+               "axes": ["Left stick", "Left stick", "Right stick", "Right stick", "ZL", "ZR"]},
+    "deck": {"title": "Steam Deck", "who": "Desktop Mode; Game Mode not yet tested on a Deck",
+             "buttons": ["A", "B", "X", "Y", "View", "Steam", "Menu", "L3", "R3", "L1", "R1",
+                         "D-pad up", "D-pad down", "D-pad left", "D-pad right"],
+             "axes": ["Left stick", "Left stick", "Right stick", "Right stick", "L2", "R2"]},
+}
+# The same inputs as parts of the controller picture (ids used by site/data/hotspots.json).
+BUTTON_PARTS = ["a", "b", "x", "y", "view", "guide", "menu", "ls", "rs", "lb", "rb",
+                "dup", "ddown", "dleft", "dright"]
+AXIS_PARTS = ["ls", "ls", "rs", "rs", "lt", "rt"]
+PART_NAMES = {"ls": "Left stick", "rs": "Right stick"}   # the sticks themselves, whatever the pad calls a press
+MOVES = ("KEY_UP", "KEY_DOWN", "KEY_LEFT", "KEY_RIGHT")  # four binds on one stick: shown as one "Move"
+_STICK_DIR = {0: ("left", "right"), 1: ("up", "down"), 2: ("left", "right"), 3: ("up", "down")}
+
+
+def physical_button(family, n, switch_positional=False):
+    """The physical button (SDL3 position) a layout's button n ends up on for this pad."""
+    if family == "switch" and not switch_positional:
+        return NINTENDO_LABEL_SWAP.get(n, n)
+    return n
+
+
+def button_label(family, n, switch_positional=False):
+    """What is printed on the button that does layout button n's action on this pad."""
+    return PADS[family]["buttons"][physical_button(family, n, switch_positional)]
+
+
+def axis_label(family, axis, positive):
+    name = PADS[family]["axes"][axis]
+    if axis in _STICK_DIR:
+        return f"{name} {_STICK_DIR[axis][1 if positive else 0]}"
+    return name
+
+
+def part_names(family):
+    """{part id: printed name} for the controller picture; a stick press is ls_click / rs_click."""
+    p = PADS[family]
+    names = {pid: p["buttons"][n] for n, pid in enumerate(BUTTON_PARTS)}
+    names.update({"lt": p["axes"][4], "rt": p["axes"][5], "ls_click": p["buttons"][7], "rs_click": p["buttons"][8]})
+    names.update(PART_NAMES)
+    return names
+
+
+def part_controls(lay, family, switch_positional=False):
+    """{part id: what it does} for this layout on this pad: the text the picture and README tables show.
+    Several actions on one stick (walking) read as "Move"; the right stick is always the wheel."""
+    validate(lay)
+    out = {}
+    for action, spec in lay["binds"].items():
+        if "button" in spec:
+            part = BUTTON_PARTS[physical_button(family, spec["button"], switch_positional)]
+            if part in ("ls", "rs"):
+                part += "_click"
+        else:
+            part = AXIS_PARTS[spec["axis"]]
+        out[part] = "Move" if action in MOVES else ACTIONS[action]
+    out["rs"] = "Action wheel"
+    return out
+
+
 DEFAULT_BINDS = {
     "KEY_UP": {"axis": 1, "positive": False}, "KEY_DOWN": {"axis": 1, "positive": True},
     "KEY_LEFT": {"axis": 0, "positive": False}, "KEY_RIGHT": {"axis": 0, "positive": True},
@@ -290,11 +369,15 @@ def recorded_screen(state):
         return None
 
 
-def set_screen(state, screen=None, reset=False):
-    """Save (or with reset, forget) the game resolution in the install record."""
+def set_screen(state, screen=None, reset=False, manual=False):
+    """Save (or with reset, forget) the game resolution in the install record. manual: the player
+    chose it (--resolution), so a later install keeps it instead of measuring the screen again."""
     if reset:
         state.pop("screen", None)
+        state.pop("screen_manual", None)
     elif screen is not None:
+        if manual:
+            state["screen_manual"] = True
         if wheel_scale(*screen) == WHEEL_SCALE_AT_4K:
             state.pop("screen", None)       # the default size: leave no trace
         else:

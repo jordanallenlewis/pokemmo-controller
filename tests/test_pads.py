@@ -1,7 +1,5 @@
-"""Pad names and the button-map art: every family names every input the layout can
-use, and the generated pictures match the default layout (so they cannot drift)."""
+"""Pad names: every family names every input the layout can use."""
 import subprocess, sys, unittest
-import xml.etree.ElementTree as ET
 from pathlib import Path
 
 import helpers  # noqa: F401
@@ -61,9 +59,6 @@ class Pads(unittest.TestCase):
         for fam in pads.FAMILIES:
             rows = {r[0]: r[2] for r in pads.describe(lay, fam)}
             self.assertEqual(rows["KEY_TEAM"], "Not bound")
-            text = " ".join(ET.fromstring(pads.render_svg(lay, fam)).itertext())
-            self.assertIn("Not bound", text)
-            self.assertIn("Team", text)
 
     def test_each_default_action_has_a_name_per_family(self):
         for fam in pads.FAMILIES:
@@ -76,53 +71,6 @@ class Pads(unittest.TestCase):
         for fam in pads.FAMILIES:
             names = [pads.button_label(fam, b) for b in range(L.BUTTONS)]
             self.assertEqual(len(names), len(set(names)), fam)
-
-    def test_art_is_valid_svg_and_shows_every_action(self):
-        for fam in ("playstation", "switch"):
-            svg = pads.render_svg(L.default_layout(), fam)
-            root = ET.fromstring(svg)
-            self.assertTrue(root.tag.endswith("svg"))
-            text = " ".join(root.itertext())
-            for label in L.ACTIONS.values():
-                self.assertIn(label, text, (fam, label))
-            for w in L.WHEEL_ACTIONS.values():
-                self.assertIn(w[1], text, (fam, w[1]))
-            self.assertNotIn("<script", svg)
-            self.assertNotIn("http://", svg.replace("http://www.w3.org/2000/svg", ""))
-
-    def test_every_input_has_a_spot_and_no_text_falls_off_the_picture(self):
-        # the remap screen draws any layout, not only the default: nothing may be cut off
-        import random
-        rng = random.Random(77)
-        inputs = L.inputs()
-        layouts = [{"format": L.FORMAT, "binds": {}, "wheel": list(L.WHEEL_ACTIONS)}]
-        guide = L.default_layout()
-        guide["binds"]["KEY_TEAM"] = {"button": 5}
-        layouts.append(guide)
-        for _ in range(100):
-            pick = rng.sample(inputs, rng.randrange(len(L.ACTIONS) + 1))
-            layouts.append({"format": L.FORMAT, "binds": dict(zip(rng.sample(list(L.ACTIONS), len(pick)), pick)),
-                            "wheel": list(L.WHEEL_ACTIONS)})
-        for lay in layouts:
-            L.validate(lay)
-            for fam in pads.FAMILIES:
-                root = ET.fromstring(pads.render_svg(lay, fam))
-                h = float(root.get("viewBox").split()[3])
-                for t in root.iter("{http://www.w3.org/2000/svg}text"):
-                    self.assertLess(float(t.get("y")), h - 8, (fam, "".join(t.itertext())))
-        # the Guide / PS / Home button gets its own spot on the pad, like every other button
-        svg = pads.render_svg(guide, "playstation")
-        self.assertIn(">PS</text>", svg)
-        for lay in layouts:
-            on_pad = [b for b in lay["binds"].values() if "button" in b or b["axis"] not in (0, 1)]
-            self.assertEqual(pads.render_svg(lay, "xbox").count("<circle"), len(on_pad))
-
-    def test_committed_art_matches_the_generator(self):
-        for fam in ("playstation", "switch"):
-            f = ROOT / "docs" / f"button-map-{fam}.svg"
-            self.assertTrue(f.exists(), f)
-            self.assertEqual(f.read_text(encoding="utf-8").replace("\r\n", "\n"),
-                             pads.render_svg(L.default_layout(), fam))
 
     def test_cli_prints_a_table(self):
         out = subprocess.run([sys.executable, str(ROOT / "tools" / "pads.py"), "playstation"],

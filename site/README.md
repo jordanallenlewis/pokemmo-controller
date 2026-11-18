@@ -3,8 +3,11 @@
 The one-page website for this project. Plain HTML, CSS and JavaScript: no framework, no build step beyond one data file.
 
 - `index.html`, `styles.css`, `app.js`: the page.
-- `data/layout.json`: the button map and wheel, generated from `tools/layout.py` by `python site/build.py`. Run it after changing the default layout; CI fails if it is out of date.
+- `data/layout.json`: the button map and wheel, generated from `tools/layout.py` and `data/hotspots.json` by `python site/build.py`, which also fills the generated tables in the README. Run it after changing the default layout; the tests fail if a copy is out of date.
+- `data/hotspots.json`: where each button sits on each controller photo. The only copy; the site, the README pictures (`python docs/art/render.py` screenshots the site's own map) and the app read it.
 - `assets/`: an in-game screenshot, the icon and the social preview image. The controller photo ("Xbox Series Controller Carbon Black" by UKER, CC BY-SA 4.0, background removed) and the remap screenshot come from `docs/` (one copy in the repo); the workflow and `dev.py` serve them as `assets/controller.webp` and `assets/remap-screen.png`.
 - `dev.py`: local preview that reloads on save: `python site/dev.py` then open http://127.0.0.1:8790/.
 
 Published by `.github/workflows/site.yml` to GitHub Pages on every push to `main` that touches the site or the layout.
+
+Fonts (Bricolage Grotesque, Geist, Geist Mono; SIL Open Font License 1.1) are served from `assets/fonts/` as Latin-only woff2, so the page makes no request to another site. Check scores with Lighthouse on the assembled folder (`bash site/assemble.sh _site`).

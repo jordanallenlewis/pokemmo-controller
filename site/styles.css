@@ -1,15 +1,18 @@
+@font-face { font-family: "Bricolage Grotesque"; font-style: normal; font-weight: 600 800; font-display: swap; src: url(assets/fonts/bricolage-latin.woff2) format("woff2"); }
+@font-face { font-family: "Geist"; font-style: normal; font-weight: 400 600; font-display: swap; src: url(assets/fonts/geist-latin.woff2) format("woff2"); }
+@font-face { font-family: "Geist Mono"; font-style: normal; font-weight: 500; font-display: swap; src: url(assets/fonts/geistmono-latin.woff2) format("woff2"); }
 :root {
   --bg: #121418;
   --bg-2: #171a1f;
   --surface: #1e2127;
   --surface-2: #262a31;
-  --line: rgba(244, 241, 234, .09);
+  --line: rgba(244, 241, 234, .12);
   --ink: #f4f1ea;
   --muted: #a3a8b3;
-  --dim: #6f7580;
+  --dim: #8a909b;
   --yellow: #ffc833;      /* calls to action only */
   --yellow-ink: #1a1408;
-  --accent-soft: rgba(255, 200, 51, .12);
+  --accent-soft: rgba(255, 200, 51, .14);
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --radius: 18px;
   --wrap: 1160px;
@@ -206,7 +209,17 @@ kbd { font: 500 12px/1 var(--mono); background: var(--surface-2); border: 1px so
 /* the PokeMMO word in the hero uses PokeMMO's own logo, with its own colours */
 .nowrap { white-space: nowrap; }
 .pmmo-word { display: inline-block; height: .6em; width: auto; vertical-align: -.02em; margin-left: .06em; image-rendering: pixelated; }
-.wheel-now { display: flex; align-items: center; gap: 12px; margin: 0; min-height: 36px; font-weight: 500; }
-.wheel-now .key { font: 600 13px/1 var(--mono); background: var(--surface-2); color: var(--ink); border: 1px solid rgba(244,241,234,.14); border-bottom-width: 3px; border-radius: 8px; padding: 6px 10px; min-width: 44px; text-align: center; transition: background-color .15s var(--ease), color .15s var(--ease); }
-.wheel-now .key { background: var(--yellow); color: var(--yellow-ink); border-color: #c98a00; }
+/* demo */
+.demo { display: grid; grid-template-columns: 1.7fr 1fr; gap: 24px; align-items: center; }
+.demo-video { margin: 0; background: #000; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+.demo-video video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; }
+.demo-side { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.demo-side .pad { width: 100%; max-width: 420px; }
+.demo-now, .wheel-now { display: flex; align-items: center; gap: 12px; margin: 0; min-height: 36px; font-weight: 500; }
+.demo-now .key, .wheel-now .key { font: 600 13px/1 var(--mono); background: var(--surface-2); color: var(--ink); border: 1px solid rgba(244,241,234,.14); border-bottom-width: 3px; border-radius: 8px; padding: 6px 10px; min-width: 44px; text-align: center; transition: background-color .15s var(--ease), color .15s var(--ease); }
+.demo-now.on .key, .wheel-now .key { background: var(--yellow); color: var(--yellow-ink); border-color: #c98a00; }
 .wheel-now { margin-top: 24px; }
+
+/* narrow phones: the GitHub button shows only its icon and count so the name never collides with it */
+@media (max-width: 480px) { .gh > span:not(.stars) { display: none; } .brand { font-size: 17px; gap: 10px; } .nav-in { gap: 12px; } }
+@media (max-width: 900px) { .demo { grid-template-columns: 1fr; } .demo-side .pad { max-width: 360px; } }

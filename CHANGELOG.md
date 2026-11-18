@@ -2,6 +2,54 @@
 
 ## Unreleased
 
+## 1.3.0-beta.1 - 2026-11-17 (pre-release)
+
+A beta of the zero-touch install work. The one-line installers fetch from `main`, so they already
+install this. Tell us what breaks.
+
+- New: the installer finds PokeMMO in any Steam library folder and on other Windows drives
+  (D: to H:), as well as the Flatpak, snap and macOS places it already knew.
+- New: the installer binds the controllers that are plugged in, found by name on Linux, macOS
+  and Windows (Xbox, PlayStation, Switch Pro), instead of asking you which one you have. If it
+  cannot tell, it keeps the default and says so.
+- Tested: a computer with PokeMMO but no Steam gets the native binds only and no Steam folder;
+  your own pad map is kept; installing twice changes nothing; install then uninstall restores
+  every byte, with and without Steam. If you never started the game, the installer says
+  "start PokeMMO once, close it, try again" and writes nothing.
+- Changed: the README's button maps are now the website's own maps on the real controller photos
+  (Xbox, PlayStation, Switch Pro, Steam Deck), in light and dark, with a table under each. The
+  drawn outlines are gone. The Legion Go S has no map picture because there is no photo of it we
+  may use.
+- Fixed: the website's Switch Pro map showed B as the confirm button; the printed A confirms.
+  The website's wheel now shows the empty top slice, like the game.
+
+## 1.2.0 - 2026-11-17
+
+- New: the wheel now follows the game's resolution by itself. The installer sets up a small
+  background helper that starts when you log in (a Startup entry on Windows, a LaunchAgent on
+  macOS, an autostart entry on Linux and Steam Deck), runs `--follow` quietly, runs once at a
+  time, and ends on its own when you uninstall. It needs Python 3.9 or newer on the computer:
+  the installer says so when there is none and the wheel then keeps the size it was made for.
+  `--no-follow` skips it (remembered), `--follow-at-login` turns it back on. It sends no input.
+- Changed: the remap screen is now an app-style screen in the project's own look (dark ink, one
+  yellow accent; light theme follows your system). Click a button on the picture of your
+  controller to change what it does, instead of choosing from a list of dropdowns; the wheel
+  is drawn in the same style. Tabs for Layout, Wheel, Status and Settings; a setup checklist
+  (PokeMMO found, controller detected, buttons applied, Steam wheel installed) with a
+  one-click fix on each open step; a live status bar along the bottom. Press a button on your
+  controller and it is picked on the screen (your browser reports the controller; nothing is
+  installed). Each button still does one thing: giving a button an action another button has
+  swaps the two, and Apply still backs up first and refuses anything else. New `brand/` folder
+  holds the colours, mark, voice and design rules as one source.
+- Fixed: the installer never looked at your screen, so unless you knew about `--resolution`
+  the wheel came out at the 4K size and ran off a smaller screen. A plain install now
+  measures the game picture (the PokeMMO window if it is open, otherwise your main screen)
+  and sizes the wheel to it; running the installer again measures again. A size you gave
+  with `--resolution` is kept until `--reset-resolution`. A 4K screen is unchanged.
+- Changed: the top slice of the right-stick wheel now does nothing, so letting go of the
+  stick while it points straight up presses no key. The other ten slices follow it
+  clockwise, starting with the Pokedex, and still press one key each. (The empty slice
+  has not been checked on a real Steam yet: tell us if the wheel looks wrong.)
 - Changed: the installers print, and the remap screen shows, one plain line: PokeMMO Controller is an unofficial, fan-made tool, not made, endorsed or supported by the PokeMMO team.
 - Fixed (Windows): `--follow` took the first window whose title began with "PokeMMO", so a
   browser tab or folder called "PokeMMO Forums" on top of the game made the wheel follow

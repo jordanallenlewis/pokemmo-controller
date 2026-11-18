@@ -186,10 +186,11 @@ class Page(unittest.TestCase):
         self.assertIn("pad", self.scan.ids)
         self.assertRegex(self.text, r'<label[^>]+for="pad"')
         self.assertIn("map", self.scan.ids)
-        self.assertRegex(self.text, r'<img[^>]+id="map"[^>]+alt="[^"]+"')
+        self.assertRegex(self.text, r'<svg[^>]+id="map"[^>]+role="group"[^>]+aria-label="[^"]+"')
 
     def test_page_has_no_macro_controls(self):
-        low = self.text.lower()
+        # the embedded photos are base64 data, not page text: leave them out of the word search
+        low = re.sub(r"/\*pads:start\*/.*?/\*pads:end\*/", "", self.text, flags=re.S).lower()
         for word in ("turbo", "auto-repeat", "autorepeat", "macro", "sequence", "delay", "rapid"):
             if word in low:
                 # only allowed inside a sentence that says the tool does NOT do it
