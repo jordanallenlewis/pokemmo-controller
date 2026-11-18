@@ -34,12 +34,25 @@ func shaHex(b []byte) string {
 	return hex.EncodeToString(h[:])
 }
 
-// readBytes returns nil, false when the file does not exist.
 // isMissing: the file is not there (or a parent is a file), which the Python tool reads as missing.
 func isMissing(err error) bool {
 	return errors.Is(err, fs.ErrNotExist) || errors.Is(err, syscall.ENOTDIR)
 }
 
+// hasBackup says whether path's backup is there (Python: backup_path(p).exists()), without reading
+// it: a backup that is there but cannot be read is still kept, never replaced.
+func hasBackup(path string) (bool, error) {
+	_, err := os.Stat(backupPath(path))
+	if err == nil {
+		return true, nil
+	}
+	if isMissing(err) {
+		return false, nil
+	}
+	return false, err
+}
+
+// readBytes returns nil, false when the file does not exist.
 func readBytes(p string) ([]byte, bool) {
 	b, err := os.ReadFile(p)
 	if err != nil {
@@ -219,6 +232,9 @@ func (p *Plan) commit(uninstall bool) error {
 		if st, err := os.Stat(path); err == nil && st.Mode().Perm()&0o200 == 0 {
 			return fmt.Errorf("%s is read-only. Make it writable, then run this again. Nothing was changed", path)
 		}
+		if _, err := hasBackup(path); err != nil {
+			return fmt.Errorf("could not check the backup of %s: %w. Nothing was changed", path, err)
+		}
 	}
 	for _, path := range pending {
 		c := p.changes[path]
@@ -239,7 +255,7 @@ func (p *Plan) commit(uninstall bool) error {
 		}
 		rec := p.files[path]
 		fresh := false
-		if _, haveBak := readBytes(backupPath(path)); exists && c.backupOK && (p.Fresh || !haveBak) {
+		if haveBak, _ := hasBackup(path); exists && c.backupOK && (p.Fresh || !haveBak) {
 			if err := writeAtomic(backupPath(path), cur); err != nil {
 				return err
 			}

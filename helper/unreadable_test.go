@@ -4,6 +4,7 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
+	"strings"
 	"testing"
 )
 
@@ -50,10 +51,12 @@ func TestFolderInPlaceOfShortcutsStopsTheRun(t *testing.T) {
 	if err := os.MkdirAll(path, 0o755); err != nil {
 		t.Fatal(err)
 	}
-	p := newPlan(filepath.Join(tempRoot(t), "PokeMMO"))
+	pm := filepath.Join(tempRoot(t), "PokeMMO")
+	p := newPlan(pm)
 	shortcutPlan(p, userdir, `"/x/PokeMMO.sh"`, `"/x/"`, "")
-	if err := p.commit(false); err == nil {
-		t.Fatal("commit went ahead although shortcuts.vdf could not be read")
+	assertNothingWritten(t, p, filepath.Join(pm, "config", stateName))
+	if st, err := os.Stat(path); err != nil || !st.IsDir() {
+		t.Fatal("the folder in place of shortcuts.vdf was replaced")
 	}
 }
 
@@ -119,5 +122,29 @@ func TestSteamUserdirsReportsAnUnreadableFolder(t *testing.T) {
 	t.Cleanup(func() { os.Chmod(ud, 0o755) })
 	if _, err := steamUserdirs(filepath.Join(steam, "locked")); err == nil {
 		t.Fatal("an unreadable userdata folder was read as no accounts")
+	}
+}
+
+func TestBackupThatCannotBeReadIsKept(t *testing.T) {
+	// Python asks only whether the backup is there; a backup Go cannot read must never be
+	// replaced by the current bytes, and must not stop the run halfway.
+	steam, cfg := steamAccount(t)
+	cs := filepath.Join(cfg, "configset_controller_xboxone.vdf")
+	if err := writeAtomic(cs, []byte("\"controller_config\"\n{\n}\n")); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.Mkdir(backupPath(cs), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	p := newPlan(filepath.Join(tempRoot(t), "PokeMMO"))
+	layoutPlan(p, steam, "12345", map[string]string{"controller_xboxone": "layout\n"})
+	if err := p.commit(false); err != nil {
+		t.Fatal(err)
+	}
+	if st, err := os.Stat(backupPath(cs)); err != nil || !st.IsDir() {
+		t.Fatalf("the backup was replaced: %v", err)
+	}
+	if got, _ := readBytes(cs); !strings.Contains(string(got), ourBlock) {
+		t.Fatal("the configset was not updated")
 	}
 }
