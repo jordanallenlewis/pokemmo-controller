@@ -119,13 +119,17 @@ func TestSteamUserdirsMatchPython(t *testing.T) {
 		}
 	}
 	var picked []string
-	for _, u := range steamUserdirs(steam) {
+	dirs, err := steamUserdirs(steam)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, u := range dirs {
 		picked = append(picked, filepath.Base(u))
 	}
 	if strings.Join(picked, ",") != strings.Join(g.Picked, ",") {
 		t.Fatalf("picked %v, Python %v", picked, g.Picked)
 	}
-	if got := steamUserdirs(filepath.Join(steam, "nothing")); len(got) != len(g.NoUserdata) {
+	if got, err := steamUserdirs(filepath.Join(steam, "nothing")); err != nil || len(got) != len(g.NoUserdata) {
 		t.Fatalf("no userdata folder: picked %v, Python %v", got, g.NoUserdata)
 	}
 }
