@@ -434,6 +434,10 @@ This layout:
 - gives each wheel slice **one key press** on release;
 - has **no turbo, no macros, no chained inputs**.
 
+Some pads have a turbo button, or let you put macros on back buttons in the
+maker's app. Those run inside the pad, where this layout can't see or stop them.
+Keep turbo and macros off while you play PokeMMO.
+
 PokeMMO's support page also says it "cannot guarantee every remap software will
 be accepted". Steam Input is the setup PokeMMO's own
 [Steam Deck guide](https://support.pokemmo.com/knowledgebase/article/steam-deck-setup)
@@ -451,6 +455,10 @@ Tap a heading to open it.
   reported, so third-party pads (8BitDo, PowerA…) are covered too.
 - Settings → Control → *Enable Controller Support* must be ticked (`apply_native.py` does this).
 - Close DS4Windows, DSX, reWASD, Xpadder and similar tools. Two remappers fighting is the most common cause.
+- Swapped buttons in the pad maker's own app (8BitDo Ultimate Software and similar)?
+  The pad then reports different buttons, so this layout lands on the wrong ones.
+  Put the pad back on its default profile and change binds in game instead (the
+  remap screen or Settings → Controls).
 - Bluetooth: unpair and pair again, or try a USB cable before launching.
 - The game names each controller. With Steam Input on, PokeMMO sees
   `#SettingsController_SteamController`, and the binds are written for that name too.
