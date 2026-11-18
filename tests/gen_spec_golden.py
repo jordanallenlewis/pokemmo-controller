@@ -79,7 +79,10 @@ def _norm_record(raw, root):
             data = Path(k).read_bytes()
         except OSError:
             continue
-        if any(f.encode() in data for f in _root_forms(root)):
+        # a Windows checkout may turn LF into CRLF in text files, so their hash differs per machine too
+        # (.ps1 and .sh are pinned by .gitattributes)
+        text = k.lower().endswith((".py", ".md", ".json", ".vdf", ".txt", ".html", ".css", ".js", ".properties"))
+        if text or any(f.encode() in data for f in _root_forms(root)):
             holds_root.add(_norm_text(k, root))
     rec = _walk(raw_rec, root)
     for k, v in rec.get("files", {}).items():
