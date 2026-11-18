@@ -211,6 +211,7 @@
   function pickOs(id) {
     $$("[data-os-tab]").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.osTab === id)));
     $$("[data-os-panel]").forEach((p) => (p.hidden = p.dataset.osPanel !== id));
+    $$("[data-undo-panel]").forEach((p) => (p.hidden = p.dataset.undoPanel !== (id === "win" ? "win" : "unix")));
   }
   $$("[data-os-tab]").forEach((b) => b.addEventListener("click", () => pickOs(b.dataset.osTab)));
   const NAMES = { win: "Windows", mac: "macOS", linux: "Linux", deck: "Steam Deck" };
