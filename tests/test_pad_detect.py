@@ -61,7 +61,9 @@ class Install(unittest.TestCase):
 
     def test_real_detection_never_raises(self):
         code = "import sys; sys.path.insert(0, r'%s'); import platforms as P; print(len(P.connected_pad_names()))" % TOOLS
-        r = subprocess.run([sys.executable, "-I", "-c", code], capture_output=True, text=True, env=Sandbox().env())
+        sb = Sandbox()
+        self.addCleanup(sb.cleanup)
+        r = subprocess.run([sys.executable, "-I", "-c", code], capture_output=True, text=True, env=sb.env())
         self.assertEqual(r.returncode, 0, r.stderr)
 
 

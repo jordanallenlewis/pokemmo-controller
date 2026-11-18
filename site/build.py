@@ -98,7 +98,8 @@ def ui_block():
     out = {}
     for kind in P.FAMILIES:
         h = spots[kind]
-        raw = open(os.path.join(ROOT, h["photo"]), "rb").read()
+        with open(os.path.join(ROOT, h["photo"]), "rb") as f:
+            raw = f.read()
         out[kind] = {"img": "data:image/webp;base64," + base64.b64encode(raw).decode("ascii"),
                      "w": h["w"], "h": h["h"], "alt": h["alt"], "spots": h["spots"]}
     return "/*pads:start*/\nconst PADPHOTOS = " + json.dumps(out, separators=(",", ":")) + ";\n/*pads:end*/"
@@ -112,12 +113,14 @@ def ui_page_text(text):
     return pat.sub(lambda m: block, text)
 
 
+def read_text(path):
+    with open(path, encoding="utf-8", newline="") as f:
+        return f.read().replace("\r\n", "\n")
+
+
 def outputs():
-    def read(path):
-        with open(path, encoding="utf-8", newline="") as f:
-            return f.read().replace("\r\n", "\n")
     return {LAYOUT_JSON: json.dumps(build(), indent=1, ensure_ascii=False) + "\n",
-            README: readme_text(read(README)), UI_PAGE: ui_page_text(read(UI_PAGE))}
+            README: readme_text(read_text(README)), UI_PAGE: ui_page_text(read_text(UI_PAGE))}
 
 
 def main():
@@ -125,7 +128,7 @@ def main():
     if "--check" in sys.argv:
         stale = []
         for path, text in outs.items():
-            cur = open(path, encoding="utf-8", newline="").read().replace("\r\n", "\n") if os.path.exists(path) else ""
+            cur = read_text(path) if os.path.exists(path) else ""
             if cur != text:
                 stale.append(os.path.relpath(path, ROOT))
         if stale:

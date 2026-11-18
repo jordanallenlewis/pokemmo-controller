@@ -16,6 +16,8 @@ WATCHED = [
     "test_ui.Launch",
     "test_live_resolution.Following",
     "test_login_helper.OneCopyAtATime",
+    "test_canon",                       # imports site/build.py, which reads every controller photo
+    "test_pad_detect",
 ]
 
 
@@ -30,6 +32,17 @@ class NoLeaks(unittest.TestCase):
         self.assertEqual(r.returncode, 0, out[-3000:])
         ran = re.search(r"^Ran (\d+) test", out, re.M)
         self.assertTrue(ran and int(ran.group(1)) >= len(WATCHED), out[-3000:])   # the watched tests really ran
+        leaks = [line for line in out.splitlines() if "ResourceWarning" in line]
+        self.assertEqual(leaks, [], out[-3000:])
+
+    def test_site_build_check_leaves_no_file_open(self):
+        env = dict(os.environ)
+        env.pop("PYTHONWARNINGS", None)
+        r = subprocess.run([sys.executable, "-W", "always::ResourceWarning", str(HERE.parent / "site" / "build.py"), "--check"],
+                           cwd=str(HERE.parent), env=env, capture_output=True, text=True, encoding="utf-8",
+                           errors="replace", timeout=120, stdin=subprocess.DEVNULL)
+        out = r.stdout + r.stderr
+        self.assertEqual(r.returncode, 0, out[-3000:])
         leaks = [line for line in out.splitlines() if "ResourceWarning" in line]
         self.assertEqual(leaks, [], out[-3000:])
 
