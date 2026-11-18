@@ -13,6 +13,8 @@ entry no longer matches anything, or if there is drift not listed). Standard lib
 import json, re, sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
 ROOT = Path(__file__).resolve().parent.parent
 B = ROOT / "brand"
 TEXT = ["README.md", "CONTRIBUTING.md", "CHANGELOG.md", "docs/*.md", "site/index.html", "site/404.html",
@@ -22,6 +24,9 @@ IMG_DOCS = ["README.md", "CONTRIBUTING.md", "docs/*.md", ".github/**/*.md"]
 
 
 def load(name):
+    if name == "tokens.json":                       # W3C format on disk, flat shape for the checks
+        import tokens
+        return tokens.flat(B / name)
     return json.loads((B / name).read_text(encoding="utf-8"))
 
 

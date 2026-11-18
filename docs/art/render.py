@@ -23,10 +23,13 @@ import os
 import struct
 import subprocess
 import sys
+import tempfile
 import threading
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent.parent
+sys.path.insert(0, str(ROOT / "brand"))
+import tokens as brand_tokens  # noqa: E402
 IMG = ROOT / "docs" / "img"
 MANIFEST = IMG / "maps.json"
 MIN_WIDTH = 3840
@@ -105,8 +108,10 @@ def render():
     url = f"http://127.0.0.1:{srv.server_address[1]}/index.html"
     IMG.mkdir(parents=True, exist_ok=True)
     try:
-        subprocess.run(["node", str(ROOT / "docs" / "art" / "shot.js"), url, str(IMG),
-                        str(ROOT / "brand" / "tokens.json")], check=True)
+        with tempfile.TemporaryDirectory() as tmp:       # shot.js reads the flat shape of the tokens
+            flat = Path(tmp) / "tokens-flat.json"
+            flat.write_text(json.dumps(brand_tokens.flat()), encoding="utf-8")
+            subprocess.run(["node", str(ROOT / "docs" / "art" / "shot.js"), url, str(IMG), str(flat)], check=True)
     finally:
         srv.shutdown()
     sizes = {n: list(png_size(IMG / n)) for n in NAMES}
