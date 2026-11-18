@@ -31,14 +31,11 @@ def _version():
 
 
 def _root_forms(root):
-    """Every spelling of the sandbox root a program may print: long, posix and, on Windows, the 8.3 short form."""
-    forms = {str(root), root.as_posix()}
-    if os.name == "nt":
-        import ctypes
-        buf = ctypes.create_unicode_buffer(32768)
-        for fn in ("GetShortPathNameW", "GetLongPathNameW"):
-            if getattr(ctypes.windll.kernel32, fn)(str(root), buf, len(buf)):
-                forms |= {buf.value, buf.value.replace("\\", "/")}
+    """Every spelling of the sandbox root a program may print: as made (on Windows the 8.3 short
+    temp path, RUNNER~1), resolved (long), and each with forward slashes."""
+    forms = set()
+    for r in (root, Path(os.path.abspath(root)), Path(root).resolve()):
+        forms |= {str(r), r.as_posix()}
     return sorted(forms, key=len, reverse=True)
 
 
@@ -81,7 +78,7 @@ def _norm_record(raw, root):
 
 def tree(sb):
     """{relative path: sha-256 of the bytes, or null for an empty folder, or {"path": true}}."""
-    root = sb.root.resolve()
+    root = sb.root
     out = {}
     for rel, data in sb.snapshot().items():
         if data is None:
@@ -99,12 +96,12 @@ def record(sb):
     p = sb.pokemmo / "config" / "pokemmo-controller.json"
     if not p.exists():
         return None
-    return _norm_record(p.read_bytes(), sb.root.resolve())
+    return _norm_record(p.read_bytes(), sb.root)
 
 
 def step(sb, label, *args, **kw):
     r = sb.setup(*args, check=False, **kw)
-    root = sb.root.resolve()
+    root = sb.root
     lines = [_norm_text(l, root).rstrip() for l in (r.stdout + r.stderr).splitlines() if l.strip()]
     return {"step": label, "argv": [_norm_text(a, root) for a in args], "exit": r.returncode, "output": lines,
             "tree": tree(sb), "record": record(sb)}
