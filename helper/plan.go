@@ -5,10 +5,13 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io/fs"
 	"os"
 	"path/filepath"
 	"strings"
+	"syscall"
 	"time"
 )
 
@@ -32,6 +35,11 @@ func shaHex(b []byte) string {
 }
 
 // readBytes returns nil, false when the file does not exist.
+// isMissing: the file is not there (or a parent is a file), which the Python tool reads as missing.
+func isMissing(err error) bool {
+	return errors.Is(err, fs.ErrNotExist) || errors.Is(err, syscall.ENOTDIR)
+}
+
 func readBytes(p string) ([]byte, bool) {
 	b, err := os.ReadFile(p)
 	if err != nil {
@@ -77,6 +85,7 @@ type Plan struct {
 	Notes       []string
 	DropBackups []string // uninstall: backups to delete at the end
 	Fresh       bool     // nothing installed: backups left by an old uninstall are stale
+	readErrs    []error  // files that are there but could not be read: commit stops before any write
 }
 
 func newPlan(pokemmo string) *Plan {
@@ -121,6 +130,19 @@ func (p *Plan) loadState() map[string]any {
 	return m
 }
 
+// read is readBytes for planning: a file that is there but cannot be read (a folder in its place,
+// no permission, locked) is not taken as missing; it is remembered and commit stops before any write.
+func (p *Plan) read(path string) ([]byte, bool) {
+	b, err := os.ReadFile(path)
+	if err == nil {
+		return b, true
+	}
+	if !isMissing(err) {
+		p.readErrs = append(p.readErrs, fmt.Errorf("could not read %s: %w", path, err))
+	}
+	return nil, false
+}
+
 // current is what the file will look like after commit.
 func (p *Plan) current(path string) ([]byte, bool) {
 	if c, ok := p.changes[path]; ok {
@@ -129,7 +151,7 @@ func (p *Plan) current(path string) ([]byte, bool) {
 		}
 		return c.data, true
 	}
-	return readBytes(path)
+	return p.read(path)
 }
 
 // put schedules path to hold data. backupOK=false: the file already holds our changes, so do not
@@ -189,6 +211,9 @@ func (p *Plan) exactOriginal(path string) (orig []byte, existed bool, ok bool) {
 }
 
 func (p *Plan) commit(uninstall bool) error {
+	if len(p.readErrs) > 0 {
+		return fmt.Errorf("%v. Nothing was changed", p.readErrs[0])
+	}
 	pending := p.pending()
 	for _, path := range pending { // a read-only file stops the run before any write
 		if st, err := os.Stat(path); err == nil && st.Mode().Perm()&0o200 == 0 {

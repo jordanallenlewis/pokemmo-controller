@@ -326,7 +326,7 @@ func shortcutPlan(p *Plan, userdir, exe, startDir, options string) {
 	}
 	p.state["shortcuts_added"] = added
 	legacy := !stateTruthy(p.state["version"]) && !p.Fresh // installed by a version without a record
-	bak, _ := readBytes(backupPath(path))
+	bak, _ := p.read(backupPath(path))
 	sc, old := newBvMap(), newBvMap()
 	var err error
 	if len(data) > 0 {
