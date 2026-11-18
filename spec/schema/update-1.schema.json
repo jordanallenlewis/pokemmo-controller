@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pokemmocontroller.com/spec/schema/update-1.schema.json",
+  "title": "pmc.update/1: the whole document is signed (detached minisign signature beside it) and checked before any field is read",
+  "type": "object",
+  "required": [
+    "schema",
+    "channel",
+    "version",
+    "seq",
+    "expires",
+    "released",
+    "notes_url",
+    "min_record_format",
+    "retracted",
+    "artifacts"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "const": "pmc.update/1"
+    },
+    "channel": {
+      "enum": [
+        "stable",
+        "beta"
+      ]
+    },
+    "version": {
+      "type": "string"
+    },
+    "seq": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Always increasing; a lower value than the last seen is refused."
+    },
+    "expires": {
+      "type": "string"
+    },
+    "released": {
+      "type": "string"
+    },
+    "notes_url": {
+      "type": "string"
+    },
+    "min_record_format": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "retracted": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "artifacts": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "url",
+          "size",
+          "sha256",
+          "signature"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "url": {
+            "type": "string",
+            "pattern": "^https://"
+          },
+          "size": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "signature": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "cli": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

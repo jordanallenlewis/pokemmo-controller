@@ -1,0 +1,522 @@
+{
+ "schema": "pmc.golden.share-code/1",
+ "vectors": [
+  {
+   "label": "default",
+   "layout": {
+    "format": 1,
+    "binds": {
+     "KEY_UP": {
+      "axis": 1,
+      "positive": false
+     },
+     "KEY_DOWN": {
+      "axis": 1,
+      "positive": true
+     },
+     "KEY_LEFT": {
+      "axis": 0,
+      "positive": false
+     },
+     "KEY_RIGHT": {
+      "axis": 0,
+      "positive": true
+     },
+     "KEY_A": {
+      "button": 0
+     },
+     "KEY_B": {
+      "button": 1
+     },
+     "KEY_X": {
+      "button": 2
+     },
+     "KEY_Y": {
+      "button": 3
+     },
+     "KEY_RING_FOCUS": {
+      "button": 9
+     },
+     "KEY_GAMEMENU": {
+      "button": 6
+     },
+     "KEY_INVENTORY": {
+      "button": 10
+     },
+     "KEY_NEXT": {
+      "axis": 5,
+      "positive": true
+     },
+     "KEY_PREVIOUS": {
+      "axis": 4,
+      "positive": true
+     },
+     "KEY_HOTBAR_1": {
+      "button": 11
+     },
+     "KEY_HOTBAR_2": {
+      "button": 14
+     },
+     "KEY_HOTBAR_3": {
+      "button": 12
+     },
+     "KEY_HOTBAR_4": {
+      "button": 13
+     },
+     "KEY_HOTBAR_5": {
+      "button": 4
+     },
+     "KEY_TEAM": {
+      "button": 7
+     },
+     "KEY_SCREENSHOT": {
+      "button": 8
+     }
+    },
+    "wheel": [
+     "codex",
+     "incubator",
+     "trainer",
+     "friendlist",
+     "tradelink",
+     "hotbar6",
+     "hotbar7",
+     "hotbar8",
+     "hotbar9",
+     "hidegui"
+    ]
+   },
+   "code": "PMC1-CIJR-AEIA-AEBA-GCIG-BINR-SCYO-BQGQ-IBYI-AAAQ-EAYE-AUDA-OCAJ-YO7Q"
+  },
+  {
+   "label": "wheel reversed",
+   "layout": {
+    "format": 1,
+    "binds": {
+     "KEY_UP": {
+      "axis": 1,
+      "positive": false
+     },
+     "KEY_DOWN": {
+      "axis": 1,
+      "positive": true
+     },
+     "KEY_LEFT": {
+      "axis": 0,
+      "positive": false
+     },
+     "KEY_RIGHT": {
+      "axis": 0,
+      "positive": true
+     },
+     "KEY_A": {
+      "button": 0
+     },
+     "KEY_B": {
+      "button": 1
+     },
+     "KEY_X": {
+      "button": 2
+     },
+     "KEY_Y": {
+      "button": 3
+     },
+     "KEY_RING_FOCUS": {
+      "button": 9
+     },
+     "KEY_GAMEMENU": {
+      "button": 6
+     },
+     "KEY_INVENTORY": {
+      "button": 10
+     },
+     "KEY_NEXT": {
+      "axis": 5,
+      "positive": true
+     },
+     "KEY_PREVIOUS": {
+      "axis": 4,
+      "positive": true
+     },
+     "KEY_HOTBAR_1": {
+      "button": 11
+     },
+     "KEY_HOTBAR_2": {
+      "button": 14
+     },
+     "KEY_HOTBAR_3": {
+      "button": 12
+     },
+     "KEY_HOTBAR_4": {
+      "button": 13
+     },
+     "KEY_HOTBAR_5": {
+      "button": 4
+     },
+     "KEY_TEAM": {
+      "button": 7
+     },
+     "KEY_SCREENSHOT": {
+      "button": 8
+     }
+    },
+    "wheel": [
+     "hidegui",
+     "hotbar9",
+     "hotbar8",
+     "hotbar7",
+     "hotbar6",
+     "tradelink",
+     "friendlist",
+     "trainer",
+     "incubator",
+     "codex"
+    ]
+   },
+   "code": "PMC1-CIJR-AEIA-AEBA-GCIG-BINR-SCYO-BQGQ-IBYI-BEEA-OBQF-AQBQ-EAIA-WTGA"
+  },
+  {
+   "label": "unbound action",
+   "layout": {
+    "format": 1,
+    "binds": {
+     "KEY_UP": {
+      "axis": 1,
+      "positive": false
+     },
+     "KEY_DOWN": {
+      "axis": 1,
+      "positive": true
+     },
+     "KEY_LEFT": {
+      "axis": 0,
+      "positive": false
+     },
+     "KEY_RIGHT": {
+      "axis": 0,
+      "positive": true
+     },
+     "KEY_A": {
+      "button": 0
+     },
+     "KEY_B": {
+      "button": 1
+     },
+     "KEY_X": {
+      "button": 2
+     },
+     "KEY_Y": {
+      "button": 3
+     },
+     "KEY_RING_FOCUS": {
+      "button": 9
+     },
+     "KEY_GAMEMENU": {
+      "button": 6
+     },
+     "KEY_INVENTORY": {
+      "button": 10
+     },
+     "KEY_NEXT": {
+      "axis": 5,
+      "positive": true
+     },
+     "KEY_PREVIOUS": {
+      "axis": 4,
+      "positive": true
+     },
+     "KEY_HOTBAR_1": {
+      "button": 11
+     },
+     "KEY_HOTBAR_2": {
+      "button": 14
+     },
+     "KEY_HOTBAR_3": {
+      "button": 12
+     },
+     "KEY_HOTBAR_4": {
+      "button": 13
+     },
+     "KEY_HOTBAR_5": {
+      "button": 4
+     },
+     "KEY_TEAM": {
+      "button": 7
+     }
+    },
+    "wheel": [
+     "codex",
+     "incubator",
+     "trainer",
+     "friendlist",
+     "tradelink",
+     "hotbar6",
+     "hotbar7",
+     "hotbar8",
+     "hotbar9",
+     "hidegui"
+    ]
+   },
+   "code": "PMC1-CIJR-AEIA-AEBA-GCIG-BINR-SCYO-BQGQ-IB77-AAAQ-EAYE-AUDA-OCAJ-WFIA"
+  },
+  {
+   "label": "named",
+   "layout": {
+    "format": 1,
+    "name": "mine",
+    "binds": {
+     "KEY_UP": {
+      "axis": 1,
+      "positive": false
+     },
+     "KEY_DOWN": {
+      "axis": 1,
+      "positive": true
+     },
+     "KEY_LEFT": {
+      "axis": 0,
+      "positive": false
+     },
+     "KEY_RIGHT": {
+      "axis": 0,
+      "positive": true
+     },
+     "KEY_A": {
+      "button": 0
+     },
+     "KEY_B": {
+      "button": 1
+     },
+     "KEY_X": {
+      "button": 2
+     },
+     "KEY_Y": {
+      "button": 3
+     },
+     "KEY_RING_FOCUS": {
+      "button": 9
+     },
+     "KEY_GAMEMENU": {
+      "button": 6
+     },
+     "KEY_INVENTORY": {
+      "button": 10
+     },
+     "KEY_NEXT": {
+      "axis": 5,
+      "positive": true
+     },
+     "KEY_PREVIOUS": {
+      "axis": 4,
+      "positive": true
+     },
+     "KEY_HOTBAR_1": {
+      "button": 11
+     },
+     "KEY_HOTBAR_2": {
+      "button": 14
+     },
+     "KEY_HOTBAR_3": {
+      "button": 12
+     },
+     "KEY_HOTBAR_4": {
+      "button": 13
+     },
+     "KEY_HOTBAR_5": {
+      "button": 4
+     },
+     "KEY_TEAM": {
+      "button": 7
+     },
+     "KEY_SCREENSHOT": {
+      "button": 8
+     }
+    },
+    "wheel": [
+     "codex",
+     "incubator",
+     "trainer",
+     "friendlist",
+     "tradelink",
+     "hotbar6",
+     "hotbar7",
+     "hotbar8",
+     "hotbar9",
+     "hidegui"
+    ]
+   },
+   "code": "PMC1-CIJR-AEIA-AEBA-GCIG-BINR-SCYO-BQGQ-IBYI-AAAQ-EAYE-AUDA-OCAJ-YO7Q"
+  },
+  {
+   "label": "swap buttons",
+   "layout": {
+    "format": 1,
+    "binds": {
+     "KEY_UP": {
+      "axis": 1,
+      "positive": false
+     },
+     "KEY_DOWN": {
+      "axis": 1,
+      "positive": true
+     },
+     "KEY_LEFT": {
+      "axis": 0,
+      "positive": false
+     },
+     "KEY_RIGHT": {
+      "axis": 0,
+      "positive": true
+     },
+     "KEY_A": {
+      "button": 0
+     },
+     "KEY_B": {
+      "button": 1
+     },
+     "KEY_X": {
+      "button": 2
+     },
+     "KEY_Y": {
+      "button": 3
+     },
+     "KEY_RING_FOCUS": {
+      "button": 9
+     },
+     "KEY_GAMEMENU": {
+      "button": 6
+     },
+     "KEY_INVENTORY": {
+      "button": 4
+     },
+     "KEY_NEXT": {
+      "axis": 5,
+      "positive": true
+     },
+     "KEY_PREVIOUS": {
+      "axis": 4,
+      "positive": true
+     },
+     "KEY_HOTBAR_1": {
+      "button": 11
+     },
+     "KEY_HOTBAR_2": {
+      "button": 14
+     },
+     "KEY_HOTBAR_3": {
+      "button": 12
+     },
+     "KEY_HOTBAR_4": {
+      "button": 13
+     },
+     "KEY_HOTBAR_5": {
+      "button": 10
+     },
+     "KEY_TEAM": {
+      "button": 7
+     },
+     "KEY_SCREENSHOT": {
+      "button": 8
+     }
+    },
+    "wheel": [
+     "codex",
+     "incubator",
+     "trainer",
+     "friendlist",
+     "tradelink",
+     "hotbar6",
+     "hotbar7",
+     "hotbar8",
+     "hotbar9",
+     "hidegui"
+    ]
+   },
+   "code": "PMC1-CIJR-AEIA-AEBA-GCIG-AQNR-SCYO-BQGQ-UBYI-AAAQ-EAYE-AUDA-OCAJ-QRUA"
+  },
+  {
+   "label": "trigger moved",
+   "layout": {
+    "format": 1,
+    "binds": {
+     "KEY_UP": {
+      "axis": 1,
+      "positive": false
+     },
+     "KEY_DOWN": {
+      "axis": 1,
+      "positive": true
+     },
+     "KEY_LEFT": {
+      "axis": 0,
+      "positive": false
+     },
+     "KEY_RIGHT": {
+      "axis": 0,
+      "positive": true
+     },
+     "KEY_A": {
+      "button": 0
+     },
+     "KEY_B": {
+      "button": 1
+     },
+     "KEY_X": {
+      "button": 2
+     },
+     "KEY_Y": {
+      "button": 3
+     },
+     "KEY_RING_FOCUS": {
+      "button": 9
+     },
+     "KEY_GAMEMENU": {
+      "button": 6
+     },
+     "KEY_INVENTORY": {
+      "button": 10
+     },
+     "KEY_NEXT": {
+      "axis": 5,
+      "positive": true
+     },
+     "KEY_HOTBAR_1": {
+      "button": 11
+     },
+     "KEY_HOTBAR_2": {
+      "button": 14
+     },
+     "KEY_HOTBAR_3": {
+      "button": 12
+     },
+     "KEY_HOTBAR_4": {
+      "button": 13
+     },
+     "KEY_HOTBAR_5": {
+      "button": 4
+     },
+     "KEY_TEAM": {
+      "axis": 4,
+      "positive": true
+     },
+     "KEY_SCREENSHOT": {
+      "button": 8
+     }
+    },
+    "wheel": [
+     "codex",
+     "incubator",
+     "trainer",
+     "friendlist",
+     "tradelink",
+     "hotbar6",
+     "hotbar7",
+     "hotbar8",
+     "hotbar9",
+     "hidegui"
+    ]
+   },
+   "code": "PMC1-CIJR-AEIA-AEBA-GCIG-BIN7-6CYO-BQGQ-IGII-AAAQ-EAYE-AUDA-OCAJ-N4EQ"
+  }
+ ]
+}

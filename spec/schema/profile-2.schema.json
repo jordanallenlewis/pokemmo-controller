@@ -1,0 +1,779 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pokemmocontroller.com/spec/schema/profile-2.schema.json",
+  "title": "pmc.profile format 2 (adds metadata only)",
+  "type": "object",
+  "required": [
+    "format",
+    "binds",
+    "wheel"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "format": {
+      "const": 2
+    },
+    "name": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "binds": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "KEY_UP": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": [
+                "button"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "button": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 14
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "axis",
+                "positive"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "axis": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5
+                },
+                "positive": {
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
+        },
+        "KEY_DOWN": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": [
+                "button"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "button": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 14
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "axis",
+                "positive"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "axis": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5
+                },
+                "positive": {
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
+        },
+        "KEY_LEFT": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": [
+                "button"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "button": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 14
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "axis",
+                "positive"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "axis": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5
+                },
+                "positive": {
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
+        },
+        "KEY_RIGHT": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": [
+                "button"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "button": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 14
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "axis",
+                "positive"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "axis": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5
+                },
+                "positive": {
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
+        },
+        "KEY_A": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": [
+                "button"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "button": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 14
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "axis",
+                "positive"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "axis": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5
+                },
+                "positive": {
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
+        },
+        "KEY_B": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": [
+                "button"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "button": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 14
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "axis",
+                "positive"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "axis": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5
+                },
+                "positive": {
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
+        },
+        "KEY_X": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": [
+                "button"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "button": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 14
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "axis",
+                "positive"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "axis": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5
+                },
+                "positive": {
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
+        },
+        "KEY_Y": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": [
+                "button"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "button": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 14
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "axis",
+                "positive"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "axis": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5
+                },
+                "positive": {
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
+        },
+        "KEY_RING_FOCUS": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": [
+                "button"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "button": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 14
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "axis",
+                "positive"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "axis": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5
+                },
+                "positive": {
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
+        },
+        "KEY_GAMEMENU": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": [
+                "button"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "button": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 14
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "axis",
+                "positive"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "axis": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5
+                },
+                "positive": {
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
+        },
+        "KEY_INVENTORY": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": [
+                "button"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "button": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 14
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "axis",
+                "positive"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "axis": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5
+                },
+                "positive": {
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
+        },
+        "KEY_NEXT": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": [
+                "button"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "button": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 14
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "axis",
+                "positive"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "axis": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5
+                },
+                "positive": {
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
+        },
+        "KEY_PREVIOUS": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": [
+                "button"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "button": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 14
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "axis",
+                "positive"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "axis": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5
+                },
+                "positive": {
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
+        },
+        "KEY_HOTBAR_1": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": [
+                "button"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "button": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 14
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "axis",
+                "positive"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "axis": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5
+                },
+                "positive": {
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
+        },
+        "KEY_HOTBAR_2": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": [
+                "button"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "button": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 14
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "axis",
+                "positive"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "axis": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5
+                },
+                "positive": {
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
+        },
+        "KEY_HOTBAR_3": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": [
+                "button"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "button": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 14
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "axis",
+                "positive"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "axis": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5
+                },
+                "positive": {
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
+        },
+        "KEY_HOTBAR_4": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": [
+                "button"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "button": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 14
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "axis",
+                "positive"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "axis": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5
+                },
+                "positive": {
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
+        },
+        "KEY_HOTBAR_5": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": [
+                "button"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "button": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 14
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "axis",
+                "positive"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "axis": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5
+                },
+                "positive": {
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
+        },
+        "KEY_TEAM": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": [
+                "button"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "button": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 14
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "axis",
+                "positive"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "axis": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5
+                },
+                "positive": {
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
+        },
+        "KEY_SCREENSHOT": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": [
+                "button"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "button": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 14
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "axis",
+                "positive"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "axis": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 5
+                },
+                "positive": {
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "wheel": {
+      "type": "array",
+      "minItems": 10,
+      "maxItems": 10,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "codex",
+          "incubator",
+          "trainer",
+          "friendlist",
+          "tradelink",
+          "hotbar6",
+          "hotbar7",
+          "hotbar8",
+          "hotbar9",
+          "hidegui"
+        ]
+      }
+    },
+    "id": {
+      "type": "string"
+    },
+    "created_by": {
+      "type": "string"
+    },
+    "pad_hint": {
+      "type": "string"
+    }
+  }
+}
