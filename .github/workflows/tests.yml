@@ -1,9 +1,18 @@
 name: tests
 
+# Pull requests and main only. A branch push used to start a second, identical
+# run next to the pull request run, which doubled the queue for the macOS legs.
 on:
   push:
+    branches: [main]
   pull_request:
   workflow_dispatch:
+
+# A new push to a pull request cancels its stale run. Runs on main are never
+# cancelled, so every commit that lands keeps its own full result.
+concurrency:
+  group: tests-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 # Every leg must pass: there are no allowed failures and no skipped legs. The
 # last job, "all platforms", is the one to require before a release.
