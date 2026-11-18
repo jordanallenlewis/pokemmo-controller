@@ -186,10 +186,13 @@
 
   // install tabs: preselect the visitor's system
   function os() {
-    const p = (navigator.userAgentData?.platform || navigator.platform || navigator.userAgent).toLowerCase();
+    const ua = navigator.userAgent || "";
+    const p = (navigator.userAgentData?.platform || navigator.platform || ua).toLowerCase();
+    // phones and tablets cannot run the installer: the game is played on a computer
+    if (/android|iphone|ipad|ipod|mobile/i.test(ua) || (p.includes("mac") && navigator.maxTouchPoints > 1)) return "phone";
     if (p.includes("win")) return "win";
     if (p.includes("mac")) return "mac";
-    if (p.includes("linux") || p.includes("x11")) return "linux";
+    if (p.includes("linux") || p.includes("x11") || p.includes("cros")) return "linux";
     return "win";
   }
   function pickOs(id) {
@@ -198,9 +201,13 @@
   }
   $$("[data-os-tab]").forEach((b) => b.addEventListener("click", () => pickOs(b.dataset.osTab)));
   const mine = os();
-  pickOs(mine);
-  const osName = { win: "Windows", mac: "macOS", linux: "Linux & Deck" }[mine];
-  $$("[data-os]").forEach((n) => (n.textContent = osName));
+  pickOs(mine === "phone" ? "win" : mine);
+  const osName = { win: "Windows", mac: "macOS", linux: "Linux & Steam Deck" }[mine];
+  // one text node, so no stray space between "for" and the system name
+  $$("[data-dl]").forEach((n) => {
+    n.textContent = mine === "phone" ? "Install on your computer" : "Install for " + osName;
+  });
+  if (mine === "phone") document.querySelectorAll("[data-phone-note]").forEach((n) => (n.hidden = false));
 
   $$("[data-copy]").forEach((b) => b.addEventListener("click", async () => {
     const code = b.closest(".term").querySelector("code").textContent;

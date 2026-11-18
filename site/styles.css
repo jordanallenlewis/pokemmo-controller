@@ -223,3 +223,5 @@ kbd { font: 500 12px/1 var(--mono); background: var(--surface-2); border: 1px so
 /* narrow phones: the GitHub button shows only its icon and count so the name never collides with it */
 @media (max-width: 480px) { .gh > span:not(.stars) { display: none; } .brand { font-size: 17px; gap: 10px; } .nav-in { gap: 12px; } }
 @media (max-width: 900px) { .demo { grid-template-columns: 1fr; } .demo-side .pad { max-width: 360px; } }
+
+.phone-note { margin-top: 14px; padding: 12px 16px; border-left: 3px solid var(--yellow); background: var(--surface); border-radius: 8px; color: var(--ink); }
