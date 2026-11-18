@@ -58,6 +58,26 @@ class Brand(unittest.TestCase):
         css = PAGE.split("/*brand:end*/")[1].split("</style>")[0]
         self.assertNotRegex(css, r"#[0-9a-fA-F]{3,8}\b", "a colour written into the page instead of a token")
 
+    def test_the_accent_is_the_pokemmo_logo_yellow_and_its_shades_follow(self):
+        for theme in ("dark", "light"):
+            self.assertEqual(TOKENS[theme]["accent"], "#f0ea6b")
+        self.assertEqual(TOKENS["dark"]["accent-hover"], "#f5f199")
+        self.assertGreaterEqual(contrast("#f0ea6b", TOKENS["dark"]["bg"]), 14.0)
+        self.assertGreaterEqual(contrast(TOKENS["light"]["accent-text"], TOKENS["light"]["surface"]), 4.5)
+        for site, token in (("yellow-hover", "accent-hover"), ("yellow-edge", "accent-edge")):
+            m = re.search(rf"--{site}:\s*(#[0-9a-fA-F]{{6}})", SITE_CSS)
+            self.assertEqual(m.group(1).lower(), TOKENS["dark"][token], site)
+
+    def test_the_old_amber_is_gone_everywhere(self):
+        old = re.compile(r"ffc833|ffd35c|c98a00|b07a00|7a5200|255,\s*200,\s*51", re.I)
+        skip = {".git", "fonts"}
+        for p in ROOT.rglob("*"):
+            if not p.is_file() or skip & set(p.parts) or p.suffix.lower() not in (".css", ".html", ".svg", ".json", ".js", ".py", ".md"):
+                continue
+            if p.name == "test_brand.py":
+                continue
+            self.assertIsNone(old.search(p.read_text(encoding="utf-8", errors="ignore")), f"old amber in {p.relative_to(ROOT)}")
+
     def test_the_mark_and_voice_files_exist(self):
         for name in ("mark.svg", "VOICE.md", "DESIGN.md", "tokens.css"):
             self.assertTrue((ROOT / "brand" / name).exists(), name)

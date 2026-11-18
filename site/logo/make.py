@@ -28,7 +28,7 @@ def word(text, x, y, px, gap=1):
     return rects, x
 def path(rects):
     return "".join(f"M{x} {y}h{s}v{s}h-{s}z" for x, y, s in rects)
-SHADE = {"#f4f1ea": "#9aa0ab", "#ffc833": "#c98a00", "#a3a8b3": "#5d636e"}
+SHADE = {"#f4f1ea": "#9aa0ab", "#f0ea6b": "#a8a10b", "#a3a8b3": "#5d636e"}
 def outlined(rects, fill, stroke, sw):
     d = path(rects)
     off = max(2, rects[0][2] // 3) if rects else 2
@@ -45,7 +45,7 @@ def pad(x, y, px, body, hole="#121418"):
         for c, v in enumerate(row):
             if v == "1": out.append((x + c * px, y + r * px, px))
     return f'<path d="{path(out)}" fill="{body}"/>'
-WHITE, YEL, INK, BG = "#f4f1ea", "#ffc833", "#121418", "#121418"
+WHITE, YEL, INK, BG = "#f4f1ea", "#f0ea6b", "#121418", "#121418"
 
 def concept1():  # stacked wordmark, PokeMMO-style two tone with outline
     a, w1 = word("POKE", 20, 20, 12); b, w2 = word("MMO", w1 + 6, 20, 12)
