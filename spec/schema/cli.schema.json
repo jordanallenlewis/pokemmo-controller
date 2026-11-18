@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pokemmocontroller.com/spec/schema/cli.schema.json",
+  "title": "pmc.cli/1: the one envelope `--json` prints (streams print NDJSON frames of {schema,event,data})",
+  "type": "object",
+  "required": [
+    "schema",
+    "command",
+    "ok",
+    "data",
+    "warnings"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "const": "pmc.cli/1"
+    },
+    "command": {
+      "type": "string"
+    },
+    "ok": {
+      "type": "boolean"
+    },
+    "data": {},
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "error": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_]+$"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "x-exit-codes": {
+    "0": "OK, including already up to date",
+    "1": "Failed",
+    "2": "Usage error",
+    "3": "Blocked, needs user action",
+    "4": "Refused by product policy",
+    "5": "Not found",
+    "6": "Data made by a newer version",
+    "7": "Update verification failed, nothing changed",
+    "10": "Update failed and was rolled back"
+  },
+  "x-error-codes": {
+    "POKEMMO_NOT_FOUND": 5,
+    "STEAM_NOT_FOUND": 5,
+    "POKEMMO_RUNNING": 3,
+    "STEAM_GAME_RUNNING": 3,
+    "GAME_MODE_DEFERRED": 3,
+    "POLICY_MACRO": 4,
+    "POLICY_SHARED_INPUT": 4,
+    "DATA_NEWER": 6,
+    "UPDATE_VERIFY_FAILED": 7,
+    "UPDATE_ROLLED_BACK": 10,
+    "USAGE": 2,
+    "FAILED": 1
+  }
+}
