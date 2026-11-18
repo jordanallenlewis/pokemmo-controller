@@ -1,86 +1,154 @@
 {
-  "note": "The exact words for the product, systems, pad families and features. Action and button names are not copied here: they come from tools/layout.py (ACTIONS, PADS) and are checked against it.",
-  "product": "PokeMMO Controller",
-  "game": "PokeMMO",
-  "systems": [
-    "Windows",
-    "macOS",
-    "Linux",
-    "Steam Deck",
-    "SteamOS",
-    "Steam"
-  ],
-  "pad_families": {
-    "xbox": "Xbox",
-    "playstation": "PlayStation",
-    "switch": "Switch Pro",
-    "deck": "Steam Deck"
-  },
-  "features": {
-    "wheel": "wheel",
-    "app": "remap app",
-    "layout": "layout",
-    "binds": "binds"
-  },
-  "wrong_to_right": [
+  "note": "FOUNDATION 3.7. One entry per term: term_id, display, plural, definition, forbidden_synonyms. Action and button names come from tools/layout.py (ACTIONS, PADS) and are checked against it. A forbidden synonym that differs from the display only in letter case is matched case-sensitively; any other is matched ignoring case.",
+  "terms": [
     {
-      "wrong": "PokeMMO Controller Layout",
-      "right": "PokeMMO Controller"
+      "term_id": "product",
+      "display": "PokeMMO Controller",
+      "plural": "PokeMMO Controller",
+      "definition": "The product's name.",
+      "forbidden_synonyms": [
+        "PokeMMO Controller Layout"
+      ]
     },
     {
-      "wrong": "Pokemmo",
-      "right": "PokeMMO",
-      "case_sensitive": true
+      "term_id": "game",
+      "display": "PokeMMO",
+      "plural": "PokeMMO",
+      "definition": "The game the layout is for. Not affiliated with it.",
+      "forbidden_synonyms": [
+        "Pokemmo",
+        "PokéMMO"
+      ]
     },
     {
-      "wrong": "PokéMMO",
-      "right": "PokeMMO"
+      "term_id": "windows",
+      "display": "Windows",
+      "plural": "Windows",
+      "definition": "Operating system.",
+      "forbidden_synonyms": []
     },
     {
-      "wrong": "MacOS",
-      "right": "macOS",
-      "case_sensitive": true
+      "term_id": "macos",
+      "display": "macOS",
+      "plural": "macOS",
+      "definition": "Operating system.",
+      "forbidden_synonyms": [
+        "MacOS",
+        "Mac OS"
+      ]
     },
     {
-      "wrong": "Mac OS",
-      "right": "macOS"
+      "term_id": "linux",
+      "display": "Linux",
+      "plural": "Linux",
+      "definition": "Operating system.",
+      "forbidden_synonyms": []
     },
     {
-      "wrong": "Playstation",
-      "right": "PlayStation",
-      "case_sensitive": true
+      "term_id": "steam_deck",
+      "display": "Steam Deck",
+      "plural": "Steam Deck",
+      "definition": "Valve's handheld; also the pad family for its built-in controls.",
+      "forbidden_synonyms": [
+        "Steam deck"
+      ]
     },
     {
-      "wrong": "Switch pro",
-      "right": "Switch Pro",
-      "case_sensitive": true
+      "term_id": "steamos",
+      "display": "SteamOS",
+      "plural": "SteamOS",
+      "definition": "The Steam Deck's operating system.",
+      "forbidden_synonyms": []
     },
     {
-      "wrong": "Steam deck",
-      "right": "Steam Deck",
-      "case_sensitive": true
+      "term_id": "steam",
+      "display": "Steam",
+      "plural": "Steam",
+      "definition": "The Steam client, which runs the wheel through Steam Input.",
+      "forbidden_synonyms": []
     },
     {
-      "wrong": "Dpad",
-      "right": "D-pad",
-      "case_sensitive": true
+      "term_id": "pad_xbox",
+      "display": "Xbox",
+      "plural": "Xbox",
+      "definition": "Pad family.",
+      "forbidden_synonyms": []
     },
     {
-      "wrong": "D-Pad",
-      "right": "D-pad",
-      "case_sensitive": true
+      "term_id": "pad_playstation",
+      "display": "PlayStation",
+      "plural": "PlayStation",
+      "definition": "Pad family.",
+      "forbidden_synonyms": [
+        "Playstation"
+      ]
     },
     {
-      "wrong": "joystick",
-      "right": "stick"
+      "term_id": "pad_switch",
+      "display": "Switch Pro",
+      "plural": "Switch Pro",
+      "definition": "Pad family.",
+      "forbidden_synonyms": [
+        "Switch pro"
+      ]
     },
     {
-      "wrong": "gamepad",
-      "right": "controller"
+      "term_id": "wheel",
+      "display": "wheel",
+      "plural": "wheel",
+      "definition": "The right-stick wheel that sends one key press when the stick is released.",
+      "forbidden_synonyms": [
+        "radial menu"
+      ]
     },
     {
-      "wrong": "radial menu",
-      "right": "wheel"
+      "term_id": "app",
+      "display": "remap app",
+      "plural": "remap app",
+      "definition": "The window where a player changes the controls.",
+      "forbidden_synonyms": []
+    },
+    {
+      "term_id": "layout",
+      "display": "layout",
+      "plural": "layout",
+      "definition": "The set of controller binds.",
+      "forbidden_synonyms": []
+    },
+    {
+      "term_id": "binds",
+      "display": "binds",
+      "plural": "binds",
+      "definition": "The controls written to PokeMMO's config.",
+      "forbidden_synonyms": []
+    },
+    {
+      "term_id": "dpad",
+      "display": "D-pad",
+      "plural": "D-pad",
+      "definition": "The directional pad.",
+      "forbidden_synonyms": [
+        "Dpad",
+        "D-Pad"
+      ]
+    },
+    {
+      "term_id": "stick",
+      "display": "stick",
+      "plural": "sticks",
+      "definition": "An analog stick.",
+      "forbidden_synonyms": [
+        "joystick"
+      ]
+    },
+    {
+      "term_id": "controller",
+      "display": "controller",
+      "plural": "controllers",
+      "definition": "A game controller.",
+      "forbidden_synonyms": [
+        "gamepad"
+      ]
     }
   ],
   "allowed_context": [
@@ -100,6 +168,8 @@
     "\"joystick active\"",
     "\"right_joystick active\"",
     "PAD_WORDS",
-    "controller|gamepad|joystick|dualshock"
+    "controller|gamepad|joystick|dualshock",
+    "\"dpad\"",
+    "\"dpad active\""
   ]
 }

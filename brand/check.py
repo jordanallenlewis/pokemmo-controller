@@ -3,7 +3,7 @@
     python brand/check.py         exit 1 and list every drift
 
 Checks, over everything a player or contributor can read:
-  words   a term from brand/glossary.json "wrong_to_right" outside its allowed context
+  words   a term from brand/glossary.json "terms[].forbidden_synonyms" outside its allowed context
   fonts   a font-family that is not in brand/tokens.json fonts.allowed
   sizes   a font-size that is not on brand/tokens.json scale (px, rem, or the fluid values)
   images  an image in a README, doc or page that is not in the canonical set (brand/images.json)
@@ -43,6 +43,12 @@ def strip_blobs(text):
     return re.sub(r"data:[a-z/+.-]+;base64,[A-Za-z0-9+/=]+", "data:", text)
 
 
+def forbidden(g):
+    """(wrong, right, regex flags) for every forbidden synonym; a case-only variant is matched case-sensitively."""
+    return [(w, t["display"], 0 if w.lower() == t["display"].lower() else re.I)
+            for t in g["terms"] for w in t["forbidden_synonyms"]]
+
+
 def words():
     g, out = load("glossary.json"), []
     allowed = g["allowed_context"]
@@ -51,10 +57,9 @@ def words():
             scrub = re.sub(r"https?://\S+", lambda m: "\0" * len(m.group()), line)  # a link's address is not our wording
             for a in allowed:
                 scrub = re.sub(re.escape(a), "\0" * len(a), scrub, flags=re.I)
-            for w in g["wrong_to_right"]:
-                flags = 0 if w.get("case_sensitive") else re.I
-                if re.search(rf"(?<![\w-]){re.escape(w['wrong'])}(?![\w-])", scrub, flags):
-                    out.append(f"{p.relative_to(ROOT).as_posix()}:{n}: '{w['wrong']}' should be '{w['right']}'")
+            for wrong, right, flags in forbidden(g):
+                if re.search(rf"(?<![\w-]){re.escape(wrong)}(?![\w-])", scrub, flags):
+                    out.append(f"{p.relative_to(ROOT).as_posix()}:{n}: '{wrong}' should be '{right}'")
     return out
 
 
