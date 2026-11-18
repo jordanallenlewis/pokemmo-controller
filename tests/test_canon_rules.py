@@ -22,7 +22,7 @@ class CanonRules(unittest.TestCase):
 
     def test_the_check_catches_each_kind_of_drift(self):
         g = check.load("glossary.json")
-        self.assertTrue(any(w["wrong"] == "PokeMMO Controller Layout" for w in g["wrong_to_right"]))
+        self.assertTrue(any("PokeMMO Controller Layout" in t["forbidden_synonyms"] for t in g["terms"]))
         def scan(name, text):
             d = Path(tempfile.mkdtemp())
             (d / name).write_text(text, encoding="utf-8")
@@ -39,10 +39,21 @@ class CanonRules(unittest.TestCase):
         _, _, i = scan("a.md", '<img src="https://example.com/x.png"> ![x](docs/random.gif)')
         self.assertEqual(len(i), 2)
 
+    def test_glossary_has_the_foundation_shape(self):
+        ids = set()
+        for t in check.load("glossary.json")["terms"]:
+            self.assertEqual(set(t), {"term_id", "display", "plural", "definition", "forbidden_synonyms"})
+            self.assertNotIn(t["term_id"], ids)
+            ids.add(t["term_id"])
+            self.assertTrue(t["display"] and t["definition"])
+            self.assertIsInstance(t["forbidden_synonyms"], list)
+
     def test_pad_family_names_are_what_the_layout_calls_them(self):
         import layout as L
         g = check.load("glossary.json")
-        self.assertEqual(g["pad_families"], {k: v["title"] for k, v in L.PADS.items()})
+        shown = {t["term_id"][4:]: t["display"] for t in g["terms"] if t["term_id"].startswith("pad_")}
+        shown["deck"] = next(t["display"] for t in g["terms"] if t["term_id"] == "steam_deck")
+        self.assertEqual(shown, {k: v["title"] for k, v in L.PADS.items()})
 
     def test_canonical_images_exist(self):
         c = check.load("images.json")
