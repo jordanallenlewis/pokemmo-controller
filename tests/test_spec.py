@@ -94,11 +94,36 @@ class CliAndUpdate(unittest.TestCase):
                          ["0", "1", "2", "3", "4", "5", "6", "7", "10"])
 
 
+def _first_difference(a, b, path=""):
+    """Where two decoded documents first differ, so a failure on one system says what to look at."""
+    if type(a) is not type(b):
+        return f"{path or '/'}: {a!r} vs {b!r}"
+    if isinstance(a, dict):
+        for k in sorted(set(a) | set(b)):
+            if k not in a or k not in b:
+                return f"{path}/{k}: only in {'golden' if k in a else 'this run'}"
+            d = _first_difference(a[k], b[k], f"{path}/{k}")
+            if d:
+                return d
+    elif isinstance(a, list):
+        for i, (x, y) in enumerate(zip(a, b)):
+            d = _first_difference(x, y, f"{path}[{i}]")
+            if d:
+                return d
+        if len(a) != len(b):
+            return f"{path}: {len(a)} items vs {len(b)}"
+    elif a != b:
+        return f"{path}: {str(a)[:200]!r} vs {str(b)[:200]!r}"
+    return ""
+
+
 class GoldensAreCurrent(unittest.TestCase):
     def test_files_match_python(self):
         for name, doc in G.build().items():
             have = (G.OUT_DIR / name).read_bytes().decode("utf-8").replace("\r\n", "\n")
-            self.assertEqual(have, G.dump(doc), f"run: python tests/gen_spec_golden.py --write ({name})")
+            want = G.dump(doc)
+            self.assertEqual(have, want, f"run: python tests/gen_spec_golden.py --write ({name}); "
+                             f"first difference: {_first_difference(json.loads(have), json.loads(want))}")
 
     def test_uninstall_restores_exact_bytes(self):
         trees = json.loads((G.OUT_DIR / "sandbox-trees.json").read_text(encoding="utf-8"))["scenarios"]
