@@ -28,10 +28,10 @@ _d, _l = TOKENS["dark"], TOKENS["light"]
 THEMES = {
     "light": dict(bg=_l["bg"], card=_l["surface"], ink=_l["ink"], mute=_l["muted"], line="#ddd8cb",
                   body="#e7e3d9", body2="#d9d4c7", edge="#b4ae9e", accent=_l["accent-text"], fill=_l["accent"],
-                  on=_l["accent-ink"], soft="#fbefc9", amber=_l["accent"], dim="#b4ae9e", screen="#1b1e24", glow="#ece6d6"),
+                  on=_l["accent-ink"], soft="#f8f6bc", amber=_l["accent"], dim="#b4ae9e", screen="#1b1e24", glow="#ece6d6"),
     "dark": dict(bg=_d["bg"], card=_d["surface"], ink=_d["ink"], mute=_d["muted"], line="#2f333b",
                  body=_d["surface2"], body2="#30353d", edge="#4a505c", accent=_d["accent-text"],
-                 fill=_d["accent"], on=_d["accent-ink"], soft="#34301f", amber=_d["accent"],
+                 fill=_d["accent"], on=_d["accent-ink"], soft="#3b3d31", amber=_d["accent"],
                  dim="#5d636f", screen="#0b0d10", glow="#1a1d23"),
 }
 

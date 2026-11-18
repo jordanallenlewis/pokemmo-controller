@@ -43,7 +43,7 @@ def words():
     allowed = g["allowed_context"]
     for p in files(TEXT):
         for n, line in enumerate(strip_blobs(p.read_text(encoding="utf-8", errors="replace")).splitlines(), 1):
-            scrub = line
+            scrub = re.sub(r"https?://\S+", lambda m: "\0" * len(m.group()), line)  # a link's address is not our wording
             for a in allowed:
                 scrub = re.sub(re.escape(a), "\0" * len(a), scrub, flags=re.I)
             for w in g["wrong_to_right"]:
