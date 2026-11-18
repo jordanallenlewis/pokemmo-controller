@@ -4030,8 +4030,7 @@
       },
       "<ROOT>/home/.config/autostart/pokemmo-controller-follow.desktop": {
        "created": true,
-       "pristine": true,
-       "sha": "5eb47023915919e9ca65af78006de5b8a4f8d5f43fc402041087e067f50e3e42"
+       "pristine": true
       }
      },
      "follow": true,

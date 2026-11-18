@@ -47,9 +47,18 @@ def _walk(x, root):
 
 
 def _norm_record(raw, root):
-    rec = _walk(json.loads(raw.decode("utf-8")), root)
+    raw_rec = json.loads(raw.decode("utf-8"))
+    holds_root = set()
+    for k in raw_rec.get("files", {}):
+        try:
+            data = Path(k).read_bytes()
+        except OSError:
+            continue
+        if str(root).encode() in data or root.as_posix().encode() in data:
+            holds_root.add(_norm_text(k, root))
+    rec = _walk(raw_rec, root)
     for k, v in rec.get("files", {}).items():
-        if k.endswith("shortcuts.vdf"):
+        if k in holds_root:
             v.pop("sha", None)  # holds the root path, so its hash differs per machine
     if "created_dirs" in rec:
         rec["created_dirs"] = sorted(rec["created_dirs"])
