@@ -1,0 +1,513 @@
+{
+ "types": [
+  "controller_xboxone",
+  "controller_xbox360",
+  "controller_ps5",
+  "controller_ps4",
+  "controller_switch_pro",
+  "controller_neptune",
+  "controller_legion_go_s"
+ ],
+ "layouts": {
+  "controller_xboxone": "layout for controller_xboxone\n",
+  "controller_xbox360": "layout for controller_xbox360\n",
+  "controller_ps5": "layout for controller_ps5\n",
+  "controller_ps4": "layout for controller_ps4\n",
+  "controller_switch_pro": "layout for controller_switch_pro\n",
+  "controller_neptune": "layout for controller_neptune\n",
+  "controller_legion_go_s": "layout for controller_legion_go_s\n"
+ },
+ "account": "12345",
+ "plans": [
+  {
+   "label": "fresh account, nothing there",
+   "files": {},
+   "puts": [
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_xboxone.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX3hib3hvbmUK"
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xboxone.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_xbox360.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX3hib3gzNjAK"
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xbox360.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_ps5.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX3BzNQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps5.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_ps4.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX3BzNAo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps4.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_switch_pro.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX3N3aXRjaF9wcm8K"
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_switch_pro.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_neptune.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX25lcHR1bmUK"
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_neptune.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_legion_go_s.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX2xlZ2lvbl9nb19zCg=="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_legion_go_s.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    }
+   ],
+   "notes": []
+  },
+  {
+   "label": "configsets with other games, LF and CRLF",
+   "files": {
+    "steamapps/common/Steam Controller Configs/12345/config/configset_controller_xboxone.vdf": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkiMjIwIgoJewoJCSJ3b3Jrc2hvcCIJCSI5NjQ3MTEzNDciCgl9Cn0K",
+    "steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps4.vdf": "ImNvbnRyb2xsZXJfY29uZmlnIg0Kew0KCSIyMjAiDQoJew0KCQkid29ya3Nob3AiCQkiOTY0NzExMzQ3Ig0KCX0NCn0NCg=="
+   },
+   "puts": [
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_xboxone.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX3hib3hvbmUK"
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xboxone.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkiMjIwIgoJewoJCSJ3b3Jrc2hvcCIJCSI5NjQ3MTEzNDciCgl9CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_xbox360.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX3hib3gzNjAK"
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xbox360.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_ps5.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX3BzNQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps5.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_ps4.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX3BzNAo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps4.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIg0Kew0KCSIyMjAiDQoJew0KCQkid29ya3Nob3AiCQkiOTY0NzExMzQ3Ig0KCX0NCgkicG9rZW1tbyINCgl7DQoJCSJhdXRvc2F2ZSIJCSIxIg0KCX0NCn0NCg=="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_switch_pro.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX3N3aXRjaF9wcm8K"
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_switch_pro.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_neptune.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX25lcHR1bmUK"
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_neptune.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_legion_go_s.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX2xlZ2lvbl9nb19zCg=="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_legion_go_s.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    }
+   ],
+   "notes": []
+  },
+  {
+   "label": "our block already there, or an older one",
+   "files": {
+    "steamapps/common/Steam Controller Configs/12345/config/configset_controller_xboxone.vdf": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo=",
+    "steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps5.vdf": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMCIKCX0KfQo=",
+    "steamapps/common/Steam Controller Configs/12345/config/configset_controller_neptune.vdf": "ImNvbnRyb2xsZXJfY29uZmlnIg0Kew0KCSJwb2tlbW1vIg0KCXsNCgkJImF1dG9zYXZlIgkJIjEiDQoJfQ0KfQ0K"
+   },
+   "puts": [
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_xboxone.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX3hib3hvbmUK"
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xboxone.vdf",
+     "backup_ok": false,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_xbox360.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX3hib3gzNjAK"
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xbox360.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_ps5.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX3BzNQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps5.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_ps4.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX3BzNAo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps4.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_switch_pro.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX3N3aXRjaF9wcm8K"
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_switch_pro.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_neptune.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX25lcHR1bmUK"
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_neptune.vdf",
+     "backup_ok": false,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIg0Kew0KCSJwb2tlbW1vIg0KCXsNCgkJImF1dG9zYXZlIgkJIjEiDQoJfQ0KfQ0K"
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_legion_go_s.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX2xlZ2lvbl9nb19zCg=="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_legion_go_s.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    }
+   ],
+   "notes": []
+  },
+  {
+   "label": "configsets Steam could not have written",
+   "files": {
+    "steamapps/common/Steam Controller Configs/12345/config/configset_controller_xboxone.vdf": "",
+    "steamapps/common/Steam Controller Configs/12345/config/configset_controller_xbox360.vdf": "ImNvbnRyb2xsZXJfY29uZmlnIgp7Cg==",
+    "steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps5.vdf": "Z2FyYmFnZQ=="
+   },
+   "puts": [
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_xboxone.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX3hib3hvbmUK"
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_xbox360.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX3hib3gzNjAK"
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_ps5.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX3BzNQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_ps4.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX3BzNAo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps4.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_switch_pro.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX3N3aXRjaF9wcm8K"
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_switch_pro.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_neptune.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX25lcHR1bmUK"
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_neptune.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_legion_go_s.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX2xlZ2lvbl9nb19zCg=="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_legion_go_s.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    }
+   ],
+   "notes": [
+    "Could not read $S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xboxone.vdf; pick the PokeMMO layout in Steam by hand.",
+    "Could not read $S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xbox360.vdf; pick the PokeMMO layout in Steam by hand.",
+    "Could not read $S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps5.vdf; pick the PokeMMO layout in Steam by hand."
+   ]
+  },
+  {
+   "label": "a layout of the player's own, and one of ours",
+   "files": {
+    "steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_xboxone.vdf": "ImNvbnRyb2xsZXJfbWFwcGluZ3MiCnsKCSJ0aXRsZSIJCSJNeSBvd24gbGF5b3V0Igp9Cg==",
+    "steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_ps4.vdf": "ImNvbnRyb2xsZXJfbWFwcGluZ3MiCnsKCSJ0aXRsZSIJCSJQb2tlTU1PIC0gbmF0aXZlICsgcmlnaHQtc3RpY2sgd2hlZWwiCn0K",
+    "steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_switch_pro.vdf": "bGF5b3V0IGZvciBjb250cm9sbGVyX3N3aXRjaF9wcm8K"
+   },
+   "puts": [
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_xboxone.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX3hib3hvbmUK"
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xboxone.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_xbox360.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX3hib3gzNjAK"
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xbox360.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_ps5.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX3BzNQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps5.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_ps4.vdf",
+     "backup_ok": false,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX3BzNAo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps4.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_switch_pro.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX3N3aXRjaF9wcm8K"
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_switch_pro.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_neptune.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX25lcHR1bmUK"
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_neptune.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_legion_go_s.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX2xlZ2lvbl9nb19zCg=="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_legion_go_s.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    }
+   ],
+   "notes": []
+  },
+  {
+   "label": "a configset that is not UTF-8",
+   "files": {
+    "steamapps/common/Steam Controller Configs/12345/config/configset_controller_legion_go_s.vdf": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkiY2Fm6SIKCXsKCX0KfQo="
+   },
+   "puts": [
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_xboxone.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX3hib3hvbmUK"
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xboxone.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_xbox360.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX3hib3gzNjAK"
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xbox360.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_ps5.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX3BzNQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps5.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_ps4.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX3BzNAo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps4.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_switch_pro.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX3N3aXRjaF9wcm8K"
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_switch_pro.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_neptune.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX25lcHR1bmUK"
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_neptune.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkicG9rZW1tbyIKCXsKCQkiYXV0b3NhdmUiCQkiMSIKCX0KfQo="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_legion_go_s.vdf",
+     "backup_ok": true,
+     "data": "bGF5b3V0IGZvciBjb250cm9sbGVyX2xlZ2lvbl9nb19zCg=="
+    },
+    {
+     "path": "$S/steamapps/common/Steam Controller Configs/12345/config/configset_controller_legion_go_s.vdf",
+     "backup_ok": true,
+     "data": "ImNvbnRyb2xsZXJfY29uZmlnIgp7CgkiY2Fm6SIKCXsKCX0KCSJwb2tlbW1vIgoJewoJCSJhdXRvc2F2ZSIJCSIxIgoJfQp9Cg=="
+    }
+   ],
+   "notes": []
+  }
+ ],
+ "userdirs": {
+  "dirs": [
+   "0",
+   "12345",
+   "67890",
+   "abc",
+   "00",
+   "123x",
+   "9"
+  ],
+  "files": [
+   "42"
+  ],
+  "picked": [
+   "00",
+   "12345",
+   "42",
+   "67890",
+   "9"
+  ],
+  "no_userdata": []
+ }
+}
