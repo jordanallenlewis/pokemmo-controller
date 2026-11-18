@@ -46,6 +46,7 @@
       <a href="#demo">Demo</a>
       <a href="#map">Button map</a>
       <a href="#wheel">Wheel</a>
+      <a href="#how">How it works</a>
       <a href="#install">Install</a>
       <a href="#faq">FAQ</a>
     </nav>
@@ -202,6 +203,32 @@
   </div>
 </section>
 
+<section class="sec" id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">How it works</p>
+      <h2>Nothing hidden, nothing in between</h2>
+      <p>Two small parts, both using what the game and Steam already have.</p>
+    </div>
+    <div class="cards cards-2">
+      <article class="card">
+        <h3>1. The game's own binds</h3>
+        <p>The installer writes your buttons into PokeMMO's own settings file, under the controller's name. All nine hotbar slots, Bag, Party, Pokédex and the rest are real PokeMMO controls, so no program has to run while you play.</p>
+      </article>
+      <article class="card">
+        <h3>2. The right-stick wheel (Steam)</h3>
+        <p>Steam Input draws a labeled menu on the right stick. Letting go on a slice presses one key, once. Letting go in the middle cancels. Without Steam you keep everything except the wheel.</p>
+      </article>
+    </div>
+    <ol class="steps steps-3" start="1">
+      <li><span><b>Paste one line.</b> It finds PokeMMO and Steam, backs up each file it changes, and cleans up after itself.</span></li>
+      <li><span><b>Open PokeMMO from Steam.</b> The installer put it in your library.</span></li>
+      <li><span><b>Play with your pad.</b> Change a button later in the remap screen, or run the line again to update.</span></li>
+    </ol>
+    <p class="small">The long version, with the exact settings key, is in the <a href="https://github.com/jordanallenlewis/pokemmo-controller#how-it-works">README</a>.</p>
+  </div>
+</section>
+
 <section class="sec sec-alt" id="install">
   <div class="wrap">
     <div class="sec-head">
@@ -251,7 +278,7 @@
             <li>It never starts the game or touches its files other than that settings file, and never presses a button for you: each press does one thing.</li>
           </ul>
         </details>
-        <details class="fact">
+        <details class="fact" id="uninstall">
           <summary>How to undo it</summary>
           <p>Close PokeMMO, then run the uninstall line. Files nothing else touched since get their original bytes back. If PokeMMO or Steam rewrote a file since (they do when they close), only this project's lines come out and your own settings stay. The Steam entry, wheel layouts and backups go too.</p>
           <div class="term" data-undo-panel="win">
@@ -276,7 +303,7 @@
 <section class="sec" id="faq">
   <div class="wrap faq-wrap">
     <div class="sec-head">
-      <p class="eyebrow">FAQ</p>
+      <p class="eyebrow">FAQ and troubleshooting</p>
       <h2>Questions</h2>
     </div>
     <div class="faq">
@@ -305,6 +332,26 @@
         <p>Yes. The remap screen opens in your browser, lets you pick the input for every action and move the wheel slices, and checks that each input still does just one thing.</p>
       </details>
       <details>
+        <summary>Why do I paste a line instead of running a download?</summary>
+        <p>There is no installer program yet; the line fetches the project, runs it once and deletes it. Some security software dislikes pasted PowerShell lines. If yours does, read the script first (links under the install box) or <a href="https://github.com/jordanallenlewis/pokemmo-controller/issues/new">tell us</a>.</p>
+      </details>
+      <details>
+        <summary>Why must PokeMMO be closed?</summary>
+        <p>The game rewrites its settings file when it closes and would undo the binds. Close it, run the line, then start it again. If you haven't started PokeMMO once with your controller connected, the installer says so and changes nothing.</p>
+      </details>
+      <details>
+        <summary>Why does Steam close and open again?</summary>
+        <p>Steam only reads new shortcuts and layouts when it starts. The installer closes it, adds the wheel and opens it again. It never does that while a Steam game is running, and a run with nothing to change leaves Steam alone.</p>
+      </details>
+      <details id="troubleshooting">
+        <summary>My controller isn't detected or buttons do nothing</summary>
+        <p>Start PokeMMO once with the controller connected, close it and run the line again, so the installer can read the name your pad reported. Close DS4Windows, reWASD, Xpadder and similar tools: two remappers fighting is the most common cause. If you swapped buttons in the pad maker's own app, put the pad back on its default profile. Bluetooth acting up? Try a USB cable. More in the <a href="https://github.com/jordanallenlewis/pokemmo-controller#troubleshooting">README troubleshooting</a>.</p>
+      </details>
+      <details>
+        <summary>The buttons stopped working after a game update</summary>
+        <p>PokeMMO can rewrite its settings. Close the game and run the install line again: it puts the binds back and keeps your own choices.</p>
+      </details>
+      <details>
         <summary>Something isn't working.</summary>
         <p>Close other controller tools (DS4Windows, reWASD and similar), then run the install line again. Still stuck? <a href="https://github.com/jordanallenlewis/pokemmo-controller/issues/new">Open an issue</a> and say which system and controller you use.</p>
       </details>
@@ -313,6 +360,47 @@
         <p>One line, listed in the <a href="https://github.com/jordanallenlewis/pokemmo-controller#uninstall">README</a>. It restores PokeMMO's and Steam's settings exactly as they were.</p>
       </details>
     </div>
+  </div>
+</section>
+
+<section class="sec sec-alt" id="new">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">What's new</p>
+      <h2>Recent changes</h2>
+      <p>The newest first. The full list is the <a href="https://github.com/jordanallenlewis/pokemmo-controller/blob/main/CHANGELOG.md">changelog</a>.</p>
+    </div>
+    <ul class="news">
+      <li><b>Update with one click.</b> The app says when a new version is out and installs it after checking its signature. Your remaps stay, and the old version comes back by itself if anything goes wrong. Nothing about you is sent, and you can turn the check off.</li>
+      <li><b>Finds more.</b> The installer finds PokeMMO in any Steam library folder or Windows drive, and binds the controllers that are plugged in.</li>
+      <li><b>The wheel follows your screen.</b> It is sized to the game's resolution, so it no longer runs off a smaller display.</li>
+      <li><b>Click-to-remap screen.</b> Click a button on your controller's picture to change what it does.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec" id="roadmap">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Roadmap</p>
+      <h2>What isn't here yet</h2>
+    </div>
+    <ul class="news">
+      <li><b>Cursor mode</b> for screens that only take the mouse (PvP queue, PC box drag). A hold-to-aim stick that still sends one click per press.</li>
+      <li><b>Steam Deck back-button variant.</b> It needs someone with a Deck to check it.</li>
+      <li><b>The wheel as a Steam community layout.</b></li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec sec-alt" id="help-test">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Help test</p>
+      <h2>Do you have a Mac, a PlayStation or Switch pad, or a Deck?</h2>
+      <p>The layout was played in game on an Xbox controller on Windows. Automated tests run on Windows, macOS and Linux, but macOS, PlayStation, Switch Pro and Steam Deck have not been played in game yet. If you try it, a short note helps: your system, your controller, and what worked or didn't.</p>
+    </div>
+    <p><a class="btn btn-ghost" href="https://github.com/jordanallenlewis/pokemmo-controller/issues/new">Tell us how it went</a></p>
   </div>
 </section>
 

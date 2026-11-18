@@ -241,3 +241,12 @@ kbd { font: 500 12px/1 var(--mono); background: var(--surface-2); border: 1px so
 .other-os { margin: 14px 0 0; font-size: 14px; color: var(--muted); }
 .other-os a { color: var(--muted); text-underline-offset: 3px; }
 .other-os a:hover { color: var(--ink); }
+
+/* how it works, news */
+.cards-2 { grid-template-columns: 1fr 1fr; }
+@media (max-width: 700px) { .cards-2 { grid-template-columns: 1fr; } }
+.steps-3 { counter-reset: s 0; }
+.news { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; max-width: 760px; }
+.news li { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; color: var(--muted); }
+.news b { color: var(--ink); }
+.news a, #help-test a:not(.btn) { color: var(--ink); text-underline-offset: 3px; }

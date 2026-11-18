@@ -256,3 +256,13 @@
 
   main();
 })();
+
+/* open the uninstall panel when the page is opened at #uninstall */
+(function () {
+  function openFromHash() {
+    var el = location.hash ? document.getElementById(location.hash.slice(1)) : null;
+    if (el && el.tagName === "DETAILS") el.open = true;
+  }
+  window.addEventListener("hashchange", openFromHash);
+  openFromHash();
+})();
