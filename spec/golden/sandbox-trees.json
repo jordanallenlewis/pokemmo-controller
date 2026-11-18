@@ -3780,7 +3780,7 @@
     "output": [],
     "record": {
      "autostart": [
-      "<ROOT>/home/.config/autostart/pokemmo-controller-follow.desktop"
+      "<ROOT>/<AUTOSTART>"
      ],
      "created_dirs": [
       "<ROOT>/Poke MMO/pokemmo-controller",
@@ -3789,12 +3789,14 @@
       "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890",
       "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config",
       "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo",
-      "<ROOT>/Steam/userdata/67890/config",
-      "<ROOT>/home/.config",
-      "<ROOT>/home/.config/autostart"
+      "<ROOT>/Steam/userdata/67890/config"
      ],
      "extra_names": [],
      "files": {
+      "<ROOT>/<AUTOSTART>": {
+       "created": true,
+       "pristine": true
+      },
       "<ROOT>/Poke MMO/config/main.properties": {
        "created": false,
        "pristine": true,
@@ -4027,10 +4029,6 @@
       "<ROOT>/Steam/userdata/67890/config/shortcuts.vdf": {
        "created": true,
        "pristine": true
-      },
-      "<ROOT>/home/.config/autostart/pokemmo-controller-follow.desktop": {
-       "created": true,
-       "pristine": true
       }
      },
      "follow": true,
@@ -4073,6 +4071,9 @@
     },
     "step": "install with v1.2.0",
     "tree": {
+     "<AUTOSTART>": {
+      "path": true
+     },
      "Poke MMO/config/main.properties": "057c63a843e3eb4b29e7d2c47a66d66fe758d1e80b5d0617c71daabc9f6b071c",
      "Poke MMO/config/main.properties.bak-pokemmo-controller": "61690930e8c5f67c54c106a86205510154ca872afef233c4eac1e6d9dff8450a",
      "Poke MMO/config/pokemmo-controller.json": {
@@ -4132,9 +4133,6 @@
      "Steam/userdata/12345/config/shortcuts.vdf.bak-pokemmo-controller": "237831b75080528c4d39ad83b20a256d0c11b4035dc2c9ee819887efe3a53961",
      "Steam/userdata/67890/config/shortcuts.vdf": {
       "path": true
-     },
-     "home/.config/autostart/pokemmo-controller-follow.desktop": {
-      "path": true
      }
     }
    },
@@ -4156,9 +4154,7 @@
       "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890",
       "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config",
       "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo",
-      "<ROOT>/Steam/userdata/67890/config",
-      "<ROOT>/home/.config",
-      "<ROOT>/home/.config/autostart"
+      "<ROOT>/Steam/userdata/67890/config"
      ],
      "extra_names": [],
      "files": {
@@ -4495,8 +4491,7 @@
      "Steam/userdata/12345/config/shortcuts.vdf.bak-pokemmo-controller": "237831b75080528c4d39ad83b20a256d0c11b4035dc2c9ee819887efe3a53961",
      "Steam/userdata/67890/config/shortcuts.vdf": {
       "path": true
-     },
-     "home/.config/autostart/": null
+     }
     }
    },
    {

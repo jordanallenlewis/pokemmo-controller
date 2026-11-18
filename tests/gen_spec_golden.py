@@ -39,12 +39,26 @@ def _root_forms(root):
     return sorted(forms, key=len, reverse=True)
 
 
+# The one thing that is different on each system: where the wheel follower starts at login
+# (tools/platforms.py). The golden names it <AUTOSTART>; the folders only it needs are left out.
+AUTOSTART_FILE = re.compile(
+    r"home/(?:\.config/autostart/pokemmo-controller-follow\.desktop"
+    r"|AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup/pokemmo-controller-follow\.vbs"
+    r"|Library/LaunchAgents/com\.pokemmo-controller\.follow\.plist)")
+AUTOSTART_DIRS = {"home/.config", "home/.config/autostart", "home/AppData", "home/AppData/Roaming",
+                  "home/AppData/Roaming/Microsoft", "home/AppData/Roaming/Microsoft/Windows",
+                  "home/AppData/Roaming/Microsoft/Windows/Start Menu",
+                  "home/AppData/Roaming/Microsoft/Windows/Start Menu/Programs",
+                  "home/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup",
+                  "home/Library", "home/Library/LaunchAgents"}
+
+
 def _norm_text(text, root):
     for form in _root_forms(root):
         text = text.replace(form, "<ROOT>")
     text = text.replace(_version(), "<VERSION>")
     text = re.sub(r"appid -?\d+", "appid <APPID>", text)
-    return text.replace("\\", "/")
+    return AUTOSTART_FILE.sub("<AUTOSTART>", text.replace("\\", "/"))
 
 
 def _walk(x, root):
@@ -69,10 +83,13 @@ def _norm_record(raw, root):
             holds_root.add(_norm_text(k, root))
     rec = _walk(raw_rec, root)
     for k, v in rec.get("files", {}).items():
+        if k.endswith("<AUTOSTART>"):
+            v.pop("sha", None)  # a different file on each system
         if k in holds_root:
             v.pop("sha", None)  # holds the root path, so its hash differs per machine
     if "created_dirs" in rec:
-        rec["created_dirs"] = sorted(rec["created_dirs"])
+        rec["created_dirs"] = sorted(d for d in rec["created_dirs"]
+                                     if d.removeprefix("<ROOT>/") not in AUTOSTART_DIRS)
     return rec
 
 
@@ -81,6 +98,12 @@ def tree(sb):
     root = sb.root
     out = {}
     for rel, data in sb.snapshot().items():
+        rel = rel.rstrip("/") if rel.rstrip("/") in AUTOSTART_DIRS else rel
+        if rel in AUTOSTART_DIRS:
+            continue
+        if AUTOSTART_FILE.fullmatch(rel):
+            out["<AUTOSTART>"] = {"path": True}
+            continue
         if data is None:
             out[rel] = None
         elif rel.endswith("config/pokemmo-controller.json"):
