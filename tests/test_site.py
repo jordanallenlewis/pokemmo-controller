@@ -39,5 +39,29 @@ class InstallChooser(unittest.TestCase):
         self.assertIn("mobile", js)
 
 
+class InstallFacts(unittest.TestCase):
+    """The install section says what the installer does and how to undo it."""
+
+    def html(self):
+        return (SITE / "index.html").read_text(encoding="utf-8")
+
+    def test_says_what_it_does_and_how_to_undo(self):
+        html = self.html()
+        self.assertIn("What this does to your computer", html)
+        self.assertIn("How to undo it", html)
+        self.assertIn("no administrator rights", html)
+
+    def test_an_uninstall_line_for_every_kind_of_system(self):
+        html = self.html()
+        self.assertRegex(html, r'data-undo-panel="win"[\s\S]*?-Uninstall')
+        self.assertRegex(html, r'data-undo-panel="unix"[\s\S]*?--uninstall')
+
+    def test_the_uninstall_lines_match_the_readme(self):
+        readme = (SITE.parent / "README.md").read_text(encoding="utf-8")
+        for line in ("install.ps1))) -Uninstall", "install.sh | sh -s -- --uninstall"):
+            self.assertIn(line, readme)
+            self.assertIn(line.replace("&", "&amp;"), self.html())
+
+
 if __name__ == "__main__":
     unittest.main()

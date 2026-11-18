@@ -241,6 +241,33 @@
         <li><b>Launch PokeMMO from your Steam library.</b> The installer adds it there for you.</li>
         <li><b>Pick up your controller.</b> That's it. Run the same line again any time to update.</li>
       </ol>
+      <div class="facts">
+        <details class="fact" open>
+          <summary>What this does to your computer</summary>
+          <ul>
+            <li>Finds PokeMMO and Steam by itself, then writes the controller binds into PokeMMO's own settings file and adds PokeMMO and the wheel to your Steam library.</li>
+            <li>Keeps one backup of every file it changes, before it changes it.</li>
+            <li>Needs no administrator rights and no <code>sudo</code>. Nothing to install first: with no Python on the computer, it uses a private copy for that one run and deletes it afterwards.</li>
+            <li>It never starts the game or touches its files other than that settings file, and never presses a button for you: each press does one thing.</li>
+          </ul>
+        </details>
+        <details class="fact">
+          <summary>How to undo it</summary>
+          <p>Close PokeMMO, then run the uninstall line. Files nothing else touched since get their original bytes back. If PokeMMO or Steam rewrote a file since (they do when they close), only this project's lines come out and your own settings stay. The Steam entry, wheel layouts and backups go too.</p>
+          <div class="term" data-undo-panel="win">
+            <div class="term-bar"><span>PowerShell</span><button class="copy" data-copy>Copy</button></div>
+            <pre><code>&amp; ([scriptblock]::Create((irm https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.ps1))) -Uninstall</code></pre>
+          </div>
+          <div class="term" data-undo-panel="unix" hidden>
+            <div class="term-bar"><span>Terminal</span><button class="copy" data-copy>Copy</button></div>
+            <pre><code>curl -fsSL https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.sh | sh -s -- --uninstall</code></pre>
+          </div>
+        </details>
+        <details class="fact">
+          <summary>Update, or change a button later</summary>
+          <p>Run the install line again to update; your choices are kept. To change what a button does, add <code>-Ui</code> (Windows) or <code>--ui</code> (macOS, Linux, Deck) to it: the remap screen opens in your browser and nothing leaves your computer.</p>
+        </details>
+      </div>
       <p class="small">Prefer to read the script first? <a href="https://github.com/jordanallenlewis/pokemmo-controller/blob/main/install.sh">install.sh</a> · <a href="https://github.com/jordanallenlewis/pokemmo-controller/blob/main/install.ps1">install.ps1</a> · <a href="https://github.com/jordanallenlewis/pokemmo-controller#uninstall">Uninstall</a></p>
     </div>
   </div>
