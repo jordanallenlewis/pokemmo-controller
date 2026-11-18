@@ -1,0 +1,550 @@
+{
+ "parse": [
+  {
+   "label": "empty shortcuts",
+   "data": "AHNob3J0Y3V0cwAICA==",
+   "ok": true,
+   "rewritten": "AHNob3J0Y3V0cwAICA=="
+  },
+  {
+   "label": "two games",
+   "data": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgIADEAAmFwcGlkAJ3///8BQXBwTmFtZQBUaGlyZAABRXhlACIvZ2FtZXMvdGhpcmQiAAFTdGFydERpcgAiL2dhbWVzLyIAAUxhdW5jaE9wdGlvbnMAAAJJc0hpZGRlbgAAAAAAAHRhZ3MAATAAZmF2b3JpdGUACAgICA==",
+   "ok": true,
+   "rewritten": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgIADEAAmFwcGlkAJ3///8BQXBwTmFtZQBUaGlyZAABRXhlACIvZ2FtZXMvdGhpcmQiAAFTdGFydERpcgAiL2dhbWVzLyIAAUxhdW5jaE9wdGlvbnMAAAJJc0hpZGRlbgAAAAAAAHRhZ3MAATAAZmF2b3JpdGUACAgICA=="
+  },
+  {
+   "label": "ours present",
+   "data": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgIADEAAmFwcGlkAABsyogBQXBwTmFtZQBQb2tlTU1PAAFFeGUAIi9ob21lL2RlY2svUG9rZU1NTy9Qb2tlTU1PLnNoIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgICAg=",
+   "ok": true,
+   "rewritten": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgIADEAAmFwcGlkAABsyogBQXBwTmFtZQBQb2tlTU1PAAFFeGUAIi9ob21lL2RlY2svUG9rZU1NTy9Qb2tlTU1PLnNoIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgICAg="
+  },
+  {
+   "label": "lowercase keys",
+   "data": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFhcHBuYW1lAFBva2VNTU8AAWV4ZQAiL2hvbWUvZGVjay9Qb2tlTU1PL1Bva2VNTU8uc2giAAFTdGFydERpcgAiL2dhbWVzLyIAAUxhdW5jaE9wdGlvbnMAAAJJc0hpZGRlbgAAAAAAAHRhZ3MAATAAZmF2b3JpdGUACAgICA==",
+   "ok": true,
+   "rewritten": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFhcHBuYW1lAFBva2VNTU8AAWV4ZQAiL2hvbWUvZGVjay9Qb2tlTU1PL1Bva2VNTU8uc2giAAFTdGFydERpcgAiL2dhbWVzLyIAAUxhdW5jaE9wdGlvbnMAAAJJc0hpZGRlbgAAAAAAAHRhZ3MAATAAZmF2b3JpdGUACAgICA=="
+  },
+  {
+   "label": "raw fields kept",
+   "data": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAFJhdyBGaWVsZHMAAUV4ZQAiL2dhbWVzL3JhdyIAAVN0YXJ0RGlyACIvZ2FtZXMvIgABTGF1bmNoT3B0aW9ucwAAAklzSGlkZGVuAAAAAAAAdGFncwABMABmYXZvcml0ZQAIA1JhdGlvAAAAgD8HQmlnAAABAgMEBQYHCAgI",
+   "ok": true,
+   "rewritten": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAFJhdyBGaWVsZHMAAUV4ZQAiL2dhbWVzL3JhdyIAAVN0YXJ0RGlyACIvZ2FtZXMvIgABTGF1bmNoT3B0aW9ucwAAAklzSGlkZGVuAAAAAAAAdGFncwABMABmYXZvcml0ZQAIA1JhdGlvAAAAgD8HQmlnAAABAgMEBQYHCAgI"
+  },
+  {
+   "label": "name not utf-8",
+   "data": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAENhZukAAUV4ZQAiL2dhbWVzL2NhZiIAAVN0YXJ0RGlyACIvZ2FtZXMvIgABTGF1bmNoT3B0aW9ucwAAAklzSGlkZGVuAAAAAAAAdGFncwABMABmYXZvcml0ZQAICAgI",
+   "ok": true,
+   "rewritten": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAENhZukAAUV4ZQAiL2dhbWVzL2NhZiIAAVN0YXJ0RGlyACIvZ2FtZXMvIgABTGF1bmNoT3B0aW9ucwAAAklzSGlkZGVuAAAAAAAAdGFncwABMABmYXZvcml0ZQAICAgI"
+  },
+  {
+   "label": "gaps and a word key",
+   "data": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgIADUAAmFwcGlkAJ3///8BQXBwTmFtZQBUaGlyZAABRXhlACIvZ2FtZXMvdGhpcmQiAAFTdGFydERpcgAiL2dhbWVzLyIAAUxhdW5jaE9wdGlvbnMAAAJJc0hpZGRlbgAAAAAAAHRhZ3MAATAAZmF2b3JpdGUACAgAeAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgICAg=",
+   "ok": true,
+   "rewritten": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgIADUAAmFwcGlkAJ3///8BQXBwTmFtZQBUaGlyZAABRXhlACIvZ2FtZXMvdGhpcmQiAAFTdGFydERpcgAiL2dhbWVzLyIAAUxhdW5jaE9wdGlvbnMAAAJJc0hpZGRlbgAAAAAAAHRhZ3MAATAAZmF2b3JpdGUACAgAeAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgICAg="
+  },
+  {
+   "label": "trailing bytes after the file",
+   "data": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgICAgAanVuaw==",
+   "ok": true,
+   "rewritten": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgICAg="
+  },
+  {
+   "label": "other top-level key",
+   "data": "AHNob3J0Y3V0cwAIAW5vdGUAaGkACA==",
+   "ok": true,
+   "rewritten": "AHNob3J0Y3V0cwAICA=="
+  },
+  {
+   "label": "empty file",
+   "data": "",
+   "ok": false,
+   "rewritten": null
+  },
+  {
+   "label": "garbage",
+   "data": "bm90IGEgdmRmIGF0IGFsbA==",
+   "ok": false,
+   "rewritten": null
+  },
+  {
+   "label": "cut short",
+   "data": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaQ==",
+   "ok": false,
+   "rewritten": null
+  },
+  {
+   "label": "unknown type",
+   "data": "AHNob3J0Y3V0cwAJawAICA==",
+   "ok": false,
+   "rewritten": null
+  },
+  {
+   "label": "int cut short",
+   "data": "AHNob3J0Y3V0cwACbgABAg==",
+   "ok": false,
+   "rewritten": null
+  },
+  {
+   "label": "duplicate key",
+   "data": "AHNob3J0Y3V0cwABMABhAAEwAGIACAg=",
+   "ok": false,
+   "rewritten": null
+  },
+  {
+   "label": "shortcuts is text",
+   "data": "AXNob3J0Y3V0cwB4AAg=",
+   "ok": false,
+   "rewritten": null
+  },
+  {
+   "label": "no shortcuts key",
+   "data": "AG90aGVyAAgI",
+   "ok": false,
+   "rewritten": null
+  },
+  {
+   "label": "ends with type 11",
+   "data": "AHNob3J0Y3V0cwALCA==",
+   "ok": false,
+   "rewritten": null
+  }
+ ],
+ "plans": [
+  {
+   "label": "fresh install, no file",
+   "data": null,
+   "bak": null,
+   "version": null,
+   "fresh": true,
+   "added_before": false,
+   "target": [
+    "\"/home/deck/PokeMMO/PokeMMO.sh\"",
+    "\"/home/deck/PokeMMO/\"",
+    ""
+   ],
+   "put": "AHNob3J0Y3V0cwAAMAACYXBwaWQAueH1/QFBcHBOYW1lAFBva2VNTU8AAUV4ZQAiL2hvbWUvZGVjay9Qb2tlTU1PL1Bva2VNTU8uc2giAAFTdGFydERpcgAiL2hvbWUvZGVjay9Qb2tlTU1PLyIAAWljb24AAAFTaG9ydGN1dFBhdGgAAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAJBbGxvd0Rlc2t0b3BDb25maWcAAQAAAAJBbGxvd092ZXJsYXkAAQAAAAJPcGVuVlIAAAAAAAJEZXZraXQAAAAAAAFEZXZraXRHYW1lSUQAAAJEZXZraXRPdmVycmlkZUFwcElEAAAAAAACTGFzdFBsYXlUaW1lAAAAAAABRmxhdHBha0FwcElEAAABc29ydGFzAAAAdGFncwAICAgI",
+   "notes": [
+    "Steam shortcut PokeMMO (appid 4260749753) in $U/config/shortcuts.vdf"
+   ],
+   "added": [
+    "$U/config/shortcuts.vdf"
+   ]
+  },
+  {
+   "label": "fresh install, empty file",
+   "data": "",
+   "bak": null,
+   "version": null,
+   "fresh": true,
+   "added_before": false,
+   "target": [
+    "\"/home/deck/PokeMMO/PokeMMO.sh\"",
+    "\"/home/deck/PokeMMO/\"",
+    ""
+   ],
+   "put": "AHNob3J0Y3V0cwAAMAACYXBwaWQAueH1/QFBcHBOYW1lAFBva2VNTU8AAUV4ZQAiL2hvbWUvZGVjay9Qb2tlTU1PL1Bva2VNTU8uc2giAAFTdGFydERpcgAiL2hvbWUvZGVjay9Qb2tlTU1PLyIAAWljb24AAAFTaG9ydGN1dFBhdGgAAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAJBbGxvd0Rlc2t0b3BDb25maWcAAQAAAAJBbGxvd092ZXJsYXkAAQAAAAJPcGVuVlIAAAAAAAJEZXZraXQAAAAAAAFEZXZraXRHYW1lSUQAAAJEZXZraXRPdmVycmlkZUFwcElEAAAAAAACTGFzdFBsYXlUaW1lAAAAAAABRmxhdHBha0FwcElEAAABc29ydGFzAAAAdGFncwAICAgI",
+   "notes": [
+    "Steam shortcut PokeMMO (appid 4260749753) in $U/config/shortcuts.vdf"
+   ],
+   "added": [
+    "$U/config/shortcuts.vdf"
+   ]
+  },
+  {
+   "label": "update adds after other games",
+   "data": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgIADEAAmFwcGlkAJ3///8BQXBwTmFtZQBUaGlyZAABRXhlACIvZ2FtZXMvdGhpcmQiAAFTdGFydERpcgAiL2dhbWVzLyIAAUxhdW5jaE9wdGlvbnMAAAJJc0hpZGRlbgAAAAAAAHRhZ3MAATAAZmF2b3JpdGUACAgICA==",
+   "bak": null,
+   "version": "1.3.0",
+   "fresh": false,
+   "added_before": false,
+   "target": [
+    "\"C:\\Games\\PokeMMO\\PokeMMO.exe\"",
+    "\"C:\\Games\\PokeMMO\\\"",
+    ""
+   ],
+   "put": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgIADEAAmFwcGlkAJ3///8BQXBwTmFtZQBUaGlyZAABRXhlACIvZ2FtZXMvdGhpcmQiAAFTdGFydERpcgAiL2dhbWVzLyIAAUxhdW5jaE9wdGlvbnMAAAJJc0hpZGRlbgAAAAAAAHRhZ3MAATAAZmF2b3JpdGUACAgAMgACYXBwaWQABT766QFBcHBOYW1lAFBva2VNTU8AAUV4ZQAiQzpcR2FtZXNcUG9rZU1NT1xQb2tlTU1PLmV4ZSIAAVN0YXJ0RGlyACJDOlxHYW1lc1xQb2tlTU1PXCIAAWljb24AQzpcR2FtZXNcUG9rZU1NT1xQb2tlTU1PLmV4ZQABU2hvcnRjdXRQYXRoAAABTGF1bmNoT3B0aW9ucwAAAklzSGlkZGVuAAAAAAACQWxsb3dEZXNrdG9wQ29uZmlnAAEAAAACQWxsb3dPdmVybGF5AAEAAAACT3BlblZSAAAAAAACRGV2a2l0AAAAAAABRGV2a2l0R2FtZUlEAAACRGV2a2l0T3ZlcnJpZGVBcHBJRAAAAAAAAkxhc3RQbGF5VGltZQAAAAAAAUZsYXRwYWtBcHBJRAAAAXNvcnRhcwAAAHRhZ3MACAgICA==",
+   "notes": [
+    "Steam shortcut PokeMMO (appid 3925491205) in $U/config/shortcuts.vdf"
+   ],
+   "added": [
+    "$U/config/shortcuts.vdf"
+   ]
+  },
+  {
+   "label": "mac target",
+   "data": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgICAg=",
+   "bak": null,
+   "version": "1.3.0",
+   "fresh": false,
+   "added_before": false,
+   "target": [
+    "\"/Applications/PokeMMO.app\"",
+    "\"/Applications/\"",
+    ""
+   ],
+   "put": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgIADEAAmFwcGlkADenXuMBQXBwTmFtZQBQb2tlTU1PAAFFeGUAIi9BcHBsaWNhdGlvbnMvUG9rZU1NTy5hcHAiAAFTdGFydERpcgAiL0FwcGxpY2F0aW9ucy8iAAFpY29uAAABU2hvcnRjdXRQYXRoAAABTGF1bmNoT3B0aW9ucwAAAklzSGlkZGVuAAAAAAACQWxsb3dEZXNrdG9wQ29uZmlnAAEAAAACQWxsb3dPdmVybGF5AAEAAAACT3BlblZSAAAAAAACRGV2a2l0AAAAAAABRGV2a2l0R2FtZUlEAAACRGV2a2l0T3ZlcnJpZGVBcHBJRAAAAAAAAkxhc3RQbGF5VGltZQAAAAAAAUZsYXRwYWtBcHBJRAAAAXNvcnRhcwAAAHRhZ3MACAgICA==",
+   "notes": [
+    "Steam shortcut PokeMMO (appid 3814631223) in $U/config/shortcuts.vdf"
+   ],
+   "added": [
+    "$U/config/shortcuts.vdf"
+   ]
+  },
+  {
+   "label": "flatpak target",
+   "data": "AHNob3J0Y3V0cwAICA==",
+   "bak": null,
+   "version": "1.3.0",
+   "fresh": false,
+   "added_before": false,
+   "target": [
+    "\"/usr/bin/flatpak\"",
+    "\"/usr/bin/\"",
+    "run com.pokemmo.PokeMMO"
+   ],
+   "put": "AHNob3J0Y3V0cwAAMAACYXBwaWQAA67a7gFBcHBOYW1lAFBva2VNTU8AAUV4ZQAiL3Vzci9iaW4vZmxhdHBhayIAAVN0YXJ0RGlyACIvdXNyL2Jpbi8iAAFpY29uAAABU2hvcnRjdXRQYXRoAAABTGF1bmNoT3B0aW9ucwBydW4gY29tLnBva2VtbW8uUG9rZU1NTwACSXNIaWRkZW4AAAAAAAJBbGxvd0Rlc2t0b3BDb25maWcAAQAAAAJBbGxvd092ZXJsYXkAAQAAAAJPcGVuVlIAAAAAAAJEZXZraXQAAAAAAAFEZXZraXRHYW1lSUQAAAJEZXZraXRPdmVycmlkZUFwcElEAAAAAAACTGFzdFBsYXlUaW1lAAAAAAABRmxhdHBha0FwcElEAAABc29ydGFzAAAAdGFncwAICAgI",
+   "notes": [
+    "Steam shortcut PokeMMO (appid 4007308803) in $U/config/shortcuts.vdf"
+   ],
+   "added": [
+    "$U/config/shortcuts.vdf"
+   ]
+  },
+  {
+   "label": "accented path",
+   "data": null,
+   "bak": null,
+   "version": "1.3.0",
+   "fresh": false,
+   "added_before": false,
+   "target": [
+    "\"/home/jos\u00e9/PokeMMO/PokeMMO.sh\"",
+    "\"/home/jos\u00e9/PokeMMO/\"",
+    ""
+   ],
+   "put": "AHNob3J0Y3V0cwAAMAACYXBwaWQAz/jeyQFBcHBOYW1lAFBva2VNTU8AAUV4ZQAiL2hvbWUvam9zw6kvUG9rZU1NTy9Qb2tlTU1PLnNoIgABU3RhcnREaXIAIi9ob21lL2pvc8OpL1Bva2VNTU8vIgABaWNvbgAAAVNob3J0Y3V0UGF0aAAAAUxhdW5jaE9wdGlvbnMAAAJJc0hpZGRlbgAAAAAAAkFsbG93RGVza3RvcENvbmZpZwABAAAAAkFsbG93T3ZlcmxheQABAAAAAk9wZW5WUgAAAAAAAkRldmtpdAAAAAAAAURldmtpdEdhbWVJRAAAAkRldmtpdE92ZXJyaWRlQXBwSUQAAAAAAAJMYXN0UGxheVRpbWUAAAAAAAFGbGF0cGFrQXBwSUQAAAFzb3J0YXMAAAB0YWdzAAgICAg=",
+   "notes": [
+    "Steam shortcut PokeMMO (appid 3386833103) in $U/config/shortcuts.vdf"
+   ],
+   "added": [
+    "$U/config/shortcuts.vdf"
+   ]
+  },
+  {
+   "label": "next key after gaps",
+   "data": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgIADUAAmFwcGlkAJ3///8BQXBwTmFtZQBUaGlyZAABRXhlACIvZ2FtZXMvdGhpcmQiAAFTdGFydERpcgAiL2dhbWVzLyIAAUxhdW5jaE9wdGlvbnMAAAJJc0hpZGRlbgAAAAAAAHRhZ3MAATAAZmF2b3JpdGUACAgAeAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgICAg=",
+   "bak": null,
+   "version": "1.3.0",
+   "fresh": false,
+   "added_before": false,
+   "target": [
+    "\"/home/deck/PokeMMO/PokeMMO.sh\"",
+    "\"/home/deck/PokeMMO/\"",
+    ""
+   ],
+   "put": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgIADUAAmFwcGlkAJ3///8BQXBwTmFtZQBUaGlyZAABRXhlACIvZ2FtZXMvdGhpcmQiAAFTdGFydERpcgAiL2dhbWVzLyIAAUxhdW5jaE9wdGlvbnMAAAJJc0hpZGRlbgAAAAAAAHRhZ3MAATAAZmF2b3JpdGUACAgAeAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgIADYAAmFwcGlkALnh9f0BQXBwTmFtZQBQb2tlTU1PAAFFeGUAIi9ob21lL2RlY2svUG9rZU1NTy9Qb2tlTU1PLnNoIgABU3RhcnREaXIAIi9ob21lL2RlY2svUG9rZU1NTy8iAAFpY29uAAABU2hvcnRjdXRQYXRoAAABTGF1bmNoT3B0aW9ucwAAAklzSGlkZGVuAAAAAAACQWxsb3dEZXNrdG9wQ29uZmlnAAEAAAACQWxsb3dPdmVybGF5AAEAAAACT3BlblZSAAAAAAACRGV2a2l0AAAAAAABRGV2a2l0R2FtZUlEAAACRGV2a2l0T3ZlcnJpZGVBcHBJRAAAAAAAAkxhc3RQbGF5VGltZQAAAAAAAUZsYXRwYWtBcHBJRAAAAXNvcnRhcwAAAHRhZ3MACAgICA==",
+   "notes": [
+    "Steam shortcut PokeMMO (appid 4260749753) in $U/config/shortcuts.vdf"
+   ],
+   "added": [
+    "$U/config/shortcuts.vdf"
+   ]
+  },
+  {
+   "label": "raw fields kept on add",
+   "data": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAFJhdyBGaWVsZHMAAUV4ZQAiL2dhbWVzL3JhdyIAAVN0YXJ0RGlyACIvZ2FtZXMvIgABTGF1bmNoT3B0aW9ucwAAAklzSGlkZGVuAAAAAAAAdGFncwABMABmYXZvcml0ZQAIA1JhdGlvAAAAgD8HQmlnAAABAgMEBQYHCAAxAAJhcHBpZAB5Ke3/AUFwcE5hbWUAQ2Fm6QABRXhlACIvZ2FtZXMvY2FmIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgICAg=",
+   "bak": null,
+   "version": "1.3.0",
+   "fresh": false,
+   "added_before": false,
+   "target": [
+    "\"/home/deck/PokeMMO/PokeMMO.sh\"",
+    "\"/home/deck/PokeMMO/\"",
+    ""
+   ],
+   "put": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAFJhdyBGaWVsZHMAAUV4ZQAiL2dhbWVzL3JhdyIAAVN0YXJ0RGlyACIvZ2FtZXMvIgABTGF1bmNoT3B0aW9ucwAAAklzSGlkZGVuAAAAAAAAdGFncwABMABmYXZvcml0ZQAIA1JhdGlvAAAAgD8HQmlnAAABAgMEBQYHCAAxAAJhcHBpZAB5Ke3/AUFwcE5hbWUAQ2Fm6QABRXhlACIvZ2FtZXMvY2FmIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgIADIAAmFwcGlkALnh9f0BQXBwTmFtZQBQb2tlTU1PAAFFeGUAIi9ob21lL2RlY2svUG9rZU1NTy9Qb2tlTU1PLnNoIgABU3RhcnREaXIAIi9ob21lL2RlY2svUG9rZU1NTy8iAAFpY29uAAABU2hvcnRjdXRQYXRoAAABTGF1bmNoT3B0aW9ucwAAAklzSGlkZGVuAAAAAAACQWxsb3dEZXNrdG9wQ29uZmlnAAEAAAACQWxsb3dPdmVybGF5AAEAAAACT3BlblZSAAAAAAACRGV2a2l0AAAAAAABRGV2a2l0R2FtZUlEAAACRGV2a2l0T3ZlcnJpZGVBcHBJRAAAAAAAAkxhc3RQbGF5VGltZQAAAAAAAUZsYXRwYWtBcHBJRAAAAXNvcnRhcwAAAHRhZ3MACAgICA==",
+   "notes": [
+    "Steam shortcut PokeMMO (appid 4260749753) in $U/config/shortcuts.vdf"
+   ],
+   "added": [
+    "$U/config/shortcuts.vdf"
+   ]
+  },
+  {
+   "label": "already there",
+   "data": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgIADEAAmFwcGlkAABsyogBQXBwTmFtZQBQb2tlTU1PAAFFeGUAIi9ob21lL2RlY2svUG9rZU1NTy9Qb2tlTU1PLnNoIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgICAg=",
+   "bak": null,
+   "version": "1.3.0",
+   "fresh": false,
+   "added_before": false,
+   "target": [
+    "\"/home/deck/PokeMMO/PokeMMO.sh\"",
+    "\"/home/deck/PokeMMO/\"",
+    ""
+   ],
+   "put": null,
+   "notes": [],
+   "added": []
+  },
+  {
+   "label": "already there, lowercase",
+   "data": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFhcHBuYW1lAFBva2VNTU8AAWV4ZQAiL2hvbWUvZGVjay9Qb2tlTU1PL1Bva2VNTU8uc2giAAFTdGFydERpcgAiL2dhbWVzLyIAAUxhdW5jaE9wdGlvbnMAAAJJc0hpZGRlbgAAAAAAAHRhZ3MAATAAZmF2b3JpdGUACAgICA==",
+   "bak": null,
+   "version": "1.3.0",
+   "fresh": false,
+   "added_before": false,
+   "target": [
+    "\"/home/deck/PokeMMO/PokeMMO.sh\"",
+    "\"/home/deck/PokeMMO/\"",
+    ""
+   ],
+   "put": null,
+   "notes": [],
+   "added": []
+  },
+  {
+   "label": "already recorded as ours",
+   "data": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgICAg=",
+   "bak": null,
+   "version": "1.3.0",
+   "fresh": false,
+   "added_before": true,
+   "target": [
+    "\"/home/deck/PokeMMO/PokeMMO.sh\"",
+    "\"/home/deck/PokeMMO/\"",
+    ""
+   ],
+   "put": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgIADEAAmFwcGlkALnh9f0BQXBwTmFtZQBQb2tlTU1PAAFFeGUAIi9ob21lL2RlY2svUG9rZU1NTy9Qb2tlTU1PLnNoIgABU3RhcnREaXIAIi9ob21lL2RlY2svUG9rZU1NTy8iAAFpY29uAAABU2hvcnRjdXRQYXRoAAABTGF1bmNoT3B0aW9ucwAAAklzSGlkZGVuAAAAAAACQWxsb3dEZXNrdG9wQ29uZmlnAAEAAAACQWxsb3dPdmVybGF5AAEAAAACT3BlblZSAAAAAAACRGV2a2l0AAAAAAABRGV2a2l0R2FtZUlEAAACRGV2a2l0T3ZlcnJpZGVBcHBJRAAAAAAAAkxhc3RQbGF5VGltZQAAAAAAAUZsYXRwYWtBcHBJRAAAAXNvcnRhcwAAAHRhZ3MACAgICA==",
+   "notes": [
+    "Steam shortcut PokeMMO (appid 4260749753) in $U/config/shortcuts.vdf"
+   ],
+   "added": [
+    "$U/config/shortcuts.vdf"
+   ]
+  },
+  {
+   "label": "trailing bytes dropped on add",
+   "data": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgICAgAanVuaw==",
+   "bak": null,
+   "version": "1.3.0",
+   "fresh": false,
+   "added_before": false,
+   "target": [
+    "\"/home/deck/PokeMMO/PokeMMO.sh\"",
+    "\"/home/deck/PokeMMO/\"",
+    ""
+   ],
+   "put": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgIADEAAmFwcGlkALnh9f0BQXBwTmFtZQBQb2tlTU1PAAFFeGUAIi9ob21lL2RlY2svUG9rZU1NTy9Qb2tlTU1PLnNoIgABU3RhcnREaXIAIi9ob21lL2RlY2svUG9rZU1NTy8iAAFpY29uAAABU2hvcnRjdXRQYXRoAAABTGF1bmNoT3B0aW9ucwAAAklzSGlkZGVuAAAAAAACQWxsb3dEZXNrdG9wQ29uZmlnAAEAAAACQWxsb3dPdmVybGF5AAEAAAACT3BlblZSAAAAAAACRGV2a2l0AAAAAAABRGV2a2l0R2FtZUlEAAACRGV2a2l0T3ZlcnJpZGVBcHBJRAAAAAAAAkxhc3RQbGF5VGltZQAAAAAAAUZsYXRwYWtBcHBJRAAAAXNvcnRhcwAAAHRhZ3MACAgICA==",
+   "notes": [
+    "Steam shortcut PokeMMO (appid 4260749753) in $U/config/shortcuts.vdf"
+   ],
+   "added": [
+    "$U/config/shortcuts.vdf"
+   ]
+  },
+  {
+   "label": "unreadable file",
+   "data": "Z2FyYmFnZQ==",
+   "bak": null,
+   "version": "1.3.0",
+   "fresh": false,
+   "added_before": false,
+   "target": [
+    "\"/home/deck/PokeMMO/PokeMMO.sh\"",
+    "\"/home/deck/PokeMMO/\"",
+    ""
+   ],
+   "put": null,
+   "notes": [
+    "Could not read $U/config/shortcuts.vdf; add PokeMMO to Steam by hand (Add a Non-Steam Game)."
+   ],
+   "added": []
+  },
+  {
+   "label": "unreadable backup",
+   "data": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgICAg=",
+   "bak": "Z2FyYmFnZQ==",
+   "version": "1.3.0",
+   "fresh": false,
+   "added_before": false,
+   "target": [
+    "\"/home/deck/PokeMMO/PokeMMO.sh\"",
+    "\"/home/deck/PokeMMO/\"",
+    ""
+   ],
+   "put": null,
+   "notes": [
+    "Could not read $U/config/shortcuts.vdf; add PokeMMO to Steam by hand (Add a Non-Steam Game)."
+   ],
+   "added": []
+  },
+  {
+   "label": "empty backup",
+   "data": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgICAg=",
+   "bak": "",
+   "version": "1.3.0",
+   "fresh": false,
+   "added_before": false,
+   "target": [
+    "\"/home/deck/PokeMMO/PokeMMO.sh\"",
+    "\"/home/deck/PokeMMO/\"",
+    ""
+   ],
+   "put": null,
+   "notes": [
+    "Could not read $U/config/shortcuts.vdf; add PokeMMO to Steam by hand (Add a Non-Steam Game)."
+   ],
+   "added": []
+  },
+  {
+   "label": "legacy: overwritten game is restored",
+   "data": "AHNob3J0Y3V0cwAAMAACYXBwaWQAAGzKiAFBcHBOYW1lAFBva2VNTU8AAUV4ZQAiL2hvbWUvZGVjay9Qb2tlTU1PL1Bva2VNTU8uc2giAAFTdGFydERpcgAiL2dhbWVzLyIAAUxhdW5jaE9wdGlvbnMAAAJJc0hpZGRlbgAAAAAAAHRhZ3MAATAAZmF2b3JpdGUACAgAMQACYXBwaWQAnf///wFBcHBOYW1lAFRoaXJkAAFFeGUAIi9nYW1lcy90aGlyZCIAAVN0YXJ0RGlyACIvZ2FtZXMvIgABTGF1bmNoT3B0aW9ucwAAAklzSGlkZGVuAAAAAAAAdGFncwABMABmYXZvcml0ZQAICAgI",
+   "bak": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgIADEAAmFwcGlkAJ3///8BQXBwTmFtZQBUaGlyZAABRXhlACIvZ2FtZXMvdGhpcmQiAAFTdGFydERpcgAiL2dhbWVzLyIAAUxhdW5jaE9wdGlvbnMAAAJJc0hpZGRlbgAAAAAAAHRhZ3MAATAAZmF2b3JpdGUACAgICA==",
+   "version": null,
+   "fresh": false,
+   "added_before": false,
+   "target": [
+    "\"/home/deck/PokeMMO/PokeMMO.sh\"",
+    "\"/home/deck/PokeMMO/\"",
+    ""
+   ],
+   "put": "AHNob3J0Y3V0cwAAMAACYXBwaWQAAGzKiAFBcHBOYW1lAFBva2VNTU8AAUV4ZQAiL2hvbWUvZGVjay9Qb2tlTU1PL1Bva2VNTU8uc2giAAFTdGFydERpcgAiL2dhbWVzLyIAAUxhdW5jaE9wdGlvbnMAAAJJc0hpZGRlbgAAAAAAAHRhZ3MAATAAZmF2b3JpdGUACAgAMQACYXBwaWQAnf///wFBcHBOYW1lAFRoaXJkAAFFeGUAIi9nYW1lcy90aGlyZCIAAVN0YXJ0RGlyACIvZ2FtZXMvIgABTGF1bmNoT3B0aW9ucwAAAklzSGlkZGVuAAAAAAAAdGFncwABMABmYXZvcml0ZQAICAAyAAJhcHBpZAB5Ke3/AUFwcE5hbWUAT3RoZXIgR2FtZQABRXhlACIvZ2FtZXMvb3RoZXIiAAFTdGFydERpcgAiL2dhbWVzLyIAAUxhdW5jaE9wdGlvbnMAAAJJc0hpZGRlbgAAAAAAAHRhZ3MAATAAZmF2b3JpdGUACAgICA==",
+   "notes": [
+    "Restored Steam shortcuts an older version overwrote: Other Game"
+   ],
+   "added": [
+    "$U/config/shortcuts.vdf"
+   ]
+  },
+  {
+   "label": "legacy: two lost, keys taken",
+   "data": "AHNob3J0Y3V0cwAAMAACYXBwaWQAAGzKiAFBcHBOYW1lAFBva2VNTU8AAUV4ZQAiL2hvbWUvZGVjay9Qb2tlTU1PL1Bva2VNTU8uc2giAAFTdGFydERpcgAiL2dhbWVzLyIAAUxhdW5jaE9wdGlvbnMAAAJJc0hpZGRlbgAAAAAAAHRhZ3MAATAAZmF2b3JpdGUACAgICA==",
+   "bak": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgIADMAAmFwcGlkAJ3///8BQXBwTmFtZQBUaGlyZAABRXhlACIvZ2FtZXMvdGhpcmQiAAFTdGFydERpcgAiL2dhbWVzLyIAAUxhdW5jaE9wdGlvbnMAAAJJc0hpZGRlbgAAAAAAAHRhZ3MAATAAZmF2b3JpdGUACAgICA==",
+   "version": null,
+   "fresh": false,
+   "added_before": false,
+   "target": [
+    "\"/home/deck/PokeMMO/PokeMMO.sh\"",
+    "\"/home/deck/PokeMMO/\"",
+    ""
+   ],
+   "put": "AHNob3J0Y3V0cwAAMAACYXBwaWQAAGzKiAFBcHBOYW1lAFBva2VNTU8AAUV4ZQAiL2hvbWUvZGVjay9Qb2tlTU1PL1Bva2VNTU8uc2giAAFTdGFydERpcgAiL2dhbWVzLyIAAUxhdW5jaE9wdGlvbnMAAAJJc0hpZGRlbgAAAAAAAHRhZ3MAATAAZmF2b3JpdGUACAgAMQACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgIADMAAmFwcGlkAJ3///8BQXBwTmFtZQBUaGlyZAABRXhlACIvZ2FtZXMvdGhpcmQiAAFTdGFydERpcgAiL2dhbWVzLyIAAUxhdW5jaE9wdGlvbnMAAAJJc0hpZGRlbgAAAAAAAHRhZ3MAATAAZmF2b3JpdGUACAgICA==",
+   "notes": [
+    "Restored Steam shortcuts an older version overwrote: Other Game, Third"
+   ],
+   "added": [
+    "$U/config/shortcuts.vdf"
+   ]
+  },
+  {
+   "label": "legacy: restored game sorts before ours",
+   "data": "AHNob3J0Y3V0cwAANQACYXBwaWQAAGzKiAFBcHBOYW1lAFBva2VNTU8AAUV4ZQAiL2hvbWUvZGVjay9Qb2tlTU1PL1Bva2VNTU8uc2giAAFTdGFydERpcgAiL2dhbWVzLyIAAUxhdW5jaE9wdGlvbnMAAAJJc0hpZGRlbgAAAAAAAHRhZ3MAATAAZmF2b3JpdGUACAgICA==",
+   "bak": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgICAg=",
+   "version": null,
+   "fresh": false,
+   "added_before": false,
+   "target": [
+    "\"/home/deck/PokeMMO/PokeMMO.sh\"",
+    "\"/home/deck/PokeMMO/\"",
+    ""
+   ],
+   "put": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgIADUAAmFwcGlkAABsyogBQXBwTmFtZQBQb2tlTU1PAAFFeGUAIi9ob21lL2RlY2svUG9rZU1NTy9Qb2tlTU1PLnNoIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgICAg=",
+   "notes": [
+    "Restored Steam shortcuts an older version overwrote: Other Game"
+   ],
+   "added": [
+    "$U/config/shortcuts.vdf"
+   ]
+  },
+  {
+   "label": "legacy: ours was in the backup",
+   "data": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgIADEAAmFwcGlkAABsyogBQXBwTmFtZQBQb2tlTU1PAAFFeGUAIi9ob21lL2RlY2svUG9rZU1NTy9Qb2tlTU1PLnNoIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgICAg=",
+   "bak": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgIADEAAmFwcGlkAABsyogBQXBwTmFtZQBQb2tlTU1PAAFFeGUAIi9ob21lL2RlY2svUG9rZU1NTy9Qb2tlTU1PLnNoIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgICAg=",
+   "version": null,
+   "fresh": false,
+   "added_before": false,
+   "target": [
+    "\"/home/deck/PokeMMO/PokeMMO.sh\"",
+    "\"/home/deck/PokeMMO/\"",
+    ""
+   ],
+   "put": null,
+   "notes": [],
+   "added": []
+  },
+  {
+   "label": "legacy: nothing lost, ours missing",
+   "data": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgICAg=",
+   "bak": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgICAg=",
+   "version": null,
+   "fresh": false,
+   "added_before": false,
+   "target": [
+    "\"/home/deck/PokeMMO/PokeMMO.sh\"",
+    "\"/home/deck/PokeMMO/\"",
+    ""
+   ],
+   "put": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgIADEAAmFwcGlkALnh9f0BQXBwTmFtZQBQb2tlTU1PAAFFeGUAIi9ob21lL2RlY2svUG9rZU1NTy9Qb2tlTU1PLnNoIgABU3RhcnREaXIAIi9ob21lL2RlY2svUG9rZU1NTy8iAAFpY29uAAABU2hvcnRjdXRQYXRoAAABTGF1bmNoT3B0aW9ucwAAAklzSGlkZGVuAAAAAAACQWxsb3dEZXNrdG9wQ29uZmlnAAEAAAACQWxsb3dPdmVybGF5AAEAAAACT3BlblZSAAAAAAACRGV2a2l0AAAAAAABRGV2a2l0R2FtZUlEAAACRGV2a2l0T3ZlcnJpZGVBcHBJRAAAAAAAAkxhc3RQbGF5VGltZQAAAAAAAUZsYXRwYWtBcHBJRAAAAXNvcnRhcwAAAHRhZ3MACAgICA==",
+   "notes": [
+    "Steam shortcut PokeMMO (appid 4260749753) in $U/config/shortcuts.vdf"
+   ],
+   "added": [
+    "$U/config/shortcuts.vdf"
+   ]
+  },
+  {
+   "label": "legacy, no backup",
+   "data": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgIADEAAmFwcGlkAABsyogBQXBwTmFtZQBQb2tlTU1PAAFFeGUAIi9ob21lL2RlY2svUG9rZU1NTy9Qb2tlTU1PLnNoIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgICAg=",
+   "bak": null,
+   "version": null,
+   "fresh": false,
+   "added_before": false,
+   "target": [
+    "\"/home/deck/PokeMMO/PokeMMO.sh\"",
+    "\"/home/deck/PokeMMO/\"",
+    ""
+   ],
+   "put": null,
+   "notes": [],
+   "added": [
+    "$U/config/shortcuts.vdf"
+   ]
+  },
+  {
+   "label": "fresh is not legacy",
+   "data": "AHNob3J0Y3V0cwAAMAACYXBwaWQAAGzKiAFBcHBOYW1lAFBva2VNTU8AAUV4ZQAiL2hvbWUvZGVjay9Qb2tlTU1PL1Bva2VNTU8uc2giAAFTdGFydERpcgAiL2dhbWVzLyIAAUxhdW5jaE9wdGlvbnMAAAJJc0hpZGRlbgAAAAAAAHRhZ3MAATAAZmF2b3JpdGUACAgICA==",
+   "bak": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgICAg=",
+   "version": null,
+   "fresh": true,
+   "added_before": false,
+   "target": [
+    "\"/home/deck/PokeMMO/PokeMMO.sh\"",
+    "\"/home/deck/PokeMMO/\"",
+    ""
+   ],
+   "put": null,
+   "notes": [],
+   "added": []
+  },
+  {
+   "label": "empty version is legacy",
+   "data": "AHNob3J0Y3V0cwAAMAACYXBwaWQAAGzKiAFBcHBOYW1lAFBva2VNTU8AAUV4ZQAiL2hvbWUvZGVjay9Qb2tlTU1PL1Bva2VNTU8uc2giAAFTdGFydERpcgAiL2dhbWVzLyIAAUxhdW5jaE9wdGlvbnMAAAJJc0hpZGRlbgAAAAAAAHRhZ3MAATAAZmF2b3JpdGUACAgICA==",
+   "bak": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgICAg=",
+   "version": "",
+   "fresh": false,
+   "added_before": false,
+   "target": [
+    "\"/home/deck/PokeMMO/PokeMMO.sh\"",
+    "\"/home/deck/PokeMMO/\"",
+    ""
+   ],
+   "put": "AHNob3J0Y3V0cwAAMAACYXBwaWQAAGzKiAFBcHBOYW1lAFBva2VNTU8AAUV4ZQAiL2hvbWUvZGVjay9Qb2tlTU1PL1Bva2VNTU8uc2giAAFTdGFydERpcgAiL2dhbWVzLyIAAUxhdW5jaE9wdGlvbnMAAAJJc0hpZGRlbgAAAAAAAHRhZ3MAATAAZmF2b3JpdGUACAgAMQACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgICAg=",
+   "notes": [
+    "Restored Steam shortcuts an older version overwrote: Other Game"
+   ],
+   "added": [
+    "$U/config/shortcuts.vdf"
+   ]
+  }
+ ]
+}
