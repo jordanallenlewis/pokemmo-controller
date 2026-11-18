@@ -7,6 +7,10 @@
     python tools/setup.py --dry-run    show what would change, change nothing
     python tools/setup.py --follow     keep the wheel sized for the game while its resolution changes
     python tools/setup.py --no-follow  install without the helper that does that for you at login
+    python tools/setup.py --update --check   is a newer signed release out? (changes nothing)
+    python tools/setup.py --update --yes     install it (signature checked; the old version comes back if anything fails)
+    python tools/setup.py --update-check off stop looking for updates (on turns it back on)
+    python tools/setup.py --channel beta     also offer pre-releases (stable is the default)
     python tools/setup.py --version    print this version
 
 install.ps1 / install.sh run this for you without needing Python installed.
@@ -21,7 +25,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import platforms as P  # noqa: E402
-import app, apply_native, fit, install_wheel, layout as layout_mod, uninstall  # noqa: E402
+import app, apply_native, fit, install_wheel, layout as layout_mod, uninstall, updater  # noqa: E402
 from common import VERSION, Plan  # noqa: E402
 
 for _s in (sys.stdout, sys.stderr):  # paths with any characters print on any console
@@ -243,6 +247,8 @@ def run(a):
         p.commit(uninstall=a.uninstall)
         if a.uninstall:
             uninstall.remove_empty_dirs(steams, p.state.get("created_dirs", []))
+            if pm:
+                updater.cleanup(pm)
     finally:
         if restart:
             start_steam(steam or steams[0])
@@ -283,6 +289,52 @@ def follow_note(a, p, pm, steam):
             P.start_detached(exe)
 
 
+def update_cmd(a):
+    """--update / --channel / --update-check: look for, and install, a newer signed release."""
+    pm = P.find_pokemmo(a.pokemmo)
+    changes = {}
+    if a.channel:
+        changes["channel"] = a.channel
+    if a.update_check:
+        changes["check"] = a.update_check == "on"
+    if changes:
+        if not updater.save_settings(pm, **changes):
+            sys.exit("The layout is not installed yet. Run the installer first, then this.")
+        if a.channel:
+            print(f"Update channel: {a.channel}.")
+        if a.update_check:
+            print("Update checks are " + ("on." if changes["check"] else "off. Use --update --check to look by hand."))
+        if not a.update:
+            return
+    managed = updater.managed_by()
+    if managed:
+        print(updater.manager_hint(managed))
+        return
+    channel = updater.settings(Plan(pm).state)["channel"]
+    try:
+        c = updater.check(channel)
+        if not c["available"]:
+            print(f"You are up to date (v{VERSION}).")
+            return
+        print(f"v{c['version']} is available (you have v{VERSION}).")
+        for n in c["notes"]:
+            print(f"  - {n}")
+        if a.check:
+            print("Install it with:  setup.py --update --yes")
+            return
+        if not a.yes:
+            if not sys.stdin.isatty():
+                print("Run again with --yes to install it.")
+                return
+            if input("Update now? [y/N] ").strip().lower() not in ("y", "yes"):
+                print("Not updated.")
+                return
+        v = updater.apply(pm, c["manifest"], steam=a.steam)
+        print(f"Updated to v{v}. Open the remap screen and press a button on your controller to test it.")
+    except updater.UpdateError as e:
+        sys.exit(str(e))
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--uninstall", action="store_true", help="undo everything")
@@ -314,6 +366,11 @@ def main():
     ap.add_argument("--no-follow", action="store_true",
                     help="do not start the wheel follower at login (remembered; --follow-at-login undoes it)")
     ap.add_argument("--follow-at-login", action="store_true", help="start the wheel follower at login again")
+    ap.add_argument("--update", action="store_true", help="look for a newer signed release and install it")
+    ap.add_argument("--check", action="store_true", help="with --update: only say whether there is one")
+    ap.add_argument("--yes", action="store_true", help="with --update: do not ask first")
+    ap.add_argument("--channel", choices=updater.CHANNELS, help="stable (default) or beta; remembered")
+    ap.add_argument("--update-check", choices=("on", "off"), help="look for updates when the app opens (remembered)")
     ap.add_argument("--background", action="store_true", help=argparse.SUPPRESS)
     ap.add_argument("--follow-interval", type=float, default=None, metavar="SECONDS", help=argparse.SUPPRESS)
     ap.add_argument("--version", action="version", version=f"pokemmo-controller {VERSION}")
@@ -340,6 +397,13 @@ def main():
             sys.exit("--follow runs on its own: use it without the other options.")
         follow(a, limit=int(os.environ["POKEMMO_CONTROLLER_TEST_POLLS"]) if P.TEST and os.environ.get("POKEMMO_CONTROLLER_TEST_POLLS") else None)
         return
+    if a.update or a.channel or a.update_check:
+        if a.check and not a.update:
+            sys.exit("--check goes with --update.")
+        update_cmd(a)
+        return
+    if a.check or a.yes:
+        sys.exit("--check and --yes go with --update.")
     if a.ui:
         import ui
         ui.serve(a.pokemmo, a.steam, a.no_wheel, not a.no_browser, tab=a.tab)
