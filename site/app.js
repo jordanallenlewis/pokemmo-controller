@@ -133,7 +133,19 @@
       };
       vid.addEventListener("timeupdate", sync);
       (function loop() { if (!vid.paused) sync(); requestAnimationFrame(loop); })();
-      if (reduced) { vid.removeAttribute("autoplay"); vid.pause(); vid.controls = true; }
+      // the poster is fetched when the demo is near, not with the first paint
+      const poster = () => { if (!vid.poster) vid.poster = vid.dataset.poster; };
+      if ("IntersectionObserver" in window) {
+        const near = new IntersectionObserver((es) => { if (es.some((en) => en.isIntersecting)) { poster(); near.disconnect(); } }, { rootMargin: "600px" });
+        near.observe(vid);
+      } else poster();
+      // fetch and play the recording only once it is on screen, so it does not compete with the first paint
+      if (reduced) vid.controls = true;
+      else if ("IntersectionObserver" in window) {
+        new IntersectionObserver((es) => es.forEach((en) => {
+          if (en.isIntersecting) { vid.preload = "auto"; vid.play().catch(() => { vid.controls = true; }); } else vid.pause();
+        }), { threshold: 0.25 }).observe(vid);
+      } else vid.controls = true;
     }
 
     // wheel
