@@ -10,6 +10,7 @@ banners only. The one controller shown (the hero) is the real photo the website 
 nothing here draws a controller or a wheel. The controller maps and the wheel picture are
 rendered from the photos and the layout by docs/art/render.py. Standard library only.
 """
+import base64
 import json
 import math
 import re
@@ -19,10 +20,37 @@ from xml.sax.saxutils import escape as esc
 
 ROOT = Path(__file__).resolve().parent.parent.parent
 OUT = ROOT / "docs" / "img"
-FONT = "'Bricolage Grotesque','Geist','Segoe UI Variable Display','Segoe UI',Inter,'SF Pro Display',-apple-system,'Helvetica Neue',Arial,sans-serif"
-
 TOKENS = json.loads((ROOT / "brand" / "tokens.json").read_text(encoding="utf-8"))
 _d, _l = TOKENS["dark"], TOKENS["light"]
+# Fonts come from brand/tokens.json too: display (headings, weight 700+) is Bricolage Grotesque, text and
+# labels are Geist, the domain is Geist Mono. GitHub cannot load web fonts for an image, so the font files are
+# embedded in every picture as data (only the faces that picture uses).
+FONT = TOKENS["type"]["text"]
+SCALE = TOKENS["scale"]
+FACES = TOKENS["faces"]
+
+
+def _face_css(kind):
+    f = FACES[kind]
+    data = base64.b64encode((ROOT / f["file"]).read_bytes()).decode("ascii")
+    return (f'@font-face{{font-family:"{f["family"]}";font-weight:{f["weight"]};font-style:normal;'
+            f'src:url(data:font/woff2;base64,{data}) format("woff2")}}')
+
+
+def with_fonts(doc):
+    """Set the display font on heavy text, the text font on the rest, and embed the files that are used."""
+    doc = re.sub(r'<text ((?:(?!>)[^>])*font-weight="[78]\d\d"[^>]*)>', r'<text class="d" \1>', doc)
+    used = ["display"] if 'class="d"' in doc else []
+    if re.search(r'<text (?!class="d")', doc):
+        used.append("text")
+    if 'class="m"' in doc:
+        used.append("mono")
+    style = ("<style>text{font-family:%s}.d{font-family:%s}.m{font-family:%s}%s</style>"
+             % (TOKENS["type"]["text"].replace('"', "'"), TOKENS["type"]["display"].replace('"', "'"),
+                TOKENS["type"]["mono"].replace('"', "'"), "".join(_face_css(k) for k in used)))
+    head = doc.index(">") + 1
+    return doc[:head] + "\n" + style + doc[head:]
+
 # Base colours come from brand/tokens.json (the one source, shared with the site and the app);
 # the lines and body shades are the picture-only tints worked out from them.
 THEMES = {
@@ -54,8 +82,8 @@ def site_icons():
 
 def svg(w, h, t, body, title, desc=""):
     c = THEMES[t]
-    return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" width="{w}" height="{h}" '
-            f'role="img" aria-labelledby="t d" font-family="{FONT}">\n'
+    return with_fonts(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" width="{w}" height="{h}" '
+            f'role="img" aria-labelledby="t d">\n'
             f'<title id="t">{esc(title)}</title><desc id="d">{esc(desc or title)}</desc>\n'
             f'<rect width="{w}" height="{h}" fill="{c["bg"]}"/>\n{body}\n</svg>\n')
 
@@ -92,7 +120,7 @@ def steps(t):
         x = pad + i * (cw + gap)
         body += f'<rect x="{x}" y="40" width="{cw}" height="280" rx="20" fill="{c["card"]}" stroke="{c["line"]}" stroke-width="2"/>'
         body += f'<circle cx="{x+62}" cy="108" r="30" fill="{c["fill"]}"/>' + text(x + 62, 119, n, 32, c["on"], 800, "middle")
-        body += text(x + 112, 119, h, 34, c["ink"], 750)
+        body += text(x + 112, 119, h, 34, c["ink"], 800)
         for j, ln in enumerate(wrap(d, 34)):
             body += text(x + 36, 178 + j * 34, ln, 24, c["mute"])
         if i < 2:
@@ -102,14 +130,14 @@ def steps(t):
 
 def steps_phone(t):
     c = THEMES[t]
-    W, ch, gap = 900, 250, 26
+    W, ch, gap = 900, 268, 26
     body = ""
     for i, (n, h, d) in enumerate(STEPS):
         y = 30 + i * (ch + gap)
         body += f'<rect x="30" y="{y}" width="{W-60}" height="{ch}" rx="24" fill="{c["card"]}" stroke="{c["line"]}" stroke-width="2.5"/>'
         body += f'<circle cx="104" cy="{y+68}" r="38" fill="{c["fill"]}"/>' + text(104, y + 82, n, 42, c["on"], 800, "middle")
-        body += text(166, y + 82, h, 48, c["ink"], 750)
-        for j, ln in enumerate(wrap(d, 42)):
+        body += text(166, y + 82, h, 48, c["ink"], 800)
+        for j, ln in enumerate(wrap(d, 38)):
             body += text(66, y + 156 + j * 42, ln, 32, c["mute"])
     H = 30 + 3 * (ch + gap)
     return svg(W, H, t, body, "Install in three steps", "Close PokeMMO, paste one line for your system, play from Steam.")
@@ -133,14 +161,14 @@ FEATURES = [("The game's own controller support", "Your binds go straight into P
 
 def features(t):
     c = THEMES[t]
-    W, cw, ch, gap = 1600, 755, 220, 30
+    W, cw, ch, gap = 1600, 755, 244, 30
     body = ""
     for i, (h, d) in enumerate(FEATURES):
         x, y = 30 + (i % 2) * (cw + gap), 30 + (i // 2) * (ch + gap)
         body += f'<rect x="{x}" y="{y}" width="{cw}" height="{ch}" rx="22" fill="{c["card"]}" stroke="{c["line"]}" stroke-width="2.5"/>'
         body += f'<rect x="{x+30}" y="{y+34}" width="92" height="92" rx="22" fill="{c["soft"]}"/>' + icon(c, i, x + 44, y + 48)
-        body += text(x + 152, y + 62, h, 33, c["ink"], 800)
-        for j, ln in enumerate(wrap(d, 46)):
+        body += text(x + 152, y + 62, h, 32, c["ink"], 800)
+        for j, ln in enumerate(wrap(d, 42)):
             body += text(x + 152, y + 104 + j * 34, ln, 26, c["mute"])
     H = 30 + 3 * (ch + gap)
     return svg(W, H, t, body, "What you get", "; ".join(f"{h}: {d}" for h, d in FEATURES))
@@ -157,7 +185,7 @@ def features_phone(t):
         for j, ln in enumerate(wrap(h, 24)):
             body += text(190, y + 66 + j * 46, ln, 40, c["ink"], 800)
         off = 66 + 46 * len(wrap(h, 24)) + 14
-        for j, ln in enumerate(wrap(d, 40)):
+        for j, ln in enumerate(wrap(d, 38)):
             body += text(190, y + off + j * 36, ln, 28, c["mute"])
     H = 24 + 6 * (ch + gap)
     return svg(W, H, t, body, "What you get", "; ".join(f"{h}: {d}" for h, d in FEATURES))
@@ -230,9 +258,9 @@ def hero_phone(t):
     body += text(56, 222, "FREE · OPEN SOURCE", 26, c["mute"], 500, extra='letter-spacing="3"')
     body += text(56, 318, "Play", 104, c["ink"], 800) + wordmark(282, 254, 64)
     body += text(56, 424, "from the couch", 104, c["ink"], 800)
-    body += text(56, 500, "Every action on your controller:", 33, c["mute"], 400)
-    body += text(56, 544, "battles, hotbar, Bag, GTL, Pokédex.", 33, c["mute"], 400)
-    body += text(56, 588, "One command to install.", 33, c["mute"], 400)
+    body += text(56, 500, "Every action on your controller:", 32, c["mute"], 400)
+    body += text(56, 544, "battles, hotbar, Bag, GTL, Pokédex.", 32, c["mute"], 400)
+    body += text(56, 588, "One command to install.", 32, c["mute"], 400)
     body += chips(c, 56, 622, ["Windows", "macOS", "Linux"], 24, 24, 46)
     body += chips(c, 56, 682, ["Steam Deck", "Legion Go"], 24, 24, 46)
     return svg(W, H, "dark", body, "PokeMMO Controller", HERO_ALT).replace(
@@ -262,7 +290,7 @@ def strip_phone(t):
     body += f'<path d="M 450,40 V {H-40} M 40,190 H {W-40}" stroke="{c["line"]}" stroke-width="2"/>'
     for i, (n, d) in enumerate(STRIP):
         x, y = 225 + (i % 2) * 450, 118 + (i // 2) * 190
-        body += text(x, y, n, 74, c["accent"], 800, "middle") + text(x, y + 50, d, 29, c["mute"], 500, "middle")
+        body += text(x, y, n, 74, c["accent"], 800, "middle") + text(x, y + 50, d, 28, c["mute"], 500, "middle")
     return svg(W, H, t, body, "At a glance", "; ".join(f"{n} {d}" for n, d in STRIP))
 
 
@@ -286,8 +314,31 @@ def button(t, kind, title, sub):
     body = (f'<rect x="3" y="3" width="{W-6}" height="{H-6}" rx="22" fill="{bg}"/>'
             + os_icon(c, kind, 34, 39)
             + text(86, 52, title, 30, c["on"], 800) + text(86, 82, sub, 19, c["on"], 400, extra='opacity=".85"'))
-    return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" '
-            f'aria-label="{esc(title)}" font-family="{FONT}">{body}</svg>\n')
+    return with_fonts(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" '
+                      f'aria-label="{esc(title)}">{body}</svg>\n')
+
+
+def og():
+    """The social card (link previews): the hero on a 1.91:1 canvas. Rasterised to site/assets/og.png by docs/art/raster.js."""
+    c = THEMES["dark"]
+    W, H = 1600, 840
+    T = TOKENS["terms"]
+    body = f'<rect width="{W}" height="{H}" fill="{c["bg"]}"/>'
+    body += f'<circle cx="1270" cy="440" r="280" fill="{c["glow"]}"/>'
+    body += photo(900, 200, 640)
+    body += logo_mark(80, 70, 64)
+    body += (f'<text x="{80 + 64 * 420 / 222 + 22:g}" y="116" font-size="40" font-weight="700" fill="{c["ink"]}">PokeMMO '
+             f'<tspan fill="{c["accent"]}">Controller</tspan></text>')
+    body += text(80, 360, T["tagline"][0].split()[0], 104, c["ink"], 800) + wordmark(296, 292, 64)
+    body += text(80, 480, T["tagline"][1], 104, c["ink"], 800)
+    body += text(80, 560, "Free and open source. One command to install.", 28, c["mute"], 400)
+    body += chips(c, 80, 616, T["platforms"][:3], 22, 22, 42)
+    body += text(80, 740, T["domain"], 34, c["accent"], 500, extra='class="m"')
+    return with_fonts(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" '
+                      f'aria-label="{esc(HERO_ALT)}"><title>{esc(T["product"])}</title>{body}</svg>\n')
+
+
+SOCIAL = ROOT / "site" / "assets" / "og.svg"
 
 
 def main(out=None):
@@ -311,6 +362,9 @@ def main(out=None):
         put("get-windows", button(t, "win", "Windows", "One PowerShell line"))
         put("get-mac", button(t, "mac", "macOS", "One Terminal line"))
         put("get-linux", button(t, "lin", "Linux · Steam Deck", "One Terminal line"))
+    if not out:
+        with open(SOCIAL, "w", encoding="utf-8", newline="\n") as fh:
+            fh.write(og())
     print(f"wrote {len(made)} files to {OUT}")
 
 
