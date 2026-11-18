@@ -19,6 +19,19 @@ class Leftovers(Base):
         self.assertFalse(stray.exists())
         self.assertEqual(diff(before, sb.snapshot()), [])
 
+    def test_uninstall_also_removes_a_leftover_of_the_state_file(self):
+        # a wheel follower stopped mid-write leaves one next to the state file
+        sb = self.make()
+        before = sb.snapshot()
+        sb.setup()
+        state = sb.pokemmo / "config" / "pokemmo-controller.json"
+        self.assertTrue(state.exists())
+        stray = state.with_name(state.name + ".zskwxr2z.tmp")
+        stray.write_bytes(b"half a file")
+        sb.setup("--uninstall")
+        self.assertFalse(stray.exists())
+        self.assertEqual(diff(before, sb.snapshot()), [])
+
     def test_a_write_clears_old_leftovers_but_not_a_fresh_one(self):
         sb = self.make()
         target = sb.root / "x" / "file.txt"
