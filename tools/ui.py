@@ -21,6 +21,7 @@ import apply_native  # noqa: E402
 import install_wheel  # noqa: E402
 import layout as L  # noqa: E402
 import pads  # noqa: E402
+import status as status_mod  # noqa: E402
 import platforms as P  # noqa: E402
 from common import STATE_NAME, VERSION, Plan  # noqa: E402
 
@@ -32,12 +33,7 @@ MAX_BODY = L.MAX_BYTES + 1024
 BIND_AXES = [n for n in range(L.AXES) if n not in L.RIGHT_STICK]
 
 
-def _record(pokemmo):
-    try:
-        rec = json.loads((Path(pokemmo) / "config" / STATE_NAME).read_text(encoding="utf-8"))
-        return rec if isinstance(rec, dict) else {}
-    except (OSError, ValueError):
-        return {}
+_record = status_mod.record  # one reader of the install record for the screen and pmc
 
 
 def saved_layout(pokemmo):
@@ -117,54 +113,15 @@ class App:
         }
 
     def drift(self, found):
-        """(binds_current, steam_current): would the installer, run now, change nothing? That is
-        the whole truth about the files, whatever the record says (the game rewrites its
-        settings, Steam drops a layout). False when nothing is installed or the check fails."""
-        pm = Path(found)
-        if not _record(found):
-            return False, False
-        try:
-            p = Plan(pm)
-            apply_native.plan(p, pm)
-            binds = not p.pending()
-            steam = False
-            if not self.no_wheel:
-                try:
-                    root = P.find_steam(self.steam)
-                except SystemExit:
-                    root = None
-                if root:
-                    p2 = Plan(pm)
-                    install_wheel.plan(p2, pm, root)
-                    steam = not p2.pending()
-            return binds, steam
-        except Exception:  # noqa: BLE001  a check that cannot run must not show a green tick
-            return False, False
+        """(binds_current, steam_current): see status.drift."""
+        return status_mod.drift(found, self.steam, self.no_wheel)
 
     def status(self, found=None):
-        """What the app keeps true, from the install record (not a probe of the game): the page
+        """What the app keeps true, from the install record (see status.summary): the page
         shows it as ticks and in the status bar."""
         if found is None:
-            try:
-                found = str(P.find_pokemmo(self.pokemmo))
-            except SystemExit:
-                found = None
-        rec = _record(found) if found else {}
-        files = [str(k) for k in (rec.get("files") or {})]
-        screen = L.recorded_screen(rec) if rec else None
-        binds_ok, steam_ok = self.drift(found) if found else (False, False)
-        return {
-            "pokemmo": bool(found),
-            "pokemmo_open": P.pokemmo_running(),
-            "installed": bool(rec),
-            "binds": any(f.endswith("main.properties") for f in files),
-            "steam": any(f.endswith(".vdf") for f in files),
-            "binds_current": binds_ok,
-            "steam_current": steam_ok,
-            "wheel_screen": list(screen) if screen else None,
-            "custom": bool(rec.get("layout")),
-            "version": VERSION,
-        }
+            found = status_mod.find(self.pokemmo)[0]
+        return status_mod.summary(found, self.steam, self.no_wheel)
 
     def check(self, lay):
         L.validate(lay)
