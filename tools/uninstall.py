@@ -21,7 +21,7 @@ from common import (MAP_KEY, NATIVE_KEY, Plan, backup_path, decode, encode,  # n
 from apply_native import custom_sets, installed, is_ours, props_path, split_entries  # noqa: E402
 from install_wheel import (BLOCK, CONFIG_DIR_NAME, CONTROLLER_TYPES, KEYBOARD_BINDS,  # noqa: E402
                            LAYOUT_TITLE, OUR_BLOCK, configset_with_block, is_pokemmo_shortcut,
-                           read_shortcuts, restore_lost_shortcuts, write_shortcuts)
+                           read_shortcuts_file, restore_lost_shortcuts, write_shortcuts)
 from platforms import find_pokemmo, steam_candidates, require_closed  # noqa: E402
 
 
@@ -87,8 +87,9 @@ def revert_shortcuts(p, path: Path, ours_ok: bool):
     if data is None or _restore_exact(p, path):
         return
     try:
-        sc = read_shortcuts(data)
-        had = bak is not None and any(is_pokemmo_shortcut(v) for v in read_shortcuts(bak).values())
+        sc = read_shortcuts_file(data)
+        old = read_shortcuts_file(bak)
+        had = any(is_pokemmo_shortcut(v) for v in old.values())
     except ValueError:
         p.notes.append(f"Could not read {path}; remove the PokeMMO shortcut in Steam by hand.")
         return
@@ -96,13 +97,13 @@ def revert_shortcuts(p, path: Path, ours_ok: bool):
     ours = str(path) in p.state.get("shortcuts_added", []) or (legacy and not had)
     keep = {k: v for k, v in sc.items() if not (ours and is_pokemmo_shortcut(v))}
     if legacy and bak is not None:
-        restore_lost_shortcuts(keep, read_shortcuts(bak))
+        restore_lost_shortcuts(keep, old)
     if keep == sc:
         return
     rec = p.files.get(str(path), {})
     if not keep and (bak is None or rec.get("created")):
         p.delete(path)
-    elif bak is not None and list(read_shortcuts(bak).values()) == list(keep.values()):
+    elif bak is not None and list(old.values()) == list(keep.values()):
         p.put(path, bak)  # the same shortcuts as before the install: its exact bytes
     else:
         p.put(path, write_shortcuts(keep))

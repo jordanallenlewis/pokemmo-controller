@@ -210,6 +210,11 @@ def read_shortcuts(data):
     return sc
 
 
+def read_shortcuts_file(data):
+    """read_shortcuts for a file's bytes: a missing or empty file holds no shortcuts."""
+    return read_shortcuts(data) if data else {}
+
+
 def write_shortcuts(sc):
     return b"\0shortcuts\0" + dump_bvdf(sc) + b"\x08"
 
@@ -273,8 +278,8 @@ def shortcut_plan(p, userdir: Path, pm: Path):
     legacy = not p.state.get("version") and not p.fresh  # installed by a version without a record
     bak = read_bytes(backup_path(path))
     try:
-        sc = read_shortcuts(data) if data else {}
-        old = read_shortcuts(bak) if bak is not None else {}
+        sc = read_shortcuts_file(data)
+        old = read_shortcuts_file(bak)
     except ValueError:
         p.notes.append(f"Could not read {path}; add PokeMMO to Steam by hand (Add a Non-Steam Game).")
         return

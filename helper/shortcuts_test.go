@@ -73,7 +73,10 @@ func TestShortcutsReadWriteMatchPython(t *testing.T) {
 func TestShortcutPlanMatchesPython(t *testing.T) {
 	for _, c := range loadShortcutsGolden(t).Plans {
 		t.Run(c.Label, func(t *testing.T) {
-			root, _ := filepath.EvalSymlinks(t.TempDir())
+			root, err := filepath.EvalSymlinks(t.TempDir())
+			if err != nil {
+				t.Fatal(err)
+			}
 			userdir := filepath.Join(root, "USERDIR")
 			path := filepath.Join(userdir, "config", "shortcuts.vdf")
 			if c.Data != nil {
@@ -143,7 +146,10 @@ func TestShortcutAddIsOneEntry(t *testing.T) {
 	entry, _ := newShortcut(`"/x/PokeMMO.sh"`, `"/x/"`, "")
 	sc.set(nextKey(sc), &bvValue{kind: bvkMap, m: entry})
 	data := writeShortcuts(sc)
-	root, _ := filepath.EvalSymlinks(t.TempDir())
+	root, err := filepath.EvalSymlinks(t.TempDir())
+	if err != nil {
+		t.Fatal(err)
+	}
 	path := filepath.Join(root, "config", "shortcuts.vdf")
 	if err := writeAtomic(path, data); err != nil {
 		t.Fatal(err)
