@@ -390,11 +390,13 @@
     "\"/home/deck/PokeMMO/\"",
     ""
    ],
-   "put": null,
+   "put": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgIADEAAmFwcGlkALnh9f0BQXBwTmFtZQBQb2tlTU1PAAFFeGUAIi9ob21lL2RlY2svUG9rZU1NTy9Qb2tlTU1PLnNoIgABU3RhcnREaXIAIi9ob21lL2RlY2svUG9rZU1NTy8iAAFpY29uAAABU2hvcnRjdXRQYXRoAAABTGF1bmNoT3B0aW9ucwAAAklzSGlkZGVuAAAAAAACQWxsb3dEZXNrdG9wQ29uZmlnAAEAAAACQWxsb3dPdmVybGF5AAEAAAACT3BlblZSAAAAAAACRGV2a2l0AAAAAAABRGV2a2l0R2FtZUlEAAACRGV2a2l0T3ZlcnJpZGVBcHBJRAAAAAAAAkxhc3RQbGF5VGltZQAAAAAAAUZsYXRwYWtBcHBJRAAAAXNvcnRhcwAAAHRhZ3MACAgICA==",
    "notes": [
-    "Could not read $U/config/shortcuts.vdf; add PokeMMO to Steam by hand (Add a Non-Steam Game)."
+    "Steam shortcut PokeMMO (appid 4260749753) in $U/config/shortcuts.vdf"
    ],
-   "added": []
+   "added": [
+    "$U/config/shortcuts.vdf"
+   ]
   },
   {
    "label": "legacy: overwritten game is restored",
@@ -451,6 +453,47 @@
    "put": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgIADUAAmFwcGlkAABsyogBQXBwTmFtZQBQb2tlTU1PAAFFeGUAIi9ob21lL2RlY2svUG9rZU1NTy9Qb2tlTU1PLnNoIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgICAg=",
    "notes": [
     "Restored Steam shortcuts an older version overwrote: Other Game"
+   ],
+   "added": [
+    "$U/config/shortcuts.vdf"
+   ]
+  },
+  {
+   "label": "legacy: restore, then add ours",
+   "data": "AHNob3J0Y3V0cwAAMAACYXBwaWQAnf///wFBcHBOYW1lAFRoaXJkAAFFeGUAIi9nYW1lcy90aGlyZCIAAVN0YXJ0RGlyACIvZ2FtZXMvIgABTGF1bmNoT3B0aW9ucwAAAklzSGlkZGVuAAAAAAAAdGFncwABMABmYXZvcml0ZQAICAgI",
+   "bak": "AHNob3J0Y3V0cwAAMAACYXBwaWQAeSnt/wFBcHBOYW1lAE90aGVyIEdhbWUAAUV4ZQAiL2dhbWVzL290aGVyIgABU3RhcnREaXIAIi9nYW1lcy8iAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAB0YWdzAAEwAGZhdm9yaXRlAAgIADEAAmFwcGlkAJ3///8BQXBwTmFtZQBUaGlyZAABRXhlACIvZ2FtZXMvdGhpcmQiAAFTdGFydERpcgAiL2dhbWVzLyIAAUxhdW5jaE9wdGlvbnMAAAJJc0hpZGRlbgAAAAAAAHRhZ3MAATAAZmF2b3JpdGUACAgICA==",
+   "version": null,
+   "fresh": false,
+   "added_before": false,
+   "target": [
+    "\"C:\\Games\\PokeMMO\\PokeMMO.exe\"",
+    "\"C:\\Games\\PokeMMO\\\"",
+    ""
+   ],
+   "put": "AHNob3J0Y3V0cwAAMAACYXBwaWQAnf///wFBcHBOYW1lAFRoaXJkAAFFeGUAIi9nYW1lcy90aGlyZCIAAVN0YXJ0RGlyACIvZ2FtZXMvIgABTGF1bmNoT3B0aW9ucwAAAklzSGlkZGVuAAAAAAAAdGFncwABMABmYXZvcml0ZQAICAAxAAJhcHBpZAB5Ke3/AUFwcE5hbWUAT3RoZXIgR2FtZQABRXhlACIvZ2FtZXMvb3RoZXIiAAFTdGFydERpcgAiL2dhbWVzLyIAAUxhdW5jaE9wdGlvbnMAAAJJc0hpZGRlbgAAAAAAAHRhZ3MAATAAZmF2b3JpdGUACAgAMgACYXBwaWQABT766QFBcHBOYW1lAFBva2VNTU8AAUV4ZQAiQzpcR2FtZXNcUG9rZU1NT1xQb2tlTU1PLmV4ZSIAAVN0YXJ0RGlyACJDOlxHYW1lc1xQb2tlTU1PXCIAAWljb24AQzpcR2FtZXNcUG9rZU1NT1xQb2tlTU1PLmV4ZQABU2hvcnRjdXRQYXRoAAABTGF1bmNoT3B0aW9ucwAAAklzSGlkZGVuAAAAAAACQWxsb3dEZXNrdG9wQ29uZmlnAAEAAAACQWxsb3dPdmVybGF5AAEAAAACT3BlblZSAAAAAAACRGV2a2l0AAAAAAABRGV2a2l0R2FtZUlEAAACRGV2a2l0T3ZlcnJpZGVBcHBJRAAAAAAAAkxhc3RQbGF5VGltZQAAAAAAAUZsYXRwYWtBcHBJRAAAAXNvcnRhcwAAAHRhZ3MACAgICA==",
+   "notes": [
+    "Restored Steam shortcuts an older version overwrote: Other Game",
+    "Steam shortcut PokeMMO (appid 3925491205) in $U/config/shortcuts.vdf"
+   ],
+   "added": [
+    "$U/config/shortcuts.vdf"
+   ]
+  },
+  {
+   "label": "empty backup, ours removed in Steam",
+   "data": "AHNob3J0Y3V0cwAICA==",
+   "bak": "",
+   "version": "1.3.0",
+   "fresh": false,
+   "added_before": true,
+   "target": [
+    "\"/home/deck/PokeMMO/PokeMMO.sh\"",
+    "\"/home/deck/PokeMMO/\"",
+    ""
+   ],
+   "put": "AHNob3J0Y3V0cwAAMAACYXBwaWQAueH1/QFBcHBOYW1lAFBva2VNTU8AAUV4ZQAiL2hvbWUvZGVjay9Qb2tlTU1PL1Bva2VNTU8uc2giAAFTdGFydERpcgAiL2hvbWUvZGVjay9Qb2tlTU1PLyIAAWljb24AAAFTaG9ydGN1dFBhdGgAAAFMYXVuY2hPcHRpb25zAAACSXNIaWRkZW4AAAAAAAJBbGxvd0Rlc2t0b3BDb25maWcAAQAAAAJBbGxvd092ZXJsYXkAAQAAAAJPcGVuVlIAAAAAAAJEZXZraXQAAAAAAAFEZXZraXRHYW1lSUQAAAJEZXZraXRPdmVycmlkZUFwcElEAAAAAAACTGFzdFBsYXlUaW1lAAAAAAABRmxhdHBha0FwcElEAAABc29ydGFzAAAAdGFncwAICAgI",
+   "notes": [
+    "Steam shortcut PokeMMO (appid 4260749753) in $U/config/shortcuts.vdf"
    ],
    "added": [
     "$U/config/shortcuts.vdf"
