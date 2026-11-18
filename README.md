@@ -329,6 +329,16 @@ tells you what happened:
 
 Your choices (`--switch-positional`, extra `--name` pads) are remembered.
 
+**One click, from the app.** Once the remap screen is on your computer (`--install-ui`), it
+looks for a newer release when it opens and about once a day, and shows the version, a short
+"what's new" and an **Update now** button (or **Later**). The update is downloaded, checked
+against its signature and checksum, and installed; your layout and remaps are kept, and if
+anything fails the version you had comes back by itself. The check asks GitHub for two small
+public files and sends nothing about you. Turn it off, or choose the beta channel, under
+Settings > Updates (from a terminal: `--update-check off`, `--channel beta`). To update from a terminal:
+`python tools/setup.py --update --check`, then `--update --yes`. Installs managed by winget or Homebrew are told to update with that tool.
+PokeMMO has to be closed first; the update says so if it is not.
+
 ### Uninstall
 
 ```powershell
