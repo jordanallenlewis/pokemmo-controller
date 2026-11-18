@@ -6,7 +6,9 @@ from pathlib import Path
 import helpers  # noqa: F401
 
 ROOT = Path(__file__).resolve().parent.parent
-TOKENS = json.loads((ROOT / "brand" / "tokens.json").read_text(encoding="utf-8"))
+sys.path.insert(0, str(ROOT / "brand"))
+import tokens as brand_tokens  # noqa: E402
+TOKENS = brand_tokens.flat()
 SITE_CSS = (ROOT / "site" / "styles.css").read_text(encoding="utf-8")
 PAGE = (ROOT / "tools" / "ui_page.html").read_text(encoding="utf-8")
 
@@ -82,6 +84,36 @@ class Brand(unittest.TestCase):
         for name in ("mark.svg", "VOICE.md", "DESIGN.md", "tokens.css"):
             self.assertTrue((ROOT / "brand" / name).exists(), name)
         self.assertIn("unofficial, fan-made tool", (ROOT / "brand" / "VOICE.md").read_text(encoding="utf-8"))
+
+
+class DesignTokensFormat(unittest.TestCase):
+    """brand/tokens.json is W3C Design Tokens (2025.10); the flat view must equal what it held before."""
+
+    def setUp(self):
+        self.raw = json.loads((ROOT / "brand" / "tokens.json").read_text(encoding="utf-8"))
+
+    def test_flat_view_equals_the_values_from_before_the_conversion(self):
+        before = json.loads((ROOT / "tests" / "golden" / "tokens-flat.json").read_text(encoding="utf-8"))
+        self.assertEqual(brand_tokens.flat(), before)
+
+    def test_every_token_has_a_type_and_a_value(self):
+        def walk(node, kind, path):
+            for k, v in node.items():
+                if k.startswith("$") or not isinstance(v, dict):
+                    continue
+                here = v.get("$type", kind)
+                if "$value" in v:
+                    is_ref = isinstance(v["$value"], str) and v["$value"].startswith("{")   # a reference takes the type of its target
+                    self.assertTrue(here or is_ref, f"{path}.{k} has no $type")
+                else:
+                    walk(v, here, f"{path}.{k}")
+        walk(self.raw, None, "")
+
+    def test_primary_is_the_accent_in_both_modes(self):
+        self.assertEqual(self.raw["color"]["primary"]["$value"]["hex"], "#f0ea6b")
+        for mode in ("dark", "light"):
+            self.assertEqual(self.raw["color"][mode]["accent"]["$value"], "{color.primary}")
+            self.assertEqual(TOKENS[mode]["accent"], "#f0ea6b")
 
 
 if __name__ == "__main__":
