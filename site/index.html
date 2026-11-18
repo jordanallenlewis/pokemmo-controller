@@ -68,6 +68,7 @@
         <a class="btn btn-primary" href="#install" data-dl>Install for <span data-os>your computer</span></a>
         <a class="btn btn-ghost" href="#map">See the button map</a>
       </div>
+      <p class="other-os"><span data-os-note hidden></span><a href="#install" data-other-os>Other systems: Windows, macOS, Linux, Steam Deck</a></p>
       <ul class="chips" aria-label="Works with">
         <li>Windows</li><li>macOS</li><li>Linux</li><li>Steam Deck</li><li>Legion Go</li>
       </ul>
@@ -213,7 +214,8 @@
       <div class="seg" role="tablist" aria-label="Your system">
         <button role="tab" aria-selected="true" data-os-tab="win">Windows</button>
         <button role="tab" aria-selected="false" data-os-tab="mac">macOS</button>
-        <button role="tab" aria-selected="false" data-os-tab="linux">Linux &amp; Steam Deck</button>
+        <button role="tab" aria-selected="false" data-os-tab="linux">Linux</button>
+        <button role="tab" aria-selected="false" data-os-tab="deck">Steam Deck</button>
       </div>
       <div class="term" data-os-panel="win">
         <div class="term-bar"><span>PowerShell</span><button class="copy" data-copy>Copy</button></div>
@@ -228,7 +230,12 @@
       <div class="term" data-os-panel="linux" hidden>
         <div class="term-bar"><span>Terminal</span><button class="copy" data-copy>Copy</button></div>
         <pre><code>curl -fsSL https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.sh | sh</code></pre>
-        <p class="term-hint">On Steam Deck, switch to Desktop Mode and open Konsole. Don't use sudo.</p>
+        <p class="term-hint">Open your terminal, paste, press <kbd>Enter</kbd>. Don't use sudo.</p>
+      </div>
+      <div class="term" data-os-panel="deck" hidden>
+        <div class="term-bar"><span>Konsole</span><button class="copy" data-copy>Copy</button></div>
+        <pre><code>curl -fsSL https://raw.githubusercontent.com/jordanallenlewis/pokemmo-controller/main/install.sh | sh</code></pre>
+        <p class="term-hint">Hold the power button, choose <b>Switch to Desktop</b>, open Konsole, paste. Don't use sudo. Not yet played in game on a Deck: tell us how it goes.</p>
       </div>
       <ol class="steps" start="2">
         <li><b>Launch PokeMMO from your Steam library.</b> The installer adds it there for you.</li>

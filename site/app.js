@@ -184,23 +184,32 @@
     t.textContent = "let go = cancel";
   }
 
-  // install tabs: preselect the visitor's system
-  function os() {
-    const p = (navigator.userAgentData?.platform || navigator.platform || navigator.userAgent).toLowerCase();
-    if (p.includes("win")) return "win";
+  // install tabs: preselect the visitor's real system. Phones and tablets cannot run the
+  // installer, so say so instead of guessing a desktop system for them.
+  function detect() {
+    const ua = navigator.userAgent || "";
+    const p = (navigator.userAgentData?.platform || navigator.platform || "").toLowerCase();
+    if (/android|iphone|ipad|ipod/i.test(ua) || (p.includes("mac") && navigator.maxTouchPoints > 1)) return "mobile";
+    if (/steamdeck|steamos/i.test(ua)) return "deck";
+    if (p.includes("win") || /windows/i.test(ua)) return "win";
     if (p.includes("mac")) return "mac";
-    if (p.includes("linux") || p.includes("x11")) return "linux";
-    return "win";
+    if (p.includes("linux") || p.includes("x11") || /linux|x11|cros/i.test(ua)) return "linux";
+    return null;
   }
   function pickOs(id) {
     $$("[data-os-tab]").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.osTab === id)));
     $$("[data-os-panel]").forEach((p) => (p.hidden = p.dataset.osPanel !== id));
   }
   $$("[data-os-tab]").forEach((b) => b.addEventListener("click", () => pickOs(b.dataset.osTab)));
-  const mine = os();
-  pickOs(mine);
-  const osName = { win: "Windows", mac: "macOS", linux: "Linux & Deck" }[mine];
-  $$("[data-os]").forEach((n) => (n.textContent = osName));
+  const NAMES = { win: "Windows", mac: "macOS", linux: "Linux", deck: "Steam Deck" };
+  const mine = detect();
+  pickOs(NAMES[mine] ? mine : "win");
+  if (NAMES[mine]) {
+    $$("[data-os]").forEach((n) => (n.textContent = NAMES[mine]));
+  } else if (mine === "mobile") {
+    const note = $("[data-os-note]");
+    if (note) { note.hidden = false; note.textContent = "This installs on the computer or Steam Deck you play PokeMMO on. "; }
+  }
 
   $$("[data-copy]").forEach((b) => b.addEventListener("click", async () => {
     const code = b.closest(".term").querySelector("code").textContent;
