@@ -13,10 +13,18 @@ import (
 )
 
 // steamUserdirs lists the Steam account folders under userdata ("0" is not an account), in name order.
-func steamUserdirs(steam string) []string {
-	entries, err := os.ReadDir(filepath.Join(steam, "userdata"))
+// No userdata folder means no accounts; a folder it cannot read is an error, as in the Python tool.
+func steamUserdirs(steam string) ([]string, error) {
+	ud := filepath.Join(steam, "userdata")
+	if st, err := os.Stat(ud); err != nil || !st.IsDir() {
+		if err == nil || isMissing(err) {
+			return nil, nil
+		}
+		return nil, err
+	}
+	entries, err := os.ReadDir(ud)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 	var out []string
 	for _, e := range entries { // os.ReadDir sorts by name
@@ -24,7 +32,7 @@ func steamUserdirs(steam string) []string {
 			out = append(out, filepath.Join(steam, "userdata", n))
 		}
 	}
-	return out
+	return out, nil
 }
 
 func isASCIIDigits(s string) bool {
