@@ -46,7 +46,14 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 .nav nav { display: flex; gap: 22px; margin-left: auto; }
 .nav nav a { color: var(--muted); text-decoration: none; font-size: 15px; }
 .nav nav a:hover { color: var(--ink); }
-@media (max-width: 760px) { .nav nav { display: none; } .gh { margin-left: auto; } }
+@media (max-width: 760px) {
+  .gh { margin-left: auto; }
+  .nav-in { flex-wrap: wrap; height: auto; row-gap: 0; padding-top: 12px; }
+  .nav nav { order: 3; flex: 1 0 100%; margin: 10px 0 0; gap: 8px; overflow-x: auto; padding-bottom: 12px; scrollbar-width: none; }
+  .nav nav::-webkit-scrollbar { display: none; }
+  .nav nav a { flex: none; display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border: 1px solid var(--line); border-radius: 999px; font-size: 14px; }
+  html { scroll-padding-top: 140px; }
+}
 
 /* buttons */
 .btn { display: inline-flex; align-items: center; gap: 8px; height: 52px; padding: 0 24px; border-radius: 999px; font: 600 16px/1 var(--text); text-decoration: none; border: 1px solid transparent; cursor: pointer; transition: background-color .15s var(--ease), border-color .15s var(--ease), transform .12s var(--ease); }
