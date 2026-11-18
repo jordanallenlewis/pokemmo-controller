@@ -51,6 +51,17 @@ class Docs(unittest.TestCase):
         self.assertIn("docs/remap-screen.png", README)
         self.assertRegex(README, r"(?m)^<summary><b>The remap screen")
 
+    def test_pad_side_profiles_and_turbo_are_named(self):
+        # A pad's own app or turbo button works below this layout: the README must say so.
+        head = "<summary><b>Controller not detected / buttons do nothing</b></summary>"
+        self.assertIn(head, README)
+        dead = README.split(head, 1)[1].split("</details>", 1)[0]
+        self.assertRegex(dead, r"default profile", "buttons-do-nothing names pad-side app profiles")
+        self.assertIn("## Is this allowed?\n", README)
+        allowed = README.split("## Is this allowed?\n", 1)[1].split("\n## ", 1)[0]
+        self.assertRegex(allowed, r"(?i)turbo button", "is-this-allowed says to keep pad turbo off")
+        self.assertRegex(allowed, r"(?i)turbo and macros off")
+
     def test_claims_stay_honest(self):
         self.assertIn("not yet played on real hardware", README)
 
