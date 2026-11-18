@@ -1,0 +1,1 @@
+{"schema": "pmc.cli/1", "command": "remap set", "ok": false, "data": null, "warnings": [], "error": {"code": "POLICY_SHARED_INPUT", "message": "Two actions cannot share one input."}}

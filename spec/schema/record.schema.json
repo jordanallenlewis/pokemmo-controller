@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pokemmocontroller.com/spec/schema/record.schema.json",
+  "title": "pmc.record: config/pokemmo-controller.json. Locked keys keep their meaning forever; fields may only be added.",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "record_format": {
+      "type": "integer",
+      "minimum": 2,
+      "description": "Absent means version 1."
+    },
+    "version": {
+      "type": "string"
+    },
+    "files": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "pristine",
+          "created"
+        ],
+        "properties": {
+          "sha": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "pristine": {
+            "type": "boolean"
+          },
+          "created": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "names": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "extra_names": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "switch_positional": {
+      "type": "boolean"
+    },
+    "layout": {
+      "oneOf": [
+        {
+          "$ref": "profile-1.schema.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "screen": {},
+    "screen_manual": {},
+    "follow": {},
+    "autostart": {},
+    "app": {},
+    "shortcuts_added": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "created_dirs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

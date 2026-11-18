@@ -1,0 +1,4 @@
+{"schema": "pmc.update/1", "channel": "beta", "version": "2.0.0-beta.1", "seq": 1, "expires": "2027-01-01T00:00:00Z",
+ "released": "2026-12-01T00:00:00Z", "notes_url": "https://pokemmocontroller.com/changes", "min_record_format": 1, "retracted": [],
+ "artifacts": {"windows-x64": {"url": "https://pokemmocontroller.com/dl/pmc-2.0.0-beta.1-windows-x64.zip", "size": 1048576,
+   "sha256": "0000000000000000000000000000000000000000000000000000000000000000", "signature": "EXAMPLE"}}}

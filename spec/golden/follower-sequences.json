@@ -1,0 +1,365 @@
+{
+ "constants": {
+  "login_size": [
+   640,
+   480
+  ],
+  "max_aspect": 8,
+  "settle": 3,
+  "tolerance": 0.04
+ },
+ "schema": "pmc.golden.follower/1",
+ "sequences": [
+  {
+   "applied": null,
+   "label": "settles after three equal samples",
+   "samples": [
+    [
+     3840,
+     2160
+    ],
+    [
+     3840,
+     2160
+    ],
+    [
+     3840,
+     2160
+    ],
+    [
+     1920,
+     1080
+    ],
+    [
+     1920,
+     1080
+    ],
+    [
+     1920,
+     1080
+    ]
+   ],
+   "settle": 3,
+   "writes": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    [
+     1920,
+     1080
+    ]
+   ]
+  },
+  {
+   "applied": [
+    3840,
+    2160
+   ],
+   "label": "fast flap 4K 1080p 1440p 4K leaves no stale size",
+   "samples": [
+    [
+     3840,
+     2160
+    ],
+    [
+     1920,
+     1080
+    ],
+    [
+     1920,
+     1080
+    ],
+    [
+     2560,
+     1440
+    ],
+    [
+     3840,
+     2160
+    ],
+    [
+     3840,
+     2160
+    ],
+    [
+     3840,
+     2160
+    ]
+   ],
+   "settle": 3,
+   "writes": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "applied": [
+    1920,
+    1080
+   ],
+   "label": "junk samples are ignored",
+   "samples": [
+    null,
+    [
+     0,
+     0
+    ],
+    [
+     -5,
+     100
+    ],
+    [
+     100,
+     100
+    ],
+    [
+     1000000000000.0,
+     1000000000000.0
+    ],
+    [
+     1920.5,
+     1080
+    ],
+    [
+     true,
+     false
+    ],
+    "x",
+    [
+     2560,
+     1440
+    ],
+    [
+     2560,
+     1440
+    ],
+    [
+     2560,
+     1440
+    ]
+   ],
+   "settle": 3,
+   "writes": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    [
+     2560,
+     1440
+    ]
+   ]
+  },
+  {
+   "applied": [
+    1920,
+    1080
+   ],
+   "label": "the 640x480 login window is skipped",
+   "samples": [
+    [
+     640,
+     480
+    ],
+    [
+     640,
+     480
+    ],
+    [
+     640,
+     480
+    ],
+    [
+     640,
+     480
+    ],
+    [
+     640,
+     480
+    ],
+    [
+     1920,
+     1080
+    ],
+    [
+     1920,
+     1080
+    ],
+    [
+     1920,
+     1080
+    ]
+   ],
+   "settle": 3,
+   "writes": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "applied": [
+    1920,
+    1080
+   ],
+   "label": "a half-finished resize (wider than 8 to 1) is skipped",
+   "samples": [
+    [
+     8000,
+     600
+    ],
+    [
+     8000,
+     600
+    ],
+    [
+     8000,
+     600
+    ],
+    [
+     8000,
+     600
+    ]
+   ],
+   "settle": 3,
+   "writes": [
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "applied": [
+    2560,
+    1440
+   ],
+   "label": "a move to a monitor at the same resolution writes nothing",
+   "samples": [
+    [
+     2560,
+     1440
+    ],
+    [
+     2560,
+     1440
+    ],
+    [
+     2560,
+     1440
+    ],
+    [
+     2560,
+     1440
+    ],
+    [
+     2560,
+     1440
+    ],
+    [
+     2560,
+     1440
+    ]
+   ],
+   "settle": 3,
+   "writes": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "applied": [
+    2560,
+    1440
+   ],
+   "label": "2560x1440 to 2560x1400 and back, as it behaves today",
+   "samples": [
+    [
+     2560,
+     1400
+    ],
+    [
+     2560,
+     1400
+    ],
+    [
+     2560,
+     1400
+    ],
+    [
+     2560,
+     1440
+    ],
+    [
+     2560,
+     1440
+    ],
+    [
+     2560,
+     1440
+    ]
+   ],
+   "settle": 3,
+   "writes": [
+    null,
+    null,
+    [
+     2560,
+     1400
+    ],
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "applied": null,
+   "label": "whole-number floats count as integers",
+   "samples": [
+    [
+     1920.0,
+     1080.0
+    ],
+    [
+     1920.0,
+     1080.0
+    ],
+    [
+     1920.0,
+     1080.0
+    ]
+   ],
+   "settle": 3,
+   "writes": [
+    null,
+    null,
+    [
+     1920,
+     1080
+    ]
+   ]
+  }
+ ]
+}

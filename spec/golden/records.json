@@ -1,0 +1,221 @@
+{
+ "current_python_record": {
+  "created_dirs": [
+   "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo",
+   "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890",
+   "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config",
+   "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo",
+   "<ROOT>/Steam/userdata/67890/config"
+  ],
+  "extra_names": [],
+  "files": {
+   "<ROOT>/Poke MMO/config/main.properties": {
+    "created": false,
+    "pristine": true
+   },
+   "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_legion_go_s.vdf": {
+    "created": true,
+    "pristine": true
+   },
+   "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_neptune.vdf": {
+    "created": true,
+    "pristine": true
+   },
+   "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps4.vdf": {
+    "created": false,
+    "pristine": true
+   },
+   "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_ps5.vdf": {
+    "created": true,
+    "pristine": true
+   },
+   "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_switch_pro.vdf": {
+    "created": true,
+    "pristine": true
+   },
+   "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xbox360.vdf": {
+    "created": true,
+    "pristine": true
+   },
+   "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/configset_controller_xboxone.vdf": {
+    "created": false,
+    "pristine": true
+   },
+   "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_legion_go_s.vdf": {
+    "created": true,
+    "pristine": true
+   },
+   "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_neptune.vdf": {
+    "created": true,
+    "pristine": true
+   },
+   "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_ps4.vdf": {
+    "created": true,
+    "pristine": true
+   },
+   "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_ps5.vdf": {
+    "created": true,
+    "pristine": true
+   },
+   "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_switch_pro.vdf": {
+    "created": true,
+    "pristine": true
+   },
+   "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_xbox360.vdf": {
+    "created": true,
+    "pristine": true
+   },
+   "<ROOT>/Steam/steamapps/common/Steam Controller Configs/12345/config/pokemmo/controller_xboxone.vdf": {
+    "created": true,
+    "pristine": true
+   },
+   "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_legion_go_s.vdf": {
+    "created": true,
+    "pristine": true
+   },
+   "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_neptune.vdf": {
+    "created": true,
+    "pristine": true
+   },
+   "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_ps4.vdf": {
+    "created": true,
+    "pristine": true
+   },
+   "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_ps5.vdf": {
+    "created": true,
+    "pristine": true
+   },
+   "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_switch_pro.vdf": {
+    "created": true,
+    "pristine": true
+   },
+   "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_xbox360.vdf": {
+    "created": true,
+    "pristine": true
+   },
+   "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/configset_controller_xboxone.vdf": {
+    "created": true,
+    "pristine": true
+   },
+   "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_legion_go_s.vdf": {
+    "created": true,
+    "pristine": true
+   },
+   "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_neptune.vdf": {
+    "created": true,
+    "pristine": true
+   },
+   "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_ps4.vdf": {
+    "created": true,
+    "pristine": true
+   },
+   "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_ps5.vdf": {
+    "created": true,
+    "pristine": true
+   },
+   "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_switch_pro.vdf": {
+    "created": true,
+    "pristine": true
+   },
+   "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_xbox360.vdf": {
+    "created": true,
+    "pristine": true
+   },
+   "<ROOT>/Steam/steamapps/common/Steam Controller Configs/67890/config/pokemmo/controller_xboxone.vdf": {
+    "created": true,
+    "pristine": true
+   },
+   "<ROOT>/Steam/userdata/12345/config/shortcuts.vdf": {
+    "created": false,
+    "pristine": true
+   },
+   "<ROOT>/Steam/userdata/67890/config/shortcuts.vdf": {
+    "created": true,
+    "pristine": true
+   }
+  },
+  "follow": false,
+  "names": [
+   "Xbox Series X Controller",
+   "Xbox One S Controller",
+   "Xbox One Controller",
+   "Xbox One Elite Controller",
+   "Xbox One Elite 2 Controller",
+   "Xbox 360 Controller",
+   "Xbox 360 Wireless Controller",
+   "Xbox Wireless Controller",
+   "Xbox Adaptive Controller",
+   "XInput Controller",
+   "Microsoft X-Box 360 pad",
+   "Microsoft X-Box One pad",
+   "PS5 Controller",
+   "DualSense Wireless Controller",
+   "DualSense Edge Wireless Controller",
+   "PS4 Controller",
+   "DUALSHOCK 4 Wireless Controller",
+   "Sony Interactive Entertainment Wireless Controller",
+   "Wireless Controller",
+   "Nintendo Switch Pro Controller",
+   "Pro Controller",
+   "Nintendo Switch 2 Pro Controller",
+   "#SettingsController_SteamController",
+   "Steam Virtual Gamepad",
+   "Steam Controller",
+   "Steam Deck",
+   "Steam Deck Controller",
+   "8BitDo Pro 2"
+  ],
+  "shortcuts_added": [
+   "<ROOT>/Steam/userdata/12345/config/shortcuts.vdf",
+   "<ROOT>/Steam/userdata/67890/config/shortcuts.vdf"
+  ],
+  "switch_positional": false,
+  "version": "<VERSION>"
+ },
+ "file_entry_keys": [
+  "sha",
+  "pristine",
+  "created"
+ ],
+ "locked_keys": [
+  "version",
+  "files",
+  "names",
+  "extra_names",
+  "switch_positional",
+  "layout",
+  "screen",
+  "screen_manual",
+  "follow",
+  "autostart",
+  "app",
+  "shortcuts_added",
+  "created_dirs"
+ ],
+ "reading_rules": [
+  {
+   "given": {
+    "record_format": null
+   },
+   "id": "no-record-field",
+   "note": "A record without record_format is version 1 and is read by today's rules.",
+   "read_as": 1
+  },
+  {
+   "given": "no record file",
+   "id": "missing-record",
+   "note": "A missing record means a v1.0 install.",
+   "read_as": "v1.0 install"
+  },
+  {
+   "engine": "refuses to write",
+   "exit": 6,
+   "given": {
+    "record_format": 3
+   },
+   "id": "newer-record",
+   "uninstall": "still works from files{} alone"
+  }
+ ],
+ "schema": "pmc.golden.records/1"
+}
