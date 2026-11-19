@@ -317,6 +317,7 @@ def follow_note(a, p, pm, steam):
 def update_cmd(a):
     """--update / --channel / --update-check: look for, and install, a newer signed release."""
     pm = P.find_pokemmo(a.pokemmo)
+    Plan(pm).refuse_newer()     # before a setting is written or an update looked up
     changes = {}
     if a.channel:
         changes["channel"] = a.channel
