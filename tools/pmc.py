@@ -30,7 +30,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import setup as setup_mod  # noqa: E402
 import status  # noqa: E402
-from common import VERSION  # noqa: E402
+from common import NEWER as NEWER_MESSAGE, VERSION  # noqa: E402
 
 SCHEMA = "pmc.cli/1"
 OK, FAILED, USAGE, BLOCKED, REFUSED, NOT_FOUND, NEWER = 0, 1, 2, 3, 4, 5, 6
@@ -140,7 +140,7 @@ def cmd_status(a):
                      f"PokeMMO was not found.\n  {problems[0]['detail']}\n  Fix: {problems[0]['fix']}")
     lines = [f"PokeMMO controller layout v{VERSION}", f"  PokeMMO folder  {found}",
              f"  Installed       " + ("no: not installed" if not s["installed"] else f"yes (v{s['installed_version']})")]
-    if s["installed"]:
+    if s["installed"] and not s["newer"]:
         lines += [f"  Binds           {'current' if s['binds_current'] else 'out of date'}",
                   f"  Steam wheel     " + ("current" if s["steam_current"] else "out of date" if s["steam"] else "not installed"),
                   f"  Layout          {'your own' if s['custom'] else 'default'}"]
@@ -159,6 +159,9 @@ def cmd_doctor(a):
     lines = [f"PokeMMO controller layout v{VERSION}"]
     for c in checks:
         lines.append(f"  [{'ok' if c['ok'] else '!!'}] {c['detail']}" + (f"\n       Fix: {c['fix']}" if c["fix"] else ""))
+    if s["newer"]:
+        print("\n".join(lines), file=sys.stderr if a.json else sys.stdout)
+        return _fail(a, "DATA_NEWER", NEWER_MESSAGE, data=s)
     if problems:
         print("\n".join(lines), file=sys.stderr if a.json else sys.stdout)
         return _fail(a, "FAILED", f"{len(problems)} problem(s) found.", f"{len(problems)} problem(s) found.", data=s)
