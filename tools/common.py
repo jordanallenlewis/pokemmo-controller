@@ -11,7 +11,7 @@ the original bytes when nothing else changed the file since.
 import glob, hashlib, json, os, re, shutil, tempfile, time
 from pathlib import Path
 
-VERSION = "1.3.0-beta.1"
+VERSION = "1.2.1"
 SUFFIX = ".bak-pokemmo-controller"
 STATE_NAME = "pokemmo-controller.json"
 MAP_KEY = "client.controls.controller_input_maps_gdx_2"

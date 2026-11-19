@@ -26,7 +26,7 @@ const (
 	stateName    = "pokemmo-controller.json"
 	// recordVersion is written into the record; it must equal VERSION in tools/common.py
 	// (plan_test.go checks it against the golden file).
-	recordVersion = "1.3.0-beta.1"
+	recordVersion = "1.2.1"
 )
 
 func shaHex(b []byte) string {
