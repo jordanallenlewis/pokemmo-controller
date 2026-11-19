@@ -13,6 +13,10 @@
 - New: `pmc`, the command line for people who prefer a terminal: `pmc status`, `pmc doctor`,
   `pmc install` and `pmc uninstall` (with `--dry-run`, `--yes` and `--json`; `--json` prints the one fixed envelope, and the exit codes are fixed too), and
   `pmc app` to open the remap screen. It runs the same code as the remap screen and the installers.
+- Safety for 2.0: if a newer PokeMMO Controller made your install, this version no longer
+  writes over it. Installing, updating, the remap screen and the helper at login stop with
+  "Made by a newer PokeMMO Controller. Use pmc." and change nothing. Uninstall still puts
+  back every file that nothing else changed since, and names any it leaves.
 
 ## 1.3.0-beta.1 - 2026-11-17 (pre-release)
 

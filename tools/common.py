@@ -16,6 +16,18 @@ SUFFIX = ".bak-pokemmo-controller"
 STATE_NAME = "pokemmo-controller.json"
 MAP_KEY = "client.controls.controller_input_maps_gdx_2"
 NATIVE_KEY = "client.input.controllers.enable_native_support"
+NEWER = "Made by a newer PokeMMO Controller. Use pmc."
+
+
+def newer_record(state):
+    """True when the install record was written by a newer PokeMMO Controller (2.x): it carries
+    a record_format this version never writes (it writes none, which means 1). Every 2.x record
+    carries record_format 2 or higher (spec/schema/record.schema.json). Such a record is never
+    overwritten here; uninstall still works from its files{}. The version string alone is not
+    enough: a newer 1.x record has the same format, and the updater rolls back by running the
+    older copy over it."""
+    rf = state.get("record_format")
+    return rf is not None and not (type(rf) is int and rf == 1)
 
 
 # ---------------------------------------------------------------- bytes / text
@@ -264,8 +276,16 @@ class Plan:
         bak = read_bytes(backup_path(p))
         return bak if bak is not None else False
 
+    def refuse_newer(self):
+        """Every write except uninstall stops here when a newer version made the install."""
+        if newer_record(self.state):
+            raise SystemExit(f"{NEWER}\nThis copy (v{VERSION}) does not change an install that a newer one made. "
+                             "Nothing was changed.")
+
     # writing
     def commit(self, uninstall=False):
+        if not uninstall:
+            self.refuse_newer()
         pending = self.pending()
         for p in pending:  # check every file first so a read-only one stops the run before any write
             if p.exists() and not os.access(p, os.W_OK):
@@ -314,6 +334,7 @@ class Plan:
             self.save_state()
 
     def save_state(self, final=True):
+        self.refuse_newer()
         if final:
             self.state["version"] = VERSION
         write_atomic(self.state_path, json.dumps(self.state, indent=2, sort_keys=True).encode() + b"\n")
