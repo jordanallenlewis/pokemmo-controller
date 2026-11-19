@@ -2,8 +2,10 @@
 
 ## Unreleased
 
-- README: Troubleshooting says to put a pad back on its default profile if buttons were swapped
-  in the maker's app, and "Is this allowed?" says to keep a pad's turbo button off.
+## 1.2.1 - 2026-11-19
+
+This release carries the update files the app needs: from here on the app can tell you a new version is out and install it for you.
+
 - New: the app tells you when a new version is out, with a short "what's new" and one button,
   Update now. It checks when it opens and about once a day; nothing about you is sent, and you
   can turn it off in Settings. A beta channel is there if you want new versions early.
@@ -17,6 +19,8 @@
   writes over it. Installing, updating, the remap screen and the helper at login stop with
   "Made by a newer PokeMMO Controller. Use pmc." and change nothing. Uninstall still puts
   back every file that nothing else changed since, and names any it leaves.
+- README: Troubleshooting says to put a pad back on its default profile if buttons were swapped
+  in the maker's app, and "Is this allowed?" says to keep a pad's turbo button off.
 
 ## 1.3.0-beta.1 - 2026-11-17 (pre-release)
 
