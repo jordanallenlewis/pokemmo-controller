@@ -16,7 +16,7 @@
 - Safety for 2.0: if a newer PokeMMO Controller made your install, this version no longer
   writes over it. Installing, updating, the remap screen and the helper at login stop with
   "Made by a newer PokeMMO Controller. Use pmc." and change nothing. Uninstall still puts
-  everything back.
+  back every file that nothing else changed since, and names any it leaves.
 
 ## 1.3.0-beta.1 - 2026-11-17 (pre-release)
 

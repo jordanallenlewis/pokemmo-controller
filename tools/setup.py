@@ -84,6 +84,7 @@ def build_plan(a, pm, steam, steams):
     if a.uninstall:
         uninstall.plan(p, pm, steams)
         app.plan_uninstall(p, pm)
+        uninstall.revert_unknown(p)     # files only a newer version knows about
     else:
         apply_native.plan(p, pm, a.name, a.switch_positional, getattr(a, "layout_data", None),
                           getattr(a, "reset_layout", False))
@@ -161,6 +162,10 @@ def follow(a, limit=None):
         if a.background:
             return
         sys.exit("The layout is not installed yet. Run the installer first, then this.")
+    if newer_record(start.state):
+        if a.background:
+            return
+        start.refuse_newer()
     if a.background and not P.single_instance(str(pm)):
         return      # one follower per PokeMMO folder
 

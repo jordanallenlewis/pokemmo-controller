@@ -305,6 +305,8 @@ def _restore_layout(pm, before_record):
     except ValueError:
         return
     p = Plan(pm)
+    if newer_record(p.state):
+        return      # the newer version's record is not ours to edit
     changed = False
     for key in ("layout", "update", "screen", "screen_manual", "switch_positional", "follow"):
         if key in old and p.state.get(key) != old[key]:
