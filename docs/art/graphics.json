@@ -1,0 +1,18 @@
+{
+  "about": "Every image in the repo belongs to one class. generated = rendered from the canonical source by the named script (fonts, sizes, colours and terms from brand/tokens.json, names from tools/layout.py); photo = the real controller photos; brand = the logo files; capture = screenshots and video of the real app and game. A new image must be added here, with a class, or tests/test_graphics.py fails.",
+  "classes": {
+    "generated": {
+      "script": "docs/art/rebuild.py",
+      "files": ["docs/img/*.svg", "docs/img/*.png", "site/assets/og.svg", "site/assets/og.png"]
+    },
+    "photo": {
+      "files": ["docs/xbox-controller.webp", "site/assets/ps5.webp", "site/assets/switch.webp", "site/assets/deck.webp"]
+    },
+    "brand": {
+      "files": ["brand/mark.svg", "site/assets/logo.svg", "site/assets/icon.svg", "site/assets/pokemmo-wordmark.svg", "site/assets/brand/*.png"]
+    },
+    "capture": {
+      "files": ["docs/app/*.png", "docs/remap-screen.png", "docs/wheel-in-game.png", "site/assets/game-menu.png", "site/assets/demo-poster.jpg", "site/assets/demo.mp4", "site/assets/demo.webm"]
+    }
+  }
+}
