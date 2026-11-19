@@ -108,7 +108,7 @@ def dump():
 
 if __name__ == "__main__":
     if "--write" in sys.argv:
-        OUT.write_text(dump(), encoding="utf-8", newline="\n")
+        OUT.write_bytes(dump().encode("utf-8"))
         print("wrote", OUT)
     else:
         sys.stdout.write(dump())

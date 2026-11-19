@@ -294,7 +294,7 @@ def main():
     if "--write" in sys.argv:
         OUT_DIR.mkdir(parents=True, exist_ok=True)
         for name, doc in docs.items():
-            (OUT_DIR / name).write_text(dump(doc), encoding="utf-8", newline="\n")
+            (OUT_DIR / name).write_bytes(dump(doc).encode("utf-8"))
             print("wrote", OUT_DIR / name)
     else:
         for name, doc in docs.items():

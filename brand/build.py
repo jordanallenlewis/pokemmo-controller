@@ -49,7 +49,7 @@ def main(argv):
             return 1
         return 0
     for p, text in out.items():
-        p.write_text(text, encoding="utf-8", newline="\n")
+        p.write_bytes(text.encode("utf-8"))
     return 0
 
 
