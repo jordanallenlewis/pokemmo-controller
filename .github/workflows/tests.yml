@@ -57,7 +57,7 @@ jobs:
     steps:
       - name: Tools
         run: |
-          pacman -Syu --noconfirm python git tar gzip unzip curl
+          pacman -Syu --noconfirm python git tar gzip unzip curl nodejs
           useradd -m deck
       - uses: actions/checkout@v5
         with:
