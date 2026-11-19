@@ -26,7 +26,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import platforms as P  # noqa: E402
 import app, apply_native, fit, install_wheel, layout as layout_mod, uninstall, updater  # noqa: E402
-from common import VERSION, Plan  # noqa: E402
+from common import VERSION, Plan, newer_record  # noqa: E402
 
 for _s in (sys.stdout, sys.stderr):  # paths with any characters print on any console
     try:
@@ -79,9 +79,12 @@ def start_steam(steam: Path):
 
 def build_plan(a, pm, steam, steams):
     p = Plan(pm)
+    if not a.uninstall:
+        p.refuse_newer()    # before anything is planned, closed or printed as a change
     if a.uninstall:
         uninstall.plan(p, pm, steams)
         app.plan_uninstall(p, pm)
+        uninstall.revert_unknown(p)     # files only a newer version knows about
     else:
         apply_native.plan(p, pm, a.name, a.switch_positional, getattr(a, "layout_data", None),
                           getattr(a, "reset_layout", False))
@@ -147,7 +150,7 @@ def follower_wanted(pm):
     """False once the layout is uninstalled or the helper was turned off: a follower started at
     login ends by itself then."""
     st = Plan(pm).state
-    return bool(st.get("version")) and st.get("follow", True) is not False
+    return bool(st.get("version")) and st.get("follow", True) is not False and not newer_record(st)
 
 
 def follow(a, limit=None):
@@ -159,6 +162,10 @@ def follow(a, limit=None):
         if a.background:
             return
         sys.exit("The layout is not installed yet. Run the installer first, then this.")
+    if newer_record(start.state):
+        if a.background:
+            return
+        start.refuse_newer()
     if a.background and not P.single_instance(str(pm)):
         return      # one follower per PokeMMO folder
 

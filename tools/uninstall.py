@@ -17,7 +17,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from common import (MAP_KEY, NATIVE_KEY, Plan, backup_path, decode, encode,  # noqa: E402
-                    get_prop, join_lines, read_bytes, set_props, split_lines)
+                    get_prop, join_lines, newer_record, read_bytes, set_props, split_lines)
 from apply_native import custom_sets, installed, is_ours, props_path, split_entries  # noqa: E402
 from install_wheel import (BLOCK, CONFIG_DIR_NAME, CONTROLLER_TYPES, KEYBOARD_BINDS,  # noqa: E402
                            LAYOUT_TITLE, OUR_BLOCK, configset_with_block, is_pokemmo_shortcut,
@@ -171,6 +171,24 @@ def plan(p, pm, steams):
             revert_layouts(p, acct / "config", ours_ok)
 
 
+def revert_unknown(p):
+    """A record a newer version made can list files this version does not know. Each one only
+    that version changed gets its original bytes back (or is removed if it created it); one
+    something else changed since is left as it is, with a note, and its backup is kept."""
+    if not newer_record(p.state):
+        return
+    for key, rec in list(p.files.items()):
+        path = Path(key)
+        if path in p.changes or path == p.state_path or not isinstance(rec, dict):
+            continue
+        if read_bytes(path) is None and not rec.get("created"):
+            continue
+        if _restore_exact(p, path):
+            p.drop_backups.append(backup_path(path))
+        elif read_bytes(path) is not None:
+            p.notes.append(f"Left as it is (it changed after the install): {path}")
+
+
 def remove_empty_dirs(steams, created=()):
     """Remove folders the install created (and empty layout folders older versions left)."""
     dirs = [Path(d) for d in created]
@@ -200,6 +218,7 @@ def main():
     p = Plan(pm)
     steams = steam_roots(p, a.steam)
     plan(p, pm, steams)
+    revert_unknown(p)
     p.commit(uninstall=True)
     remove_empty_dirs(steams, p.state.get("created_dirs", []))
     print("Done.")
