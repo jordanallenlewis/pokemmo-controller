@@ -557,6 +557,7 @@ function drawChecklist() {
       const b = el("button", {class: "btn primary small", type: "button"}, s.fix);
       if (st.pokemmo_open) { b.disabled = true; b.title = "Close PokeMMO first: it rewrites its settings when it closes."; }
       else if (!canEdit()) b.disabled = true;     // an apply is running
+      else if (!canWrite()) { b.disabled = true; b.title = S.problem; }   // apply() would refuse: say why instead
       b.addEventListener("click", apply); li.appendChild(b);
     }
     ol.appendChild(li);
@@ -583,7 +584,16 @@ function renderBar() {
   drawChecklist();
 }
 async function refreshStatus() {
-  try { S.status = await api("/api/status"); renderBar(); } catch (e) { /* the program stopped: leave the last state */ }
+  try {
+    const was = !!S.status.pokemmo;
+    S.status = await api("/api/status");
+    if (!!S.status.pokemmo !== was) {   // PokeMMO turned up (or went): its settings problem is read once at load, so read it again
+      const fresh = await api("/api/state");
+      S.problem = fresh.problem; S.pokemmo = fresh.pokemmo;
+      say("status", S.problem || "", "bad");
+    }
+    renderBar();
+  } catch (e) { /* the program stopped: leave the last state */ }
 }
 
 // ------------------------------------------------------------------ the controller itself (browser's own gamepad support)
