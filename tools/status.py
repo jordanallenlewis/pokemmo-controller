@@ -9,7 +9,7 @@ import apply_native  # noqa: E402
 import install_wheel  # noqa: E402
 import layout as L  # noqa: E402
 import platforms as P  # noqa: E402
-from common import STATE_NAME, VERSION, Plan  # noqa: E402
+from common import NEWER, STATE_NAME, VERSION, Plan, newer_record  # noqa: E402
 
 
 def record(pokemmo):
@@ -72,6 +72,7 @@ def summary(found, steam=None, no_wheel=False):
         "steam_current": steam_ok,
         "wheel_screen": list(screen) if screen else None,
         "custom": bool(rec.get("layout")),
+        "newer": newer_record(rec),     # a newer version made the install: this copy only reads it
         "version": VERSION,
     }
 
@@ -92,6 +93,13 @@ def doctor(found, steam=None, no_wheel=False, reason=None):
         checks.append(_check("installed", False, "The layout is not installed.", "Run: pmc install"))
         return s, checks
     checks.append(_check("installed", True, f"Installed (v{s['installed_version'] or '?'})."))
+    if s["newer"]:
+        # every other check would point at `pmc install`, which refuses this install
+        checks.append(_check("newer", False, f"{NEWER} This copy (v{VERSION}) does not change it.",
+                             "Use the newer version that made the install."))
+        if s["pokemmo_open"]:
+            checks.append(_check("pokemmo_open", True, "PokeMMO is open: close it before you change anything."))
+        return s, checks
     if s["installed_version"] != VERSION:
         checks.append(_check("version", False, f"Installed v{s['installed_version']}, this is v{VERSION}.",
                              "Run: pmc install"))

@@ -192,6 +192,97 @@ class NewerRecordThroughPmc(Base):
         self.pmc(sb, "install", "--dry-run", "--no-follow", check=6)
         self.assertEqual(diff(before, sb.snapshot()), [])
 
+    def newer_install(self):
+        sb = self.make()
+        self.pmc(sb, "install", "--yes", "--no-follow", check=0)
+        make_newer(sb, record_format=2, version="2.0.0")
+        return sb
+
+    def test_status_names_the_newer_version_and_never_suggests_an_install(self):
+        # `pmc install` refuses a newer record, so pointing the player at it sends them in a circle
+        sb = self.newer_install()
+        before = sb.snapshot()
+        r = self.pmc(sb, "status", check=0)
+        self.assertIn(NEWER, r.stdout)
+        self.assertNotIn("pmc install", r.stdout + r.stderr)
+        self.assertNotIn("out of date", r.stdout)
+        j = self.js(self.pmc(sb, "status", "--json", check=0))
+        self.assertTrue(j["newer"])
+        self.assertEqual([p["id"] for p in j["problems"]], ["newer"])
+        self.assertNotIn("pmc install", json.dumps(j))
+        self.assertEqual(diff(before, sb.snapshot()), [])
+
+    def test_doctor_exits_6_and_says_use_pmc(self):
+        sb = self.newer_install()
+        before = sb.snapshot()
+        r = self.pmc(sb, "doctor", check=6)
+        self.assertIn(NEWER, r.stdout + r.stderr)
+        self.assertNotIn("pmc install", r.stdout + r.stderr)
+        j = self.js(self.pmc(sb, "doctor", "--json", check=6))
+        self.assertEqual(j["error"]["code"], "DATA_NEWER")
+        self.assertIn(NEWER, j["error"]["message"])
+        self.assertTrue(j["data"]["newer"])
+        self.assertNotIn("pmc install", json.dumps(j))
+        self.assertEqual(diff(before, sb.snapshot()), [])
+
+    def test_a_normal_install_is_not_called_newer(self):
+        sb = self.make()
+        self.pmc(sb, "install", "--yes", "--no-follow", check=0)
+        self.assertFalse(self.js(self.pmc(sb, "status", "--json", check=0))["newer"])
+        self.assertFalse(self.js(self.pmc(sb, "doctor", "--json", check=0))["newer"])
+        make_newer(sb, version="9.9.9")       # a newer 1.x in today's format: the updater's rollback case
+        self.assertFalse(self.js(self.pmc(sb, "status", "--json", check=0))["newer"])
+
+    def test_the_drift_answer_stays_the_files_truth(self):
+        # the remap screen reads binds_current/steam_current as "re-apply": a newer record must not
+        # turn them false (re-apply refuses), they stay what the files say
+        sb = self.newer_install()
+        j = self.js(self.pmc(sb, "status", "--json", check=0))
+        self.assertTrue(j["binds_current"])
+        self.assertTrue(j["steam_current"])
+
+
+class NewerRecordUpdateSettings(Base):
+    """setup.py --channel / --update-check / --update on a newer install: the real reason, not
+    "not installed yet", and nothing changed (no settings written, no update looked up)."""
+
+    def test_settings_and_update_commands_name_the_newer_version(self):
+        sb = self.make()
+        sb.setup()
+        make_newer(sb, record_format=2, version="2.0.0")
+        before = sb.snapshot()
+        # an address nothing answers: a run that got as far as looking up an update fails differently
+        offline = {"POKEMMO_CONTROLLER_UPDATE_BASE": "http://127.0.0.1:9/"}
+        for args in (("--channel", "beta"), ("--update-check", "off"), ("--update", "--check"),
+                     ("--update", "--yes"), ("--channel", "stable", "--update", "--check")):
+            with self.subTest(args=args):
+                r = sb.setup(*args, check=False, env=offline)
+                out = r.stdout + r.stderr
+                self.assertNotEqual(r.returncode, 0, out)
+                self.assertIn(NEWER, out)
+                self.assertIn("Nothing was changed", out)
+                self.assertNotIn("not installed yet", out)
+                self.assertNotIn("Update channel:", out)
+                self.assertEqual(diff(before, sb.snapshot()), [])
+
+    def test_a_newer_1x_in_todays_format_still_changes_settings(self):
+        # the updater rolls back over a record a newer 1.x wrote: only record_format decides
+        sb = self.make()
+        sb.setup()
+        make_newer(sb, version="9.9.9")
+        r = sb.setup("--channel", "beta")
+        self.assertIn("Update channel: beta.", r.stdout)
+        self.assertNotIn(NEWER, r.stdout + r.stderr)
+        rec = json.loads(record_path(sb).read_text(encoding="utf-8"))
+        self.assertEqual(rec["update"]["channel"], "beta")
+
+    def test_with_no_install_it_still_says_install_first(self):
+        sb = self.make()
+        r = sb.setup("--channel", "beta", check=False)
+        self.assertNotEqual(r.returncode, 0)
+        self.assertIn("not installed yet", r.stdout + r.stderr)
+        self.assertNotIn(NEWER, r.stdout + r.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()
