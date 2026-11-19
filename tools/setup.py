@@ -26,7 +26,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import platforms as P  # noqa: E402
 import app, apply_native, fit, install_wheel, layout as layout_mod, uninstall, updater  # noqa: E402
-from common import VERSION, Plan  # noqa: E402
+from common import VERSION, Plan, newer_record  # noqa: E402
 
 for _s in (sys.stdout, sys.stderr):  # paths with any characters print on any console
     try:
@@ -79,6 +79,8 @@ def start_steam(steam: Path):
 
 def build_plan(a, pm, steam, steams):
     p = Plan(pm)
+    if not a.uninstall:
+        p.refuse_newer()    # before anything is planned, closed or printed as a change
     if a.uninstall:
         uninstall.plan(p, pm, steams)
         app.plan_uninstall(p, pm)
@@ -147,7 +149,7 @@ def follower_wanted(pm):
     """False once the layout is uninstalled or the helper was turned off: a follower started at
     login ends by itself then."""
     st = Plan(pm).state
-    return bool(st.get("version")) and st.get("follow", True) is not False
+    return bool(st.get("version")) and st.get("follow", True) is not False and not newer_record(st)
 
 
 def follow(a, limit=None):

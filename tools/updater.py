@@ -21,7 +21,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import ed25519, platforms as P  # noqa: E402
-from common import VERSION, Plan, write_atomic  # noqa: E402
+from common import NEWER, VERSION, Plan, newer_record, write_atomic  # noqa: E402
 from update_key import PUBLIC_KEY  # noqa: E402
 
 REPO = "jordanallenlewis/pokemmo-controller"
@@ -71,7 +71,7 @@ def settings(state):
 def save_settings(pm, **changes):
     """Write the update settings into the install record (only when something is installed)."""
     p = Plan(pm)
-    if not p.state.get("version"):
+    if not p.state.get("version") or newer_record(p.state):
         return False
     cur = dict(p.state.get("update") or {})
     for k, v in changes.items():
@@ -260,6 +260,8 @@ def apply(pm, m, steam=None, say=print, env=None):
     plan = Plan(pm)
     if not plan.state.get("version"):
         raise UpdateError("The layout is not installed yet. Run the installer first.")
+    if newer_record(plan.state):
+        raise UpdateError(f"{NEWER} Nothing was changed.")
     before_record = (plan.state_path.read_bytes() if plan.state_path.exists() else b"")
     work = app_root(pm) / WORK
     if work.exists():
