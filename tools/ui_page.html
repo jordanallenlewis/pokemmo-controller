@@ -586,12 +586,24 @@ function renderBar() {
 async function refreshStatus() {
   try {
     const was = !!S.status.pokemmo;
-    S.status = await api("/api/status");
-    if (!!S.status.pokemmo !== was) {   // PokeMMO turned up (or went): its settings problem is read once at load, so read it again
+    const status = await api("/api/status");
+    if (!!status.pokemmo !== was) {   // PokeMMO turned up (or went): the saved layout and the settings problem were read once at load, so read them again
       const fresh = await api("/api/state");
       S.problem = fresh.problem; S.pokemmo = fresh.pokemmo;
+      if (fresh.pokemmo && !was) {
+        if (!dirty && !busy) {   // nothing typed yet: show what is saved, so Apply can never write the default over it
+          S.layout = fresh.layout; S.custom = fresh.custom; S.pad = fresh.pad;
+          S.pads = fresh.pads; S.phys = fresh.phys; S.switch_positional = fresh.switch_positional;
+          lay = JSON.parse(JSON.stringify(fresh.layout));
+          if (!S.userPad) { pad = fresh.pad; $("pad").value = pad; setPadNote(); }
+          refreshLayout();
+        } else {   // unsaved edits sit on a layout that is not the saved one: do not let Apply replace it
+          S.problem = "PokeMMO was found after this screen opened. Reload the page to see your saved layout, then apply.";
+        }
+      }
       say("status", S.problem || "", "bad");
     }
+    S.status = status;
     renderBar();
   } catch (e) { /* the program stopped: leave the last state */ }
 }

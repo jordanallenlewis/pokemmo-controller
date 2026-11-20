@@ -1,9 +1,10 @@
 // Runs the remap page's own script in a stubbed DOM against a real ui.py server.
-// usage: node ui_page_harness.js <page.html> <base-url> <key> <pokemmo-dir> <away-dir>
+// usage: node ui_page_harness.js <page.html> <base-url> <key> <pokemmo-dir> <away-dir> [main]
+// With `main` the bar's own Apply button is clicked instead of a checklist button, and the layout it sends is printed.
 // Sequence: PokeMMO missing at load -> it turns up -> the 5 s status refresh fires -> click the
 // first enabled checklist button. Prints one JSON line: requests sent and the visible result.
 const fs = require("fs"), vm = require("vm");
-const [page, base, key, dir, away] = process.argv.slice(2);
+const [page, base, key, dir, away, mode] = process.argv.slice(2);
 const html = fs.readFileSync(page, "utf8");
 const script = html.slice(html.indexOf("<script>") + 8, html.lastIndexOf("</script>"));
 
@@ -31,10 +32,11 @@ const document = {
   createElement: makeEl, createElementNS: (ns, t) => makeEl(t),
   querySelectorAll: () => [],
 };
-const requests = [];
+const requests = [], applied = [];
 const realFetch = global.fetch;
 const fetch = (path, opts) => {
   requests.push((opts && opts.method || "GET") + " " + path);
+  if (path === "/api/apply" && opts && opts.body) applied.push(JSON.parse(opts.body).layout);
   return realFetch(base + path, opts);
 };
 const timers = [];
@@ -52,10 +54,11 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const status = timers.find(([, ms]) => ms === 5000)[0];
   status(); await sleep(1500);             // the 5 s refresh found PokeMMO
   const list = ids["checklist"];
-  const btn = list.kids.map((li) => li.kids.find((k) => k.tag === "button" && !k.disabled)).find(Boolean);
+  const btn = mode === "main" ? (ids["apply"].disabled ? null : ids["apply"])
+    : list.kids.map((li) => li.kids.find((k) => k.tag === "button" && !k.disabled)).find(Boolean);
   const enabled = !!btn;
   const before = requests.length;
   if (btn) { btn.listeners.click.forEach((f) => f()); await sleep(4000); }
-  console.log(JSON.stringify({enabled, sent: requests.slice(before), result: ids["result"] ? ids["result"].textContent : ""}));
+  console.log(JSON.stringify({enabled, sent: requests.slice(before), applied, result: ids["result"] ? ids["result"].textContent : ""}));
   process.exit(0);
 })();
