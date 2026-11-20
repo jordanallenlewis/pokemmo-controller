@@ -98,5 +98,14 @@ class Sections(unittest.TestCase):
             self.assertIn(q.lower(), html.lower())
 
 
+class FooterCredit(unittest.TestCase):
+    def test_footer_credits_the_creator_with_a_real_link(self):
+        html = (SITE / "index.html").read_text(encoding="utf-8")
+        foot = html[html.index('<footer class="foot">'):html.index("</footer>")]
+        self.assertRegex(foot, r'Made by <a href="https://jordanallenlewis\.com/\?utm_source=pokemmocontroller[^"]*">Jordan Allen Lewis</a>')
+        self.assertIn("unofficial, fan-made tool", foot)
+        self.assertIn("Controller photo:", foot)
+
+
 if __name__ == "__main__":
     unittest.main()
