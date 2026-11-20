@@ -190,6 +190,7 @@ footer.legal { max-width: 76rem; margin: 0 auto; padding: 0 1.25rem 1rem; color:
 <main>
   <div id="update" role="status" aria-live="polite" hidden></div>
   <div id="status" role="status" aria-live="polite"></div>
+  <div id="newer" class="note warn" role="status" aria-live="polite" hidden></div>
 
   <section id="p-layout" role="tabpanel" aria-labelledby="t-layout">
     <div class="cols">
@@ -280,7 +281,7 @@ footer.legal { max-width: 76rem; margin: 0 auto; padding: 0 1.25rem 1rem; color:
 const KEY = document.body.dataset.key;
 const $ = (id) => document.getElementById(id);
 const NS = "http://www.w3.org/2000/svg";
-let S = null, lay = null, pad = "xbox", dirty = false, sel = null, wsel = 1, seenPad = null, TAB = "layout";
+let S = null, lay = null, pad = "xbox", dirty = false, sel = null, wsel = 1, seenPad = null, TAB = "layout", busy = false;
 
 const GROUPS = [
   ["Move", ["KEY_UP", "KEY_DOWN", "KEY_LEFT", "KEY_RIGHT"]],
@@ -515,8 +516,18 @@ function drawWheel() {
 
 // ------------------------------------------------------------------ setup checklist and live bar
 const TICK = () => sv("svg", {viewBox: "0 0 20 20", width: "18", height: "18", "aria-hidden": "true"}, sv("path", {d: "M4 10.5l4 4 8-9", fill: "none", stroke: "currentColor", "stroke-width": "2.6", "stroke-linecap": "round", "stroke-linejoin": "round"}));
+// A newer version's install is only read here, so the buttons that lead to a write are off
+// instead of refusing after the click. canEdit: editing toward a write (defaults, load a file,
+// the checklist's fixes); canWrite: Apply itself, which also needs PokeMMO's settings.
+function canEdit() { return !busy && !S.status.newer; }
+function canWrite() { return canEdit() && !S.problem; }
 function steps() {
   const st = S.status;
+  if (st.newer) return [
+    {ok: st.pokemmo, title: "PokeMMO found", ok_text: S.pokemmo, no_text: S.problem || ""},
+    {ok: !!seenPad, title: "Controller detected", ok_text: seenPad || "", no_text: "Press any button on your controller while this window is in front. Xbox, PlayStation and Switch Pro pads are all fine."},
+    {ok: false, title: "Installed by a newer version", no_text: "This copy only reads that install, so its Apply and fix buttons are off."},
+  ];
   return [
     {ok: st.pokemmo, title: "PokeMMO found", ok_text: S.pokemmo, no_text: S.problem || "Install PokeMMO and start it once, then reload this page."},
     {ok: !!seenPad, title: "Controller detected", ok_text: seenPad || "", no_text: "Press any button on your controller while this window is in front. Xbox, PlayStation and Switch Pro pads are all fine."},
@@ -531,7 +542,8 @@ function steps() {
 function drawChecklist() {
   const st = S.status, list = steps(), left = list.filter((s) => !s.ok).length;
   $("setup-h").textContent = left ? "Setup: " + (list.length - left) + " of " + list.length + " done" : "Setup: all done";
-  $("setup-sub").textContent = left ? "Each step is a tick or a button that fixes it." : "Everything is in place. Start PokeMMO and play.";
+  $("setup-sub").textContent = st.newer ? "This screen shows the layout and tests your controller; the newer version keeps the install."
+    : left ? "Each step is a tick or a button that fixes it." : "Everything is in place. Start PokeMMO and play.";
   const t = $("todo");
   t.hidden = !left; t.textContent = left;
   const ol = $("checklist");
@@ -541,9 +553,11 @@ function drawChecklist() {
     const num = el("div", {class: "num"});
     if (s.ok) num.appendChild(TICK()); else num.textContent = i + 1;
     li.append(num, el("div", {}, el("b", {}, s.title), el("span", {}, s.ok ? s.ok_text : s.no_text)));
-    if (!s.ok && s.fix) {
+    if (!s.ok && s.fix && !st.newer) {
       const b = el("button", {class: "btn primary small", type: "button"}, s.fix);
       if (st.pokemmo_open) { b.disabled = true; b.title = "Close PokeMMO first: it rewrites its settings when it closes."; }
+      else if (!canEdit()) b.disabled = true;     // an apply is running
+      else if (!canWrite()) { b.disabled = true; b.title = S.problem; }   // apply() would refuse: say why instead
       b.addEventListener("click", apply); li.appendChild(b);
     }
     ol.appendChild(li);
@@ -554,15 +568,44 @@ function renderBar() {
   bar.textContent = "";
   const seg = (kind, text) => bar.appendChild(el("span", {}, el("i", {class: "dot " + kind}), text));
   seg(st.pokemmo ? "ok" : "bad", st.pokemmo ? "PokeMMO found" : "PokeMMO not found");
-  seg(st.binds_current ? "ok" : "warn", st.binds_current ? "Buttons applied" : st.binds ? "Buttons changed: re-apply" : "Buttons not applied");
-  seg(st.steam_current ? "ok" : "warn", st.steam_current ? (st.wheel_screen ? "Wheel sized for " + st.wheel_screen.join("x") : "Steam wheel installed") : st.steam ? "Steam wheel needs fixing" : "Steam wheel not installed");
-  if (st.pokemmo_open) seg("warn", "PokeMMO is open: close it to apply");
+  if (st.newer) seg("warn", "Installed by a newer version");
+  else {
+    seg(st.binds_current ? "ok" : "warn", st.binds_current ? "Buttons applied" : st.binds ? "Buttons changed: re-apply" : "Buttons not applied");
+    seg(st.steam_current ? "ok" : "warn", st.steam_current ? (st.wheel_screen ? "Wheel sized for " + st.wheel_screen.join("x") : "Steam wheel installed") : st.steam ? "Steam wheel needs fixing" : "Steam wheel not installed");
+    if (st.pokemmo_open) seg("warn", "PokeMMO is open: close it to apply");
+  }
   seg(seenPad ? "ok" : "", seenPad ? "Controller: " + seenPad : "No controller seen yet");
-  $("dirty").hidden = !dirty;
+  const nw = $("newer"), text = st.newer ? S.newer_text : "";
+  nw.hidden = !st.newer;
+  if (nw.textContent !== text) nw.textContent = text;   // a live region: only on a change, not every poll
+  $("apply").disabled = !canWrite();
+  for (const id of ["defaults", "import"]) $(id).disabled = !canEdit();
+  $("dirty").hidden = !dirty || !!st.newer;
   drawChecklist();
 }
 async function refreshStatus() {
-  try { S.status = await api("/api/status"); renderBar(); } catch (e) { /* the program stopped: leave the last state */ }
+  try {
+    const was = !!S.status.pokemmo;
+    const status = await api("/api/status");
+    if (!!status.pokemmo !== was) {   // PokeMMO turned up (or went): the saved layout and the settings problem were read once at load, so read them again
+      const fresh = await api("/api/state");
+      S.problem = fresh.problem; S.pokemmo = fresh.pokemmo;
+      if (fresh.pokemmo && !was) {
+        if (!dirty && !busy) {   // nothing typed yet: show what is saved, so Apply can never write the default over it
+          S.layout = fresh.layout; S.custom = fresh.custom; S.pad = fresh.pad;
+          S.pads = fresh.pads; S.phys = fresh.phys; S.switch_positional = fresh.switch_positional;
+          lay = JSON.parse(JSON.stringify(fresh.layout));
+          if (!S.userPad) { pad = fresh.pad; $("pad").value = pad; setPadNote(); }
+          refreshLayout();
+        } else {   // unsaved edits sit on a layout that is not the saved one: do not let Apply replace it
+          S.problem = "PokeMMO was found after this screen opened. Reload the page to see your saved layout, then apply.";
+        }
+      }
+      say("status", S.problem || "", "bad");
+    }
+    S.status = status;
+    renderBar();
+  } catch (e) { /* the program stopped: leave the last state */ }
 }
 
 // ------------------------------------------------------------------ the controller itself (browser's own gamepad support)
@@ -628,18 +671,20 @@ function setPadNote() {
 }
 
 async function apply() {
-  const check = await api("/api/check", {layout: lay});
-  if (!check.ok) { say("result", check.error, "bad"); return; }
-  $("apply").disabled = true;
-  say("result", "Applying…");
+  if (!canWrite()) return;
+  busy = true;
+  renderBar();
   try {
+    const check = await api("/api/check", {layout: lay});
+    if (!check.ok) { say("result", check.error, "bad"); return; }
+    say("result", "Applying…");
     const r = await api("/api/apply", {layout: lay});
     if (r.ok === false && r.error) say("result", r.error, "bad");
     else say("result", r.output, r.ok ? "ok" : "bad");
-    if (r.ok) { dirty = false; await refreshStatus(); }
+    if (r.ok) dirty = false;
+    await refreshStatus();
   } catch (e) { say("result", "The screen lost contact with the program that started it. Run the command again.", "bad"); }
-  $("apply").disabled = false;
-  renderBar();
+  finally { busy = false; renderBar(); }
 }
 $("apply").addEventListener("click", apply);
 $("pad").addEventListener("change", () => { pad = $("pad").value; S.userPad = true; setPadNote(); refreshLayout(); });

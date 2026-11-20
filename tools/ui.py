@@ -24,7 +24,7 @@ import pads  # noqa: E402
 import updater  # noqa: E402
 import status as status_mod  # noqa: E402
 import platforms as P  # noqa: E402
-from common import STATE_NAME, VERSION, Plan  # noqa: E402
+from common import NEWER, STATE_NAME, VERSION, Plan  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 PAGE = HERE / "ui_page.html"
@@ -111,6 +111,8 @@ class App:
             # where each layout button sits on the picture: the SDL position it ends up on, per pad
             "phys": {fam: [pads.physical_button(fam, n, positional) for n in range(L.BUTTONS)] for fam in pads.FAMILIES},
             "status": self.status(found),
+            # shown, and every write button turned off, while status.newer is true
+            "newer_text": NEWER,
         }
 
     def drift(self, found):
