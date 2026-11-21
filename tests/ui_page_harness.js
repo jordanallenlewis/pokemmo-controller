@@ -34,10 +34,15 @@ const document = {
 };
 const requests = [], applied = [];
 const realFetch = global.fetch;
+const pending = new Set();   // requests still in flight: drained before exit so none is cut mid-response
 const fetch = (path, opts) => {
   requests.push((opts && opts.method || "GET") + " " + path);
   if (path === "/api/apply" && opts && opts.body) applied.push(JSON.parse(opts.body).layout);
-  return realFetch(base + path, opts);
+  const p = realFetch(base + path, opts);
+  pending.add(p);
+  const done = () => pending.delete(p);
+  p.then(done, done);
+  return p;
 };
 const timers = [];
 const ctx = {document, fetch, setInterval: (f, ms) => { timers.push([f, ms]); return timers.length; }, setTimeout, console,
@@ -60,5 +65,6 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const before = requests.length;
   if (btn) { btn.listeners.click.forEach((f) => f()); await sleep(4000); }
   console.log(JSON.stringify({enabled, sent: requests.slice(before), applied, result: ids["result"] ? ids["result"].textContent : ""}));
+  for (let i = 0; i < 100 && pending.size; i++) await sleep(100);   // let in-flight requests finish
   process.exit(0);
 })();
