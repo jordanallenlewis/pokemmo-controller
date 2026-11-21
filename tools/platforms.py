@@ -66,8 +66,42 @@ def pokemmo_candidates():
              HOME / "snap/pokemmo/common/pokemmo-client-live",
              _env_path("XDG_DATA_HOME", "pokemmo-client-live"),
              HOME / ".local/share/pokemmo-client-live", HOME / "PokeMMO", HOME / "pokemmo",
-             HOME / "Games" / "PokeMMO", HOME / ".local/share/PokeMMO", Path("/opt/PokeMMO")]
+             HOME / "Games" / "PokeMMO", HOME / ".local/share/PokeMMO", Path("/opt/PokeMMO"),
+             # the Debian/Ubuntu pokemmo-installer script: $XDG_DATA_HOME/pokemmo, lower case
+             _env_path("XDG_DATA_HOME", "pokemmo"), HOME / ".local/share/pokemmo"]
     return _sandboxed([p for p in c if p])
+
+
+def _user_folders():
+    """Downloads, Desktop and Documents, where people unzip things.
+
+    Linux desktops give these folders names in the user's language and record them in
+    user-dirs.dirs (XDG_DOWNLOAD_DIR="$HOME/Téléchargements"); Windows often keeps the
+    Desktop and Documents in OneDrive."""
+    out = [HOME / "Downloads", HOME / "Desktop", HOME / "Documents",
+           HOME / "OneDrive" / "Desktop", HOME / "OneDrive" / "Documents"]
+    cfg = _env_path("XDG_CONFIG_HOME") or HOME / ".config"
+    try:
+        text = (cfg / "user-dirs.dirs").read_text(encoding="utf-8", errors="replace")
+    except (OSError, ValueError):
+        text = ""
+    for m in re.finditer(r'^XDG_(?:DOWNLOAD|DESKTOP|DOCUMENTS)_DIR="\$HOME/([^"\n\x00]+)"', text, re.M):
+        p = HOME / m.group(1)
+        if p not in out:
+            out.append(p)
+    return out
+
+
+def portable_candidates():
+    """PokeMMO's portable ZIP, unzipped where people unzip things.
+
+    PokeMMO-Client.zip has no top folder, so Windows "Extract All" and Linux file
+    managers unzip it into a new PokeMMO-Client folder next to the zip. These come
+    last, after every real install and Steam, so an old unzipped copy never wins."""
+    out = [HOME / "PokeMMO-Client"]
+    for base in _user_folders():
+        out += [base / "PokeMMO-Client", base / "PokeMMO"]
+    return _sandboxed(out)
 
 
 def steam_library_folders(steam_root):
@@ -104,9 +138,19 @@ def find_pokemmo(override=None):
         if (p / "config" / "main.properties").is_file():
             return p
         sys.exit(f"No config/main.properties in {p}. Start PokeMMO once, close it, try again.")
-    every = pokemmo_candidates() + [p for p in steam_pokemmo_candidates() if p not in pokemmo_candidates()]
+    every, portable = [], portable_candidates()
+    for p in pokemmo_candidates() + steam_pokemmo_candidates() + portable:
+        if p not in every:
+            every.append(p)
     for p in every:
-        if (p / "config" / "main.properties").is_file():
+        try:
+            found = (p / "config" / "main.properties").is_file()
+        except OSError:      # a folder we may not read (macOS asks before Downloads): skip it
+            continue
+        if found:
+            if p in portable:
+                print(f"Using the PokeMMO folder {p} (pass --pokemmo FOLDER to use another).",
+                      file=sys.stderr)
             return p
     tried = "\n  ".join(str(p) for p in every)
     sys.exit("Could not find PokeMMO's config/main.properties. Is PokeMMO installed? Start it once,\n"
@@ -207,7 +251,10 @@ def shortcut_target(pokemmo_dir: Path):
         app = Path("/Applications/PokeMMO.app")
         if not app.exists():
             app = HOME / "Applications/PokeMMO.app"
-        return f'"{app}"', f'"{app.parent}/"', ""
+        if (app.exists() or "com.pokeemu.macos" in str(pokemmo_dir)
+                or not (pokemmo_dir / "PokeMMO.sh").is_file()):
+            return f'"{app}"', f'"{app.parent}/"', ""
+        # no app, only an unzipped portable copy: start its script, as on Linux
     if ".var/app/com.pokemmo.PokeMMO" in str(pokemmo_dir):
         return '"/usr/bin/flatpak"', '"/usr/bin/"', "run com.pokemmo.PokeMMO"
     if "snap/pokemmo" in str(pokemmo_dir):
