@@ -13,6 +13,10 @@ class UI(Base):
     def start(self, sb):
         app = ui.App(pokemmo=str(sb.pokemmo), steam=str(sb.steam), env=sb.env())
         srv = ui.make_server(app)
+        # Wait for request threads on close, so none is still touching the sandbox when it is deleted
+        # (Windows refuses to remove a folder a thread still has open).
+        srv.daemon_threads = False
+        srv.block_on_close = True
         t = threading.Thread(target=srv.serve_forever, daemon=True)
         t.start()
         self.addCleanup(lambda: (srv.shutdown(), srv.server_close()))
@@ -272,6 +276,12 @@ class UI(Base):
         self.assertFalse(app.stop.is_set())
         self.call("POST", "/api/quit", {})
         self.assertTrue(app.stop.wait(5))
+
+    def test_client_that_drops_the_connection_is_not_an_error(self):
+        from unittest import mock
+        h = ui.Handler.__new__(ui.Handler)
+        with mock.patch.object(http.server.BaseHTTPRequestHandler, "handle", side_effect=ConnectionResetError(10054, "reset")):
+            h.handle()  # must not raise
 
 
 if __name__ == "__main__":

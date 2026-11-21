@@ -218,6 +218,13 @@ class Handler(http.server.BaseHTTPRequestHandler):
     def log_message(self, *a):  # quiet
         pass
 
+    def handle(self):
+        # A browser that closes the tab or a connection mid-request is normal, not an error to print.
+        try:
+            super().handle()
+        except (ConnectionError, TimeoutError):
+            pass
+
     # security: only this computer, only the page we opened
     def _host_ok(self):
         host = self.headers.get("Host", "")
