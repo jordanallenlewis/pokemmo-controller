@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Fixed: the installer now finds PokeMMO unzipped from its portable ZIP in Downloads, Desktop or
+  Documents (the `PokeMMO-Client` folder "Extract All" makes, translated folder names on Linux, OneDrive
+  on Windows) and the Debian/Ubuntu installer's `~/.local/share/pokemmo`. A real install or a Steam copy
+  still comes first.
+
 ## 1.2.1 - 2026-11-19
 
 This release carries the update files the app needs: from here on the app can tell you a new version is out and install it for you.
