@@ -61,6 +61,7 @@ class PortableZip(unittest.TestCase):
         game = portable_copy(self.sb.home / "Téléchargements" / "PokeMMO-Client")
         self.assertEqual(self.find(), game.resolve())
 
+    @unittest.skipUnless(sys.platform.startswith("linux"), "the Debian/Ubuntu pokemmo-installer folder only exists on Linux")
     def test_debian_pokemmo_installer_folder(self):
         # the pokemmo-installer script (Debian/Ubuntu) uses $XDG_DATA_HOME/pokemmo, lower case
         game = portable_copy(self.sb.home / ".local" / "share" / "pokemmo")
