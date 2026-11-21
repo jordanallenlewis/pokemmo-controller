@@ -268,7 +268,8 @@ Slices, clockwise from the empty top: N = Pokedex, I = Egg Incubators, C = Train
 <summary>What the installer does</summary>
 
 The installer finds PokeMMO and Steam by itself (Windows install folder, macOS
-app, Linux zip, Flatpak, Snap). If you don't have Python 3.9+, it fetches a
+app, Linux zip, Flatpak, Snap, any Steam library, and PokeMMO's portable ZIP
+unzipped in your Downloads, Desktop or Documents folder). If you don't have Python 3.9+, it fetches a
 private copy for that one run and deletes it afterwards. It prints the version
 it installed. It needs no administrator rights; on macOS and Linux, don't use `sudo`.
 
