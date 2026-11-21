@@ -158,13 +158,21 @@ class Raw:
     def __eq__(self, o):
         return isinstance(o, Raw) and (self.t, self.data) == (o.t, o.data)
 
+    def __hash__(self):
+        return hash((self.t, self.data))
+
 
 def _cstr(b, i):
     j = b.index(b"\0", i)
     return b[i:j].decode("utf-8", "surrogateescape"), j + 1
 
 
-def parse_bvdf(b, i=0):
+MAX_DEPTH = 64  # Steam writes 3 levels; a zero-filled file nests one level per two bytes
+
+
+def parse_bvdf(b, i=0, depth=0):
+    if depth > MAX_DEPTH:
+        raise ValueError("nested too deep")
     d = {}
     while True:
         t = b[i]; i += 1
@@ -172,7 +180,7 @@ def parse_bvdf(b, i=0):
             return d, i
         k, i = _cstr(b, i)
         if t == 0:
-            d[k], i = parse_bvdf(b, i)
+            d[k], i = parse_bvdf(b, i, depth + 1)
         elif t == 1:
             d[k], i = _cstr(b, i)
         elif t == 2:
@@ -251,8 +259,13 @@ def userdirs(steam: Path):
     return sorted(u for u in ud.iterdir() if u.name.isdigit() and u.name != "0") if ud.is_dir() else []
 
 
+def _numeric(k):
+    """Section keys Steam numbers 0, 1, 2...: ASCII digits only ("²" passes str.isdigit)."""
+    return k.isascii() and k.isdigit()
+
+
 def next_key(sc):
-    return str(max([int(k) for k in sc if k.isdigit()] + [-1]) + 1)
+    return str(max([int(k) for k in sc if _numeric(k)] + [-1]) + 1)
 
 
 def restore_lost_shortcuts(sc, old):
@@ -265,7 +278,7 @@ def restore_lost_shortcuts(sc, old):
     for k, v in lost:
         sc[k if k not in sc else next_key(sc)] = v
     if lost:  # keep Steam's numeric order
-        items = sorted(sc.items(), key=lambda kv: int(kv[0]) if kv[0].isdigit() else 1 << 30)
+        items = sorted(sc.items(), key=lambda kv: int(kv[0]) if _numeric(kv[0]) else 1 << 30)
         sc.clear()
         sc.update(items)
     return [str(v.get("AppName", v.get("appname"))) for _, v in lost]
