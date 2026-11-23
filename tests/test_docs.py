@@ -62,6 +62,20 @@ class Docs(unittest.TestCase):
         self.assertRegex(allowed, r"(?i)turbo button", "is-this-allowed says to keep pad turbo off")
         self.assertRegex(allowed, r"(?i)turbo and macros off")
 
+    def test_lost_focus_has_a_troubleshooting_entry(self):
+        # Most reported problem so far (#125, #126): a window that lost focus or a
+        # button the stick cannot reach. The entry says what to try with the pad,
+        # what still needs a mouse, and stays honest about what nobody has tested.
+        head = "<summary><b>A window lost focus, or the stick cannot reach a button</b></summary>"
+        self.assertIn(head, README)
+        entry = README.split(head, 1)[1].split("</details>", 1)[0]
+        self.assertIn("Focus Ring", entry)
+        self.assertIn("(#roadmap)", entry, "points at cursor mode on the Roadmap")
+        self.assertRegex(entry, r"(?i)mouse", "says what still needs a mouse")
+        self.assertRegex(entry, r"(?i)not\s+(yet\s+)?(confirmed|played|tested)\s+on\s+real\s+hardware")
+        how = README.split("## How do I… with a controller\n", 1)[1].split("\n## ", 1)[0]
+        self.assertRegex(how, r"(?m)^\| Get back into a window .*\[Troubleshooting\]\(#troubleshooting\)")
+
     def test_claims_stay_honest(self):
         self.assertIn("not yet played on real hardware", README)
 
