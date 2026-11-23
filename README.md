@@ -427,6 +427,7 @@ not only the ones with their own button.
 | Check the Pokédex / trainer card | Wheel → Pokédex / Trainer Card |
 | Hatch eggs | Wheel → Egg Incubators |
 | Type in chat or GTL search | Steam on-screen keyboard: **Steam button + X** (when launched from Steam), or a keyboard |
+| Get back into a window that lost focus | **LB**, move the highlight to the window, **A** (stuck? see [Troubleshooting](#troubleshooting)) |
 | Join a PvP queue, drag Pokémon in the PC | Still needs a mouse, see [Roadmap](#roadmap) |
 
 ## Is this allowed?
@@ -550,6 +551,27 @@ Tap a heading to open it.
 
 - Another remapper is running, or a Steam layout other than this one is active
   for PokeMMO (Steam → PokeMMO → Controller Layout).
+
+</details>
+
+<details>
+<summary><b>A window lost focus, or the stick cannot reach a button</b></summary>
+
+- Tap **LB** (L1 on PlayStation, L on Switch Pro). The Focus Ring puts a highlight on
+  the hotbar, your party or an open window: move it with the stick to the window or
+  button you want and press **A**. **B** or **LB** leaves.
+- Players reported two screens where that may not be enough (not yet confirmed on
+  real hardware):
+  - The Pokédex: the search box keeps the keyboard focus, so the route-details map
+    button can be out of reach ([#125](https://github.com/jordanallenlewis/pokemmo-controller/issues/125)).
+  - A window, such as a shop, that lost focus and cannot be selected again
+    ([#126](https://github.com/jordanallenlewis/pokemmo-controller/issues/126)).
+
+  For now, click it once with a mouse. **Cursor mode** on the [Roadmap](#roadmap) is
+  meant for these screens: a right-stick mouse that still sends one click per press.
+- Found another screen the Focus Ring cannot reach?
+  [Open an issue](https://github.com/jordanallenlewis/pokemmo-controller/issues/new) with
+  your controller, system, PokeMMO version and the screen.
 
 </details>
 

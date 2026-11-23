@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- README: Troubleshooting says what to do when a window loses focus or the stick cannot reach a
+  button (the Focus Ring first; the two reported screens that still need a mouse click until cursor mode).
 - Fixed: the installer now finds PokeMMO unzipped from its portable ZIP in Downloads, Desktop or
   Documents (the `PokeMMO-Client` folder "Extract All" makes, translated folder names on Linux, OneDrive
   on Windows) and the Debian/Ubuntu installer's `~/.local/share/pokemmo`. A real install or a Steam copy
