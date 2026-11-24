@@ -4,6 +4,8 @@
 #   EVENT       pull_request | push
 #   BASE HEAD   shas; commits judged are BASE..HEAD (push to a new branch: BASE is empty or all zeros, only HEAD is judged)
 #   TITLE BODY PR_AUTHOR HEAD_REF   pull_request only
+#   FORCED   push only: "true" when the push was a force-push (github.event.forced). Only then, if BASE is gone from
+#            the checkout, every commit reachable from HEAD is judged (a superset of BASE..HEAD, so stricter, not looser).
 # Fails closed: a git error, a missing sha or an empty range is an error (exit 2), never a pass.
 set -u -o pipefail
 export LC_ALL=C.UTF-8
@@ -51,8 +53,14 @@ if [ -z "$BASE" ] || [ "$BASE" = "$ZERO" ]; then
   echo "attribution-guard: no previous sha (new branch); judging the head commit only"
   commits=$(git rev-parse "$HEAD") || die "cannot resolve head"
 else
-  git rev-parse --verify -q "${BASE}^{commit}" >/dev/null || die "base commit $BASE is not in the checkout (unreachable); refusing to pass"
-  commits=$(git rev-list "${BASE}..${HEAD}") || die "git rev-list ${BASE}..${HEAD} failed"
+  if git rev-parse --verify -q "${BASE}^{commit}" >/dev/null; then
+    commits=$(git rev-list "${BASE}..${HEAD}") || die "git rev-list ${BASE}..${HEAD} failed"
+  elif [ "$EVENT" = push ] && [ "${FORCED:-}" = true ]; then
+    echo "attribution-guard: notice: forced push and base $BASE unreachable; judging every commit reachable from HEAD"
+    commits=$(git rev-list "$HEAD") || die "git rev-list HEAD failed"
+  else
+    die "base commit $BASE is not in the checkout (unreachable); refusing to pass"
+  fi
 fi
 [ -n "$commits" ] || die "no commits in ${BASE:-none}..${HEAD}: an empty range is an error, not a pass"
 
