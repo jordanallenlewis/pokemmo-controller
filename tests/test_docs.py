@@ -79,6 +79,28 @@ class Docs(unittest.TestCase):
     def test_claims_stay_honest(self):
         self.assertIn("not yet played on real hardware", README)
 
+    def test_tested_with_names_every_ci_leg(self):
+        """'Tested with' names every system the test workflow runs on, and keeps the Deck
+        unverified, so the section cannot fall behind the CI matrix."""
+        workflow = (ROOT / ".github" / "workflows" / "tests.yml").read_text(encoding="utf-8")
+        jobs = workflow.split("\n  helper:", 1)[0]          # the sandbox test legs, not the helper app
+        legs = (re.findall(r'label:\s*["\']([^"\']+)["\']', jobs)
+                + re.findall(r'^    name:\s*["\']([^"\'$]+)["\']', jobs, re.M))
+        self.assertGreaterEqual(len(legs), 10, legs)
+        section = README.split("## Tested with\n", 1)[1].split("\n---", 1)[0]
+        flat = " ".join(section.split())                    # the README is hard-wrapped
+        oldest = re.search(r"oldest supported Python, 3\.9, on ([^(]+)\(", flat)
+        self.assertTrue(oldest, "'Tested with' should say which systems also run Python 3.9")
+        for leg in legs:
+            system, _, python = leg.partition(", Python ")
+            self.assertIn(system, flat, f"'Tested with' does not name the CI leg {leg!r}")
+            if python == "3.9":
+                self.assertIn(system, oldest.group(1), f"'Tested with' does not say {system} runs Python 3.9")
+            elif python:
+                self.assertIn(f"Python {python} on every system", flat)
+        self.assertRegex(flat, r"Steam Deck: not yet played in game on a Deck")
+        self.assertIn("Game Mode", flat)
+
     def test_changelog_has_unreleased_and_is_plain(self):
         self.assertIn("## Unreleased", CHANGELOG)
         for bad in ("Trinity", "Claude", "agent"):

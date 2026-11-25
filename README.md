@@ -672,10 +672,17 @@ Ideas and controller reports welcome: [open an issue](https://github.com/jordana
 
 - Xbox Wireless Controller (Bluetooth), Windows 11, 4K display, PokeMMO 2026-11
   client: played in game.
-- Windows (PowerShell 5.1 and 7), Linux (Debian 13: sh, dash, bash, busybox) and
-  macOS (CI): the one-line installers pass sandbox round trips (install, rerun,
-  update from older versions, uninstall), with and without Python installed, and
-  the original files come back byte for byte.
+- Every change, before it can land: the one-line installers pass sandbox round
+  trips (install, rerun, update from older versions, uninstall), with and without
+  Python installed, and the original files come back byte for byte. Python 3.13
+  on every system below, and also the oldest supported Python, 3.9, on Windows
+  x64, macOS Apple silicon and Linux x64 (Arch uses its own Python):
+  - Windows x64 and Windows ARM: PowerShell 5.1 and 7
+  - macOS Apple silicon and macOS Intel: sh, bash, dash, zsh
+  - Linux x64 and Linux ARM: sh, bash, dash, zsh, busybox
+  - Arch Linux (SteamOS-like), x64: sh, bash. It stands in for a Deck's Desktop
+    Mode; it is not a Deck.
+- Steam Deck: not yet played in game on a Deck. Game Mode is not tested yet.
 - PlayStation, Switch Pro and macOS: built from SDL3's controller names and
   PokeMMO's launcher source, but not yet played on real hardware.
   Please report results in an issue.
