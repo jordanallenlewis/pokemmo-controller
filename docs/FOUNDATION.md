@@ -120,7 +120,7 @@ A change under `spec/` needs the `spec-change` label and Jordan's approval as CO
    - a Steam Input layout, its configset block and the PokeMMO non-Steam shortcut.
 2. **One input, one action.** One press of one input does one game action. There are no macros, turbo, sequences or chords.
 3. **Nothing in the game process.** No injection into the game, no virtual-gamepad driver, no overlay drawn over the game. The wheel is drawn by Steam Input itself.
-4. **Fixed inputs.** The right stick is reserved for the wheel. Triggers count only when pulled.
+4. **Fixed inputs.** The right stick is reserved for the wheel and the cursor layer (decision 0002). Triggers count only when pulled.
 5. **Never forces a close or acts as admin.**
    - It never kills PokeMMO. It asks the player to close it, then offers to relaunch it.
    - It refuses to touch Steam files while a Steam game is running.
